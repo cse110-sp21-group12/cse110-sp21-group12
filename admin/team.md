@@ -29,17 +29,17 @@ I'm a 2nd year Computer Science major from Cerritos, CA. Fun fact about me, I'm 
 [Get To Know More About Me Through My Github!](https://github.com/DustinLin)  
 
 ## Hana Kim  
-![](/admin/branding/teamPhotos/hana.PNG) 
+![](/admin/branding/teamPhotos/hana.PNG)  
 I’m a 2nd year CS Major from Thousand Oaks, CA. My hobbies are cooking and cats!  
 [Get To Know More About Me Through My Github!](https://github.com/hanakims)  
 
 ## Nhan Pham  
-![](/admin/branding/teamPhotos/nhan.PNG) 
+![](/admin/branding/teamPhotos/nhan.PNG)  
 I’m a 3rd year Computer Engineering Transfer from Vietnam. Currently living in Roseville, CA. In my free time I like to play video games, workout, and eat good.  
 [Get To Know More About Me Through My Github!](https://github.com/n2pham)  
 
 ## Sasha Kubichka  
-![](/admin/branding/teamPhotos/sasha.PNG) 
+![](/admin/branding/teamPhotos/sasha.PNG)  
 I'm a second-year computer engineering student. Interested in software engineering, robotics hardware applications, and everything in between.  
 [Get To Know More About Me Through My Github!](https://github.com/Sasha45/)  
 
