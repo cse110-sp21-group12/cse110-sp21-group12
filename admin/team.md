@@ -3,7 +3,7 @@
 <img src="dino1.png" height="200"/>
 
 # Meet the Team! 
-## Tiana Canja ![](/extra/tiana.png)  
+## Tiana Canja ![](/admin/branding/teamPhotos/tiana.png)  
 I’m Tiana! I’m a third year Computer Science major from San Diego. Fun fact about me, I can sign (ASL) the national anthem.  
 [Get To Know More About Me Through My Github!](https://github.com/tcanja)  
 
