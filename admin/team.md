@@ -9,12 +9,12 @@ I’m Tiana! I’m a third year Computer Science major from San Diego. Fun fact 
 [Get To Know More About Me Through My Github!](https://github.com/tcanja)  
 
 ## Jackie Co  
-![](/admin/branding/teamPhotos/jackie.PNG) 
+![](/admin/branding/teamPhotos/jackie.PNG)   
 Hi! I’m Jackie, a 2nd year Computer Science major from Riverside, CA. Fun fact about me, I like to read and edit vlogs!
 [Get To Know More About Me Through My Github!](https://github.com/j2c0)  
 
 ## Aaron Chao  
-![](/admin/branding/teamPhotos/aaron.PNG) 
+![](/admin/branding/teamPhotos/aaron.PNG)   
 Hello! I’m Aaron, I’m a 3rd year computer science transfer from Irvine, CA. Some of my hobbies are playing tennis, video games, and bringing my beagle to the dog park.  
 [Get To Know More About Me Through My Github!](https://github.com/aaronc789)  
 
