@@ -24,7 +24,7 @@ I’m a 2nd year Computer Science major from Gardena, CA. A fun fact about me is
 [Get To Know More About Me Through My Github!](https://github.com/Susreveda)  
 
 ## Dustin Lin  
-![](/admin/branding/teamPhotos/dustin.PNG) 
+![](/admin/branding/teamPhotos/dustin.PNG)   
 I'm a 2nd year Computer Science major from Cerritos, CA. Fun fact about me, I'm minoring in philosophy.    
 [Get To Know More About Me Through My Github!](https://github.com/DustinLin)  
 
