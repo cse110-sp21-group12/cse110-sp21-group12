@@ -47,3 +47,16 @@ I'm a second-year computer engineering student. Interested in software engineeri
 ![](/admin/branding/teamPhotos/keith.PNG)   
 I’m a third year majoring in  Math-Computer Science and minoring in Cognitive Science from San Francisco, CA. Fun fact about me, I’ve never travelled outside of California; San Diego is the furthest I’ve been from home.     
 [Get To Know More About Me Through My Github!](https://github.com/KeithDHo)  
+
+# Our Team Values:
+- Psychological Safety
+- Artistic Expression
+- Teamwork
+- Integrity
+- Dependability
+
+# Team Brand
+- Colors: Forest Green & White
+- Team Catchphrase: I don't know, to be honest (idk tbh)
+- Mascot: Stegosaur
+- Custom Font: Courier New
