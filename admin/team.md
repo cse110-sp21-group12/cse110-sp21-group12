@@ -1,4 +1,4 @@
-# Team 12: Stegosource
+# TEAM 12 - STEGOSOURCE
 ![](/admin/branding/dino1.png)
 <img src="dino1.png" height="200"/>
 
