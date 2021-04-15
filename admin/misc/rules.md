@@ -56,6 +56,7 @@ If a team member does not complete their tasks or fulfill their responsibilities
 If a team member fails to live up to this agreement, the situation may be reported to the staff, but the team will still be responsible for submitting a completed assignment. Staff will be available to meet with teams to resolve issues.  
 
 ## 8) Team Signatures  
+(individual team signatures in separate pdfs in folder)
 
 
 
