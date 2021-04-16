@@ -10,7 +10,7 @@ I’m Tiana! I’m a third year Computer Science major from San Diego. Fun fact 
 
 ## Jackie Co  
 ![](/admin/branding/teamPhotos/jackie.PNG)   
-Hi! I’m Jackie, a 2nd year Computer Science major from Riverside, CA. Fun fact about me, I like to read and edit vlogs!
+Hi! I’m Jackie, a 2nd year Computer Science major from Riverside, CA. Fun fact about me, I like to read and edit vlogs!  
 [Get To Know More About Me Through My Github!](https://github.com/j2c0)  
 
 ## Aaron Chao  
