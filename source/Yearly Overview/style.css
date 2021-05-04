@@ -1,82 +1,82 @@
 .jan {
-  background-image: url(/Images/winter.png);
+  background-image: url(./Images/winter.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .feb {
-  background-image: url(/Images/winter.png);
+  background-image: url(./Images/winter.png);
   background-position:bottom;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .mar {
-  background-image: url(/Images/spring.png);
+  background-image: url(./Images/spring.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .apr {
-  background-image: url(/Images/spring.png);
+  background-image: url(./Images/spring.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .may {
-  background-image: url(/Images/spring.png);
+  background-image: url(./Images/spring.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .jun {
-  background-image: url(/Images/summer.png);
+  background-image: url(./Images/summer.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .jul {
-  background-image: url(/Images/summer.png);
+  background-image: url(./Images/summer.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .aug {
-  background-image: url(/Images/summer.png);
+  background-image: url(./Images/summer.png);
   background-position:center;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .sep {
-  background-image: url(/Images/autumn.png);
+  background-image: url(./Images/autumn.png);
   background-position:top;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .oct {
-  background-image: url(/Images/autumn.png);
+  background-image: url(./Images/autumn.png);
   background-position:top;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .nov {
-  background-image: url(/Images/autumn.png);
+  background-image: url(./Images/autumn.png);
   background-position:top;
   background-size:cover;
   background-repeat: no-repeat;
   height: 100px;
 }
 .dec {
-  background-image: url(/Images/winter.png);
+  background-image: url(./Images/winter.png);
   background-position:bottom;
   background-size:cover;
   background-repeat: no-repeat;
