@@ -1,121 +1,89 @@
-.jan {
+html{
+  font-family:cursive;
+  font-size:x-large;
+}
+div ul{
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+} 
+li{
+  border-radius: 30px;
+  background-size:cover;
+  background-repeat: no-repeat;
+  height: 100px;
+}
+#winter {
   background-image: url(./Images/winter.png);
   background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
+  
 }
-.feb {
-  background-image: url(./Images/winter.png);
-  background-position:bottom;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.mar {
+#spring {
   background-image: url(./Images/spring.png);
   background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
 }
-.apr {
-  background-image: url(./Images/spring.png);
-  background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.may {
-  background-image: url(./Images/spring.png);
-  background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.jun {
+#summer {
   background-image: url(./Images/summer.png);
   background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
 }
-.jul {
-  background-image: url(./Images/summer.png);
-  background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.aug {
-  background-image: url(./Images/summer.png);
-  background-position:center;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.sep {
+#autumn {
   background-image: url(./Images/autumn.png);
   background-position:top;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.oct {
-  background-image: url(./Images/autumn.png);
-  background-position:top;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.nov {
-  background-image: url(./Images/autumn.png);
-  background-position:top;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
-}
-.dec {
-  background-image: url(./Images/winter.png);
-  background-position:bottom;
-  background-size:cover;
-  background-repeat: no-repeat;
-  height: 100px;
 }
 #scroll-group {
-  position: relative;
+  position: absolute;
   left: 60%;
-  top: 60px;
+  top: 20%;
   height:500px;
-  overflow-y: scroll;
   width: 400px;
-  font-family:cursive;
-  font-size:x-large;
+  overflow: auto;
+  
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
 }
+
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+::-webkit-scrollbar {
+  width: 0px;
+  }
 #month {
-  position: relative;
+  position: absolute;
   left: 60%;
-  top: 60px;
+  top: 10%;
   height:500px;
-  overflow-y: scroll;
   width: 400px;
-  font-family:cursive;
-  font-size:x-large;
 }
-div img{
-  position: relative;
+div #home{
+  position: absolute;
   left: 90%;
   top: 10%;
   size: 2em;
 }
-div img:hover{
-  position: relative;
+div #home:hover{
+  position: absolute;
   left: 90%;
   top: 10%;
   size: 2em;
   animation: animation 1000ms;
 }
-
+div#box{
+  position: absolute;
+  background-color: aqua;
+  width: 500px;
+  background-size: 500px;
+  border-radius: 30px;
+  height: 300px;
+  left: 5%;
+  top: 10%;
+}
+div #point{
+  flex-direction: row;
+  background-size: 50px;
+}
+input{
+  display: none;
+}
 
 /* Generated with Bounce.js. Edit at http://bouncejs.com#%7Bl%3A1%2Cs%3A%5B%7BT%3A%22k%22%2Ce%3A%22s%22%2Cd%3A1000%2CD%3A0%2Cf%3A%7Bx%3A0%2Cy%3A0%7D%2Ct%3A%7Bx%3A120%2Cy%3A0%7D%2Cs%3A2%2Cb%3A4%7D%5D%7D */
 
