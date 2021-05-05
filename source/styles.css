@@ -1,0 +1,8 @@
+
+.horiz{
+    display: inline-block;
+}
+
+.collapsible_child{
+    display:none;
+}
