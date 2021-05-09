@@ -7,11 +7,11 @@ function collapsible_year_toggle(){
     this.classList.toggle("active");
     let target_year = this.id.substring(0, 4);
     let target = document.getElementById(target_year + "_months");
-    if (target.style.display === "block") {
+    if (target.style.display === "flex") {
       target.style.display = "none";
       this.innerText = ">";
     } else {
-      target.style.display = "block";
+      target.style.display = "flex";
       this.innerText = "v";
     }
 }

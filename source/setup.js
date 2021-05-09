@@ -38,7 +38,7 @@ function setup(){
         coll_button.innerText = ">";
         //year link
         let yearlink = document.createElement("a");
-        yearlink.class = "yearlink";
+        yearlink.classList.add("yearlink");
         yearlink.id = yr+"_link";
         yearlink.href = "/year/"+yr+".html";
         yearlink.innerText = yr+" Yearly Overview";
@@ -51,7 +51,7 @@ function setup(){
         //collapsible child
         let months_div = document.createElement("div");
         months_div.id = yr+"_months";
-        months_div.class = "collapsible_child";
+        months_div.classList.add("collapsible_child");
         //add months
         for(let m = 0; m < months.length; m++){
             //setup month link
