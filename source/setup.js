@@ -34,7 +34,7 @@ function setup(){
         //collapse button
         let coll_button = document.createElement("button");
         coll_button.id = yr+"_button";
-        coll_button.class = "coll_yr_button";
+        coll_button.classList.add("coll_yr_button");
         coll_button.innerText = ">";
         //year link
         let yearlink = document.createElement("a");
@@ -86,6 +86,19 @@ function sleep(ms) {
 }
 
 sleep(100);
+
+
+document.getElementById("work").addEventListener("click", on_work);
+function on_work(){
+    //<!-- <script src="script.js" type="module" defer></script> -->
+    let main_script = document.createElement("script");
+    main_script.src = "script.js";
+    main_script.type="module";
+    main_script.defer = true;
+    document.body.appendChild(main_script);
+}
+
+
 
 
 alert("setup finished");
