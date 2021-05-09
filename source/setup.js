@@ -30,7 +30,9 @@ function setup(){
         
         //button group
         let year_nav = document.createElement("div");
-        year_nav.class = "year collapsible horiz";
+        year_nav.classList.add("year");
+        year_nav.classList.add("collapsible");
+        year_nav.classList.add("horiz");
         //collapse button
         let coll_button = document.createElement("button");
         coll_button.id = yr+"_button";
