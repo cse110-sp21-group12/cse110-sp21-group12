@@ -1,4 +1,4 @@
-alert("main script runs");
+//alert("main script runs");
 var collapsible_years_list = document.getElementsByClassName("coll_yr_button");
 let sanity_check = document.getElementsByName("button");
 
@@ -16,8 +16,8 @@ function collapsible_year_toggle(){
     }
 }
 
-alert("Collapsibles found: "+ collapsible_years_list.length);
-alert("Sanity check: " + sanity_check.length);
+//alert("Collapsibles found: "+ collapsible_years_list.length);
+//alert("Sanity check: " + sanity_check.length);
 for (let i = 0; i < collapsible_years_list.length; i++) {
     collapsible_years_list[i].addEventListener("click", collapsible_year_toggle);
 }

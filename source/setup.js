@@ -1,7 +1,7 @@
 //alert("extra script loaded");
 const target_section = document.getElementById("content");
 const yr_start = 2018;
-const yr_end = 2022;
+const yr_end = 2025;
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
@@ -22,7 +22,7 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 alert
 
 function setup(){
-    alert("Load runs");
+    //alert("Load runs");
     for(let yr = yr_start; yr <= yr_end; yr++){
         //wrapper
         let year_wrapper = document.createElement("div");
@@ -87,7 +87,7 @@ function sleep(ms) {
 
 sleep(100);
 
-
+/*
 document.getElementById("work").addEventListener("click", on_work);
 function on_work(){
     //<!-- <script src="script.js" type="module" defer></script> -->
@@ -97,8 +97,8 @@ function on_work(){
     main_script.defer = true;
     document.body.appendChild(main_script);
 }
+*/
 
 
 
-
-alert("setup finished");
+//alert("setup finished");
