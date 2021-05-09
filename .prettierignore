@@ -3,3 +3,4 @@ admin/
 mil-notes/
 node_modules/**
 specs/
+.github/
