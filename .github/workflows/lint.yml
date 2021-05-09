@@ -30,5 +30,8 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
+          # Want to run eslint and pretter_args only in the source dir
           eslint: true
+          eslint_args: "source/"
           prettier: true
+          prettier_args: "source/"
