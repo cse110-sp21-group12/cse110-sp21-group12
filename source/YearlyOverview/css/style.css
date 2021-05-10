@@ -64,7 +64,7 @@ div #home {
 
 div #home:hover {
   -webkit-animation: animation 1000ms;
-          animation: animation 1000ms;
+  animation: animation 1000ms;
 }
 
 #yearly_goals {
