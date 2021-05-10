@@ -36,3 +36,5 @@ jobs:
           eslint_dir: "source/"
           prettier: true
           prettier_dir: "source/"
+          # try to auto-fix problems
+          auto_fix: true
