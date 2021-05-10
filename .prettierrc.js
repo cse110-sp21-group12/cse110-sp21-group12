@@ -6,8 +6,10 @@
  * https://prettier.io/docs/en/options.html
  */
 module.exports = {
-    trailingComma: "es5",
+    trailingComma: 'es5',
     semi: true,
     singleQuote: true,
     printWidth: 80,
+    tabWidth: 4,
+    endOfLine: 'auto',
 };
