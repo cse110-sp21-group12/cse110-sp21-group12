@@ -1,1 +1,2 @@
-console.log('hello world');
+let unusedVar;
+console.log("hello world")
