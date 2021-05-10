@@ -7,13 +7,24 @@
 </head>
 <body>
     <div id="topbar">
-        <img src="Images/index.png" >
+        <img id="logo" src="../admin/branding/dino1.png" >
         <h1>Index</h1>
     </div>
+    <div id="body-wrapper">
+    <section id="calendar">
+        <p>Calendar goes here</p>
+
+    </section>
+
+
     <section id="content">
+        <!--
+        <button id="work">work</button>
+          
+        
         <div id="2020">
-            <div class="collapsible" class="horiz">
-                <button id="2020_button" class = "coll_button">></button>
+            <div class="year" class="collapsible" class="horiz">
+                <button id="2020_button" class = "coll_yr_button">></button>
                 <a class="yearlink" href = "/year/2020.html">2020</a>
             </div>
             <div id = "2020_months" class = "collapsible_child">
@@ -25,8 +36,8 @@
         
 
         <div id="2021">
-            <div class="collapsible" class="horiz">
-                <button id="2021_button" class = "coll_button">></button>
+            <div class="collapsible" class="horiz" class="year">
+                <button id="2021_button" class = "coll_yr_button">></button>
                 <a class="yearlink" href = "/year/2021.html">2021</a>
             </div>
             <div id = "2021_months" class = "collapsible_child">
@@ -35,9 +46,15 @@
                 <h3>March</h3>
             </div>
         </div>
+        
+    -->
+
     </section>
+</div>
 
     <!--The javascript file-->
-    <script src="script.js" type="module"></script>
+    <script src="setup.js" type="module" defer></script>
+    
+    <script src="script.js" type="module" defer></script>
 </body>
 </html>

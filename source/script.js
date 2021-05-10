@@ -1,19 +1,25 @@
-var collapsibles_list = document.getElementsByClassName("coll_button");
+//alert("main script runs");
+var collapsible_years_list = document.getElementsByClassName('coll_yr_button');
 
-function collapsible_year_toggle(){
-    this.classList.toggle("active");
+//shows or hides collapsible_child of button
+function collapsible_year_toggle() {
+    this.classList.toggle('active');
     let target_year = this.id.substring(0, 4);
-    let target = document.getElementById(target_year + "_months");
-    if (target.style.display === "block") {
-      target.style.display = "none";
-      this.innerText = ">";
+    let target = document.getElementById(target_year + '_months');
+    if (target.style.display === 'flex') {
+        target.style.display = 'none';
+        this.innerText = '>';
     } else {
-      target.style.display = "block";
-      this.innerText = "v";
+        target.style.display = 'flex';
+        this.innerText = 'v';
     }
 }
 
-//alert("Collapsibles found: "+ i);
-for (let i = 0; i < collapsibles_list.length; i++) {
-    collapsibles_list[i].addEventListener("click", collapsible_year_toggle);
+//alert("Collapsibles found: "+ collapsible_years_list.length);
+//alert("Sanity check: " + sanity_check.length);
+for (let i = 0; i < collapsible_years_list.length; i++) {
+    collapsible_years_list[i].addEventListener(
+        'click',
+        collapsible_year_toggle
+    );
 }
