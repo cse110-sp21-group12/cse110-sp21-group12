@@ -2,7 +2,7 @@
 var collapsible_years_list = document.getElementsByClassName("coll_yr_button");
 let sanity_check = document.getElementsByName("button");
 
-
+//shows or hides collapsible_child of button
 function collapsible_year_toggle(){
     this.classList.toggle("active");
     let target_year = this.id.substring(0, 4);
