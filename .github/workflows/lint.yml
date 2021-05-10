@@ -1,0 +1,38 @@
+
+# Name of the action 
+name: Lint
+
+  # Controls when the action will run (on every push across all branches)
+on: 
+  push:
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  pull_request:
+  
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      # ESLint and Prettier must be in `package.json`
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          # Want to run eslint and pretter_args only in the source dir
+          eslint: true
+          eslint_dir: "source/"
+          prettier: true
+          prettier_dir: "source/"
