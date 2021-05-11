@@ -24,7 +24,6 @@
          */
     },
     "plugins": [
-        "prettier",
-        "html"
+        "prettier"
     ]
 }
