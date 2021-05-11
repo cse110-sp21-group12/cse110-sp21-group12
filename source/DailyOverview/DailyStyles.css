@@ -1,0 +1,83 @@
+h1 {
+    color: #585858;
+}
+
+body {
+    background-color: #ecc7c7;
+    display: grid;
+    justify-items: stretch;
+
+    grid-template-areas:
+        'title title title'
+        'todo note goal'
+        'todo note goal'
+        'todo note album'
+        'todo note album';
+}
+
+#header {
+    grid-area: title;
+    display: grid;
+
+    justify-items: stretch;
+    grid-template-areas: 'back date .';
+}
+
+#week-view {
+    grid-area: back;
+    background-color: transparent;
+}
+
+#date {
+    grid-area: date;
+    justify-self: center;
+}
+
+#todo {
+    grid-area: todo;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 85vh;
+}
+
+#notes {
+    grid-area: note;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 85vh;
+}
+
+#goal-reminder {
+    grid-area: goal;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    /* height: 38vh; */
+}
+
+#photo-album {
+    grid-area: album;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    /* height: 38vh; */
+}
+
+a:active {
+    text-decoration: none;
+    color: #585858;
+}
