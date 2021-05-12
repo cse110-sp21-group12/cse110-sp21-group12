@@ -148,6 +148,7 @@ function setupCalendar() {
     calTarget.append(days_field);
 }
 
+//call setup functions
 setupContent();
 setupCalendar();
 
