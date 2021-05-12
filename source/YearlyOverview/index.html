@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/style.css" />
+        <title>Yearly Overview</title>
+    </head>
+    <body>
+        <div>
+            <img id="home" src="Images/home.png" />
+            <img id="back" src="Images/back.png" />
+            <div id="month">MONTH</div>
+        </div>
+        <div id="yearly_goals">YEARLY GOALS</div>
+        <div id="box">
+            <span><img id="point" src="Images/hand_point.png" /></span>
+            <span id="text">CLICK TO ADD </span>
+            <span><input type="text" id="enter" /></span>
+            <span><img id="check" src="Images/check.png" /></span>
+        </div>
+
+        <div id="scroll-group">
+            <div id="winter">JANUARY</div>
+            <div id="winter">FEBRUARY</div>
+            <div id="spring">MARCH</div>
+            <div id="spring">APRIL</div>
+            <div id="spring">MAY</div>
+            <div id="summer">JUNE</div>
+            <div id="summer">JULY</div>
+            <div id="summer">AUGUST</div>
+            <div id="autumn">SEPTEMBER</div>
+            <div id="autumn">OCTOBER</div>
+            <div id="autumn">NOVEMBER</div>
+            <div id="winter">DECEMBER</div>
+        </div>
+        <script>
+            document.getElementById('check').classList.toggle('toggle');
+            document.getElementById('enter').classList.toggle('toggle');
+
+            document
+                .getElementById('point')
+                .addEventListener('click', function () {
+                    document.getElementById('text').classList.toggle('toggle');
+                    document.getElementById('point').classList.toggle('toggle');
+                    document.getElementById('check').classList.toggle('toggle');
+                    document.getElementById('enter').classList.toggle('toggle');
+                });
+            document
+                .getElementById('check')
+                .addEventListener('click', function () {
+                    document.getElementById('text').classList.toggle('toggle');
+                    document.getElementById('point').classList.toggle('toggle');
+                    document.getElementById('check').classList.toggle('toggle');
+                    document.getElementById('enter').classList.toggle('toggle');
+                });
+        </script>
+    </body>
+</html>
