@@ -1,4 +1,4 @@
-h1 {
+* {
     color: #585858;
 }
 
@@ -15,23 +15,54 @@ body {
         'todo note album';
 }
 
+/* Header Block */
+
 #header {
     grid-area: title;
     display: grid;
+    height: 10vh;
 
     justify-items: stretch;
-    grid-template-areas: 'back date .';
+    grid-template-areas: 'back one two date three four .';
 }
 
-#week-view {
+#weekView {
     grid-area: back;
     background-color: transparent;
+    font-size: 3vh;
 }
 
 #date {
     grid-area: date;
-    justify-self: center;
+    justify-self: left;
+    font-size: 3vh;
 }
+
+#logo1 {
+    grid-area: one;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo2 {
+    grid-area: two;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo3 {
+    grid-area: three;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo4 {
+    grid-area: four;
+    margin: 1vh;
+    height: 10vh;
+} 
+
+/* Todo Block */
 
 #todo {
     grid-area: todo;
@@ -41,8 +72,16 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
+    height: 80vh;
 }
+
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+}
+
+/* Note Block */
 
 #notes {
     grid-area: note;
@@ -52,10 +91,17 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
+    height: 80vh;
 }
 
-#goal-reminder {
+#textBox {
+    background-color: transparent;
+    border: none;
+}
+
+/* Goal Reminder Block */
+
+#goalReminder {
     grid-area: goal;
     background-color: white;
     margin: 1vw;
@@ -63,8 +109,28 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    /* height: 38vh; */
+    
+    display: grid;
+    grid-template-rows: [title] 10% [week] 30% [month] 30% [year] 30%;
 }
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#weekGoal {
+    grid-row-start: week;
+}
+
+#monthGoal {
+    grid-row-start: month;
+}
+
+#yearGoal {
+    grid-row-start: year;
+}
+
+/* Photo Album Block */
 
 #photo-album {
     grid-area: album;
@@ -76,6 +142,14 @@ body {
     border-width: 1mm;
     /* height: 38vh; */
 }
+
+#addPhoto {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+}
+
+/* Misc */
 
 a:active {
     text-decoration: none;
