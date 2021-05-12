@@ -1,3 +1,7 @@
+/*
+ * Page-wide styles
+ */
+
 /* Global styles */
 * {
     background-color: white;
@@ -6,6 +10,24 @@
     color: black;
 }
 
+/* Body's only child */
+#body-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* top dino logo */
+#logo {
+    width: 10vw;
+}
+
+
+
+
+/**
+  * Content styling
+  */
 #content {
     padding-left: 10vw;
     height: 65vh;
@@ -41,18 +63,6 @@ a {
     padding-left: 5px;
 }
 
-/* Body's only child */
-#body-wrapper {
-    display: flex;
-    flex-direction: row;
-}
-
-
-/* top dino logo */
-#logo {
-    width: 10vw;
-}
-
 /* year button group */
 .year {
     margin-top: 2px;
@@ -62,7 +72,9 @@ a {
 
 
 
-/* calendar formatting styles */
+/** 
+  * Calendar styling
+  */
 
 /* calendar wrapper */
 #calendar {
@@ -74,16 +86,6 @@ a {
     background-color: lightslategray;
     align-content: center;
 }
-
-#calendar p {
-    background-color: lightslategray;
-    font-size: x-large;
-    position: relative;
-}
-
-
-
-
 
 ul {list-style-type: none;}
 
