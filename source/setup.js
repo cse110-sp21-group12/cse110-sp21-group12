@@ -107,6 +107,8 @@ function setupCalendar() {
     var curr_month_number = today.getMonth();
     var curr_year_number = today.getFullYear();
 
+    var month_first_dow = firstDow(curr_month_number, curr_year_number);
+
     //month title on top
     //wrapper
     let month_header = document.createElement('div');
@@ -133,6 +135,17 @@ function setupCalendar() {
     let days_field = document.createElement('ul');
     days_field.classList.add('days_field');
     let endDay = daysInMonth(curr_month_number, curr_year_number);
+    //fake days for padding
+    //empty tiles for paddding
+    for (let i = 0; i < month_first_dow; i++) {
+        let blank_day = document.createElement('li');
+        blank_day.classList.add('day');
+        blank_day.classList.add('blank_day');
+        blank_day.innerText = '';
+        days_field.appendChild(blank_day);
+    }
+
+    //real days
     for (let i = 1; i <= endDay; i++) {
         let day = document.createElement('li');
         day.classList.add('day');
@@ -160,6 +173,11 @@ function sleep(ms) {
 //days-in-month helper function
 function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
+}
+
+//first day-of-the-week (Sunday 0, Saturday 6) helper function
+function firstDow(month, year) {
+    return new Date(year, month, 1).getDay();
 }
 
 sleep(100);
