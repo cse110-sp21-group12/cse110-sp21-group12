@@ -78,13 +78,13 @@ a {
 
 /* calendar wrapper */
 #calendar {
-    padding: 5%;
-    margin-left: 30px;
-    margin-right: 30px;
-    width: 30vw;
-    height: 65vh;
-    background-color: lightslategray;
-    align-content: center;
+  padding: 5%;
+  margin-left: 30px;
+  margin-right: 30px;
+  width: 30vw;
+  height: 65vh;
+  background-color: lightslategray;
+  align-content: center;
 }
 
 ul {list-style-type: none;}
