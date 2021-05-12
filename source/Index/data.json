@@ -1,99 +1,93 @@
 {
-    "global settings":{
+    "global settings": {
         "user-name": "user"
     },
 
     "years": {
-        "2017":{
-            "yearly-goals":"goal1, goal2, goal3, gola",
-            "months":{
-                "january":{
-                    "monthly-goals":"goalJ1, goalJ2",
-                    "days":{
-                        "1":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+        "2017": {
+            "yearly-goals": "goal1, goal2, goal3, gola",
+            "months": {
+                "january": {
+                    "monthly-goals": "goalJ1, goalJ2",
+                    "days": {
+                        "1": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "2":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "2": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "3":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "3": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "4":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "4": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         }
                     }
                 },
-                "february":{
-                    "monthly-goals":"goalJ1, goalJ2",
-                    "days":{
-                        "1":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                "february": {
+                    "monthly-goals": "goalJ1, goalJ2",
+                    "days": {
+                        "1": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "2":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "2": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "3":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "3": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "4":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "4": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         }
                     }
                 },
-                "march":{
-                    "monthly-goals":"goalJ1, goalJ2",
-                    "days":{
-                        "1":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                "march": {
+                    "monthly-goals": "goalJ1, goalJ2",
+                    "days": {
+                        "1": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "2":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "2": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "3":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "3": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         },
-                        "4":{
-                            "goals":"dg1, dg2, dg3",
-                            "events":"ev1, ev2, ev3",
-                            "notes":"nt1, nt2, nt3"
+                        "4": {
+                            "goals": "dg1, dg2, dg3",
+                            "events": "ev1, ev2, ev3",
+                            "notes": "nt1, nt2, nt3"
                         }
                     }
                 }
             }
         },
-        "2018":{},
-        "2019":{},
-        "2020":{},
-        "2021":{},
-        "2022":{}
+        "2018": {},
+        "2019": {},
+        "2020": {},
+        "2021": {},
+        "2022": {}
     }
-
-
-
-
-
-
 }
