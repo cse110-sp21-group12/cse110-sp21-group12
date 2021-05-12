@@ -60,7 +60,7 @@ body {
     grid-area: four;
     margin: 1vh;
     height: 10vh;
-} 
+}
 
 /* Todo Block */
 
@@ -109,7 +109,7 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    
+
     display: grid;
     grid-template-rows: [title] 10% [week] 30% [month] 30% [year] 30%;
 }
