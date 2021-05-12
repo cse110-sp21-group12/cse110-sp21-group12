@@ -17,6 +17,16 @@ const months = [
     'December',
 ];
 
+const weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+];
+
 /*
     <div id="2020">
         <div class="year" class="collapsible" class="horiz">
@@ -31,7 +41,7 @@ const months = [
     </div>
 */
 
-function setup() {
+function setupContent() {
     //alert("Load runs");
     for (let yr = yr_start; yr <= yr_end; yr++) {
         //
@@ -87,11 +97,68 @@ function setup() {
     }
 }
 
-setup();
+//dynamically generates calendar for current month
+function setupCalendar() {
+    const calTarget = document.getElementById('calendar');
+
+    //get today code stolen from stackoverflow
+    var today = new Date();
+    var curr_day_number = today.getDate();
+    var curr_month_number = today.getMonth();
+    var curr_year_number = today.getFullYear();
+
+    //month title on top
+    //wrapper
+    let month_header = document.createElement('div');
+    month_header.classList.add('month_header');
+    //text
+    let month_label = document.createElement('p');
+    month_label.classList.add('month_label');
+    month_label.innerText = months[curr_month_number];
+    month_header.appendChild(month_label);
+    calTarget.appendChild(month_header);
+
+    //top bar of weekday names
+    let weekdays_label = document.createElement('ul');
+    weekdays_label.classList.add('weekdays_label');
+    for (let i = 0; i < weekdays.length; i++) {
+        let weekday = document.createElement('li');
+        weekday.innerText = weekdays[i];
+        weekday.classList.add('weekday');
+        weekdays_label.appendChild(weekday);
+    }
+    calTarget.appendChild(weekdays_label);
+
+    //all the little days
+    let days_field = document.createElement('ul');
+    days_field.classList.add('days_field');
+    let endDay = daysInMonth(curr_month_number, curr_year_number);
+    for (let i = 1; i <= endDay; i++) {
+        let day = document.createElement('li');
+        day.classList.add('day');
+        day.innerText = i;
+
+        //check if today (so we can highlight it)
+        if (i == curr_day_number) {
+            day.classList.add('today');
+        }
+
+        days_field.appendChild(day);
+    }
+    calTarget.append(days_field);
+}
+
+setupContent();
+setupCalendar();
 
 //sleep
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+//days-in-month helper function
+function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
 }
 
 sleep(100);
