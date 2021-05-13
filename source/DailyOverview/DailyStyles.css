@@ -15,6 +15,15 @@ body {
         'todo note album';
 }
 
+h1 {
+    font-size: 2.75vh;
+    margin: 1vh;
+}
+
+h2 {
+    font-size: 1.75vh;
+}
+
 /* Header Block */
 
 #header {
@@ -28,7 +37,6 @@ body {
 
 #weekView {
     grid-area: back;
-    background-color: transparent;
     font-size: 3vh;
 }
 
@@ -78,7 +86,7 @@ body {
 #addTodo {
     background-color: transparent;
     border: none;
-    font-size: 30px;
+    font-size: 2.75vh;
 }
 
 /* Note Block */
@@ -92,11 +100,6 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 80vh;
-}
-
-#textBox {
-    background-color: transparent;
-    border: none;
 }
 
 /* Goal Reminder Block */
@@ -140,18 +143,13 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    /* height: 38vh; */
 }
 
 #addPhoto {
     background-color: transparent;
     border: none;
-    font-size: 30px;
+    font-size: 2.75vh;
 }
 
 /* Misc */
 
-a:active {
-    text-decoration: none;
-    color: #585858;
-}
