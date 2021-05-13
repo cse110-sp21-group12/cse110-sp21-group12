@@ -21,6 +21,14 @@
     width: 10vw;
 }
 
+#topbar {
+    padding-top: 10px;
+    padding-bottom: 80px;
+    background-image: url(../Images/Logo.svg);
+    background-repeat: repeat-x; 
+    background-origin: padding-box;
+}
+
 /**
 * Content styling
 */
