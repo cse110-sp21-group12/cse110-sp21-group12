@@ -8,9 +8,9 @@ body {
     justify-items: stretch;
 
     grid-template-areas:
-    'head head head'
-    'goal day day'
-    'goal day day';
+        'head head head'
+        'goal day day'
+        'goal day day';
 }
 
 h1 {
@@ -62,11 +62,11 @@ header {
 
     grid-template-rows: [frontDay] 7% [row1] 30% [row2] 30% [row3] 30%;
 
-    grid-template-areas: 
-    '. dayTitle .'
-    'day1 day2 day3'
-    'day4 day5 day6'
-    'day7 . pic';
+    grid-template-areas:
+        '. dayTitle .'
+        'day1 day2 day3'
+        'day4 day5 day6'
+        'day7 . pic';
 }
 
 #dayTitle {
@@ -75,8 +75,15 @@ header {
     justify-self: center;
 }
 
-#day1, #day2, #day3, #day4, #day5, #day5, #day6, #day7 {
-    background-color: #FFe5BD;
+#day1,
+#day2,
+#day3,
+#day4,
+#day5,
+#day5,
+#day6,
+#day7 {
+    background-color: #ffe5bd;
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
@@ -122,5 +129,5 @@ header {
 
 #pic {
     grid-area: pic;
-    grid-row-start: row3
+    grid-row-start: row3;
 }
