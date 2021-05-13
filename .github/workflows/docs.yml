@@ -1,11 +1,11 @@
-name:jsDocs 
+name: jsDocs 
 
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,5 +16,4 @@ jobs:
         with:
           source_dir: ./source
           output_dir: ./docs
-          config_file: conf.json
           front_page: README.md
