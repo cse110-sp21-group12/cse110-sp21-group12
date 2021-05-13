@@ -3,6 +3,7 @@ name: jsDocs
 on:
   pull_request:
   workflow_dispatch:
+  push:
 
 jobs:
   generate:
