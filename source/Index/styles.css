@@ -7,7 +7,7 @@
     background-color: white;
     font-family: 'Courier', monospace;
     font-weight: bold;
-    color: black;
+    color: #585858;
 }
 
 /* Body's only child */
@@ -16,17 +16,14 @@
     flex-direction: row;
 }
 
-/* top dino logo */
-#logo {
-    width: 10vw;
-}
-
+/* absolute styling because we want header to be fixed height */
 #topbar {
     padding-top: 10px;
-    padding-bottom: 80px;
+    padding-bottom: 4vw;
     background-image: url(../Images/Logo.svg);
     background-repeat: repeat-x; 
     background-origin: padding-box;
+    background-size: 5vw;
 }
 
 /**
@@ -43,17 +40,33 @@ Structure
 */
 
 #right-bar {
-    padding-left: 8vw;
+    /* padding-left: 8vw; */
     margin-right: 8vw;
     height: 65vh;
     width: 20vw;
     flex-grow: 1;
+    /* background-color: #666; */
 }
+
+#right-bar h1 {
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+#right-bar-inner {
+    border-style: solid;
+    border-color: #585858;
+    border-width: 0.2vw;
+    border-radius: 3vw;
+    padding: 2vw;
+}
+
 #content {
     overflow: hidden;
     overflow-y: scroll;
-    height: 60vh;
+    height: 50vh;
     width: auto;
+    margin: 1vw 2vw;
 }
 
 .horiz {
@@ -71,16 +84,44 @@ Structure
     display: inline-block;
 }
 
-button {
-    background-color: #1e942d;
-    color: black;
-    /*to make the [>] / [v] look consistent */
-    font-family: sans-serif;
+#today-button {
+    background-color: #e4e4e4;
+    border: none;
+    color: #585858;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5vw;
+    padding: 1vw 2vw;
+    margin: auto;
+    border-radius: 0.7em;
+    display: block;
+    margin: auto;
+    width: 70%;
 }
 
-a {
+#today-button:hover {
+    background-color: #cecece;
+}
+
+button {
+    background-color: #e4e4e4;
+    border: none;
+    color: #585858;
+    /*to make the [>] / [v] look consistent */
+    font-family: sans-serif;
+    font-size: 1.5vw;
+    border-radius: 0.1em;
+    padding: 0.1vw 0.5vw;
+}
+
+#content a {
     text-decoration: none;
-    padding-left: 5px;
+    padding-left: 1vw;
+    font-size: 1.5vw;
+}
+
+#content > *{
+    margin-bottom: 0.5vw;
 }
 
 /* year button group */
@@ -97,14 +138,18 @@ a {
 
 /* calendar wrapper */
 #left-bar {
-    padding: 5%;
-    margin-left: 30px;
-    margin-right: 30px;
+    padding: 4%;
+    margin-left: 2vw;
+    margin-right: 2vw;
     width: 30vw;
     height: 55vh;
-    background-color: lightslategray;
     align-content: center;
     flex-grow: 1;
+}
+
+#left-bar h1 {
+    font-size: 2.5vw;
+    text-align: center;
 }
 
 #calendar p {
