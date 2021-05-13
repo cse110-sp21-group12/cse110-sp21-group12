@@ -43,10 +43,11 @@ body {
 }
 #weeks {
     grid-area: week;
-    grid-template-areas:    'week'
-                            'week'
-                            'week'
-                            'week';
+    grid-template-areas:
+        'week'
+        'week'
+        'week'
+        'week';
     margin: 5vw;
     padding: 1vw;
     /*border-style: solid;
