@@ -38,17 +38,3 @@ jobs:
           prettier_dir: "source/"
           # try to auto-fix problems
           auto_fix: true
-          
-  generate-docs:
-    name: Run jsDocs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-        
-      - name: Build
-        uses: andstor/jsdoc-action@v1
-        with:
-          source_dir: source/
-          recurse: true
-          output_dir: docs/
