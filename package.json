@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/cse110-sp21-group12/cse110-sp21-group12#readme",
   "devDependencies": {
-    "eslint": "7.25.0",
+    "eslint": "7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "2.2.1"
+    "jsdoc": "^0.0.0",
+    "prettier": "2.3.0"
   }
 }
