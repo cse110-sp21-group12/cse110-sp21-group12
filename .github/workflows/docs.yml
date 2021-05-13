@@ -3,6 +3,7 @@ name: jsDocs
 on:
   pull_request:
   workflow_dispatch:
+  push:
 
 jobs:
   generate:
@@ -14,6 +15,7 @@ jobs:
       - name: Build
         uses: andstor/jsdoc-action@v1
         with:
-          source_dir: ./source
-          output_dir: ./docs
+          source_dir: source/
+          output_dir: docs/
+          recurse: true
           front_page: README.md
