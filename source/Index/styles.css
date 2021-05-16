@@ -171,7 +171,7 @@ ul {
 .month_label {
     background-color: #585858;
     color: white;
-    font-size: 2.5vw;;
+    font-size: 2.5vw;
     text-transform: uppercase;
     letter-spacing: 0.7vw;
     margin: auto;
@@ -214,7 +214,6 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
-
 }
 
 .blank_day {
