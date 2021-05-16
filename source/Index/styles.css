@@ -40,12 +40,10 @@ Structure
 */
 
 #right-bar {
-    /* padding-left: 8vw; */
     margin-right: 8vw;
     height: 65vh;
     width: 20vw;
-    flex-grow: 1;
-    /* background-color: #666; */
+    flex-grow: 4;
 }
 
 #right-bar h1 {
@@ -138,13 +136,13 @@ button {
 
 /* calendar wrapper */
 #left-bar {
-    padding: 4%;
+    padding: 0 4% 4% 4%;
     margin-left: 2vw;
     margin-right: 2vw;
     width: 30vw;
     height: 55vh;
     align-content: center;
-    flex-grow: 1;
+    flex-grow: 3;
 }
 
 #left-bar h1 {
@@ -152,51 +150,59 @@ button {
     text-align: center;
 }
 
-#calendar p {
-    background-color: lightslategray;
-    font-size: x-large;
-    position: relative;
-}
-
 ul {
     list-style-type: none;
 }
 
+#calendar {
+    height: 20vw;
+    padding: 2vw 5vw 10vw 5vw;
+}
+
 /* Month header */
 .month_header {
-    padding: 70px 25px;
-    width: 90%;
-    background: #1e942d;
+    padding: 2vw 25px;
+    background: #585858;
     text-align: center;
-    height: 8vh;
+    border-radius: 2vw 2vw 0 0;
 }
+
 /* Month header's text */
 .month_label {
-    color: black;
-    font-size: 20px;
+    background-color: #585858;
+    color: white;
+    font-size: 2.5vw;;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 0.7vw;
+    margin: auto;
 }
 
 /* Weekdays (Sun-Sat) */
 .weekdays_label {
     margin: 0;
-    padding: 10px 0;
-    background-color: #ddd;
+    padding: 0.8vw 0 0 0;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
 }
 
 .weekday {
-    display: inline-block;
     width: 13.6%;
     color: #666;
     text-align: center;
+    font-size: 1.8vw;
+    background: none;
 }
 
 /* Days (1-31) */
 .days_field {
-    padding: 10px 0;
+    padding: 0 0.5vw 0.5vw 0.5vw;
     background: #eee;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 2vw 2vw;
 }
 
 .day {
@@ -204,14 +210,23 @@ ul {
     display: inline-block;
     width: 13.6%;
     text-align: center;
-    margin-bottom: 5px;
-    font-size: large;
+    font-size: 2vw;
     color: black;
+    background: none;
+    padding: 0.8vw 0;
+
 }
 
-/* Highlight the "current" day */
+.blank_day {
+    background: none;
+}
+
+/* 
+    Highlight the "current" day 
+    We can change the color to be based on the theme color
+*/
 .today {
-    padding: 5px;
     background: #1e942d;
     color: white !important;
+    border-radius: 0.5vw;
 }
