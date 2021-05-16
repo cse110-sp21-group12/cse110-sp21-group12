@@ -41,7 +41,7 @@ body {
     background-color: white;
     background-size: 10vw, auto;
 }
-#weeks {
+#months {
     grid-area: week;
     grid-template-areas:
         'week'
@@ -54,9 +54,9 @@ body {
     border-width: 1mm;*/
     height: fit-content;
 }
-#week1 {
+#January, #February, #March {
     grid-area: week;
-    background-image: url(../Images/FallMonth.svg);
+    background-image: url(../Images/WinterMonth.svg);
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
@@ -64,9 +64,9 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#week2 {
+#April, #May, #June {
     grid-area: week;
-    background-image: url(../Images/FallMonth.svg);
+    background-image: url(../Images/SpringMonth.svg);
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
@@ -74,9 +74,9 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#week3 {
+#July, #August, #September {
     grid-area: week;
-    background-image: url(../Images/FallMonth.svg);
+    background-image: url(../Images/SummerMonth.svg);
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
@@ -84,7 +84,7 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#week4 {
+#October, #November, #December {
     grid-area: week;
     background-image: url(../Images/FallMonth.svg);
     background-position: center;

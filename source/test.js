@@ -1,1 +1,8 @@
-console.log('hello world');
+/**
+ * prints hello world!
+ */
+function helloWorld() {
+    console.log('hello world');
+}
+
+helloWorld();
