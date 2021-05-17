@@ -1,5 +1,5 @@
 * {
-    background-color: #FFFFF3;
+    background-color: #fffff3;
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
@@ -13,9 +13,9 @@
     justify-content: stretch;
 }
 
-#content{
-    margin-left:7.5vw;
-    display:flex;
+#content {
+    margin-left: 7.5vw;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     width: 35vw;
@@ -23,19 +23,19 @@
     background-color: lightgray;
     padding-left: 5vw;
     padding-right: 5vw;
-    padding-top:5vh;
+    padding-top: 5vh;
     padding-bottom: 5vh;
 }
 
-#big-logo{
+#big-logo {
     width: 30vw;
 }
 
-#login-button{
-    background-color:#1e942d;
-    color:black;
+#login-button {
+    background-color: #1e942d;
+    color: black;
 }
 
-input{
+input {
     margin-bottom: 2.5vh;
 }
