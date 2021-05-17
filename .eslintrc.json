@@ -1,0 +1,29 @@
+//TODO: could use Husky to add pre-commit checks...
+{
+    "env": {
+        //These provide predefined global variables, but not sure what they do
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends":[
+        "eslint:recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        //Specifies which version of ECMA we want to use (picked latest one)
+        "ecmaVersion": 12
+    },
+    "rules": {
+        "prettier/prettier": [ "error" ]
+        /*
+         * add/disable more rules that we want below
+         * here is a link to the rules
+         * https://eslint.org/docs/rules/
+         * --Notice that we extended "eslint:recommended"
+         */
+    },
+    "plugins": [
+        "prettier"
+    ]
+}

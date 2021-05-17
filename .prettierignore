@@ -1,0 +1,8 @@
+# Ignore non-code files
+admin/
+mil-notes/
+node_modules/**
+specs/
+.github/
+docs/
+*.json
