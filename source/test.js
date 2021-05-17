@@ -15,5 +15,14 @@ function sum(x, y) {
     return x + y;
 }
 
+/**
+ * a demo function that prints "here is a demo" to
+ * the console
+ */
+function demo() {
+    console.log("here is a demo")
+}
+
+demo();
 sum(1 + 2);
 helloWorld();
