@@ -1,0 +1,44 @@
+# Generate jsDocs, perhaps only want it when things are pushed/PR'ed into development
+name: jsDocs 
+
+on:
+  #having it generate on push to development
+  push:
+    branches:
+    - development
+  workflow_dispatch:
+
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    if: github.ref = 'refs/heads/development'
+    steps:
+      # check out the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # generate jsDocs with the source and output dir
+      - name: Build
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: source/
+          output_dir: docs/
+          recurse: true
+          front_page: README.md
+      
+      # Want to push these changes to the repo...
+      - name: Commit files
+        # config a bot, add files, and commit 
+        run: |
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git add -A
+            git commit -m "generated docs" 
+            
+        # push to origin
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
