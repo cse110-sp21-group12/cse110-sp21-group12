@@ -9,7 +9,8 @@ body {
         'name name name';
 }
 
-#goalsHeader, #weekHeader{
+#goalsHeader,
+#weekHeader {
     text-align: center;
 }
 
@@ -70,7 +71,10 @@ img:hover {
     border-width: 1mm;*/
     height: fit-content;
 }
-#week1, #week2, #week3, #week4 {
+#week1,
+#week2,
+#week3,
+#week4 {
     grid-area: week;
     background-image: url(../Images/FallMonth.svg);
     margin: 1vw;

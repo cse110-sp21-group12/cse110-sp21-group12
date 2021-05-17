@@ -8,7 +8,8 @@ body {
         'name name name'
         'name name name';
 }
-#goalsHeader, #monthHeader{
+#goalsHeader,
+#monthHeader {
     text-align: center;
 }
 #index {
@@ -72,7 +73,9 @@ img:hover {
 ::-webkit-scrollbar {
     width: 0px;
 }
-#January, #February, #March {
+#January,
+#February,
+#March {
     background-image: url(../Images/WinterMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -81,7 +84,9 @@ img:hover {
     border-width: 1mm;
     height: 12vh;
 }
-#April, #May, #June {
+#April,
+#May,
+#June {
     background-image: url(../Images/SpringMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -90,7 +95,9 @@ img:hover {
     border-width: 1mm;
     height: 12vh;
 }
-#July, #August, #September {
+#July,
+#August,
+#September {
     background-image: url(../Images/SummerMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -99,7 +106,9 @@ img:hover {
     border-width: 1mm;
     height: 12vh;
 }
-#October, #November, #December {
+#October,
+#November,
+#December {
     background-image: url(../Images/FallMonth.svg);
     background-position: center;
     margin: 1vw;
