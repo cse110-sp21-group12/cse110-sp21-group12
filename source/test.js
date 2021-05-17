@@ -20,7 +20,7 @@ function sum(x, y) {
  * the console
  */
 function demo() {
-    console.log("here is a demo")
+    console.log('here is a demo');
 }
 
 demo();
