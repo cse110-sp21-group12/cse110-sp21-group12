@@ -19,7 +19,7 @@ function sum(x, y) {
  * a demo2 function that prints "here is a demo2" to the console
  */
 function demo2() {
-    console.log("here is a demo2")
+    console.log('here is a demo2');
 }
 
 demo2();
