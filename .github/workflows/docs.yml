@@ -26,24 +26,6 @@ jobs:
           recurse: true
           front_page: README.md
       
-      # Want to push these changes to the repo...
-      - name: Commit files
-        # config a bot, add files, and commit 
-        # added a pull command b/c sometimes it comaplians about remote changes
-        run: |
-            git pull origin development
-            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git config --local user.name "github-actions[bot]"
-            git add -A
-            git commit -m "generated docs" 
-            
-        # push to origin
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          
         # push to public repo to host the docs
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
