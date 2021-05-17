@@ -6,18 +6,20 @@
         <title>Bullet Journal</title>
     </head>
     <body>
-        <div id="topbar">
-            <img id="logo" src="../admin/branding/dino1.png" />
-            <h1>Index</h1>
-        </div>
+        <div id="topbar"></div>
         <div id="body-wrapper">
-            <section id="calendar">
-                <p>Calendar goes here</p>
-            </section>
+            <div id="left-bar">
+                <h1>Index</h1>
+                <section id="calendar"></section>
+            </div>
 
-            <section id="content">
-                <!--
-        <button id="work">work</button> 
+            <div id="right-bar">
+                <h1>Content</h1>
+                <div id="right-bar-inner">
+                    <button id="today-button">Go to current day</button>
+                    <section id="content">
+                        <!--
+        <button id="work">work</button>
           
         
         <div id="2020">
@@ -46,7 +48,9 @@
         </div>
         
     -->
-            </section>
+                    </section>
+                </div>
+            </div>
         </div>
 
         <!--The javascript file-->
