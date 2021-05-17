@@ -3,11 +3,10 @@
     font-weight: bold;
     color: #585858;
     font-size: larger;
-    
 }
 
-body{
-    background-color: #FFFFF3;
+body {
+    background-color: #fffff3;
 }
 
 #dino-align {
@@ -27,14 +26,13 @@ body{
     background-color: white;
     padding-left: 2.5vw;
     padding-right: 2.5vw;
-    padding-top:5vh;
+    padding-top: 5vh;
     padding-bottom: 10vh;
     border-radius: 1.5vw;
     box-shadow: 0 0 0 2px black;
-    
 }
 
-#content > *{
+#content > * {
     box-shadow: 0px;
 }
 
@@ -43,9 +41,9 @@ body{
     margin-left: 7.5vw;
 }
 
-#login-button{
-    background-color:#1e942d;
-    color:black;
+#login-button {
+    background-color: #1e942d;
+    color: black;
     border-radius: 0.5vw;
 }
 
