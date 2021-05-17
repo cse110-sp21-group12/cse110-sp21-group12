@@ -16,13 +16,12 @@ function sum(x, y) {
 }
 
 /**
- * a demo function that prints "here is a demo" to
- * the console
+ * a demo2 function that prints "here is a demo2" to the console
  */
-function demo() {
-    console.log('here is a demo');
+function demo2() {
+    console.log("here is a demo2")
 }
 
-demo();
+demo2();
 sum(1 + 2);
 helloWorld();
