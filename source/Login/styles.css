@@ -22,7 +22,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 25vw;
+    width: 30vw;
     height: 40vh;
     background-color: white;
     padding-left: 2.5vw;
@@ -53,4 +53,14 @@ input {
     margin-bottom: 2.5vh;
     background-color: white;
     border-radius: 0.5vw;
+}
+
+#switch-screen {
+    font-size: medium;
+    text-align: left;
+    color:black;
+    width:parent;
+    margin-top:2.5vh;
+    background-color:white;
+    border: none;
 }
