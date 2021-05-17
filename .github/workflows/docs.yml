@@ -12,7 +12,6 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    if: github.ref = 'refs/heads/development'
     steps:
       # check out the code
       - name: Checkout code
