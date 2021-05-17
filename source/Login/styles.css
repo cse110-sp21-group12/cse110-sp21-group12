@@ -1,9 +1,13 @@
 * {
-    background-color: #FFFFF3;
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
     font-size: larger;
+    
+}
+
+body{
+    background-color: #FFFFF3;
 }
 
 #dino-align {
@@ -18,24 +22,35 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
-    width: 35vw;
+    width: 25vw;
     height: 40vh;
-    background-color: lightgray;
-    padding-left: 5vw;
-    padding-right: 5vw;
+    background-color: white;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
     padding-top:5vh;
-    padding-bottom: 5vh;
+    padding-bottom: 10vh;
+    border-radius: 1.5vw;
+    box-shadow: 0 0 0 2px black;
+    
+}
+
+#content > *{
+    box-shadow: 0px;
 }
 
 #big-logo{
     width: 30vw;
+    margin-left: 7.5vw;
 }
 
 #login-button{
     background-color:#1e942d;
     color:black;
+    border-radius: 0.5vw;
 }
 
 input{
     margin-bottom: 2.5vh;
+    background-color: white;
+    border-radius: 0.5vw;
 }
