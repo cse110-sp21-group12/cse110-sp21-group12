@@ -41,3 +41,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+          
+        # push to public repo to host the docs
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'DustinLin'
+          destination-repository-name: '110Group12JsDocs'
+          target-branch: master
