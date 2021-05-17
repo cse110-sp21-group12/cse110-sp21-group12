@@ -56,9 +56,9 @@ input {
 #switch-screen {
     font-size: medium;
     text-align: left;
-    color:black;
-    width:parent;
-    margin-top:2.5vh;
-    background-color:white;
+    color: black;
+    width: parent;
+    margin-top: 2.5vh;
+    background-color: white;
     border: none;
 }
