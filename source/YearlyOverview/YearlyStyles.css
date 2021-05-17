@@ -8,30 +8,44 @@ body {
         'name name name'
         'name name name';
 }
-
-#header {
+#goalsHeader, #monthHeader{
+    text-align: center;
+}
+#index {
     grid-area: title;
     display: grid;
     justify-items: stretch;
 }
+
+img {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+
+img:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
 #name {
     grid-area: name;
     display: grid;
     justify-items: stretch;
-    grid-template-areas: 'goal empty week';
-    grid-template-columns: 40vw 1fr 40vw;
+    grid-template-areas: 'goal empty month';
+    grid-template-columns: 30vw 1fr 40vw;
 }
 #goals {
     grid-area: goal;
-    background-image: url(../Images/FallBorder.svg);
+    background-image: url(../Images/AllSeasonsBorderWide.svg);
     background-size: fit-content;
     background-repeat: no-repeat;
-    margin: 5vw;
+    margin-left: 5vw;
     padding: 1vw;
     border-radius: 10mm;
     /*border-style: solid;
     border-width: 1mm;*/
-    height: 90vh;
+    height: 60vh;
 }
 #entry {
     grid-area: goal;
@@ -43,21 +57,22 @@ body {
 }
 #months {
     grid-area: week;
-    grid-template-areas:
-        'week'
-        'week'
-        'week'
-        'week';
-    margin: 5vw;
+    margin-right: 5vw;
     padding: 1vw;
     /*border-style: solid;
     border-width: 1mm;*/
-    height: fit-content;
+    height: 58vh;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    /* this will hide the scrollbar in internet explorers */
+    -ms-overflow-style: none;
 }
-#January,
-#February,
-#March {
-    grid-area: week;
+
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+::-webkit-scrollbar {
+    width: 0px;
+}
+#January, #February, #March {
     background-image: url(../Images/WinterMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -66,10 +81,7 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#April,
-#May,
-#June {
-    grid-area: week;
+#April, #May, #June {
     background-image: url(../Images/SpringMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -78,10 +90,7 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#July,
-#August,
-#September {
-    grid-area: week;
+#July, #August, #September {
     background-image: url(../Images/SummerMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -90,10 +99,7 @@ body {
     border-width: 1mm;
     height: 12vh;
 }
-#October,
-#November,
-#December {
-    grid-area: week;
+#October, #November, #December {
     background-image: url(../Images/FallMonth.svg);
     background-position: center;
     margin: 1vw;
