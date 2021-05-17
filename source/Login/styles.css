@@ -1,0 +1,41 @@
+* {
+    background-color: #FFFFF3;
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+    font-size: larger;
+}
+
+#dino-align {
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#content{
+    margin-left:7.5vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 35vw;
+    height: 40vh;
+    background-color: lightgray;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top:5vh;
+    padding-bottom: 5vh;
+}
+
+#big-logo{
+    width: 30vw;
+}
+
+#login-button{
+    background-color:#1e942d;
+    color:black;
+}
+
+input{
+    margin-bottom: 2.5vh;
+}
