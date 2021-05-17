@@ -1,6 +1,6 @@
 ## piplines phase 1 status
 
-The pipeline at the moment consists of 2 serperate actions:
+The pipeline at the moment consists of 2 separate actions:
 
 ### `docs.yml`
 - triggers on push to the branch `development`
