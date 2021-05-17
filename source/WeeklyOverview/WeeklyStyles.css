@@ -31,12 +31,12 @@ h2 {
 
 #home {
     grid-area: home;
-    justify-self: end;
+    justify-self: right;
 }
 
 #homeImg {
     margin: 2vh;
-    height: 5vh;
+    height: 7vh;
 }
 
 /* Goal Section */

@@ -11,7 +11,7 @@ body {
     grid-template-areas:
         'title title title title title title'
         'todo todo note note note goal'
-        'todo todo note note note goal'
+        'todo todo note note note album'
         'todo todo note note note album'
         'todo todo note note note album';
 }
@@ -45,14 +45,14 @@ h2 {
 
 #date {
     grid-area: date;
-    justify-self: left;
+    justify-self: center;
     font-size: 5vh;
 }
 
 #logo1 {
     grid-area: one;
     margin: 1vh;
-    height: 10vh;
+    height: 10vh;  
 }
 
 #logo2 {
