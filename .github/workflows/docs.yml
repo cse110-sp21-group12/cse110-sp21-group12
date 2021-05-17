@@ -29,7 +29,9 @@ jobs:
       # Want to push these changes to the repo...
       - name: Commit files
         # config a bot, add files, and commit 
+        # added a pull command b/c sometimes it comaplians about remote changes
         run: |
+            git pull origin development
             git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
             git add -A
