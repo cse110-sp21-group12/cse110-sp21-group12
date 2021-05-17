@@ -8,7 +8,7 @@ body {
     justify-items: stretch;
 
     grid-template-areas:
-        'head head head'
+        'head head home'
         'goal day day'
         'goal day day';
 }
@@ -23,8 +23,19 @@ h2 {
 
 /* Header Section */
 
-header {
+#header {
     grid-area: head;
+    justify-self: start;
+    height: 5vh;
+}
+
+#home {
+    grid-area: home;
+    justify-self: end;
+}
+
+#homeImg {
+    margin: 2vh;
     height: 5vh;
 }
 

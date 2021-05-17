@@ -3,25 +3,28 @@
 }
 
 body {
-    background-color: #ecc7c7;
+    /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
+    background-color: #ECC7C7;
     display: grid;
     justify-items: stretch;
 
     grid-template-areas:
-        'title title title'
-        'todo note goal'
-        'todo note goal'
-        'todo note album'
-        'todo note album';
+        'title title title title title title'
+        'todo todo note note note goal'
+        'todo todo note note note goal'
+        'todo todo note note note album'
+        'todo todo note note note album';
 }
 
 h1 {
-    font-size: 2.75vh;
+    color: black;
+    font-size: 3.5vh;
     margin: 1vh;
 }
 
 h2 {
-    font-size: 1.75vh;
+    color: black;
+    font-size: 2vh;
 }
 
 /* Header Block */
@@ -32,18 +35,18 @@ h2 {
     height: 10vh;
 
     justify-items: stretch;
-    grid-template-areas: 'back one two date three four .';
+    grid-template-areas: 'back one two date three four headerHome';
 }
 
 #weekView {
     grid-area: back;
-    font-size: 3vh;
+    font-size: 3.75vh;
 }
 
 #date {
     grid-area: date;
     justify-self: left;
-    font-size: 3vh;
+    font-size: 5vh;
 }
 
 #logo1 {
@@ -70,6 +73,12 @@ h2 {
     height: 10vh;
 }
 
+#home {
+    grid-area: headerHome;
+    margin: 2vh;
+    height: 8vh;
+}
+
 /* Todo Block */
 
 #todo {
@@ -80,13 +89,16 @@ h2 {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
+    border-color: black;
     height: 80vh;
+
+    /* width: 25vw; */
 }
 
 #addTodo {
     background-color: transparent;
     border: none;
-    font-size: 2.75vh;
+    font-size: 3vh;
 }
 
 /* Note Block */
@@ -99,7 +111,10 @@ h2 {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
+    border-color: black;
     height: 80vh;
+    /* width: 20vw; */
+
 }
 
 /* Goal Reminder Block */
@@ -112,6 +127,7 @@ h2 {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
+    border-color: black;
 
     display: grid;
     grid-template-rows: [title] 10% [week] 30% [month] 30% [year] 30%;
@@ -143,6 +159,7 @@ h2 {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
+    border-color: black;
 }
 
 #addPhoto {
