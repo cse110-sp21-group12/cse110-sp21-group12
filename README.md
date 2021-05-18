@@ -4,6 +4,9 @@
 
 Our project will be a digital bullet journal
 
+### Documentation Site
+our jsDocs are hosted [here](https://dustinlin.github.io/110Group12JsDocs/index.html)
+
 ### How to set up eslint and prettier on VS-Code
 
 1. run `npm install` in the root project directory (where the package.json is)
