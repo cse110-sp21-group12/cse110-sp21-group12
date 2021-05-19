@@ -242,11 +242,10 @@ ul {
     background-color: white;
 }
 
-
 .week-button {
-	width: 0;
-	height: 0;
-	border-top: 2.5vh solid transparent;
-	border-left: 2vw solid #1e942d;
-	border-bottom: 2.5vh solid transparent;
+    width: 0;
+    height: 0;
+    border-top: 2.5vh solid transparent;
+    border-left: 2vw solid #1e942d;
+    border-bottom: 2.5vh solid transparent;
 }
