@@ -19,6 +19,11 @@ const months = [
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+const day_OV_link = '../DailyOverview/DailyOverview.html';
+const week_OV_link = '../WeeklyOverview/WeeklyOverview.html';
+const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
+const year_OV_link = '../YearlyOverview/YearlyOverview.html';
+
 /*
     <div id="2020">
         <div class="year" class="collapsible" class="horiz">
@@ -55,7 +60,8 @@ function setupContent() {
         let yearlink = document.createElement('a');
         yearlink.classList.add('yearlink');
         yearlink.id = yr + '_link';
-        yearlink.href = '/year/' + yr + '.html';
+        //yearlink.href = '/year/' + yr + '.html';
+        yearlink.href = year_OV_link;
         yearlink.innerText = yr + ' Yearly Overview';
         //add parts to button group
         year_nav.appendChild(coll_button);
@@ -74,7 +80,8 @@ function setupContent() {
             let month_link = document.createElement('a');
             month_link.class = 'monthlink ' + month_name_lc;
             month_link.id = yr + '_' + month_name_lc;
-            month_link.href = 'months/' + yr + '/' + month_name_lc + '.html';
+            //month_link.href = 'months/' + yr + '/' + month_name_lc + '.html';
+            month_link.href = month_OV_link;
             month_link.innerText = months[m];
             //add this month to list of months
             months_div.appendChild(month_link);
@@ -149,8 +156,26 @@ function setupCalendar() {
         }
 
         days_field.appendChild(day);
+
+        //link to daily overview
+        day.addEventListener('click', () => {
+            window.location.href = day_OV_link;
+        });
     }
     calTarget.append(days_field);
+
+    //now for the week links
+    let week_column = document.getElementById('week-links');
+    let num_weeks = (month_first_dow + endDay) / 7;
+    for (let i = 0; i < num_weeks; i++) {
+        let week_button = document.createElement('button');
+        week_button.classList.add('week-button');
+        week_button.onclick = function () {
+            window.location.href = week_OV_link;
+        };
+        week_button.innerText = num_weeks;
+        week_column.appendChild(week_button);
+    }
 }
 
 //call setup functions
