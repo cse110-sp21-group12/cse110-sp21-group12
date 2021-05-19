@@ -1,9 +1,8 @@
-const img = new Image(); // used to load image from <input> and draw to canvas
+var img = new Image(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
-var images = [];
 var relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
@@ -11,48 +10,71 @@ const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
 
-img.addEventListener('load', () => {
-    canv.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Set dimension of image as size of canvas
+input.addEventListener('change', (event) => {
+    img[relative] = new Image();
+    img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+});
+// Add an image to the canvas
+add.addEventListener('click', () => {
+    input.type = 'file';
+    save.style.display = 'inline';
+});
+// Save image and will hide everything else
+// REQUIRED TO PRESS SAVE AFTER UPLOAD
+save.addEventListener('click', () => {
+    input.type = 'hidden';
+    save.style.display = 'none';
     var imgDimension = getDimensions(
         canvas.width,
         canvas.height,
-        img.width,
-        img.height
+        img[relative].width,
+        img[relative].height
     );
     canv.drawImage(
-        img,
+        img[relative],
         imgDimension['startX'],
         imgDimension['startY'],
         imgDimension['width'],
         imgDimension['height']
     );
 });
-input.addEventListener('change', (event) => {
-    img.src = URL.createObjectURL(event.target.files[0]); // User picks image location
-});
-// Add an image to the canvas
-add.addEventListener('click', () => {
-    input.type = 'file';
-    save.style.display = 'inline';
-    images.push(img.src);
-});
-// Save image and will hide everything else
-save.addEventListener('click', () => {
-    input.type = 'hidden';
-    save.style.display = 'none';
-});
-// Need work on left and right button event
 left.addEventListener('click', () => {
     relative -= 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    images[relative].dispatchEvent();
+    if (img[relative]) {
+        var imgDimension = getDimensions(
+            canvas.width,
+            canvas.height,
+            img[relative].width,
+            img[relative].height
+        );
+        canv.drawImage(
+            img[relative],
+            imgDimension['startX'],
+            imgDimension['startY'],
+            imgDimension['width'],
+            imgDimension['height']
+        );
+    }
 });
 right.addEventListener('click', () => {
     relative += 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    images[relative].dispatchEvent();
+    if (img[relative]) {
+        var imgDimension = getDimensions(
+            canvas.width,
+            canvas.height,
+            img[relative].width,
+            img[relative].height
+        );
+        canv.drawImage(
+            img[relative],
+            imgDimension['startX'],
+            imgDimension['startY'],
+            imgDimension['width'],
+            imgDimension['height']
+        );
+    }
 });
 
 /**
