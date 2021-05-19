@@ -4,7 +4,7 @@
 
 /* Global styles */
 * {
-    background-color: #FFF7BD;
+    background-color: #fff7bd;
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
@@ -225,7 +225,11 @@ ul {
     We can change the color to be based on the theme color
 */
 .today {
-    background: hsl(53, 80%, 67%); /* switched background to hsl and subtract 20% from s and 20% from l*/
+    background: hsl(
+        53,
+        80%,
+        67%
+    ); /* switched background to hsl and subtract 20% from s and 20% from l*/
     color: white !important;
     border-radius: 0.5vw;
 }
