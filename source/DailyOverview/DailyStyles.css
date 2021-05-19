@@ -9,11 +9,11 @@ body {
     justify-items: stretch;
 
     grid-template-areas:
-        "title title title title title title"
-        "todo todo note note note goal"
-        "todo todo note note note album"
-        "todo todo note note note album"
-        "todo todo note note note album";
+        'title title title title title title'
+        'todo todo note note note goal'
+        'todo todo note note note album'
+        'todo todo note note note album'
+        'todo todo note note note album';
 }
 
 h1 {
@@ -35,7 +35,7 @@ h2 {
     height: 10vh;
 
     justify-items: stretch;
-    grid-template-areas: "back one two date three four headerHome";
+    grid-template-areas: 'back one two date three four headerHome';
 }
 
 #weekView {
