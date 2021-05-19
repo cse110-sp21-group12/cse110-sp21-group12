@@ -42,6 +42,7 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 85vh;
+    overflow: scroll;
 }
 
 #notes {
@@ -53,6 +54,7 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 85vh;
+    overflow: scroll;
 }
 
 #goal-reminder {
@@ -63,6 +65,7 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
+    overflow: scroll;
     /* height: 38vh; */
 }
 

@@ -13,11 +13,28 @@ class BulletEntry extends HTMLElement {
         template.innerHTML = `
             <style>
                 .bullet-content{
-
+                    flex-basis: 5;
                 }
+                #container{
+                    /* flex container for the image */
+                    display:flex;
+                    flex-direction: row;
+                    align-items: center;
+                    /* what should this width be?, inherit from the todo list? */
+                }
+                #egg{
+                    width: 2vw;
+                }
+                .bullet{
+                    width: inhert; /* I don't think this works */
+                }
+
             </style>
             <article class="bullet">
-                <p class="bullet-content">Setting text</p>
+                <div id="container">
+                    <img id="egg" src="../Images/DinoEgg.svg" />
+                    <p class="bullet-content">Setting text</p>
+                </div>
             </article>
             `;
 
@@ -41,7 +58,7 @@ class BulletEntry extends HTMLElement {
             entry.symb + entry.text;
 
         // add padding if its a "nested" bullet
-        this.shadowRoot.querySelector('.bullet-content').style.paddingLeft =
+        this.shadowRoot.querySelector('#container').style.paddingLeft =
             entry.indent * 4 + 'vh';
 
         // see if it's marked as done
