@@ -52,7 +52,7 @@ h2 {
 #logo1 {
     grid-area: one;
     margin: 1vh;
-    height: 10vh;  
+    height: 10vh;
 }
 
 #logo2 {
@@ -162,9 +162,19 @@ h2 {
 }
 
 #addPhoto {
-    background-color: transparent;
     border: none;
     font-size: 2.75vh;
+}
+#myCanvas {
+    width: 100%;
+    height: 75%;
+}
+#left {
+    position: inherit;
+}
+
+#right {
+    position: inherit;
 }
 
 /* Misc */
