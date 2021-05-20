@@ -27,6 +27,8 @@ class BulletEntry extends HTMLElement {
                 }
                 .bullet{
                     width: inhert; /* I don't think this works */
+                    word-break: break-all;
+                    max-width: 100%;
                 }
 
             </style>
