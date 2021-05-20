@@ -4,7 +4,7 @@
 
 /* Global styles */
 * {
-    background-color: white;
+    background-color: #fff7bd;
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
@@ -20,10 +20,10 @@
 #topbar {
     padding-top: 10px;
     padding-bottom: 4vw;
-    background-image: url(../Images/Logo.svg);
+    background-image: url(../Images/SeasonsHeader.svg);
     background-repeat: repeat-x;
     background-origin: padding-box;
-    background-size: 5vw;
+    background-size: 20vw;
 }
 
 /**
@@ -106,7 +106,7 @@ button {
     border: none;
     color: #585858;
     /*to make the [>] / [v] look consistent */
-    font-family: sans-serif;
+    font-family: 'Courier', monospace;
     font-size: 1.5vw;
     border-radius: 0.1em;
     padding: 0.1vw 0.5vw;
@@ -225,7 +225,11 @@ ul {
     We can change the color to be based on the theme color
 */
 .today {
-    background: #1e942d;
+    background: hsl(
+        53,
+        80%,
+        67%
+    ); /* switched background to hsl and subtract 20% from s and 20% from l*/
     color: white !important;
     border-radius: 0.5vw;
 }
