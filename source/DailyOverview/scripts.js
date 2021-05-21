@@ -12,15 +12,15 @@ let mockBullets = [
         symb: '•',
         indent: 0,
         child: {
-            text: "child test",
+            text: 'child test',
             symb: '•',
             indent: 0,
             child: {
-                text: "extra child test",
+                text: 'extra child test',
                 symb: '•',
                 indent: 0,
-            }
-        }
+            },
+        },
     },
 ];
 
