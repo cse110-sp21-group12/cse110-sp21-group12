@@ -1,3 +1,8 @@
+//import database CRUDs
+
+import { mockGETPasswordHash } from "../backend/mockCRUD";
+
+
 //store current page state
 var loginState = 'returning';
 
@@ -72,7 +77,7 @@ function setReturningUser() {
 /**
  * Mock function for pretending to hash things (implement later)
  */
-function mockHash(input) {
+ export function mockHash(input) {
     console.log(input);
     let retval = 0;
     for (let i = 0; i < input.length; i++) {
@@ -85,6 +90,6 @@ function mockHash(input) {
 /**
  * Mock function for pretending to verify a password hash (will be implemented by ../backend/backendInit.js)
  */
-function mockCheckHash(input) {
-    return input == 1083;
-}
+export function mockCheckHash(input) {
+    return input == mockGETPasswordHash();
+} 
