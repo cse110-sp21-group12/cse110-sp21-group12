@@ -1,26 +1,28 @@
 // mock data of list of bullets to render
 let mockBullets = [
-    { text: 'O, Wonder! ', symb: '•', done: true, indent: 0 },
+    { text: 'O, Wonder! ', symb: '•', done: true},
     {
         text: 'How many goodly creatures are there here! ',
         symb: '•',
-        indent: 1,
     },
-    { text: 'How beateous mankind is! ', symb: '•', indent: 2 },
+    { text: 'How beateous mankind is! ', symb: '•'},
     {
         text: "O brave new world, That has such people in't!",
         symb: '•',
-        indent: 0,
-        child: {
-            text: "child test",
-            symb: '•',
-            indent: 0,
-            child: {
-                text: "extra child test",
+        childList: [
+            {
+                text: "child test",
                 symb: '•',
-                indent: 0,
+                childList: [{
+                    text: "extra child test",
+                    symb: '•',
+                }]
+            },
+            {
+                text: "please work",
+                symb: '•',
             }
-        }
+        ]
     },
 ];
 
@@ -37,7 +39,7 @@ document.getElementById('button').addEventListener('click', () => {
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let bText = document.querySelector('.entry-form-text').value;
-    let bullet = { text: bText, symb: '*', indent: 0 };
+    let bullet = { text: bText, symb: '•'};
     document.querySelector('.entry-form-text').value = '';
     renderBullets([bullet]);
 });
@@ -53,12 +55,13 @@ function renderBullets(bullets) {
     bullets.forEach((bullet) => {
         let newPost = document.createElement('bullet-entry');
         newPost.entry = bullet;
-        if (bullet.child) {
-            let newChild = renderChild(bullet.child);
-            newPost.child = newChild;
+        if (bullet.childList) {
+            bullet.childList.forEach((child) => {
+                let newChild = renderChild(child);
+                newPost.child = newChild;
+            });
         }
         document.querySelector('#todo').appendChild(newPost);
-        mockBullets.push(bullet);
     });
     console.log('here are the new bullets: ', mockBullets);
 }
@@ -70,9 +73,11 @@ function renderBullets(bullets) {
 function renderChild(bullet) {
     let newChild = document.createElement('bullet-entry');
     newChild.entry = bullet;
-    if (bullet.child) {
-        let newNewChild = renderChild(bullet.child);
-        newChild.child = newNewChild;
+    if (bullet.childList) {
+        bullet.childList.forEach((child) => {
+            let newNewChild = renderChild(child);
+            newChild.child = newNewChild;
+        });
     }
     return newChild;
 }

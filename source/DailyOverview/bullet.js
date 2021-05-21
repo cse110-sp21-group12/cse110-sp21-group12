@@ -34,12 +34,16 @@ class BulletEntry extends HTMLElement {
                 .child{
                     padding-left: 2vw;
                 }
+                .bullet-container{
+                    display: inline-block; !important
+                }
 
             </style>
             <article class="bullet">
                 <div id="container">
-                    <!-- <img id="egg" src="../Images/DinoEgg.svg" /> -->
-                    <p class="bullet-content">Setting text</p>
+                    <section class="bullet-container">
+                        <p class="bullet-content">Setting text</p>
+                    </section>
                     <div class="child"></div>
                 </div>
             </article>
@@ -62,11 +66,7 @@ class BulletEntry extends HTMLElement {
     set entry(entry) {
         // set the text of the entry
         this.shadowRoot.querySelector('.bullet-content').innerText =
-            entry.symb + entry.text;
-
-        // add padding if its a "nested" bullet
-        this.shadowRoot.querySelector('#container').style.paddingLeft =
-            entry.indent * 4 + 'vh';
+            entry.symb + ' ' + entry.text;
 
         // see if it's marked as done
         if (entry.done === true) {
