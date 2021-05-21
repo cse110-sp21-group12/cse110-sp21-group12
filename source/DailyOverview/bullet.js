@@ -20,6 +20,7 @@ class BulletEntry extends HTMLElement {
                     display:flex;
                     flex-direction: row;
                     align-items: center;
+                    display: block;
                     /* what should this width be?, inherit from the todo list? */
                 }
                 #egg{
@@ -30,12 +31,16 @@ class BulletEntry extends HTMLElement {
                     word-break: break-all;
                     max-width: 100%;
                 }
+                .child{
+                    padding-left: 2vw;
+                }
 
             </style>
             <article class="bullet">
                 <div id="container">
-                    <img id="egg" src="../Images/DinoEgg.svg" />
+                    <!-- <img id="egg" src="../Images/DinoEgg.svg" /> -->
                     <p class="bullet-content">Setting text</p>
+                    <div class="child"></div>
                 </div>
             </article>
             `;
@@ -69,6 +74,12 @@ class BulletEntry extends HTMLElement {
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
         }
+    }
+
+    set child(child) {
+        // set nested bullets of entries
+        console.log(child)
+        this.shadowRoot.querySelector('.child').appendChild(child);
     }
 }
 
