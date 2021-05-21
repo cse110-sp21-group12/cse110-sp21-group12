@@ -1,6 +1,6 @@
 //import database CRUDs
 
-import { mockGETPasswordHash } from "../backend/mockCRUD";
+import { mockGETPasswordHash } from "../backend/mockCRUD.js";
 
 
 //store current page state
