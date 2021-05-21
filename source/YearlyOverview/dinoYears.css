@@ -2,68 +2,68 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
-  
+
     grid-template-areas:
         'head head home'
         'goal month month'
         'goal month month';
- }
- #goalsHeader,
- #monthHeader {
+}
+#goalsHeader,
+#monthHeader {
     text-align: center;
- }
- #header {
+}
+#header {
     grid-area: head;
     display: grid;
     justify-items: stretch;
- }
+}
 
- #homeButton {
-   grid-area: home;
-   position: absolute;
-   right: 15vh;
-   top: 4vh;
-   width: 8vh;
-   height: 8vh;
+#homeButton {
+    grid-area: home;
+    position: absolute;
+    right: 15vh;
+    top: 4vh;
+    width: 8vh;
+    height: 8vh;
 }
- 
+
 #homeButton:hover {
-   cursor: pointer;
-   opacity: 0.5;
+    cursor: pointer;
+    opacity: 0.5;
 }
-  
- #name {
+
+#name {
     grid-area: goal;
     display: grid;
     justify-items: stretch;
     grid-template-areas: 'goal empty month';
     grid-template-columns: 40vw 1fr 40vw;
- }
+}
 
- #goalSection {
-   grid-area: goal;
-   display: grid;
-   justify-items: center;
+#goalSection {
+    grid-area: goal;
+    display: grid;
+    justify-items: center;
 
-   grid-template-rows: [frontGoal] 7% [backGoal] 93%;
+    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
 }
 
 #goalSection + h2 {
-   grid-row-start: frontGoal;
+    grid-row-start: frontGoal;
 }
 
 #yearlyGoals {
-   grid-row-start: backGoal;
-   background-color: white;
-   margin-top: 2vw;
-   padding: 1vw;
-   border-radius: 10mm;
-   border-style: solid;
-   border-width: 1mm;
-   height: 67vh;
+    grid-row-start: backGoal;
+    background-color: white;
+    margin-top: 2vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 67vh;
 }
 
- #months {
+#months {
     grid-area: month;
     margin-right: 5vw;
     padding: 1vw;
@@ -74,15 +74,15 @@ body {
     overflow: -moz-scrollbars-none;
     /* this will hide the scrollbar in internet explorers */
     -ms-overflow-style: none;
- }
-  
- /* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
- ::-webkit-scrollbar {
+}
+
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+::-webkit-scrollbar {
     width: 0px;
- }
- #January,
- #February,
- #March {
+}
+#January,
+#February,
+#March {
     background-image: url(../Images/BlueDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -90,10 +90,10 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
- }
- #April,
- #May,
- #June {
+}
+#April,
+#May,
+#June {
     background-image: url(../Images/GreenDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -101,10 +101,10 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
- }
- #July,
- #August,
- #September {
+}
+#July,
+#August,
+#September {
     background-image: url(../Images/YellowDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -112,10 +112,10 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
- }
- #October,
- #November,
- #December {
+}
+#October,
+#November,
+#December {
     background-image: url(../Images/OrangeDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
@@ -123,8 +123,4 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
- }
-  
-  
- 
- 
+}

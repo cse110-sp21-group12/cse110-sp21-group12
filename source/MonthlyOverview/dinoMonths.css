@@ -2,72 +2,72 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
-  
+
     grid-template-areas:
         'head head home'
         'goal week week'
         'goal week week';
- }
-  
- #goalsHeader,
- #weekHeader {
+}
+
+#goalsHeader,
+#weekHeader {
     text-align: center;
- }
-  
- #header {
+}
+
+#header {
     grid-area: head;
     display: grid;
     justify-items: stretch;
- }
-  
- #homeButton {
+}
+
+#homeButton {
     grid-area: home;
     position: absolute;
     right: 15vh;
     top: 4vh;
     width: 8vh;
     height: 8vh;
- }
-  
- #homeButton:hover {
+}
+
+#homeButton:hover {
     cursor: pointer;
     opacity: 0.5;
- }
-  
- #name {
+}
+
+#name {
     grid-area: goal;
     display: grid;
     justify-items: stretch;
     grid-template-areas: 'goal empty week';
     grid-template-columns: 40vw 1fr 40vw;
- }
+}
 
 #goalSection {
-   grid-area: goal;
-   display: grid;
-   justify-items: center;
+    grid-area: goal;
+    display: grid;
+    justify-items: center;
 
-   grid-template-rows: [frontGoal] 7% [backGoal] 93%;
+    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
 }
 
 #goalSection + h2 {
-   grid-row-start: frontGoal;
+    grid-row-start: frontGoal;
 }
 
 #monthlyGoals {
-   grid-row-start: backGoal;
-   background-color: white;
-   margin-top: 2vw;
-   padding: 1vw;
-   border-radius: 10mm;
-   border-style: solid;
-   border-width: 1mm;
-   height: 67vh;
+    grid-row-start: backGoal;
+    background-color: white;
+    margin-top: 2vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 67vh;
 }
 
- /* week section */
- 
- #weeks {
+/* week section */
+
+#weeks {
     grid-area: week;
     grid-template-areas:
         'week'
@@ -79,11 +79,11 @@ body {
     /*border-style: solid;
     border-width: 1mm;*/
     height: 70vh;
- }
- #week1,
- #week2,
- #week3,
- #week4 {
+}
+#week1,
+#week2,
+#week3,
+#week4 {
     grid-area: week;
     background-image: url(../Images/GreenDinoMonth.svg);
     margin: 1vw;
@@ -92,7 +92,4 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
- }
-  
- 
- 
+}
