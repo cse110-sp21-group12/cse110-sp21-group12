@@ -1,7 +1,3 @@
-* {
-    color: #585858;
-}
-
 body {
     /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
     background-color: #ecc7c7;
@@ -32,15 +28,15 @@ h2 {
 #header {
     grid-area: title;
     display: grid;
-    height: 10vh;
+    height: 9vh;
 
     justify-items: stretch;
     grid-template-areas: 'back one two date three four headerHome';
 }
 
-#weekView {
+#monthView {
     grid-area: back;
-    font-size: 3.75vh;
+    font-size: 3.5vh;
 }
 
 #date {
@@ -78,6 +74,11 @@ h2 {
     margin: 2vh;
     height: 8vh;
 }
+
+#home:hover {
+    cursor: pointer;
+    opacity: 0.5;
+ }
 
 /* Todo Block */
 
@@ -162,9 +163,11 @@ h2 {
 }
 
 #addPhoto {
+    background-color: transparent;
     border: none;
     font-size: 2.75vh;
 }
+
 /*
 #myCanvas {
     width: 100%;
@@ -173,7 +176,6 @@ h2 {
 #left {
     position: inherit;
 }
-
 #right {
     position: inherit;
 }*/

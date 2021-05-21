@@ -38,7 +38,7 @@ h2 {
     grid-template-areas: 'back one two date three four headerHome';
 }
 
-#weekView {
+#monthView {
     grid-area: back;
     font-size: 3.75vh;
 }
