@@ -1,9 +1,14 @@
 //store current page state
 var loginState = 'returning';
 
+//password box
+var password_field = document.getElementById('pin');
+
 //make the login button redirect to Index
 var login_button = document.getElementById('login-button');
-login_button.addEventListener('click', goHome);
+login_button.addEventListener('click', () => {
+    handleLogin('', password_field.value);
+});
 
 //make the toggle button change the page state
 var switch_button = document.getElementById('switch-screen');
@@ -19,6 +24,19 @@ function toggleView() {
     } else if (loginState == 'new') {
         loginState = 'returning';
         setReturningUser();
+    }
+}
+
+/**
+ * Handle login attempt. Check password with the database.
+ */
+function handleLogin(username, password) {
+    let hash = mockHash(password);
+    let response = mockCheckHash(hash);
+    if (response == true) {
+        goHome();
+    } else {
+        alert('Incorrect password!');
     }
 }
 
@@ -49,4 +67,24 @@ function setReturningUser() {
     document.getElementById('title').innerText = 'Welcome back!';
     switch_button.innerText = 'New user?';
     login_button.innerText = 'Sign-In';
+}
+
+/**
+ * Mock function for pretending to hash things (implement later)
+ */
+function mockHash(input) {
+    console.log(input);
+    let retval = 0;
+    for (let i = 0; i < input.length; i++) {
+        retval += input.charCodeAt(i);
+    }
+    console.log(retval);
+    return retval;
+}
+
+/**
+ * Mock function for pretending to verify a password hash (will be implemented by ../backend/backendInit.js)
+ */
+function mockCheckHash(input) {
+    return input == 1083;
 }
