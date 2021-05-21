@@ -78,7 +78,7 @@ class BulletEntry extends HTMLElement {
 
     set child(child) {
         // set nested bullets of entries
-        console.log(child)
+        console.log(child);
         this.shadowRoot.querySelector('.child').appendChild(child);
     }
 }
