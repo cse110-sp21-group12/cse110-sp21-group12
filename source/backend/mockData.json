@@ -1,0 +1,33 @@
+ {
+ 	"sampleDay1": {
+ 		"date": "05/20/2021",
+ 		"bullets": [{ "text": "O, Wonder!", "symb": "•", "done": true, "childList": [], "time": null },
+ 			        { "text": "How many goodly creatures are there here! ", "symb": "•", "done": false, "childList": [], "time": null },
+ 			        { "text": "How beateous mankind is! ", "symb": "•", "done": false, "childList": [], "time": null },
+ 			{
+ 				"text": "O brave new world, That has such people in't!",
+ 				"symb": "•",
+ 				"done": false,
+ 				"childList": [{
+ 						"text": "child test",
+ 						"symb": "•",
+ 						"done": false,
+ 						"childList": [{ "text": "extra child test", "symb": "•", "done": false, "childList": [], "time": null }],
+ 						"time": null
+ 					},
+ 					{ "text": "child test2", "symb": "•", "done": false, "childList": [], "time": null }
+ 				],
+ 				"time": null
+ 			}
+ 		],
+ 		"photos": [],
+ 		"notes": "Here is some notes smaple test \n this is a note possibly \n here could be another"
+ 	},
+ 	"sampleDay2": {
+ 		"date": "05/21/2021",
+ 		"bullets": [],
+ 		"photos": [],
+ 		"notes": "This is an empty day...only notes"
+ 	}
+    
+ }
