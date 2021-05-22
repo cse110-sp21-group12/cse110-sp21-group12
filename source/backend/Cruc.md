@@ -31,16 +31,16 @@ For all these functions, you will have 3 of them for each object: days, monthlyG
 What you will need to do is one you have created or read new data into the database using `create___(data)` in which data will be the value you will be storing when you leave the page. Lets say `data`  is the data for the day, then day will contain `day.notes, day.bullets, day.date, day.photos`
  and you would pass `day` as a parameter. 
  When trying to get the data based on the key we want, you will need to write the following lines,
-    `
-	   let req = getMonthlyGoals('12/2021');
+
+    `let req = getMonthlyGoals('12/2021');
        req.onsuccess = function (e) {
         console.log('got monthly goals');
         console.log(e.target.result);
         /*
 	        Continue to do anything you need here. 
         */
-       };
-    `
+       };`
+       
 Here you need to declare a new variable `req` and set it to one of the get function and pass the correct key. When you are able to get the promise request, you will do all the operations in the `re.onsuccess` function for you to use the data, you will need to use `e.target.result`.
 This is only needed to be used when you have just entered the page, this is the first thing you do as it is a get function.
 
