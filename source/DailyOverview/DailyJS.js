@@ -10,19 +10,17 @@ const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
 
-
-
 let x = {
-    content: 'The demo then changes the flex-basis on the first item. It will then grow and shrink from that flex-basis. This means that, for example, when the flex-basis of the first item is 200px, it will start out at 200px but then shrink to fit the space available with the other items being at least min-content sized.'
-}
+    content:
+        'The demo then changes the flex-basis on the first item. It will then grow and shrink from that flex-basis. This means that, for example, when the flex-basis of the first item is 200px, it will start out at 200px but then shrink to fit the space available with the other items being at least min-content sized.',
+};
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
     let newNote = document.createElement('note-box');
     newNote.entry = x;
 
-    document.querySelector("#notes").appendChild(newNote);
+    document.querySelector('#notes').appendChild(newNote);
 });
-
 
 input.addEventListener('change', (event) => {
     img[relative] = new Image();

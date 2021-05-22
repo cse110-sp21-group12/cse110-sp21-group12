@@ -49,8 +49,8 @@ class noteBox extends HTMLElement {
 
     set entry(entry) {
         // set the text of the entry
-        this.shadowRoot.querySelector('.note-content').innerText = entry.content;
-
+        this.shadowRoot.querySelector('.note-content').innerText =
+            entry.content;
     }
 }
 
