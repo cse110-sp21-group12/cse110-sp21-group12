@@ -32,13 +32,13 @@ h2 {
 #header {
     grid-area: title;
     display: grid;
-    height: 10vh;
+    height: 9vh;
 
     justify-items: stretch;
     grid-template-areas: 'back one two date three four headerHome';
 }
 
-#weekView {
+#monthView {
     grid-area: back;
     font-size: 3.75vh;
 }
@@ -90,7 +90,7 @@ h2 {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 80vh;
+    height: 78vh;
 
     /* width: 25vw; */
 }
@@ -112,7 +112,7 @@ h2 {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 80vh;
+    height: 78vh;
     /* width: 20vw; */
 }
 

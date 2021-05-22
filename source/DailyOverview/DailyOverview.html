@@ -6,20 +6,14 @@
         <title>Daily Overview</title>
     </head>
 
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="DailyStyles.css" />
-        <title>Daily Overview</title>
-    </head>
-
     <body>
         <div id="header">
-            <h1 id="weekView">
+            <h1 id="monthView">
                 <a
-                    href="../WeeklyOverview/WeeklyOverview.html"
+                    href="../MonthlyOverview/MonthlyOverview.html"
                     style="text-decoration: none; position: absolute; top: 35px"
                 >
-                    < Week</a
+                    < Month</a
                 >
             </h1>
             <div>
@@ -36,7 +30,7 @@
                 <img src="../Images/Logo.svg" id="logo4" />
             </div>
             <div>
-                <a href="../WeeklyOverview/WeeklyOverview.html">
+                <a href="../Index/index.html">
                     <img src="../Images/home.svg" id="home" />
                 </a>
             </div>
@@ -46,6 +40,15 @@
         </div>
         <div id="notes">
             <h1 id="note-button">Notes</h1>
+        </div>
+        <div>
+            <img
+                src="../Images/FallLeaf.svg"
+                id="NotesDino"
+                width="170"
+                height="170"
+                style="position: absolute; top: 80vh; right: 55vh"
+            />
         </div>
         <div id="goalReminder">
             <h1>Goal Reminders</h1>
@@ -60,8 +63,23 @@
             </div>
         </div>
         <div id="photo-album">
-            <h1>Photo Album<button type="button" id="addPhoto">+</button></h1>
-            <canvas id="myCanvas"></canvas><br />
+            <h1>Photo Album<button id="addPhoto">+</button></h1>
+        </div>
+        <div>
+            <canvas
+                id="myCanvas"
+                width="410"
+                height="250"
+                style="
+                    border: 2px solid #000000;
+                    position: absolute;
+                    top: 62vh;
+                    right: 7vh;
+                "
+            ></canvas>
+        </div>
+        <!--
+        <div>
             <input type="hidden" id="image-input" accept="*.jpg" />
             <button type="button" id="save" hidden>save</button><br />
             <button type="button" id="left">left</button>
