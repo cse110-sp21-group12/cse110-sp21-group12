@@ -32,15 +32,16 @@ What you will need to do is one you have created or read new data into the datab
  and you would pass `day` as a parameter. 
  When trying to get the data based on the key we want, you will need to write the following lines,
 
-    `let req = getMonthlyGoals('12/2021');
-       req.onsuccess = function (e) {
-        console.log('got monthly goals');
-        console.log(e.target.result);
-        /*
-	        Continue to do anything you need here. 
-        */
-       };`
-       
+    `
+        let req = getMonthlyGoals('12/2021');
+        req.onsuccess = function (e) {
+            console.log('got monthly goals');
+            console.log(e.target.result);
+            /*
+	            Continue to do anything you need here. 
+            */
+        };`
+
 Here you need to declare a new variable `req` and set it to one of the get function and pass the correct key. When you are able to get the promise request, you will do all the operations in the `re.onsuccess` function for you to use the data, you will need to use `e.target.result`.
 This is only needed to be used when you have just entered the page, this is the first thing you do as it is a get function.
 
