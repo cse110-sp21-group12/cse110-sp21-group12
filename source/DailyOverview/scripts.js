@@ -1,28 +1,30 @@
 // mock data of list of bullets to render
 let mockBullets = [
-    { text: 'O, Wonder! ', symb: '•', done: true},
+    { text: 'O, Wonder! ', symb: '•', done: true },
     {
         text: 'How many goodly creatures are there here! ',
         symb: '•',
     },
-    { text: 'How beateous mankind is! ', symb: '•'},
+    { text: 'How beateous mankind is! ', symb: '•' },
     {
         text: "O brave new world, That has such people in't!",
         symb: '•',
         childList: [
             {
-                text: "child test",
+                text: 'child test',
                 symb: '•',
-                childList: [{
-                    text: "extra child test",
-                    symb: '•',
-                }]
+                childList: [
+                    {
+                        text: 'extra child test',
+                        symb: '•',
+                    },
+                ],
             },
             {
-                text: "please work",
+                text: 'please work',
                 symb: '•',
-            }
-        ]
+            },
+        ],
     },
 ];
 
@@ -39,7 +41,7 @@ document.getElementById('button').addEventListener('click', () => {
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let bText = document.querySelector('.entry-form-text').value;
-    let bullet = { text: bText, symb: '•'};
+    let bullet = { text: bText, symb: '•' };
     document.querySelector('.entry-form-text').value = '';
     renderBullets([bullet]);
 });
