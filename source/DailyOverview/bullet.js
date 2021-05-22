@@ -37,13 +37,27 @@ class BulletEntry extends HTMLElement {
                 .bullet-container{
                     display: inline-block; !important
                 }
+                ul {
+                    // list-style-image: url('../Images/DinoEgg.svg');
+                }
+                li > span {
+                    position: relative;
+                    left: -5px;
+                }
+                ul{
+                    padding: 10px 18px;
+                    margin: 0;
+                }
 
             </style>
             <article class="bullet">
                 <div id="container">
-                    <section class="bullet-container">
-                        <p class="bullet-content">Setting text</p>
-                    </section>
+                        <ul>
+                        <li><span class="bullet-content">Setting text</span></li>
+                        </ul>
+                    <button id="edit">Edit</button>
+                    <button id="delete">Delete</button>
+                    <button id="add">Add</button>
                     <div class="child"></div>
                 </div>
             </article>
@@ -51,6 +65,21 @@ class BulletEntry extends HTMLElement {
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let editedEntry = prompt("Edit Bullet", this.shadowRoot.querySelector('.bullet-content').innerText);
+            if (editedEntry != null && editedEntry != "") {
+                this.shadowRoot.querySelector('.bullet-content').innerText = editedEntry;
+            }
+        });
+        this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
+            this.parentNode.removeChild(this);
+        });
+        this.shadowRoot.querySelector('#add').addEventListener('click', () => {
+            let newEntry = prompt("Add Bullet", '');
+            let newChild = document.createElement('bullet-entry');
+            newChild.shadowRoot.querySelector('.bullet-content').innerText = newEntry;
+            this.shadowRoot.querySelector('.child').appendChild(newChild);
+        });
     }
 
     /**
@@ -65,8 +94,7 @@ class BulletEntry extends HTMLElement {
 
     set entry(entry) {
         // set the text of the entry
-        this.shadowRoot.querySelector('.bullet-content').innerText =
-            entry.symb + ' ' + entry.text;
+        this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
 
         // see if it's marked as done
         if (entry.done === true) {
