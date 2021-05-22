@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
 });
 
 document.getElementById('noteButton').addEventListener('click', () => {
-    console.log("save changes");
+    console.log('save changes');
 });
 
 input.addEventListener('change', (event) => {
