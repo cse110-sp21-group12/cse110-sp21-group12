@@ -21,13 +21,27 @@
  			}
  		],
  		"photos": [],
- 		"notes": "Here is some notes smaple test \n this is a note possibly \n here could be another"
+ 		"notes": "Here is some notes sample test \n this is a note possibly \n here could be another"
  	},
  	"sampleDay2": {
  		"date": "05/21/2021",
  		"bullets": [],
  		"photos": [],
  		"notes": "This is an empty day...only notes"
- 	}
+ 	},
+
+	 "sampleMonthlyGoals":{
+		 "goals": [{ "text": "Train for and run a marathon!", "start": "05/01/2021", "end": "05/31/2021" },
+					{ "text": "Lose 10 pounds by end of the month", "start": "05/10/2021", "end": "05/31/2021"},
+					{ "text": "Finish reading a book", "start": "05/03/2021", "end": "05/15/2021"}]
+
+	 },
+
+	 "sampleYearlyGoals":{
+		"goals": [{ "text": "Learn how to speak fluent Spanish", "start": "01/01/2021", "end": "01/01/2022" },
+				   { "text": "Lower phone usage time", "start": "01/01/2021", "end": "01/01/2022"},
+				   { "text": "Write a novel from scratch", "start": "01/01/2021", "end": "01/01/2022"}]
+
+	}
     
  }
