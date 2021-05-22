@@ -40,15 +40,16 @@ img:hover {
 }
 #goals {
     grid-area: goal;
-    background-image: url(../Images/FallBorder.svg);
+    background-image: url(../Images/FallBorderWide.svg);
+    background-position-x: center;
     background-size: fit-content;
     background-repeat: no-repeat;
     margin: 5vw;
-    padding: 1vw;
+    padding-left: 1vw;
     border-radius: 10mm;
     /*border-style: solid;
     border-width: 1mm;*/
-    height: 90vh;
+    height: 70vh;
 }
 #entry {
     grid-area: goal;
@@ -58,12 +59,6 @@ img:hover {
     background-color: white;
     background-size: 10vw, auto;
 }
-
-#calendar {
-    grid-area: name;
-}
-
-/*
 #weeks {
     grid-area: week;
     grid-template-areas:
@@ -71,10 +66,10 @@ img:hover {
         'week'
         'week'
         'week';
-    margin: 5vw;
+    margin-right: 5vw;
     padding: 1vw;
-    border-style: solid;
-    border-width: 1mm;
+    /*border-style: solid;
+    border-width: 1mm;*/
     height: fit-content;
 }
 #week1,
@@ -89,4 +84,4 @@ img:hover {
     border-style: solid;
     border-width: 1mm;
     height: 12vh;
-}*/
+}

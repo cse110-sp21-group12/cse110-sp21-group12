@@ -2,39 +2,35 @@
 <html lang="”en”">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="YearlyStyles.css" />
+        <link rel="stylesheet" href="DinoYears.css" />
         <title>Yearly Overview</title>
     </head>
+
     <body>
         <div id="header">
-            <h1 id="index"><a href="/source/Index/index.html"> < Index</a></h1>
+            <h1 id="index">
+                <a
+                    href="/source/Index/index.html"
+                    style="text-decoration: none; position: absolute; top: 35px"
+                >
+                    < Index</a
+                >
+            </h1>
             <a href="/source/Index/index.html"
                 ><img
                     src="/source/YearlyOverview/Images/home.png"
                     alt="home"
                     width="40"
                     height="40"
+                    id="homeButton"
             /></a>
         </div>
 
         <div id="name">
-            <div id="yearlyView">
+            <div id="goalSection">
                 <h1 id="goalsHeader">Yearly Goals</h1>
-                <div id="goals">
-                    <textarea
-                        id="entry"
-                        name="entry"
-                        rows="auto"
-                        cols="auto"
-                        placeholder="Click to add goals..."
-                    ></textarea>
-
-                    <!--section id="entry" contenteditable="true">
-                        <ul>
-                            <li>Click to add goals...</li>
-                        </ul>
-                    </section-->
-                </div>
+                <img src="../Images/GreenDinoBorder.svg" id="yearlyGoals" />
+                <div id="goals"></div>
             </div>
             <div id="empty"></div>
             <div id="monthView">
