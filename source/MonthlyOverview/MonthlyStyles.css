@@ -58,6 +58,12 @@ img:hover {
     background-color: white;
     background-size: 10vw, auto;
 }
+
+#calendar {
+    grid-area: name;
+}
+
+/*
 #weeks {
     grid-area: week;
     grid-template-areas:
@@ -67,8 +73,8 @@ img:hover {
         'week';
     margin: 5vw;
     padding: 1vw;
-    /*border-style: solid;
-    border-width: 1mm;*/
+    border-style: solid;
+    border-width: 1mm;
     height: fit-content;
 }
 #week1,
@@ -83,4 +89,4 @@ img:hover {
     border-style: solid;
     border-width: 1mm;
     height: 12vh;
-}
+}*/
