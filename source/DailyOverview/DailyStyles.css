@@ -1,38 +1,87 @@
-h1 {
-    color: #585858;
-}
-
 body {
+    /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
     grid-template-columns: 33% 33% 33%;
 
     grid-template-areas:
-        'title title title'
-        'todo note goal'
-        'todo note goal'
-        'todo note album'
-        'todo note album';
+        'title title title title title title'
+        'todo todo note note note goal'
+        'todo todo note note note album'
+        'todo todo note note note album'
+        'todo todo note note note album';
 }
+
+h1 {
+    color: black;
+    font-size: 3.5vh;
+    margin: 1vh;
+}
+
+h2 {
+    color: black;
+    font-size: 2vh;
+}
+
+/* Header Block */
 
 #header {
     grid-area: title;
     display: grid;
+    height: 9vh;
 
     justify-items: stretch;
-    grid-template-areas: 'back date .';
+    grid-template-areas: 'back one two date three four headerHome';
 }
 
-#week-view {
+#monthView {
     grid-area: back;
-    background-color: transparent;
+    font-size: 3.5vh;
 }
 
 #date {
     grid-area: date;
     justify-self: center;
+    font-size: 5vh;
 }
+
+#logo1 {
+    grid-area: one;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo2 {
+    grid-area: two;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo3 {
+    grid-area: three;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo4 {
+    grid-area: four;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#home {
+    grid-area: headerHome;
+    margin: 2vh;
+    height: 8vh;
+}
+
+#home:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+/* Todo Block */
 
 #todo {
     grid-area: todo;
@@ -42,9 +91,19 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
-    overflow: scroll;
+    border-color: black;
+    height: 78vh;
+
+    /* width: 25vw; */
 }
+
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+/* Note Block */
 
 #notes {
     grid-area: note;
@@ -54,11 +113,20 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
-    overflow: scroll;
+    border-color: black;
+    height: 78vh;
+    /* max-width: 30vw; */
 }
 
-#goal-reminder {
+#noteButton {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+/* Goal Reminder Block */
+
+#goalReminder {
     grid-area: goal;
     background-color: white;
     margin: 1vw;
@@ -66,9 +134,29 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    overflow: scroll;
-    /* height: 38vh; */
+    border-color: black;
+
+    display: grid;
+    grid-template-rows: [title] 10% [week] 30% [month] 30% [year] 30%;
 }
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#weekGoal {
+    grid-row-start: week;
+}
+
+#monthGoal {
+    grid-row-start: month;
+}
+
+#yearGoal {
+    grid-row-start: year;
+}
+
+/* Photo Album Block */
 
 #photo-album {
     grid-area: album;
@@ -78,10 +166,25 @@ body {
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    /* height: 38vh; */
+    border-color: black;
 }
 
-a:active {
-    text-decoration: none;
-    color: #585858;
+#addPhoto {
+    background-color: transparent;
+    border: none;
+    font-size: 2.75vh;
 }
+
+/*
+#myCanvas {
+    width: 100%;
+    height: 75%;
+}
+#left {
+    position: inherit;
+}
+#right {
+    position: inherit;
+}*/
+
+/* Misc */

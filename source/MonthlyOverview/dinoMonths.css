@@ -1,0 +1,213 @@
+body {
+    background-color: #ecc7c7;
+    display: grid;
+    justify-items: stretch;
+
+    grid-template-areas:
+        'head head home'
+        'goal week week'
+        'goal week week';
+}
+
+#goalsHeader,
+#weekHeader {
+    text-align: center;
+}
+
+#header {
+    grid-area: head;
+    display: grid;
+    justify-items: stretch;
+}
+
+#homeButton {
+    grid-area: home;
+    position: absolute;
+    right: 15vh;
+    top: 4vh;
+    width: 8vh;
+    height: 8vh;
+}
+
+#homeButton:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#name {
+    grid-area: goal;
+    display: grid;
+    justify-items: stretch;
+    grid-template-areas: 'goal empty week';
+    grid-template-columns: 40vw 1fr 40vw;
+}
+
+#goalSection {
+    grid-area: goal;
+    display: grid;
+    justify-items: center;
+
+    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
+}
+
+#goalSection + h2 {
+    grid-row-start: frontGoal;
+}
+
+#monthlyGoals {
+    grid-row-start: backGoal;
+    background-color: white;
+    margin-top: 2vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 67vh;
+}
+#goals {
+    position: absolute;
+    top: 23%;
+    left: 3%;
+    grid-area: goal;
+    margin: 5vw;
+    padding: 1vw;
+    height: 90vh;
+}
+#weekView {
+    grid-area: week;
+}
+
+/* week section */
+/*
+#weeks {
+    grid-area: week;
+    grid-template-areas:
+        'week'
+        'week'
+        'week'
+        'week';
+    margin-right: 5vw;
+    padding: 1vw;
+    /*border-style: solid;
+    border-width: 1mm;
+    height: 70vh;
+}
+#week1,
+#week2,
+#week3,
+#week4 {
+    grid-area: week;
+    background-image: url(../Images/GreenDinoMonth.svg);
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 10mm;
+    border-style: solid;
+    border-width: 1mm;
+    height: 10vh;
+}
+*/
+
+/** 
+* Calendar styling
+*/
+
+/* calendar wrapper */
+#left-bar {
+    padding: 0 4% 4% 4%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 30vw;
+    height: 55vh;
+    align-content: center;
+    flex-grow: 3;
+}
+
+#left-bar h1 {
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#calendar {
+    height: 20vw;
+    padding: 2vw 5vw 10vw 5vw;
+}
+
+/* Month header */
+.month_header {
+    padding: 2vw 25px;
+    background: #585858;
+    text-align: center;
+    border-radius: 2vw 2vw 0 0;
+}
+
+/* Month header's text */
+.month_label {
+    background-color: #585858;
+    color: white;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.7vw;
+    margin: auto;
+}
+
+/* Weekdays (Sun-Sat) */
+.weekdays_label {
+    margin: 0;
+    padding: 0.8vw 0 0 0;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weekday {
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+    font-size: 1.8vw;
+    background: none;
+}
+
+/* Days (1-31) */
+.days_field {
+    padding: 0 0.5vw 0.5vw 0.5vw;
+    background: #eee;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 2vw 2vw;
+}
+
+.day {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    font-size: 2vw;
+    color: black;
+    background: none;
+    padding: 0.8vw 0;
+}
+
+.blank_day {
+    background: none;
+}
+
+/* 
+    Highlight the "current" day 
+    We can change the color to be based on the theme color
+*/
+.today {
+    background: #a58b8b;
+    color: white !important;
+    border-radius: 0.5vw;
+}
+
+#cal-week-wrapper {
+    display: flex;
+    flex-direction: row;
+}
