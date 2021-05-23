@@ -50,7 +50,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 /**
  * Function that renders a list of bullets into the todo area
- * it also writes the new bullets into the mockBullets for now
  * @param {[Bullet]} a list of bullet objects
  */
 function renderBullets(bullets) {
@@ -65,12 +64,12 @@ function renderBullets(bullets) {
         }
         document.querySelector('#todo').appendChild(newPost);
     });
-    console.log('here are the new bullets: ', mockBullets);
 }
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
  * @param {Bullet} a bullet object
+ * @return {Bullet} new child created 
  */
 function renderChild(bullet) {
     let newChild = document.createElement('bullet-entry');

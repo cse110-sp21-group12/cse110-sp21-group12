@@ -1,15 +1,8 @@
-// <bullet-entry> custom web component
-class BulletEntry extends HTMLElement {
+// <goals-entry> custom web component
+class GoalsEntry extends HTMLElement {
     constructor() {
         super();
-
         const template = document.createElement('template');
-        /**
-         * TODO:
-         * - add some sort of "mark as done"
-         * - add a display area for dates?
-         * - add max depth for child bullet
-         */
 
         template.innerHTML = `
             <style>
@@ -58,7 +51,6 @@ class BulletEntry extends HTMLElement {
                         </ul>
                     <button id="edit">Edit</button>
                     <button id="delete">Delete</button>
-                    <button id="add">Add</button>
                     <div class="child"></div>
                 </div>
             </article>
@@ -74,12 +66,6 @@ class BulletEntry extends HTMLElement {
         });
         this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
             this.parentNode.removeChild(this);
-        });
-        this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            let newEntry = prompt("Add Bullet", '');
-            let newChild = document.createElement('bullet-entry');
-            newChild.shadowRoot.querySelector('.bullet-content').innerText = newEntry;
-            this.shadowRoot.querySelector('.child').appendChild(newChild);
         });
     }
 
@@ -112,15 +98,5 @@ class BulletEntry extends HTMLElement {
     }
 }
 
-customElements.define('bullet-entry', BulletEntry);
+customElements.define('goals-entry', GoalsEntry);
 
-/**
- * JSON Format:
- * {
- *    done: true/false,
- *    text: " ",
- *    indent: number (how many "tabs" or how nested is it")
- *    type: number (is it a star? circle?),
- *    time: (date object), for reminders only, could be null or somth
- * }
- */

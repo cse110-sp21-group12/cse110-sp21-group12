@@ -23,19 +23,15 @@
             <div id="monthlyView">
                 <h1 id="goalsHeader">Monthly Goals</h1>
                 <div id="goals">
-                    <textarea
-                        id="entry"
-                        name="entry"
-                        rows="1"
-                        cols="20"
-                        placeholder="Click to add goals..."
-                    ></textarea>
-
-                    <!--section id="entry" contenteditable="true">
-                        <ul>
-                            <li>Click to add goals...</li>
-                        </ul>
-                    </section-->
+                    <form class="entry-form">
+                        <input
+                            type="text"
+                            placeholder="New Goal"
+                            class="entry-form-text"
+                        />
+                        <input type="submit" value="Post" />
+                    </form>
+                    <button id="button">Load Bullets</button>
                 </div>
             </div>
             <div id="empty"></div>
@@ -50,4 +46,7 @@
             </div>
         </div>
     </body>
+
+    <script src="./goals.js" type="module"></script>
+    <script src="./script.js" type="module"></script>
 </html>
