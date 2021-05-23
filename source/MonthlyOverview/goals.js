@@ -59,14 +59,21 @@ class GoalsEntry extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
-            let editedEntry = prompt("Edit Bullet", this.shadowRoot.querySelector('.bullet-content').innerText);
-            if (editedEntry != null && editedEntry != "") {
-                this.shadowRoot.querySelector('.bullet-content').innerText = editedEntry;
+            let editedEntry = prompt(
+                'Edit Bullet',
+                this.shadowRoot.querySelector('.bullet-content').innerText
+            );
+            if (editedEntry != null && editedEntry != '') {
+                this.shadowRoot.querySelector(
+                    '.bullet-content'
+                ).innerText = editedEntry;
             }
         });
-        this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
-            this.parentNode.removeChild(this);
-        });
+        this.shadowRoot
+            .querySelector('#delete')
+            .addEventListener('click', () => {
+                this.parentNode.removeChild(this);
+            });
     }
 
     /**
@@ -99,4 +106,3 @@ class GoalsEntry extends HTMLElement {
 }
 
 customElements.define('goals-entry', GoalsEntry);
-
