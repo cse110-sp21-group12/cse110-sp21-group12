@@ -59,7 +59,7 @@ function handleSignup(new_username, new_password) {
 
 /**
  * Handles Login request. Checks if password hash is correct, and if so, goes to index
- * 
+ * (Password is "dinosaurs12")
  * @param {*} password : PIN to be verified
  */
 function handleLogin(password) {

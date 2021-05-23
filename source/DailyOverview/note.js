@@ -11,26 +11,21 @@ class noteBox extends HTMLElement {
                     font-size: 2vh;
                     color: black;
                 }
-                .note-content{
+                .noteContent{
                     overflow: auto;
-                }
-                #container{
-                    padding: 1vw;
-                    margin: 1vw;
-                    width: 33vw;
-                    height: 50vh;
+                    resize: none;
+                    width: 30vw;
+                    height: 70vh;
+                    border-style: none; 
                 }
                 .note{
-                    word-break: break-all;
-                    max-width: 10vw;
-                    max-height: 70vh;
+                    //word-break: break-all;
                 }
             </style>
-            <article class="note">
-                <div id="container">
-                    <p class="note-content" contenteditable="true">insert text</p>
-                </div>
-            </article>
+            <div id="note">
+                <textarea class="noteContent">insert text</textarea>
+            </div>
+
             `;
 
         this.attachShadow({ mode: 'open' });
@@ -42,15 +37,14 @@ class noteBox extends HTMLElement {
      */
     get entry() {
         let entryObj = {
-            content: this.shadowRoot.querySelector('.note-content').innerText,
+            content: this.shadowRoot.querySelector('.noteContent').innerText,
         };
         return entryObj;
     }
 
     set entry(entry) {
         // set the text of the entry
-        this.shadowRoot.querySelector('.note-content').innerText =
-            entry.content;
+        this.shadowRoot.querySelector('.noteContent').innerText = entry.content;
     }
 }
 
