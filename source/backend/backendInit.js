@@ -188,9 +188,8 @@ function editMockData() {
 
 /**
  * given a string date key, will return the correct date object
- * @param {String} date of form "mm/dd/yyyy"
- * eg: "02/12/2020"
- * @returns A request for a date
+ * @param {String} dateStr -  of form "mm/dd/yyyy" eg: "02/12/2020"
+ * @returns A request for a date, if no day with the given dateStr exists, returns undefined
  */
 // eslint-disable-next-line no-unused-vars
 function getDay(dateStr) {
@@ -203,7 +202,11 @@ function getDay(dateStr) {
 // Create Day
 /**
  * given a day object, will create an entry in the database
- * @param {custom Day object}
+ * @param {Object} dayObj - Custom day object
+ * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
+ * @param {Object} dayObj.bullets - an array of bullets
+ * @param {Object} dayObj.photos - an array of photo objects
+ * @param {string} dayObj.notes - a string representing the notes
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -222,8 +225,13 @@ function createDay(dayObj) {
 
 /**
  * takes a given day object and updates it
- * @param {custom Day object}
- * @returns a day request
+ * the date property must match an entry in the database
+ * @param {Object} Custom day object
+ * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
+ * @param {Object} dayObj.bullets - an array of bullets
+ * @param {Object} dayObj.photos - an array of photo objects
+ * @param {string} dayObj.notes - a string representing the notes
+ * @returns void
  */
 // eslint-disable-next-line no-unused-vars
 function updateDay(dayObj) {
@@ -241,7 +249,7 @@ function updateDay(dayObj) {
 
 /**
  * takes a given date string and deletes that entry from the database
- * @param {String} date string of the form "mm/dd/yyyy"
+ * @param {string} date string of the form "mm/dd/yyyy"
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -260,9 +268,8 @@ function deleteDay(dayStr) {
 
 /**
  * given a year string, gets the set of yearly goals in that year
- * @param {String} the year in the form "yyyy"
- * eg: "2021"
- * @returns A request for the year object
+ * @param {String} yearStr - the year in the form "yyyy" (eg: "2021")
+ * @returns A request for the year object, if none exist with the yearStr, returns undefined
  */
 // eslint-disable-next-line no-unused-vars
 function getYearlyGoals(yearStr) {
@@ -274,7 +281,9 @@ function getYearlyGoals(yearStr) {
 
 /**
  * given a yearlyGoals obj, creates a yearGoals object which contains the year, as well as a list of yearly goals
- * @param {custom year object} year
+ * @param {Object} yearObj - custom year object
+ * @param {string} yearObj.year - year in the form "xxxx" (eg: "2020")
+ * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -293,7 +302,10 @@ function createYearlyGoals(yearObj) {
 
 /**
  * updates a yearlyGoals already existing in the db
- * @param {custom year object} year
+ * the year property much match one already existing in the database
+ * @param {Object} yearObj - custom year object
+ * @param {string} yearObj.year - year in the form "xxxx" (eg: "2020")
+ * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -312,8 +324,8 @@ function updateYearsGoals(yearObj) {
 
 /**
  * Deletes the given Yearly Goals under the year string
- * @param {String} year string of the form 'xxxx'
- * eg: "2021"
+ * @param {String} yearStr - year string of the form 'xxxx' (eg: "2021")
+ * @returns void
  */
 // eslint-disable-next-line no-unused-vars
 function deleteYearlyGoals(yearStr) {
@@ -331,9 +343,8 @@ function deleteYearlyGoals(yearStr) {
 
 /**
  * gets a monthlyGoal object given the input month string
- * @param {String} month along with year in the form "xx/xxxx"
- * eg: "02/2022"
- * @returns a request for a monthlyGoals object
+ * @param {String} monthStr - month along with year in the form "xx/xxxx" (eg: "02/2022")
+ * @returns a request for a monthlyGoals object if none with the monthStr exist, returns undefined
  */
 // eslint-disable-next-line no-unused-vars
 function getMonthlyGoals(monthStr) {
@@ -345,7 +356,9 @@ function getMonthlyGoals(monthStr) {
 
 /**
  * creates a monthlyGoal object in the database given a monthlyGoal object
- * @param {custom monthlyGoals object} monthlyGoals
+ * @param {Object} monthObj
+ * @param {string} monthObj.year - month and year in the form "mm/yyyy" (eg: "12/2020")
+ * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -363,8 +376,11 @@ function createMonthlyGoals(monthObj) {
 }
 
 /**
- * updates a monthlyGoals object in the database
- * @param {custom monthlyGoals object} monthlyGoals
+ * updates a monthlyGoals object in the database  monthObj.month must
+ * match one existing in the database
+ * @param {Object} monthlyObj
+ * @param {string} monthObj.month - month and year in the form "mm/yyyy" (eg: "12/2020")
+ * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
 // eslint-disable-next-line no-unused-vars
@@ -383,8 +399,8 @@ function updateMonthlyGoals(monthObj) {
 
 /**
  * deletes monthly goal obejct associated with the given month string
- * @param {String} month string of the form "xx/xxxx"
- * eg: "02/2022"
+ * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
+ * @returns void
  */
 // eslint-disable-next-line no-unused-vars
 function deleteMonthlyGoals(monthStr) {
@@ -416,7 +432,11 @@ function getSettings() {
 
 /**
  * stores a setting object in the database
- * @param {custom settings object} setting
+ * @param {Object} setting
+ * @param {String} setting.username - name of the user (ie: "Miranda")
+ * @param {String} setting.password - password of the user (ie: "password")
+ * @param {Number} setting.theme - theme id of the user (ie: 0)
+ * @return void
  */
 // eslint-disable-next-line no-unused-vars
 function createSettings(setting) {
@@ -434,7 +454,11 @@ function createSettings(setting) {
 
 /**
  * updates the custom setting object with new info
- * @param {custom setting object}
+ * @param {Object} setting
+ * @param {String} setting.username - name of the user (ie: "Miranda")
+ * @param {String} setting.password - password of the user (ie: "password")
+ * @param {Number} setting.theme - theme id of the user (ie: 0)
+ * @returns void
  */
 // eslint-disable-next-line no-unused-vars
 function updateSettings(setting) {
@@ -452,6 +476,7 @@ function updateSettings(setting) {
 
 /**
  * deletes the setting object
+ * @returns void
  */
 // eslint-disable-next-line no-unused-vars
 function deleteSettings() {

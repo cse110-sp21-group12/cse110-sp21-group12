@@ -2,7 +2,6 @@
 import { mockGETPasswordHash } from "../backend/mockCRUD.js";
 import { mockPUTUser } from "../backend/mockCRUD.js";
 
-
 //store current page state
 var loginState = 'returning';
 
@@ -15,9 +14,9 @@ var password_field = document.getElementById('pin');
 //make the login button redirect to Index
 var login_button = document.getElementById('login-button');
 login_button.addEventListener('click', () => {
-    if(loginState == 'returning'){
+    if (loginState == 'returning') {
         handleLogin(password_field.value);
-    } else if (loginState == 'new'){
+    } else if (loginState == 'new') {
         handleSignup(username_field.value, password_field.value);
     }
 });
@@ -41,7 +40,6 @@ function toggleView() {
 
 /**
  * Handle a Sign-Up request from a new user
- * 
  * @param {*} new_username Display name of new user
  * @param {*} new_password PIN of new user
  */
@@ -54,7 +52,7 @@ function handleSignup(new_username, new_password) {
     mockPUTUser(userObject);
     //make them log in
     toggleView();
-    alert("Account created! Please log in");
+    alert('Account created! Please log in');
 }
 
 /**
