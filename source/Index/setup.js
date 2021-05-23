@@ -20,7 +20,6 @@ const months = [
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const day_OV_link = '../DailyOverview/DailyOverview.html';
-const week_OV_link = '../WeeklyOverview/WeeklyOverview.html';
 const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
 const year_OV_link = '../YearlyOverview/YearlyOverview.html';
 
@@ -163,19 +162,6 @@ function setupCalendar() {
         });
     }
     calTarget.append(days_field);
-
-    //now for the week links
-    let week_column = document.getElementById('week-links');
-    let num_weeks = (month_first_dow + endDay) / 7;
-    for (let i = 0; i < num_weeks; i++) {
-        let week_button = document.createElement('button');
-        week_button.classList.add('week-button');
-        week_button.onclick = function () {
-            window.location.href = week_OV_link;
-        };
-        week_button.innerText = num_weeks;
-        week_column.appendChild(week_button);
-    }
 }
 
 //call setup functions
