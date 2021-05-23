@@ -69,7 +69,7 @@ function renderBullets(bullets) {
 /**
  * Function that recursively renders the nested bullets of a given bullet
  * @param {Bullet} a bullet object
- * @return {Bullet} new child created 
+ * @return {Bullet} new child created
  */
 function renderChild(bullet) {
     let newChild = document.createElement('bullet-entry');
