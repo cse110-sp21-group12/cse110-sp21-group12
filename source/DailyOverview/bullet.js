@@ -67,18 +67,27 @@ class BulletEntry extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
-            let editedEntry = prompt("Edit Bullet", this.shadowRoot.querySelector('.bullet-content').innerText);
-            if (editedEntry != null && editedEntry != "") {
-                this.shadowRoot.querySelector('.bullet-content').innerText = editedEntry;
+            let editedEntry = prompt(
+                'Edit Bullet',
+                this.shadowRoot.querySelector('.bullet-content').innerText
+            );
+            if (editedEntry != null && editedEntry != '') {
+                this.shadowRoot.querySelector(
+                    '.bullet-content'
+                ).innerText = editedEntry;
             }
         });
-        this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
-            this.parentNode.removeChild(this);
-        });
+        this.shadowRoot
+            .querySelector('#delete')
+            .addEventListener('click', () => {
+                this.parentNode.removeChild(this);
+            });
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            let newEntry = prompt("Add Bullet", '');
+            let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
-            newChild.shadowRoot.querySelector('.bullet-content').innerText = newEntry;
+            newChild.shadowRoot.querySelector(
+                '.bullet-content'
+            ).innerText = newEntry;
             this.shadowRoot.querySelector('.child').appendChild(newChild);
         });
     }
