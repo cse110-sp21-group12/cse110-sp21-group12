@@ -189,6 +189,7 @@ function editMockData() {
 /**
  * given a string date key, will return the correct date object
  * @param {String} date of form "mm/dd/yyyy"
+ * eg: "02/12/2020"
  * @returns A request for a date
  */
 // eslint-disable-next-line no-unused-vars
