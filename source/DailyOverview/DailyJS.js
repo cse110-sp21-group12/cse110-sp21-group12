@@ -46,13 +46,14 @@ window.addEventListener('load', () => {
     };
 });
 
-document.getElementById('notes').addEventListener('click', () => {
-    var divs = document.getElementsByClassName('divs');
-    for (var i = 0; i < arrows.length; i++) {
-        if (this != arrows[i]) {
-            arrows[i].style.display = 'none';
-        }
-    }
+document.getElementById('notesb').addEventListener('click', () => {
+    // var divs = document.getElementsByClassName('divs');
+    // for (var i = 0; i < arrows.length; i++) {
+    //     if (this != arrows[i]) {
+    //         arrows[i].style.display = 'none';
+    //     }
+    // }
+    updateNote();
     updateDay(currentDay);
 });
 
@@ -128,10 +129,9 @@ function editBullet() {
 /**
  * Function that updates the notes
  */
-
 function updateNote() {
-    let currNote = document.querySelector(textarea['class=noteContent']);
-    console.log(currNote);
+    let currNote = document.querySelector("note-box").shadowRoot.querySelector(".noteContent").innerHTML;
+    currentDay.notes = currNote;
 }
 
 input.addEventListener('change', (event) => {
