@@ -1,34 +1,5 @@
-// mock data of list of bullets to render
-let mockBullets = [
-    { text: 'O, Wonder! ', symb: '•', done: true },
-    {
-        text: 'How many goodly creatures are there here! ',
-        symb: '•',
-    },
-    { text: 'How beateous mankind is! ', symb: '•' },
-    {
-        text: "O brave new world, That has such people in't!",
-        symb: '•',
-        childList: [
-            {
-                text: 'child test',
-                symb: '•',
-                childList: [
-                    {
-                        text: 'extra child test',
-                        symb: '•',
-                    },
-                ],
-            },
-            {
-                text: 'please work',
-                symb: '•',
-            },
-        ],
-    },
-];
-
 window.onload = () => {
+    // eslint-disable-next-line no-undef
     let req = getDay('05/20/2021');
     req.onsuccess = function (e) {
         console.log('got day');
