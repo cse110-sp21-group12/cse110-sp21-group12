@@ -51,6 +51,7 @@ class GoalsEntry extends HTMLElement {
                         </ul>
                     <button id="edit">Edit</button>
                     <button id="delete">Delete</button>
+                    <button id="done">Mark Done</button>
                     <div class="child"></div>
                 </div>
             </article>
@@ -74,6 +75,14 @@ class GoalsEntry extends HTMLElement {
             .addEventListener('click', () => {
                 this.parentNode.removeChild(this);
             });
+        this.shadowRoot.querySelector('#done').addEventListener('click', () => {
+            let goalBullet = this.shadowRoot.querySelector('.bullet-content');
+            if (goalBullet.style.textDecorationLine == 'none') {
+                goalBullet.style.textDecorationLine = 'line-through';
+            } else {
+                goalBullet.style.textDecorationLine = 'none';
+            }
+        });
     }
 
     /**
@@ -89,7 +98,6 @@ class GoalsEntry extends HTMLElement {
     set entry(entry) {
         // set the text of the entry
         this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
-
         // see if it's marked as done
         if (entry.done === true) {
             this.shadowRoot.querySelector(

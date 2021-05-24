@@ -1,21 +1,8 @@
 // mock data of list of goals to render
-let mockGoals = [
-    { text: 'O, Wonder! ', symb: '•', done: true },
-    {
-        text: 'How many goodly creatures are there here! ',
-        symb: '•',
-    },
-    { text: 'How beateous mankind is! ', symb: '•' },
-    {
-        text: "O brave new world, That has such people in't!",
-        symb: '•',
-    },
-];
 
-document.getElementById('button').addEventListener('click', () => {
-    //on click, render each element and append to the goals section
-    renderGoals(mockGoals);
-});
+let goalsObj;
+
+window.onload = displayGoals();
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
@@ -36,3 +23,31 @@ function renderGoals(goals) {
         document.querySelector('#goals').appendChild(newPost);
     });
 }
+
+function displayGoals() {
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        let goals = getYearlyGoals('2020');
+        goals.onsuccess = function (e) {
+            goalsObj = e.target.result.goals;
+            goalsObj.forEach((goal) => {
+                console.log(goal);
+                renderGoal(goal);
+            });
+        };
+    };
+}
+
+/**
+ * takes a goal and renders it onto the screen
+ * @param {Object} goal - a goal object
+ */
+function renderGoal(goal) {
+    let newGoal = document.createElement('goals-entry');
+    newGoal.entry = goal;
+    document.querySelector('#goals').appendChild(newGoal);
+}
+
+/**kk */

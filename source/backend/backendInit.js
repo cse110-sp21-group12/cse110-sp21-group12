@@ -17,67 +17,72 @@ let db;
  */
 // eslint-disable-next-line no-unused-vars
 //function dbInit() {
-if (!('indexedDB' in window)) {
-    console.log("This browser doesn't support IndexedDB");
+
+function initDB(){
+    if (!('indexedDB' in window)) {
+        console.log("This browser doesn't support IndexedDB");
+    }
+    // not sure if we need to use dbPromise here
+    // eslint-disable-next-line no-unused-vars
+    let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
+    // TBH idk why google calls this "upgradeDb", perhaps they refernce this creations as "upgrading"
+    dbPromise.onupgradeneeded = function (e) {
+        db = e.target.result;
+        if (!db.objectStoreNames.contains('days')) {
+            /**
+                     * creating a object store for days, these will be differentiaed by a date string
+                     * (eg: '05-20-2021')
+                     * Here is a sample of what a 'days' could look like:
+                     {
+                         date: "xx-xx-xxxx",
+                            bullets: [bullet1,...],
+                            photos: [photo1,...]
+                        }
+                    */
+            db.createObjectStore('days', { keyPath: 'date' });
+        }
+        if (!db.objectStoreNames.contains('yearlyGoals')) {
+            /**
+                     * creating a yearly store for yearly goals, since we won't ever need to be getting
+                     * a specific goal (but rather goals within a certain year), we can use an auto-increment key
+                     {
+                            year: xxxx
+                            goals: [yGoal1, yGoal2,..]
+                        }
+                        ^^^ should we store each goal seoerately, or as a list?
+                    */
+            db.createObjectStore('yearlyGoals', { keyPath: 'year' });
+        }
+        if (!db.objectStoreNames.contains('monthlyGoals')) {
+            /**
+                     * creating a montly store for monthly goals, since we won't ever need to be getting
+                     * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
+                     {
+                            month: xx/xxxx (month and year)
+                            goals: [mGoal1, mGoal2,..]
+                        }
+                        ^^^ should we store each goal seoerately, or as a list?
+                    */
+            db.createObjectStore('monthlyGoals', { keyPath: 'month' });
+        }
+        if (!db.objectStoreNames.contains('setting')) {
+            /**
+                     * creating a store to place the settings object
+                     * This one is tricky, since the story would only have a
+                     * max of 1 object (one per use). 
+                     * We can always retrieve it with a key=1, but we have to make sure
+                     * we only create this once
+                     * -there doesn't seem to be a need to create additional indices
+                     { theme: 1, passowrd: ..., name: ...  }
+                    */
+            db.createObjectStore('setting', { autoIncrement: true });
+        }
+        //populate mock data
+        setUpMockData();
+    };
+    return dbPromise;
 }
-// not sure if we need to use dbPromise here
-// eslint-disable-next-line no-unused-vars
-let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
-// TBH idk why google calls this "upgradeDb", perhaps they refernce this creations as "upgrading"
-dbPromise.onupgradeneeded = function (e) {
-    var db = e.target.result;
-    if (!db.objectStoreNames.contains('days')) {
-        /**
-                 * creating a object store for days, these will be differentiaed by a date string
-                 * (eg: '05-20-2021')
-                 * Here is a sample of what a 'days' could look like:
-                 {
-                     date: "xx-xx-xxxx",
-                        bullets: [bullet1,...],
-                        photos: [photo1,...]
-                    }
-                */
-        db.createObjectStore('days', { keyPath: 'date' });
-    }
-    if (!db.objectStoreNames.contains('yearlyGoals')) {
-        /**
-                 * creating a yearly store for yearly goals, since we won't ever need to be getting
-                 * a specific goal (but rather goals within a certain year), we can use an auto-increment key
-                 {
-                        year: xxxx
-                        goals: [yGoal1, yGoal2,..]
-                    }
-                    ^^^ should we store each goal seoerately, or as a list?
-                */
-        db.createObjectStore('yearlyGoals', { keyPath: 'year' });
-    }
-    if (!db.objectStoreNames.contains('monthlyGoals')) {
-        /**
-                 * creating a montly store for monthly goals, since we won't ever need to be getting
-                 * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
-                 {
-                        month: xx/xxxx (month and year)
-                        goals: [mGoal1, mGoal2,..]
-                    }
-                    ^^^ should we store each goal seoerately, or as a list?
-                */
-        db.createObjectStore('monthlyGoals', { keyPath: 'month' });
-    }
-    if (!db.objectStoreNames.contains('setting')) {
-        /**
-                 * creating a store to place the settings object
-                 * This one is tricky, since the story would only have a
-                 * max of 1 object (one per use). 
-                 * We can always retrieve it with a key=1, but we have to make sure
-                 * we only create this once
-                 * -there doesn't seem to be a need to create additional indices
-                 { theme: 1, passowrd: ..., name: ...  }
-                */
-        db.createObjectStore('setting', { autoIncrement: true });
-    }
-    //populate mock data
-    setUpMockData();
-};
+/*
 dbPromise.onsuccess = function (e) {
     console.log('database connected');
     db = e.target.result;
@@ -86,6 +91,13 @@ dbPromise.onerror = function (e) {
     console.log('onerror!');
     console.dir(e);
 };
+*/
+
+// eslint-disable-next-line no-unused-vars
+function setDB(dbReturn) {
+    db = dbReturn;
+}
+
 //}
 
 /**

@@ -70,17 +70,20 @@
             {
                 "text": "Train for and run a marathon!",
                 "start": "05/01/2021",
-                "end": "05/31/2021"
+                "end": "05/31/2021",
+                "done": true
             },
             {
                 "text": "Lose 10 pounds by end of the month",
                 "start": "05/10/2021",
-                "end": "05/31/2021"
+                "end": "05/31/2021",
+                "done": false
             },
             {
                 "text": "Finish reading a book",
                 "start": "05/03/2021",
-                "end": "05/15/2021"
+                "end": "05/15/2021",
+                "done": true
             }
         ]
     },
@@ -91,17 +94,20 @@
             {
                 "text": "Learn how to speak fluent Spanish",
                 "start": "01/01/2021",
-                "end": "01/01/2022"
+                "end": "01/01/2022",
+                "done": true
             },
             {
                 "text": "Lower phone usage time",
                 "start": "01/01/2021",
-                "end": "01/01/2022"
+                "end": "01/01/2022",
+                "done": false
             },
             {
                 "text": "Write a novel from scratch",
                 "start": "01/01/2021",
-                "end": "01/01/2022"
+                "end": "01/01/2022",
+                "done": false
             }
         ]
     },
