@@ -36,7 +36,7 @@ window.onload = () => {
         let bullets = e.target.result.bullets;
         renderBullets(bullets);
     };
-}
+};
 
 // document.getElementById('button').addEventListener('click', () => {
 //     //on click, render reach element and append to the todo section, used to test rendering of bullets
