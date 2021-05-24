@@ -130,7 +130,9 @@ function editBullet() {
  * Function that updates the notes
  */
 function updateNote() {
-    let currNote = document.querySelector("note-box").shadowRoot.querySelector(".noteContent").innerHTML;
+    let currNote = document
+        .querySelector('note-box')
+        .shadowRoot.querySelector('.noteContent').innerHTML;
     currentDay.notes = currNote;
 }
 
