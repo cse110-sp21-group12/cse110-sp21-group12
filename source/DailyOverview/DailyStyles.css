@@ -118,12 +118,6 @@ h2 {
     /* max-width: 30vw; */
 }
 
-#noteButton {
-    background-color: transparent;
-    border: none;
-    font-size: 3vh;
-}
-
 /* Goal Reminder Block */
 
 #goalReminder {

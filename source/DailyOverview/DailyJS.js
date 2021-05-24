@@ -1,30 +1,132 @@
-var img = new Image(); // used to load image from <input> and draw to canvas
-var input = document.getElementById('image-input');
+let img = new Image(); // used to load image from <input> and draw to canvas
+let input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
-var relative = 0;
+let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
 
-let x = {
-    content:
-        'The demo then changes the flex-basis on the first item. It will then grow and shrink from that flex-basis. This means that, for example, when the flex-basis of the first item is 200px, it will start out at 200px but then shrink to fit the space available with the other items being at least min-content sized.',
-};
+// store current day data to update when user leaves page
+let currentDay;
+//  = {
+//     date: "05/20/2021", 
+//     bullets: [
+//         {
+//             text: "O, Wonder!", 
+//             symb: "•", 
+//             done: true, 
+//             childList: [], 
+//             time: null
+//         }
+//     ], 
+//     photos: [], 
+//     notes: "Here is some notes sample test this is a note possibly here could be another"
+// }
 
 window.addEventListener('load', () => {
-    let newNote = document.createElement('note-box');
-    newNote.entry = x;
+    // getting backend sample day
+    let req = getDay('05/20/2021');
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        currentDay = e.target.result;
 
-    document.querySelector('#notes').appendChild(newNote);
+        //Load in bullets
+        let bullets = currentDay.bullets;
+        renderBullets(bullets);
+
+        // Load in notes
+        let newNote = document.createElement('note-box');
+        newNote.entry = currentDay.notes;
+        document.querySelector('#notes').appendChild(newNote);
+    };
 });
 
-document.getElementById('noteButton').addEventListener('click', () => {
-    console.log('save changes');
+document.getElementById('notes').addEventListener('click', () => {
+    var divs = document.getElementsByClassName("divs");
+    for(var i = 0; i < arrows.length; i++){
+        if(this != arrows[i]){
+            arrows[i].style.display = "none";
+        }
+    }
+    updateDay(currentDay);
 });
+
+document.querySelector('.entry-form').addEventListener('submit', (submit) => {
+    submit.preventDefault();
+    let bText = document.querySelector('.entry-form-text').value;
+    let bullet = { text: bText, symb: '•' };
+    document.querySelector('.entry-form-text').value = '';
+    renderBullets([bullet]);
+    currentDay.bullets.push({text: bText, symb: "•", done: false, childList: [], time: null})
+    updateDay(currentDay);
+});
+
+// function createBullet(text, indentNum, )
+
+/**
+ * Function that renders a list of bullets into the todo area
+ * Update currentDay json with updated bullets
+ * @param {[Bullet]} a list of bullet objects
+ */
+function renderBullets(bullets) {
+    bullets.forEach((bullet) => {
+        let newPost = document.createElement('bullet-entry');
+        newPost.setAttribute("bulletJson", JSON.stringify(bullet));
+        newPost.setAttribute("editFunc", editBullet.bind(newPost));
+        newPost.entry = bullet;
+        if (bullet.childList) {
+            bullet.childList.forEach((child) => {
+                let newChild = renderChild(child);
+                newPost.child = newChild;
+            });
+        }
+        document.querySelector('#todo').appendChild(newPost);
+    });
+}
+
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Bullet} a bullet object
+ * @return {Bullet} new child created
+ */
+function renderChild(bullet) {
+    let newChild = document.createElement('bullet-entry');
+    newChild.entry = bullet;
+    if (bullet.childList) {
+        bullet.childList.forEach((child) => {
+            let newNewChild = renderChild(child);
+            newChild.child = newNewChild;
+        });
+    }
+    return newChild;
+}
+
+function editBullet() {
+    console.log('in here')
+    let editedEntry = prompt(
+        'Edit Bullet',
+        this.shadowRoot.querySelector('.bullet-content').innerText
+    );
+    if (editedEntry != null && editedEntry != '') {
+        this.shadowRoot.querySelector(
+            '.bullet-content'
+        ).innerText = editedEntry;
+    }
+}
+
+/** 
+ * Function that updates the notes
+ */
+
+function updateNote() {
+    let currNote = document.querySelector(textarea["class=noteContent"]);
+    console.log(currNote);
+}
 
 input.addEventListener('change', (event) => {
     img[relative] = new Image();
@@ -40,7 +142,7 @@ add.addEventListener('click', () => {
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
-    var imgDimension = getDimensions(
+    let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
         img[relative].width,
@@ -58,7 +160,7 @@ left.addEventListener('click', () => {
     relative -= 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (img[relative]) {
-        var imgDimension = getDimensions(
+        let imgDimension = getDimensions(
             canvas.width,
             canvas.height,
             img[relative].width,
@@ -77,7 +179,7 @@ right.addEventListener('click', () => {
     relative += 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (img[relative]) {
-        var imgDimension = getDimensions(
+        let imgDimension = getDimensions(
             canvas.width,
             canvas.height,
             img[relative].width,
