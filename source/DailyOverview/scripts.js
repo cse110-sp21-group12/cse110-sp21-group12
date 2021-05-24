@@ -1,4 +1,19 @@
+//get the desired day
+let myLocation = window.location.href;
+let currentDay = myLocation.substring(
+    myLocation.length - 10,
+    myLocation.length
+);
+//default case
+if (currentDay == 'rview.html') {
+    currentDay = '05/23/2021';
+}
+console.log(currentDay);
+
+document.getElementById('date').innerText = 'Today is ' + currentDay;
+
 // mock data of list of bullets to render
+// eslint-disable-next-line no-unused-vars
 let mockBullets = [
     { text: 'O, Wonder! ', symb: '•', done: true },
     {
@@ -29,12 +44,15 @@ let mockBullets = [
 ];
 
 window.onload = () => {
-    let req = getDay('05/20/2021');
+    // eslint-disable-next-line no-undef
+    let req = getDay(currentDay);
     req.onsuccess = function (e) {
         console.log('got day');
         console.log(e.target.result);
-        let bullets = e.target.result.bullets;
-        renderBullets(bullets);
+        if (e.target.result != undefined) {
+            let bullets = e.target.result.bullets;
+            renderBullets(bullets);
+        }
     };
 };
 
@@ -87,3 +105,7 @@ function renderChild(bullet) {
     }
     return newChild;
 }
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);

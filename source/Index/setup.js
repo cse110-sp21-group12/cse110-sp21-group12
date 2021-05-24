@@ -60,7 +60,7 @@ function setupContent() {
         yearlink.classList.add('yearlink');
         yearlink.id = yr + '_link';
         //yearlink.href = '/year/' + yr + '.html';
-        yearlink.href = year_OV_link;
+        yearlink.href = year_OV_link + '#' + yr;
         yearlink.innerText = yr + ' Yearly Overview';
         //add parts to button group
         year_nav.appendChild(coll_button);
@@ -80,7 +80,7 @@ function setupContent() {
             month_link.class = 'monthlink ' + month_name_lc;
             month_link.id = yr + '_' + month_name_lc;
             //month_link.href = 'months/' + yr + '/' + month_name_lc + '.html';
-            month_link.href = month_OV_link;
+            month_link.href = month_OV_link + '#' + monthNumber(m) + '/' + yr;
             month_link.innerText = months[m];
             //add this month to list of months
             months_div.appendChild(month_link);
@@ -92,6 +92,23 @@ function setupContent() {
 
         //add this year to list of years
         target_section.appendChild(year_wrapper);
+
+        var today = new Date();
+        var currDay = today.getDate();
+        var currMonth = today.getMonth();
+        var currYear = today.getFullYear();
+
+        let todayButton = document.getElementById('today-button');
+        todayButton.addEventListener('click', () => {
+            window.location.href =
+                day_OV_link +
+                '#' +
+                monthNumber(currMonth) +
+                '/' +
+                dayNumber(currDay) +
+                '/' +
+                currYear;
+        });        
     }
 }
 
@@ -101,11 +118,12 @@ function setupCalendar() {
 
     //get today code stolen from stackoverflow
     var today = new Date();
+    console.log(today);
     var curr_day_number = today.getDate();
-    var curr_month_number = today.getMonth();
-    var curr_year_number = today.getFullYear();
+    var currMonthNumber = today.getMonth();
+    var currYearNumber = today.getFullYear();
 
-    var month_first_dow = firstDow(curr_month_number, curr_year_number);
+    var monthFirstDow = firstDow(currMonthNumber, currYearNumber);
 
     //month title on top
     //wrapper
@@ -114,7 +132,7 @@ function setupCalendar() {
     //text
     let month_label = document.createElement('p');
     month_label.classList.add('month_label');
-    month_label.innerText = months[curr_month_number];
+    month_label.innerText = months[currMonthNumber];
     month_header.appendChild(month_label);
     calTarget.appendChild(month_header);
 
@@ -132,10 +150,11 @@ function setupCalendar() {
     //all the little days
     let days_field = document.createElement('ul');
     days_field.classList.add('days_field');
-    let endDay = daysInMonth(curr_month_number, curr_year_number);
+    let endDay = daysInMonth(currMonthNumber, currYearNumber);
+    console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
-    for (let i = 0; i < month_first_dow; i++) {
+    for (let i = 0; i < monthFirstDow; i++) {
         let blank_day = document.createElement('li');
         blank_day.classList.add('day');
         blank_day.classList.add('blank_day');
@@ -158,9 +177,28 @@ function setupCalendar() {
 
         //link to daily overview
         day.addEventListener('click', () => {
-            window.location.href = day_OV_link;
+            window.location.href =
+                day_OV_link +
+                '#' +
+                monthNumber(currMonthNumber) +
+                '/' +
+                //convert day number into a string
+                dayNumber(i) +
+                '/' +
+                currYearNumber;
         });
     }
+
+    //pad with more fake days at the end
+    let monthLastDow = lastDow(currMonthNumber, currYearNumber);
+    for (let i = monthLastDow; i < 7; i++) {
+        let blank_day = document.createElement('li');
+        blank_day.classList.add('day');
+        blank_day.classList.add('blank_day');
+        blank_day.innerText = '';
+        days_field.appendChild(blank_day);
+    }
+
     calTarget.append(days_field);
 }
 
@@ -175,12 +213,53 @@ function sleep(ms) {
 
 //days-in-month helper function
 function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
+    return new Date(year, month + 1, 0).getDate();
 }
 
-//first day-of-the-week (Sunday 0, Saturday 6) helper function
+/**
+ * first day-of-the-week (Sunday 0, Saturday 6) helper function
+ * @param {*} month
+ * @param {*} year
+ * @returns the day of the week of the first day in this month (Sunday 0, Saturday 6)
+ */
 function firstDow(month, year) {
     return new Date(year, month, 1).getDay();
+}
+
+/**
+ * last day-of-the-week (Sunday 0, Saturday 6) helper function
+ * @param {*} month
+ * @param {*} year
+ * @returns the day of the week of the last day in this month (Sunday 0, Saturday 6)
+ */
+function lastDow(month, year) {
+    return new Date(year, month + 1, 1).getDay() - 1;
+}
+
+/**
+ * Formats the month number
+ * @param {*} month zero-indexed month integer, like 1 for February
+ * @returns a month number string like "02" for February
+ */
+function monthNumber(month) {
+    if (month > 8) {
+        return '' + (month + 1);
+    } else {
+        return '0' + (month + 1);
+    }
+}
+
+/**
+ * Formats the day number
+ * @param {*} day one-indexed day integer
+ * @returns a day number string like "22" for 22nd day of month
+ */
+function dayNumber(day) {
+    if (day > 9) {
+        return '' + day;
+    } else {
+        return '0' + day;
+    }
 }
 
 sleep(100);
