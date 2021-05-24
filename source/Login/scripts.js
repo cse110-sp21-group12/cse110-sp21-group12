@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-//import database CRUDs
-import { mockGETPasswordHash } from "../backend/mockCRUD.js";
-import { mockPUTUser } from "../backend/mockCRUD.js";
-=======
 //setup hasher
 //var sha1 = require('sha1');
->>>>>>> dataBase-I41
 
 //store current page state
 var loginState = 'returning';
@@ -17,21 +11,12 @@ var usernameField = document.getElementById('username');
 var passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
-<<<<<<< HEAD
-var login_button = document.getElementById('login-button');
-login_button.addEventListener('click', () => {
-    if (loginState == 'returning') {
-        handleLogin(password_field.value);
-    } else if (loginState == 'new') {
-        handleSignup(username_field.value, password_field.value);
-=======
 var loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
     if (loginState == 'returning') {
         handleLogin(passwordField.value);
     } else if (loginState == 'new') {
         handleSignup(usernameField.value, passwordField.value);
->>>>>>> dataBase-I41
     }
 });
 
