@@ -64,7 +64,15 @@ body {
     border-width: 1mm;
     height: 67vh;
 }
-
+#goals {
+    position: absolute;
+    top: 23%;
+    left: 3%;
+    grid-area: goal;
+    margin: 5vw;
+    padding: 1vw;
+    height: 90vh;
+}
 #weekView {
     grid-area: week;
 }

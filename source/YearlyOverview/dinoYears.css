@@ -63,6 +63,16 @@ body {
     height: 67vh;
 }
 
+#goals {
+    position: absolute;
+    top: 17%;
+    left: 5%;
+    grid-area: goal;
+    margin: 5vw;
+    padding: 1vw;
+    height: 90vh;
+}
+
 #months {
     grid-area: month;
     margin-right: 5vw;

@@ -1,29 +1,43 @@
+<<<<<<< HEAD
 //import database CRUDs
 import { mockGETPasswordHash } from "../backend/mockCRUD.js";
 import { mockPUTUser } from "../backend/mockCRUD.js";
+=======
+//setup hasher
+//var sha1 = require('sha1');
+>>>>>>> dataBase-I41
 
 //store current page state
 var loginState = 'returning';
 
 //username box
-var username_field = document.getElementById('username');
+var usernameField = document.getElementById('username');
 
 //password box
-var password_field = document.getElementById('pin');
+var passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
+<<<<<<< HEAD
 var login_button = document.getElementById('login-button');
 login_button.addEventListener('click', () => {
     if (loginState == 'returning') {
         handleLogin(password_field.value);
     } else if (loginState == 'new') {
         handleSignup(username_field.value, password_field.value);
+=======
+var loginButton = document.getElementById('login-button');
+loginButton.addEventListener('click', () => {
+    if (loginState == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (loginState == 'new') {
+        handleSignup(usernameField.value, passwordField.value);
+>>>>>>> dataBase-I41
     }
 });
 
 //make the toggle button change the page state
-var switch_button = document.getElementById('switch-screen');
-switch_button.addEventListener('click', toggleView);
+var switchButton = document.getElementById('switch-screen');
+switchButton.addEventListener('click', toggleView);
 
 /**
  * Handle toggling the state of the page, calls the setNewUser() and setReturningUser() helper functions
@@ -40,16 +54,20 @@ function toggleView() {
 
 /**
  * Handle a Sign-Up request from a new user
- * @param {*} new_username Display name of new user
- * @param {*} new_password PIN of new user
+ *
+ * @param {*} newUsername Display name of new user
+ * @param {*} newPassword PIN of new user
  */
-function handleSignup(new_username, new_password) {
+function handleSignup(newUsername, newPassword) {
     let userObject = {
-        username: new_username,
-        password: new_password,
+        username: newUsername,
+        password: mockHash(newPassword),
         theme: 1,
-    }
-    mockPUTUser(userObject);
+    };
+    //update settings
+    // eslint-disable-next-line no-undef
+    updateSettings(userObject);
+    console.log('frontend: updating settings...');
     //make them log in
     toggleView();
     alert('Account created! Please log in');
@@ -58,16 +76,29 @@ function handleSignup(new_username, new_password) {
 /**
  * Handles Login request. Checks if password hash is correct, and if so, goes to index
  * (Password is "dinosaurs12")
+ * Begins to handle the Login request. Checks sends the password hash to be verified.
+ *
  * @param {*} password : PIN to be verified
  */
 function handleLogin(password) {
     let hash = mockHash(password);
-    let response = mockCheckHash(hash);
-    if (response == true) {
-        goHome();
-    } else {
-        alert('Incorrect password!');
-    }
+    console.log('Getting settings...');
+    // eslint-disable-next-line no-undef
+    let getSettingsRequest = getSettings();
+    getSettingsRequest.onsuccess = (e) => {
+        console.log(e.target.result);
+        let correctPassword = e.target.result.password;
+        console.log(
+            'Input: ' + hash + ' | Correct password: ' + correctPassword
+        );
+        let retval = hash == correctPassword;
+        console.log('Correct? ' + retval);
+        if (retval == true) {
+            goHome();
+        } else {
+            alert('Incorrect password!');
+        }
+    };
 }
 
 /**
@@ -84,8 +115,8 @@ function goHome() {
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
-    switch_button.innerText = 'Returning user?';
-    login_button.innerText = 'Sign-Up';
+    switchButton.innerText = 'Returning user?';
+    loginButton.innerText = 'Sign-Up';
 }
 
 /**
@@ -95,32 +126,22 @@ function setNewUser() {
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
-    switch_button.innerText = 'New user?';
-    login_button.innerText = 'Sign-In';
+    switchButton.innerText = 'New user?';
+    loginButton.innerText = 'Sign-In';
 }
 
 /**
- * Mock function for pretending to hash things (implement later, I don't know cryptography)
- * 
+ * Mock function for pretending to hash things
+ *
  * @param {*} input Plaintext password to be hashed
  * @returns an encrypted hash representation of the password
  */
 function mockHash(input) {
-    console.log(input);
+    //console.log(input);
     let retval = 0;
     for (let i = 0; i < input.length; i++) {
         retval += input.charCodeAt(i);
     }
-    console.log(retval);
+    //console.log(retval);
     return retval;
 }
-
-/**
- * Mock function for verifying a password hash (uses database GET)
- *
- * @param {*} hash : "encrypted" password to check
- * @returns true if hash matches, false otherwise
- */
-function mockCheckHash( hash) {
-    return hash == mockGETPasswordHash();
-} 

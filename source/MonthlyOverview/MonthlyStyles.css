@@ -39,6 +39,9 @@ img:hover {
     grid-template-columns: 40vw 1fr 40vw;
 }
 #goals {
+    position: absolute;
+    top: 5%;
+    left: 5%;
     grid-area: goal;
     background-image: url(../Images/FallBorder.svg);
     background-size: fit-content;
