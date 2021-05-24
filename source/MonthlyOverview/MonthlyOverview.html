@@ -1,51 +1,66 @@
 <!DOCTYPE html>
 <html lang="”en”">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="DinoMonths.css" />
+        <title>Monthly Overview</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="DinoMonths.css" />
-    <title>Monthly Overview</title>
-</head>
-
-<body>
-    <div id="header">
-        <h1 id="year">
-            <h1 id="index"><a href="/source/YearlyOverview/YearlyOverview.html" style="text-decoration: none; position: absolute; top: 35px">  < Year </a> </h1>
-        </h1>
-           <a href=" /source/Index/index.html"><img src="/source/YearlyOverview/Images/home.png" alt="home" width="40"
-                    height="40" id="homeButton" /></a>
-    </div>
-
-    <div id="name">
-        <div id="goalSection">
-            <h1 id="goalsHeader">Monthly Goals</h1>
-            <img src="../Images/GreenDinoBorder.svg" id="monthlyGoals" />
-            <div id="goals">
-                <form class="entry-form">
-                    <input
-                        type="text"
-                        placeholder="New Goal"
-                        class="entry-form-text"
-                    />
-                    <input type="submit" value="Post" />
-                </form>
-                <button id="button">Load Bullets</button>
-            </div>
+    <body>
+        <div id="header">
+            <h1 id="year">
+                <h1 id="index">
+                    <a
+                        href="/source/YearlyOverview/YearlyOverview.html"
+                        style="
+                            text-decoration: none;
+                            position: absolute;
+                            top: 35px;
+                        "
+                    >
+                        < Year
+                    </a>
+                </h1>
+            </h1>
+            <a href=" /source/Index/index.html"
+                ><img
+                    src="/source/YearlyOverview/Images/home.png"
+                    alt="home"
+                    width="40"
+                    height="40"
+                    id="homeButton"
+            /></a>
         </div>
-        <div id="empty"></div>
-        <div id="weekView">
-            <h1 id="weekHeader">Calendar</h1>
-            <section id="calendar"></section>
-            <!-- <div id="weeks">
+
+        <div id="name">
+            <div id="goalSection">
+                <h1 id="goalsHeader">Monthly Goals</h1>
+                <img src="../Images/GreenDinoBorder.svg" id="monthlyGoals" />
+                <div id="goals">
+                    <form class="entry-form">
+                        <input
+                            type="text"
+                            placeholder="New Goal"
+                            class="entry-form-text"
+                        />
+                        <input type="submit" value="Post" />
+                    </form>
+                    <button id="button">Load Bullets</button>
+                </div>
+            </div>
+            <div id="empty"></div>
+            <div id="weekView">
+                <h1 id="weekHeader">Calendar</h1>
+                <section id="calendar"></section>
+                <!-- <div id="weeks">
                 <h2 id="week1"><a href="../WeeklyOverview/WeeklyOverview.html"> Week 1 </a></h2>
                 <h2 id="week2"><a href=""> Week 2 </a></h2>
                 <h2 id="week3"><a href=""> Week 3 </a></h2>
                 <h2 id="week4"><a href=""> Week 4 </a></h2>
             </div> -->
+            </div>
         </div>
-    </div>
-    <script src="./goals.js" type="module"></script>
-    <script src="./script.js" type="module"></script>
-</body>
-
+        <script src="./goals.js" type="module"></script>
+        <script src="./script.js" type="module"></script>
+    </body>
 </html>
