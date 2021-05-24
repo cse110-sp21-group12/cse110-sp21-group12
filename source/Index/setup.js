@@ -108,7 +108,7 @@ function setupContent() {
                 dayNumber(currDay) +
                 '/' +
                 currYear;
-        });        
+        });
     }
 }
 
