@@ -27,7 +27,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 /**
  * Function that renders a list of goals into the todo area
- * @param {[Goal]} a list of goal objects
+ * @param {Object} a list of goal objects
  */
 function renderGoals(goals) {
     goals.forEach((goal) => {

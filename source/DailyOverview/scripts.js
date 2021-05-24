@@ -26,7 +26,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 /**
  * Function that renders a list of bullets into the todo area
- * @param {[Bullet]} a list of bullet objects
+ * @param {Object} a list of bullet objects
  */
 function renderBullets(bullets) {
     bullets.forEach((bullet) => {
@@ -44,8 +44,8 @@ function renderBullets(bullets) {
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Bullet} a bullet object
- * @return {Bullet} new child created
+ * @param {Object} a bullet object
+ * @return {Object} new child created
  */
 function renderChild(bullet) {
     let newChild = document.createElement('bullet-entry');
