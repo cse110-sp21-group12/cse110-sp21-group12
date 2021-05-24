@@ -5,6 +5,9 @@ window.onload = () => {
         console.log('got day');
         console.log(e.target.result);
         let bullets = e.target.result.bullets;
+        let photos = e.target.result.photos;
+        renderPhotos(photos);
+
         renderBullets(bullets);
     };
 };
@@ -57,4 +60,16 @@ function renderChild(bullet) {
         });
     }
     return newChild;
+}
+
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} a bullet object
+ * @return {Object} new child created
+ */
+function renderPhotos(photos) {
+    for (let i = 0; i < photos.length; i++) {
+        window.img[i] = new Image();
+        window.img[i].src = photos[i];
+    }
 }
