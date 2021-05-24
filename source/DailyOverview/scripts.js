@@ -1,4 +1,3 @@
-
 //get the desired day
 let myLocation = window.location.href;
 let currentDay = myLocation.substring(
@@ -13,7 +12,6 @@ console.log(currentDay);
 
 document.getElementById('date').innerText = 'Today is ' + currentDay;
 
-
 window.onload = () => {
     // eslint-disable-next-line no-undef
     let req = getDay(currentDay);
@@ -24,6 +22,9 @@ window.onload = () => {
             let bullets = e.target.result.bullets;
             renderBullets(bullets);
         }
+    };
+};
+
 /* Here is another version of what to do when the window loads, TODO, merge these into one
 window.onload = () => {
     // eslint-disable-next-line no-undef
@@ -90,7 +91,6 @@ function renderChild(bullet) {
     return newChild;
 }
 
-
 //set back button
 document.getElementById('monthView').children[0].href +=
     '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
@@ -100,10 +100,10 @@ document.getElementById('monthView').children[0].href +=
  * @param {Object} a bullet object
  * @return {Object} new child created
  */
+// eslint-disable-next-line no-unused-vars
 function renderPhotos(photos) {
     for (let i = 0; i < photos.length; i++) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
     }
 }
-
