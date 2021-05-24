@@ -1,3 +1,4 @@
+
 //get the desired day
 let myLocation = window.location.href;
 let currentDay = myLocation.substring(
@@ -12,36 +13,6 @@ console.log(currentDay);
 
 document.getElementById('date').innerText = 'Today is ' + currentDay;
 
-// mock data of list of bullets to render
-// eslint-disable-next-line no-unused-vars
-let mockBullets = [
-    { text: 'O, Wonder! ', symb: '•', done: true },
-    {
-        text: 'How many goodly creatures are there here! ',
-        symb: '•',
-    },
-    { text: 'How beateous mankind is! ', symb: '•' },
-    {
-        text: "O brave new world, That has such people in't!",
-        symb: '•',
-        childList: [
-            {
-                text: 'child test',
-                symb: '•',
-                childList: [
-                    {
-                        text: 'extra child test',
-                        symb: '•',
-                    },
-                ],
-            },
-            {
-                text: 'please work',
-                symb: '•',
-            },
-        ],
-    },
-];
 
 window.onload = () => {
     // eslint-disable-next-line no-undef
@@ -53,8 +24,21 @@ window.onload = () => {
             let bullets = e.target.result.bullets;
             renderBullets(bullets);
         }
+/* Here is another version of what to do when the window loads, TODO, merge these into one
+window.onload = () => {
+    // eslint-disable-next-line no-undef
+    let req = getDay('05/20/2021');
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        let bullets = e.target.result.bullets;
+        let photos = e.target.result.photos;
+        renderPhotos(photos);
+
+        renderBullets(bullets);
     };
 };
+*/
 
 // document.getElementById('button').addEventListener('click', () => {
 //     //on click, render reach element and append to the todo section, used to test rendering of bullets
@@ -73,7 +57,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 /**
  * Function that renders a list of bullets into the todo area
- * @param {[Bullet]} a list of bullet objects
+ * @param {Object} a list of bullet objects
  */
 function renderBullets(bullets) {
     bullets.forEach((bullet) => {
@@ -91,8 +75,8 @@ function renderBullets(bullets) {
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Bullet} a bullet object
- * @return {Bullet} new child created
+ * @param {Object} a bullet object
+ * @return {Object} new child created
  */
 function renderChild(bullet) {
     let newChild = document.createElement('bullet-entry');
@@ -106,6 +90,20 @@ function renderChild(bullet) {
     return newChild;
 }
 
+
 //set back button
 document.getElementById('monthView').children[0].href +=
     '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
+
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} a bullet object
+ * @return {Object} new child created
+ */
+function renderPhotos(photos) {
+    for (let i = 0; i < photos.length; i++) {
+        window.img[i] = new Image();
+        window.img[i].src = photos[i];
+    }
+}
+
