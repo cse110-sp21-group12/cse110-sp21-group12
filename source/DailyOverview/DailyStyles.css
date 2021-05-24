@@ -3,6 +3,7 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
+    grid-template-columns: 33% 33% 33%;
 
     grid-template-areas:
         'title title title title title title'
@@ -114,7 +115,13 @@ h2 {
     border-width: 1mm;
     border-color: black;
     height: 78vh;
-    /* width: 20vw; */
+    /* max-width: 30vw; */
+}
+
+#noteButton {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
 }
 
 /* Goal Reminder Block */

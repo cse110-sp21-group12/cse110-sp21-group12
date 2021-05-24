@@ -59,6 +59,8 @@ function handleSignup(newUsername, newPassword) {
 }
 
 /**
+ * Handles Login request. Checks if password hash is correct, and if so, goes to index
+ * (Password is "dinosaurs12")
  * Begins to handle the Login request. Checks sends the password hash to be verified.
  *
  * @param {*} password : PIN to be verified

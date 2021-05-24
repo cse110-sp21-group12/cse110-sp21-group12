@@ -22,6 +22,10 @@ window.addEventListener('load', () => {
     document.querySelector('#notes').appendChild(newNote);
 });
 
+document.getElementById('noteButton').addEventListener('click', () => {
+    console.log('save changes');
+});
+
 input.addEventListener('change', (event) => {
     img[relative] = new Image();
     img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location

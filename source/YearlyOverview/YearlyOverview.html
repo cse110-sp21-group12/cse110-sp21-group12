@@ -30,7 +30,17 @@
             <div id="goalSection">
                 <h1 id="goalsHeader">Yearly Goals</h1>
                 <img src="../Images/GreenDinoBorder.svg" id="yearlyGoals" />
-                <div id="goals"></div>
+                <div id="goals">
+                    <form class="entry-form">
+                        <input
+                            type="text"
+                            placeholder="New Goal"
+                            class="entry-form-text"
+                        />
+                        <input type="submit" value="Post" />
+                    </form>
+                    <button id="button">Load Bullets</button>
+                </div>
             </div>
             <div id="empty"></div>
             <div id="monthView">
@@ -56,4 +66,7 @@
             </div>
         </div>
     </body>
+
+    <script src="./goals.js" type="module"></script>
+    <script src="./script.js" type="module"></script>
 </html>
