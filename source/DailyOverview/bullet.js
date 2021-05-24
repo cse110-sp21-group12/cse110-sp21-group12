@@ -95,33 +95,33 @@ class BulletEntry extends HTMLElement {
             ).innerText = newEntry;
             this.shadowRoot.querySelector('.child').appendChild(newChild);
             let childJson = {
-                text: newEntry, 
-                symb: "•", 
-                done: false, 
-                childList: [], 
-                time: null
-            }
-            newChild.setAttribute("bulletJson", childJson);
-            newJson = JSON.parse(this.getAttribute("bulletJson"));
+                text: newEntry,
+                symb: '•',
+                done: false,
+                childList: [],
+                time: null,
+            };
+            newChild.setAttribute('bulletJson', childJson);
+            newJson = JSON.parse(this.getAttribute('bulletJson'));
             newJson.childList.push(childJson);
-            this.setAttribute("bulletJson", newJson);
+            this.setAttribute('bulletJson', newJson);
         });
-        this.changed = new CustomEvent("changed", {
+        this.changed = new CustomEvent('changed', {
             detail: {
-                json: newJson
+                json: newJson,
             },
             bubbles: true,
             composed: true,
-          });
+        });
     }
 
     connectedCallback() {
-        this.shadowRoot.addEventListener("changed", function (e) {
+        this.shadowRoot.addEventListener('changed', function (e) {
             console.log('got event');
             console.log(e);
         });
 
-        console.log(this.shadowRoot.querySelector('.bullet-content').innerText)
+        console.log(this.shadowRoot.querySelector('.bullet-content').innerText);
         // this.dispatch(new CustomEvent('request-service'));
     }
     /**
