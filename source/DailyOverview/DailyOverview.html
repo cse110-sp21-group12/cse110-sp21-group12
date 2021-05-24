@@ -35,8 +35,18 @@
                 </a>
             </div>
         </div>
+
         <div id="todo">
-            <h1>To-Do<button id="addTodo">+</button></h1>
+            <h1>To-Do</h1>
+            <form class="entry-form">
+                <input
+                    type="text"
+                    placeholder="New Bullet Text"
+                    class="entry-form-text"
+                />
+                <input type="submit" value="Post" />
+            </form>
+            <!-- <button id="button">Load Bullets</button> -->
         </div>
         <div id="notes">
             <h1>Notes<button id="noteButton">+</button></h1>
@@ -86,7 +96,11 @@
             <button type="button" id="right">right</button>
         </div> -->
 
-        <script src="DailyJS.js" type="module"></script>
-        <script src="./note.js" type="module"></script>
     </body>
+
+    <script src="DailyJS.js" type="module"></script>
+    <script src="./note.js" type="module"></script>
+    <script src="./bullet.js" type="module"></script>
+    <script src="./scripts.js" type="module"></script>
+    <script src="../backend/backendInit.js" type="text/javascript"></script>
 </html>

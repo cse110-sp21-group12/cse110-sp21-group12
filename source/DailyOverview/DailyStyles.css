@@ -3,6 +3,7 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
+    grid-template-columns: 33% 33% 33%;
 
     grid-template-areas:
         'title title title title title title'
