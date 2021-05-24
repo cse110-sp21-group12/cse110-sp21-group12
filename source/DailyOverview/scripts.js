@@ -28,15 +28,20 @@ let mockBullets = [
     },
 ];
 
-document.getElementById('button').addEventListener('click', () => {
-    //on click, render reach element and append to the todo section, used to test rendering of bullets
-    renderBullets(mockBullets);
-    // mockBullets.forEach((bullet) => {
-    //     let newPost = document.createElement('bullet-entry');
-    //     newPost.entry = bullet;
-    //     document.querySelector('#todo').appendChild(newPost);
-    // });
-});
+window.onload = () => {
+    let req = getDay('05/20/2021');
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        let bullets = e.target.result.bullets;
+        renderBullets(bullets);
+    };
+}
+
+// document.getElementById('button').addEventListener('click', () => {
+//     //on click, render reach element and append to the todo section, used to test rendering of bullets
+//     renderBullets(mockBullets);
+// });
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
