@@ -51,6 +51,7 @@ class GoalsEntry extends HTMLElement {
                         </ul>
                     <button id="edit">Edit</button>
                     <button id="delete">Delete</button>
+                    <button id="done">Mark Done</button>
                     <div class="child"></div>
                 </div>
             </article>
@@ -76,6 +77,11 @@ class GoalsEntry extends HTMLElement {
             this.dispatchEvent(this.edited);
         });
 
+        // mark bullet as done
+        this.shadowRoot.querySelector('#done').addEventListener('click', () => {
+            this.dispatchEvent(this.done);
+        });
+
         // delete goal
         this.shadowRoot
             .querySelector('#delete')
@@ -91,6 +97,12 @@ class GoalsEntry extends HTMLElement {
 
         // new event to see when goal is edited
         this.edited = new CustomEvent('edited', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to mark event as done
+        this.done = new CustomEvent('done', {
             bubbles: true,
             composed: true,
         });
@@ -111,7 +123,7 @@ class GoalsEntry extends HTMLElement {
         this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
 
         // see if it's marked as done
-        if (entry.done === true) {
+        if (entry.done == true) {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';

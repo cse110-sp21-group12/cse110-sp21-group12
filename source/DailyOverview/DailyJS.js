@@ -216,7 +216,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     renderBullets(currentDay.bullets);
 });
 
-// lets todo component listen to when a bullet is deleted
+// lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
@@ -229,6 +229,23 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
         currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
     } else {
         currentDay.bullets[firstIndex].text = newText;
+    }
+    updateDay(currentDay);
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
+});
+
+// lets bullet component listen to when a bullet is marked done
+document.querySelector('#bullets').addEventListener('done', function (e) {
+    console.log('got done event');
+    console.log(e.composedPath()[0]);
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+    } else {
+        currentDay.bullets[firstIndex].done ^= true;
     }
     updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
