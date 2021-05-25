@@ -13,17 +13,17 @@ const left = document.getElementById('left');
 // store current day data to update when user leaves page
 let currentDay;
 //  = {
-//     date: "05/20/2021", 
+//     date: "05/20/2021",
 //     bullets: [
 //         {
-//             text: "O, Wonder!", 
-//             symb: "•", 
-//             done: true, 
-//             childList: [], 
+//             text: "O, Wonder!",
+//             symb: "•",
+//             done: true,
+//             childList: [],
 //             time: null
 //         }
-//     ], 
-//     photos: [], 
+//     ],
+//     photos: [],
 //     notes: "Here is some notes sample test this is a note possibly here could be another"
 // }
 
@@ -45,13 +45,14 @@ window.addEventListener('load', () => {
     };
 });
 
-document.getElementById('notes').addEventListener('click', () => {
-    var divs = document.getElementsByClassName("divs");
-    for(var i = 0; i < arrows.length; i++){
-        if(this != arrows[i]){
-            arrows[i].style.display = "none";
-        }
-    }
+document.getElementById('notesb').addEventListener('click', () => {
+    // var divs = document.getElementsByClassName('divs');
+    // for (var i = 0; i < arrows.length; i++) {
+    //     if (this != arrows[i]) {
+    //         arrows[i].style.display = 'none';
+    //     }
+    // }
+    updateNote();
     updateDay(currentDay);
 });
 
@@ -163,7 +164,7 @@ function renderChild(bullet, i) {
 }
 
 function editBullet() {
-    console.log('in here')
+    console.log('in here');
     let editedEntry = prompt(
         'Edit Bullet',
         this.shadowRoot.querySelector('.bullet-content').innerText
@@ -175,13 +176,14 @@ function editBullet() {
     }
 }
 
-/** 
+/**
  * Function that updates the notes
  */
-
 function updateNote() {
-    let currNote = document.querySelector(textarea["class=noteContent"]);
-    console.log(currNote);
+    let currNote = document
+        .querySelector('note-box')
+        .shadowRoot.querySelector('.noteContent').innerHTML;
+    currentDay.notes = currNote;
 }
 
 input.addEventListener('change', (event) => {

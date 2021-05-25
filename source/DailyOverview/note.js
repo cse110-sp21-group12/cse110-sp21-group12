@@ -30,6 +30,14 @@ class noteBox extends HTMLElement {
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        this.shadowRoot
+            .querySelector('.noteContent')
+            .addEventListener('input', updateValue);
+
+        function updateValue(e) {
+            this.innerHTML = e.target.value;
+        }
     }
 
     /**
