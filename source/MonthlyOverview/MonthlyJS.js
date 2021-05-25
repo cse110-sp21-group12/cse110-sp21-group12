@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 //get the desired month
 let myLocation = window.location.href;
 let currentMonth = myLocation.substring(
@@ -10,31 +11,66 @@ if (currentMonth == 'ew.html') {
 }
 console.log(currentMonth);
 
-// mock data of list of goals to render
-let mockGoals = [
-    { text: 'O, Wonder! ', symb: '•', done: true },
-    {
-        text: 'How many goodly creatures are there here! ',
-        symb: '•',
-    },
-    { text: 'How beateous mankind is! ', symb: '•' },
-    {
-        text: "O brave new world, That has such people in't!",
-        symb: '•',
-    },
-];
+let currentMonthRes;
 
-document.getElementById('button').addEventListener('click', () => {
-    //on click, render each element and append to the goals section
-    renderGoals(mockGoals);
+window.addEventListener('load', () => {
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        let req = getMonthlyGoals(currentMonth);
+        req.onsuccess = function (e) {
+            console.log('got month');
+            console.log(e.target.result);
+            currentMonthRes = e.target.result;
+            if (currentMonthRes === undefined) {
+                currentMonthRes = initMonth(currentMonth);
+                createMonthlyGoals(currentMonthRes);
+            } else {
+                //Load in bullets
+                let goals = currentMonthRes.goals;
+                renderGoals(goals);
+            }
+        };
+    };
 });
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
-    let goal = { text: gText, symb: '•' };
+
     document.querySelector('.entry-form-text').value = '';
-    renderGoals([goal]);
+    currentMonthRes.goals.push({
+        text: gText,
+        done: false,
+    });
+    console.log(currentMonthRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentMonthRes.goals);
+    updateMonthlyGoals(currentMonthRes);
+});
+
+// lets bullet component listen to when a bullet is deleted
+document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    console.log('got event');
+    console.log(e.composedPath());
+    let index = e.composedPath()[0].getAttribute('index');
+    currentMonthRes.goals.splice(index, 1);
+    updateMonthlyGoals(currentMonthRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentMonthRes.goals);
+});
+
+// lets todo component listen to when a bullet is deleted
+document.querySelector('#bullets').addEventListener('edited', function (e) {
+    console.log('got event');
+    console.log(e.composedPath()[0]);
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
+    let index = e.composedPath()[0].getAttribute('index');
+    currentMonthRes.goals[index].text = newText;
+    updateMonthlyGoals(currentMonthRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentMonthRes.goals);
 });
 
 /**
@@ -42,10 +78,15 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
  * @param {Object} a list of goal objects
  */
 function renderGoals(goals) {
+    let i = 0;
     goals.forEach((goal) => {
         let newPost = document.createElement('goals-entry');
+        newPost.setAttribute('goalJson', JSON.stringify(goal));
+        newPost.setAttribute('index', i);
         newPost.entry = goal;
-        document.querySelector('#goals').appendChild(newPost);
+        console.log(newPost);
+        document.querySelector('#bullets').appendChild(newPost);
+        i++;
     });
 }
 const months = [
