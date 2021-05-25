@@ -238,7 +238,7 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 /**
  * Function that renders a list of bullets into the todo area
  * Update currentDay json with updated bullets
- * @param {[Object]} a list of bullet objects to render
+ * @param {Object} bullets - a list of bullet objects to render
  */
 function renderBullets(bullets) {
     let iNum = 0;
@@ -265,8 +265,8 @@ function renderBullets(bullets) {
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} a bullet object of child to create
- * @param {[int]} array of integers of index of bullets
+ * @param {Object} bullet - a bullet object of child to create
+ * @param {Number} i -  array of integers of index of bullets
  * @return {Object} new child created
  */
 function renderChild(bullet, i) {
@@ -423,7 +423,7 @@ document.getElementById('monthView').children[0].href +=
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} a bullet object
+ * @param {Object} photos - a bullet object
  * @return {Object} new child created
  */
 // eslint-disable-next-line no-unused-vars
