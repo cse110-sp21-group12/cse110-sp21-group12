@@ -30,18 +30,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     renderGoal(goal);
 });
 
-/**
- * Function that renders a list of goals into the todo area
- * @param {Object} a list of goal objects
- */
-function renderGoals(goals) {
-    goals.forEach((goal) => {
-        let newPost = document.createElement('goals-entry');
-        newPost.entry = goal;
-        document.querySelector('#goals').appendChild(newPost);
-    });
-}
-
 function displayGoals() {
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
