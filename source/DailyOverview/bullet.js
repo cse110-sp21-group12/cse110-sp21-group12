@@ -164,11 +164,8 @@ class BulletEntry extends HTMLElement {
         this.done = new CustomEvent('done', {
             bubbles: true,
             composed: true,
-        })
-
-
+        });
     }
-
 
     /**
      * when getting the entry, return just the text for now
@@ -189,7 +186,7 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
-        } 
+        }
     }
 
     set child(child) {

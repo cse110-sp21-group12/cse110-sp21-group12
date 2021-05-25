@@ -78,7 +78,7 @@ class GoalsEntry extends HTMLElement {
         });
 
         // mark bullet as done
-            this.shadowRoot.querySelector('#done').addEventListener('click', () => {
+        this.shadowRoot.querySelector('#done').addEventListener('click', () => {
             this.dispatchEvent(this.done);
         });
 
@@ -105,7 +105,7 @@ class GoalsEntry extends HTMLElement {
         this.done = new CustomEvent('done', {
             bubbles: true,
             composed: true,
-        })
+        });
     }
 
     /**

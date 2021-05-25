@@ -105,7 +105,7 @@ class GoalsEntry extends HTMLElement {
         this.done = new CustomEvent('done', {
             bubbles: true,
             composed: true,
-        })
+        });
     }
 
     /**
