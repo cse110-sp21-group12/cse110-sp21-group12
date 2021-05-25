@@ -83,7 +83,7 @@ class GoalsEntry extends HTMLElement {
             .addEventListener('click', () => {
                 this.dispatchEvent(this.deleted);
             });
-        
+
         this.shadowRoot.querySelector('#done').addEventListener('click', () => {
             let goalBullet = this.shadowRoot.querySelector('.bullet-content');
             if (goalBullet.style.textDecorationLine == 'none') {

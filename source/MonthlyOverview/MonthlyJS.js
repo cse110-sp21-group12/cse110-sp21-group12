@@ -42,7 +42,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     document.querySelector('.entry-form-text').value = '';
     currentMonthRes.goals.push({
         text: gText,
-        done: false
+        done: false,
     });
     console.log(currentMonthRes);
     document.querySelector('#bullets').innerHTML = '';
@@ -65,8 +65,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
-    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson'))
-        .text;
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentMonthRes.goals[index].text = newText;
     updateMonthlyGoals(currentMonthRes);

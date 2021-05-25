@@ -12,7 +12,7 @@ if (currentYear == 'html') {
     currentYear = 2021;
 }
 console.log(currentYear);
-currentYear = "2020";
+currentYear = '2020';
 // contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
@@ -25,7 +25,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     document.querySelector('.entry-form-text').value = '';
     currentYearRes.goals.push({
         text: gText,
-        done: false
+        done: false,
     });
     console.log(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
@@ -70,8 +70,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
-    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson'))
-        .text;
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].text = newText;
     updateYearsGoals(currentYearRes);
@@ -83,7 +82,7 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
  * Function that renders a list of goals into the todo area
  * @param {Object} a list of goal objects
  */
- function renderGoals(goals) {
+function renderGoals(goals) {
     let i = 0;
     goals.forEach((goal) => {
         let newPost = document.createElement('goals-entry');
