@@ -18,7 +18,7 @@ let db;
 // eslint-disable-next-line no-unused-vars
 //function dbInit() {
 
-function initDB(){
+function initDB() {
     if (!('indexedDB' in window)) {
         console.log("This browser doesn't support IndexedDB");
     }
