@@ -1,3 +1,31 @@
+//get the desired day
+let myLocation = window.location.href;
+let currentDay = myLocation.substring(
+    myLocation.length - 10,
+    myLocation.length
+);
+//default case
+if (currentDay == 'rview.html') {
+    currentDay = '05/23/2021';
+}
+console.log(currentDay);
+
+document.getElementById('date').innerText = 'Today is ' + currentDay;
+
+window.onload = () => {
+    // eslint-disable-next-line no-undef
+    let req = getDay(currentDay);
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        if (e.target.result != undefined) {
+            let bullets = e.target.result.bullets;
+            renderBullets(bullets);
+        }
+    };
+};
+
+/* Here is another version of what to do when the window loads, TODO, merge these into one
 window.onload = () => {
     // eslint-disable-next-line no-undef
     let req = getDay('05/20/2021');
@@ -5,9 +33,13 @@ window.onload = () => {
         console.log('got day');
         console.log(e.target.result);
         let bullets = e.target.result.bullets;
+        let photos = e.target.result.photos;
+        renderPhotos(photos);
+
         renderBullets(bullets);
     };
 };
+*/
 
 // document.getElementById('button').addEventListener('click', () => {
 //     //on click, render reach element and append to the todo section, used to test rendering of bullets
@@ -57,4 +89,21 @@ function renderChild(bullet) {
         });
     }
     return newChild;
+}
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
+
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} a bullet object
+ * @return {Object} new child created
+ */
+// eslint-disable-next-line no-unused-vars
+function renderPhotos(photos) {
+    for (let i = 0; i < photos.length; i++) {
+        window.img[i] = new Image();
+        window.img[i].src = photos[i];
+    }
 }

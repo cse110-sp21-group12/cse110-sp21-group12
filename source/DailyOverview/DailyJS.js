@@ -1,4 +1,4 @@
-var img = new Image(); // used to load image from <input> and draw to canvas
+window.img = new Image(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
@@ -27,8 +27,8 @@ document.getElementById('noteButton').addEventListener('click', () => {
 });
 
 input.addEventListener('change', (event) => {
-    img[relative] = new Image();
-    img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+    window.img[relative] = new Image();
+    window.img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
 });
 // Add an image to the canvas
 add.addEventListener('click', () => {
@@ -43,11 +43,11 @@ save.addEventListener('click', () => {
     var imgDimension = getDimensions(
         canvas.width,
         canvas.height,
-        img[relative].width,
-        img[relative].height
+        window.img[relative].width,
+        window.img[relative].height
     );
     canv.drawImage(
-        img[relative],
+        window.img[relative],
         imgDimension['startX'],
         imgDimension['startY'],
         imgDimension['width'],
@@ -57,15 +57,15 @@ save.addEventListener('click', () => {
 left.addEventListener('click', () => {
     relative -= 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
+    if (window.img[relative]) {
         var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
@@ -76,15 +76,15 @@ left.addEventListener('click', () => {
 right.addEventListener('click', () => {
     relative += 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
+    if (window.img[relative]) {
         var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
