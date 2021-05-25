@@ -60,28 +60,34 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let bText = document.querySelector('.entry-form-text').value;
     document.querySelector('.entry-form-text').value = '';
-    currentDay.bullets.push({text: bText, symb: "•", done: false, childList: [], time: null});
+    currentDay.bullets.push({
+        text: bText,
+        symb: '•',
+        done: false,
+        childList: [],
+        time: null,
+    });
     console.log(currentDay);
-    document.querySelector('#bullets').innerHTML = "";
+    document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet child is added
-document.querySelector('#bullets').addEventListener("added", function (e) {
+document.querySelector('#bullets').addEventListener('added', function (e) {
     console.log('got event');
     console.log(e.composedPath());
-    let newJson = JSON.parse(e.composedPath()[0].getAttribute("bulletJson"));
-    let index = JSON.parse(e.composedPath()[0].getAttribute("index"));
+    let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     currentDay.bullets[index[0]] = newJson;
     updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is deleted
-document.querySelector('#bullets').addEventListener("deleted", function (e) {
+document.querySelector('#bullets').addEventListener('deleted', function (e) {
     console.log('got event');
     console.log(e.composedPath());
-    let index = JSON.parse(e.composedPath()[0].getAttribute("index"));
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
@@ -90,16 +96,17 @@ document.querySelector('#bullets').addEventListener("deleted", function (e) {
         currentDay.bullets.splice(firstIndex, 1);
     }
     updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = "";
+    document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
 });
 
 // lets todo component listen to when a bullet is deleted
-document.querySelector('#bullets').addEventListener("edited", function (e) {
+document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
-    let newText = JSON.parse(e.composedPath()[0].getAttribute("bulletJson")).text;
-    let index = JSON.parse(e.composedPath()[0].getAttribute("index"));
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .text;
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
@@ -108,7 +115,7 @@ document.querySelector('#bullets').addEventListener("edited", function (e) {
         currentDay.bullets[firstIndex].text = newText;
     }
     updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = "";
+    document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
 });
 
@@ -118,14 +125,14 @@ document.querySelector('#bullets').addEventListener("edited", function (e) {
  * @param {[Bullet]} a list of bullet objects
  */
 function renderBullets(bullets) {
-    let iNum = 0; 
+    let iNum = 0;
     bullets.forEach((bullet) => {
         let i = [iNum];
         let newPost = document.createElement('bullet-entry');
-        newPost.setAttribute("bulletJson", JSON.stringify(bullet));
-        newPost.setAttribute("index", JSON.stringify(i));
+        newPost.setAttribute('bulletJson', JSON.stringify(bullet));
+        newPost.setAttribute('index', JSON.stringify(i));
         newPost.entry = bullet;
-        console.log(bullet)
+        console.log(bullet);
         if (bullet.childList.length != 0) {
             i.push(0);
             bullet.childList.forEach((child) => {
@@ -148,8 +155,8 @@ function renderBullets(bullets) {
  */
 function renderChild(bullet, i) {
     let newChild = document.createElement('bullet-entry');
-    newChild.setAttribute("bulletJson", JSON.stringify(bullet));
-    newChild.setAttribute("index", JSON.stringify(i));
+    newChild.setAttribute('bulletJson', JSON.stringify(bullet));
+    newChild.setAttribute('index', JSON.stringify(i));
     newChild.entry = bullet;
     if (bullet.childList.length != 0) {
         i.push(0);

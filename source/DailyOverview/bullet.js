@@ -69,7 +69,7 @@ class BulletEntry extends HTMLElement {
 
         // edit bullet through a prompt
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
-            let newJson = JSON.parse(this.getAttribute("bulletJson"));
+            let newJson = JSON.parse(this.getAttribute('bulletJson'));
             let editedEntry = prompt(
                 'Edit Bullet',
                 this.shadowRoot.querySelector('.bullet-content').innerText
@@ -79,29 +79,31 @@ class BulletEntry extends HTMLElement {
                     '.bullet-content'
                 ).innerText = editedEntry;
                 newJson.text = editedEntry;
-                this.setAttribute("bulletJson", JSON.stringify(newJson));
+                this.setAttribute('bulletJson', JSON.stringify(newJson));
             }
             this.dispatchEvent(this.edited);
         });
 
         // delete bullet
-        this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
-            this.dispatchEvent(this.deleted);
-        });
+        this.shadowRoot
+            .querySelector('#delete')
+            .addEventListener('click', () => {
+                this.dispatchEvent(this.deleted);
+            });
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
-            let newJson = JSON.parse(this.getAttribute("bulletJson"));
-            let newIndex = JSON.parse(this.getAttribute("index"));
+            let newJson = JSON.parse(this.getAttribute('bulletJson'));
+            let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
-                text: newEntry, 
-                symb: "•", 
-                done: false, 
-                childList: [], 
-                time: null
-            }
+                text: newEntry,
+                symb: '•',
+                done: false,
+                childList: [],
+                time: null,
+            };
             let childLength = newJson.childList.length;
 
             // set bullet content of new child
@@ -110,11 +112,17 @@ class BulletEntry extends HTMLElement {
             ).innerText = newEntry;
 
             // set new child's new bulletJson and index object
-            newChild.setAttribute("bulletJson", JSON.stringify(childJson));
+            newChild.setAttribute('bulletJson', JSON.stringify(childJson));
             if (childLength > 0) {
-                newChild.setAttribute("index", JSON.stringify(newIndex[newIndex.length - 1]++));
+                newChild.setAttribute(
+                    'index',
+                    JSON.stringify(newIndex[newIndex.length - 1]++)
+                );
             } else {
-                newChild.setAttribute("index", JSON.stringify(newIndex.push(0)));
+                newChild.setAttribute(
+                    'index',
+                    JSON.stringify(newIndex.push(0))
+                );
             }
 
             // append new child to page
@@ -122,26 +130,26 @@ class BulletEntry extends HTMLElement {
 
             // update bulletJson of parent bullet
             newJson.childList.push(childJson);
-            this.setAttribute("bulletJson", JSON.stringify(newJson));
+            this.setAttribute('bulletJson', JSON.stringify(newJson));
 
             // changed this bullet
             this.dispatchEvent(this.added);
         });
 
         // new event to see when bullet child is added
-        this.added = new CustomEvent("added", {
+        this.added = new CustomEvent('added', {
             bubbles: true,
             composed: true,
         });
 
         // new event to see when bullet is deleted
-        this.deleted = new CustomEvent("deleted", {
+        this.deleted = new CustomEvent('deleted', {
             bubbles: true,
             composed: true,
         });
 
         // new event to see when bullet is edited
-        this.edited = new CustomEvent("edited", {
+        this.edited = new CustomEvent('edited', {
             bubbles: true,
             composed: true,
         });
@@ -176,4 +184,3 @@ class BulletEntry extends HTMLElement {
 }
 
 customElements.define('bullet-entry', BulletEntry);
-
