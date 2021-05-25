@@ -67,9 +67,9 @@ class BulletEntry extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-        // console.log(this.getAttribute("editFunc"))
-        // this.shadowRoot.querySelector('#edit').addEventListener('click', this.getAttribute("editFunc"));
+        // edit bullet through a prompt
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let newJson = JSON.parse(this.getAttribute("bulletJson"));
             let editedEntry = prompt(
                 'Edit Bullet',
                 this.shadowRoot.querySelector('.bullet-content').innerText
@@ -78,22 +78,23 @@ class BulletEntry extends HTMLElement {
                 this.shadowRoot.querySelector(
                     '.bullet-content'
                 ).innerText = editedEntry;
+                newJson.text = editedEntry;
+                this.setAttribute("bulletJson", JSON.stringify(newJson));
             }
+            this.dispatchEvent(this.edited);
         });
-        // console.log(this.getRootNode().host.localNode);
-        this.shadowRoot
-            .querySelector('#delete')
-            .addEventListener('click', () => {
-                this.parentNode.removeChild(this);
-            });
-        let newJson;
+
+        // delete bullet
+        this.shadowRoot.querySelector('#delete').addEventListener('click', () => {
+            this.dispatchEvent(this.deleted);
+        });
+
+        // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
-            newChild.shadowRoot.querySelector(
-                '.bullet-content'
-            ).innerText = newEntry;
-            this.shadowRoot.querySelector('.child').appendChild(newChild);
+            let newJson = JSON.parse(this.getAttribute("bulletJson"));
+            let newIndex = JSON.parse(this.getAttribute("index"));
             let childJson = {
                 text: newEntry, 
                 symb: "•", 
@@ -101,29 +102,51 @@ class BulletEntry extends HTMLElement {
                 childList: [], 
                 time: null
             }
-            newChild.setAttribute("bulletJson", childJson);
-            newJson = JSON.parse(this.getAttribute("bulletJson"));
+            let childLength = newJson.childList.length;
+
+            // set bullet content of new child
+            newChild.shadowRoot.querySelector(
+                '.bullet-content'
+            ).innerText = newEntry;
+
+            // set new child's new bulletJson and index object
+            newChild.setAttribute("bulletJson", JSON.stringify(childJson));
+            if (childLength > 0) {
+                newChild.setAttribute("index", JSON.stringify(newIndex[newIndex.length - 1]++));
+            } else {
+                newChild.setAttribute("index", JSON.stringify(newIndex.push(0)));
+            }
+
+            // append new child to page
+            this.shadowRoot.querySelector('.child').appendChild(newChild);
+
+            // update bulletJson of parent bullet
             newJson.childList.push(childJson);
-            this.setAttribute("bulletJson", newJson);
+            this.setAttribute("bulletJson", JSON.stringify(newJson));
+
+            // changed this bullet
+            this.dispatchEvent(this.added);
         });
-        this.changed = new CustomEvent("changed", {
-            detail: {
-                json: newJson
-            },
+
+        // new event to see when bullet child is added
+        this.added = new CustomEvent("added", {
             bubbles: true,
             composed: true,
-          });
-    }
-
-    connectedCallback() {
-        this.shadowRoot.addEventListener("changed", function (e) {
-            console.log('got event');
-            console.log(e);
         });
 
-        console.log(this.shadowRoot.querySelector('.bullet-content').innerText)
-        // this.dispatch(new CustomEvent('request-service'));
+        // new event to see when bullet is deleted
+        this.deleted = new CustomEvent("deleted", {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to see when bullet is edited
+        this.edited = new CustomEvent("edited", {
+            bubbles: true,
+            composed: true,
+        });
     }
+
     /**
      * when getting the entry, return just the text for now
      */
@@ -144,31 +167,13 @@ class BulletEntry extends HTMLElement {
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
         }
-        this.dispatchEvent(this.changed);
-        console.log(this.changed);
     }
 
     set child(child) {
         // set nested bullets of entries
-        console.log(child);
         this.shadowRoot.querySelector('.child').appendChild(child);
-    }
-
-    // get back updated bullet json
-    get json() {
-        return this.json;
     }
 }
 
 customElements.define('bullet-entry', BulletEntry);
 
-/**
- * JSON Format:
- * {
- *    done: true/false,
- *    text: " ",
- *    indent: number (how many "tabs" or how nested is it")
- *    type: number (is it a star? circle?),
- *    time: (date object), for reminders only, could be null or somth
- * }
- */
