@@ -12,57 +12,88 @@ if (currentYear == 'html') {
     currentYear = 2021;
 }
 console.log(currentYear);
-
+currentYear = "2020";
 // contains the current year's yearlyGoal object from the database
-let goalsObj;
+let currentYearRes;
 
 window.onload = displayGoals();
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
-    //let goal = { text: gText, symb: '•' };
+
     document.querySelector('.entry-form-text').value = '';
-    let goal = initGoal(gText);
-    goalsObj.goals.push(goal);
-    updateYearsGoals(goalsObj);
-    //renderGoals([goal]);
-    renderGoal(goal);
+    currentYearRes.goals.push({
+        text: gText,
+        done: false
+    });
+    console.log(currentYearRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentYearRes.goals);
+    updateYearsGoals(currentYearRes);
 });
 
 function displayGoals() {
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
-        // eslint-disable-next-line no-undef
         setDB(e.target.result);
-        //tries to get the current year object, could be undefined
-        // eslint-disable-next-line no-undef
-        let goals = getYearlyGoals(currentYear);
-        goals.onsuccess = function (e) {
-            goalsObj = e.target.result;
-            //if its undefined, then one hasn't been created yet, so make one
-            if (goalsObj === undefined) {
-                goalsObj = initYear(currentYear);
-                createYearlyGoals(goalsObj);
+        let req = getYearlyGoals(currentYear);
+        req.onsuccess = function (e) {
+            console.log('got year');
+            console.log(e.target.result);
+            currentYearRes = e.target.result;
+            if (currentYearRes === undefined) {
+                currentYearRes = initYear(currentYear);
+                createYearlyGoals(currentYearRes);
             } else {
-                goalsObj.goals.forEach((goal) => {
-                    console.log(goal);
-                    renderGoal(goal);
-                });
+                //Load in bullets
+                let goals = currentYearRes.goals;
+                renderGoals(goals);
             }
         };
     };
 }
 
+// lets bullet component listen to when a bullet is deleted
+document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    console.log('got event');
+    console.log(e.composedPath());
+    let index = e.composedPath()[0].getAttribute('index');
+    currentYearRes.goals.splice(index, 1);
+    updateYearsGoals(currentYearRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentYearRes.goals);
+});
+
+// lets todo component listen to when a bullet is deleted
+document.querySelector('#bullets').addEventListener('edited', function (e) {
+    console.log('got event');
+    console.log(e.composedPath()[0]);
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson'))
+        .text;
+    let index = e.composedPath()[0].getAttribute('index');
+    currentYearRes.goals[index].text = newText;
+    updateYearsGoals(currentYearRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentYearRes.goals);
+});
+
 /**
- * takes a goal and renders it onto the screen
- * @param {Object} goal - a goal object
+ * Function that renders a list of goals into the todo area
+ * @param {Object} a list of goal objects
  */
-function renderGoal(goal) {
-    let newGoal = document.createElement('goals-entry');
-    newGoal.entry = goal;
-    document.querySelector('#goals').appendChild(newGoal);
+ function renderGoals(goals) {
+    let i = 0;
+    goals.forEach((goal) => {
+        let newPost = document.createElement('goals-entry');
+        newPost.setAttribute('goalJson', JSON.stringify(goal));
+        newPost.setAttribute('index', i);
+        newPost.entry = goal;
+        console.log(newPost);
+        document.querySelector('#bullets').appendChild(newPost);
+        i++;
+    });
 }
 
 /**kk */
