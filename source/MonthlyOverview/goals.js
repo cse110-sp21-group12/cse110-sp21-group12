@@ -58,7 +58,10 @@ class GoalsEntry extends HTMLElement {
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        // edit goal through a prompt
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let newJson = JSON.parse(this.getAttribute('goalJson'));
             let editedEntry = prompt(
                 'Edit Bullet',
                 this.shadowRoot.querySelector('.bullet-content').innerText
@@ -67,13 +70,30 @@ class GoalsEntry extends HTMLElement {
                 this.shadowRoot.querySelector(
                     '.bullet-content'
                 ).innerText = editedEntry;
+                newJson.text = editedEntry;
+                this.setAttribute('goalJson', JSON.stringify(newJson));
             }
+            this.dispatchEvent(this.edited);
         });
+
+        // delete goal
         this.shadowRoot
             .querySelector('#delete')
             .addEventListener('click', () => {
-                this.parentNode.removeChild(this);
+                this.dispatchEvent(this.deleted);
             });
+
+        // new event to see when goal is deleted
+        this.deleted = new CustomEvent('deleted', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to see when goal is edited
+        this.edited = new CustomEvent('edited', {
+            bubbles: true,
+            composed: true,
+        });
     }
 
     /**
@@ -96,12 +116,6 @@ class GoalsEntry extends HTMLElement {
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
         }
-    }
-
-    set child(child) {
-        // set nested bullets of entries
-        console.log(child);
-        this.shadowRoot.querySelector('.child').appendChild(child);
     }
 }
 
