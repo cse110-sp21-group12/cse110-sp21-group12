@@ -1,7 +1,20 @@
+/* eslint-disable no-undef */
 window.img = new Image(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
+
+//get the desired mm/dd/yyyy string
+let myLocation = window.location.href;
+let currentDateStr = myLocation.substring(
+    myLocation.length - 10,
+    myLocation.length
+);
+//default case
+if (currentDateStr == 'html') {
+    currentDateStr = '05/25/2020';
+}
+console.log(currentDateStr);
 
 let relative = 0;
 // Buttons
@@ -29,20 +42,31 @@ let currentDay;
 
 window.addEventListener('load', () => {
     // getting backend sample day
-    let req = getDay('05/20/2021');
-    req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
-        currentDay = e.target.result;
-        //Load in bullets
-        let bullets = currentDay.bullets;
-        renderBullets(bullets);
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        let req = getDay(currentDateStr);
+        req.onsuccess = function (e) {
+            console.log('got day');
+            console.log(e.target.result);
+            currentDay = e.target.result;
+            if (currentDay === undefined) {
+                currentDay = initDay(currentDateStr);
+                createDay(currentDay);
+            } else {
+                //Load in bullets
+                let bullets = currentDay.bullets;
+                renderBullets(bullets);
 
-        // Load in notes
-        let newNote = document.createElement('note-box');
-        newNote.entry = currentDay.notes;
-        document.querySelector('#notes').appendChild(newNote);
+                // Load in notes
+                let newNote = document.createElement('note-box');
+                newNote.entry = currentDay.notes;
+                document.querySelector('#notes').appendChild(newNote);
+            }
+        };
     };
+    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
 });
 
 /* Here is another version of what to do when the window loads, TODO, merge these into one
@@ -186,6 +210,7 @@ function renderChild(bullet, i) {
     return newChild;
 }
 
+// eslint-disable-next-line no-unused-vars
 function editBullet() {
     console.log('in here');
     let editedEntry = prompt(

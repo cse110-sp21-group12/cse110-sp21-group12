@@ -534,3 +534,8 @@ function initYear(yearStr) {
 function initGoal(goalStr) {
     return { text: goalStr, done: false };
 }
+
+// eslint-disable-next-line no-unused-vars
+function initDay(dateStr) {
+    return { date: dateStr, bullets: [], photos: [], notes: '' };
+}
