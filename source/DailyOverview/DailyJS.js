@@ -1,5 +1,5 @@
-let img = new Image(); // used to load image from <input> and draw to canvas
-let input = document.getElementById('image-input');
+window.img = new Image(); // used to load image from <input> and draw to canvas
+var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
@@ -44,6 +44,22 @@ window.addEventListener('load', () => {
         document.querySelector('#notes').appendChild(newNote);
     };
 });
+
+/* Here is another version of what to do when the window loads, TODO, merge these into one
+window.onload = () => {
+    // eslint-disable-next-line no-undef
+    let req = getDay('05/20/2021');
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        let bullets = e.target.result.bullets;
+        let photos = e.target.result.photos;
+        renderPhotos(photos);
+
+        renderBullets(bullets);
+    };
+};
+*/
 
 document.getElementById('notesb').addEventListener('click', () => {
     // var divs = document.getElementsByClassName('divs');
@@ -115,7 +131,7 @@ document.querySelector('#bullets').addEventListener("edited", function (e) {
 /**
  * Function that renders a list of bullets into the todo area
  * Update currentDay json with updated bullets
- * @param {[Bullet]} a list of bullet objects
+ * @param {[Object]} a list of bullet objects to render
  */
 function renderBullets(bullets) {
     let iNum = 0; 
@@ -142,9 +158,9 @@ function renderBullets(bullets) {
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Bullet} a bullet object
+ * @param {Object} a bullet object of child to create
  * @param {[int]} array of integers of index of bullets
- * @return {Bullet} new child created
+ * @return {Object} new child created
  */
 function renderChild(bullet, i) {
     let newChild = document.createElement('bullet-entry');
@@ -187,8 +203,8 @@ function updateNote() {
 }
 
 input.addEventListener('change', (event) => {
-    img[relative] = new Image();
-    img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+    window.img[relative] = new Image();
+    window.img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
 });
 // Add an image to the canvas
 add.addEventListener('click', () => {
@@ -203,11 +219,11 @@ save.addEventListener('click', () => {
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
-        img[relative].width,
-        img[relative].height
+        window.img[relative].width,
+        window.img[relative].height
     );
     canv.drawImage(
-        img[relative],
+        window.img[relative],
         imgDimension['startX'],
         imgDimension['startY'],
         imgDimension['width'],
@@ -217,15 +233,15 @@ save.addEventListener('click', () => {
 left.addEventListener('click', () => {
     relative -= 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
-        let imgDimension = getDimensions(
+    if (window.img[relative]) {
+        var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
@@ -236,15 +252,15 @@ left.addEventListener('click', () => {
 right.addEventListener('click', () => {
     relative += 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
-        let imgDimension = getDimensions(
+    if (window.img[relative]) {
+        var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
@@ -291,4 +307,21 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
     }
 
     return { width: width, height: height, startX: startX, startY: startY };
+}
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
+
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} a bullet object
+ * @return {Object} new child created
+ */
+// eslint-disable-next-line no-unused-vars
+function renderPhotos(photos) {
+    for (let i = 0; i < photos.length; i++) {
+        window.img[i] = new Image();
+        window.img[i].src = photos[i];
+    }
 }
