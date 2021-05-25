@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Want to first check if database exists, and if not, set it up
  */
@@ -518,9 +519,28 @@ function deleteSettings() {
  * @returns {Object} the new year object
  * @todo Write more documentation on the object's values
  */
-// eslint-disable-next-line no-unused-vars
 function initYear(yearStr) {
     return { year: yearStr, goals: [] };
+}
+
+/**
+ * creates a new month object given a month string
+ * @param {String} monthStr - a string repr of the month (this also includes the year)
+ * @returns {Object} the new monthly goal obj
+ * @todo Write more documentation on the object's values
+ */
+function initMonth(monthStr) {
+    return { month: monthStr, goals: [] };
+}
+
+/**
+ * creates a new day object given a date string
+ * @param {String} dateStr - a string of the goal
+ * @returns {Object} the new day object
+ * @todo Write more documentation on the object's values
+ */
+function initDay(dateStr) {
+    return { date: dateStr, bullets: [], photos: [], notes: '' };
 }
 
 /**
@@ -530,12 +550,6 @@ function initYear(yearStr) {
  * @returns {Object} the new goal object
  * @todo Write more documentation on the object's values
  */
-// eslint-disable-next-line no-unused-vars
 function initGoal(goalStr) {
     return { text: goalStr, done: false };
-}
-
-// eslint-disable-next-line no-unused-vars
-function initDay(dateStr) {
-    return { date: dateStr, bullets: [], photos: [], notes: '' };
 }

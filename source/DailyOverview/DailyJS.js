@@ -46,28 +46,104 @@ window.addEventListener('load', () => {
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
         setDB(e.target.result);
-        let req = getDay(currentDateStr);
-        req.onsuccess = function (e) {
-            console.log('got day');
-            console.log(e.target.result);
-            currentDay = e.target.result;
-            if (currentDay === undefined) {
-                currentDay = initDay(currentDateStr);
-                createDay(currentDay);
-            } else {
-                //Load in bullets
-                let bullets = currentDay.bullets;
-                renderBullets(bullets);
-
-                // Load in notes
-                let newNote = document.createElement('note-box');
-                newNote.entry = currentDay.notes;
-                document.querySelector('#notes').appendChild(newNote);
-            }
-        };
+        requestDay();
+        fetchMonthGoals();
+        fetchYearGoals();
     };
     document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
 });
+
+/**
+ * Gets the current day object (and creates one if one doesn't exist)
+ * and sets the "currentDay" variable
+ * Also renders the days notes and bullets if there are any
+ * @returns void
+ */
+function requestDay() {
+    let req = getDay(currentDateStr);
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        currentDay = e.target.result;
+        if (currentDay === undefined) {
+            currentDay = initDay(currentDateStr);
+            createDay(currentDay);
+        } else {
+            //Load in bullets
+            let bullets = currentDay.bullets;
+            renderBullets(bullets);
+            // Load in notes
+            let newNote = document.createElement('note-box');
+            newNote.entry = currentDay.notes;
+            document.querySelector('#notes').appendChild(newNote);
+        }
+    };
+}
+
+/**
+ * Gets the current month object (and creates one if one doesn't exist)
+ * also renders the monthly goals
+ * @returns void
+ */
+function fetchMonthGoals() {
+    console.log('fetching month');
+    console.log(currentDateStr.substring(6));
+    let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
+    let req = getMonthlyGoals(monthStr);
+    req.onsuccess = function (e) {
+        console.log('got month');
+        let monthObj = e.target.result;
+        console.log(monthObj);
+        if (monthObj === undefined) {
+            createMonthlyGoals(initMonth(monthStr));
+        } else {
+            //load in bullets
+            monthObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
+                let goalElem = document.createElement('p');
+                goalElem.innerHTML = goal.text;
+                if (goal.done === true) {
+                    goalElem.style.textDecoration = 'line-through';
+                }
+                goalElem.classList.add('month-goal');
+                console.log(goalElem);
+                document.querySelector('#monthGoal').appendChild(goalElem);
+            });
+        }
+    };
+}
+
+/**
+ * Gets the current year object (and creates one if one doesn't exist)
+ * also renders the yearly goals
+ * @returns void
+ */
+function fetchYearGoals() {
+    console.log('fetching year');
+    let yearStr = currentDateStr.substring(6);
+    let req = getYearlyGoals(yearStr);
+    req.onsuccess = function (e) {
+        console.log('got year');
+        let yearObj = e.target.result;
+        console.log(yearObj);
+        if (yearObj === undefined) {
+            createYearlyGoals(initYear(yearStr));
+        } else {
+            //load in bullets
+            yearObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
+                let goalElem = document.createElement('p');
+                goalElem.innerHTML = goal.text;
+                if (goal.done === true) {
+                    goalElem.style.textDecoration = 'line-through';
+                }
+                goalElem.classList.add('year-goal');
+                console.log(goalElem);
+                document.querySelector('#yearGoal').appendChild(goalElem);
+            });
+        }
+    };
+}
 
 /* Here is another version of what to do when the window loads, TODO, merge these into one
 window.onload = () => {
