@@ -10,6 +10,10 @@ on:
   
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  strategy:
+    #make sure all jobs run sequentially
+    max-parallel: 1
+  # the linter job
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
@@ -42,3 +46,52 @@ jobs:
           prettier_dir: "source/"
           # try to auto-fix problems
           auto_fix: true
+  
+  #the jest job
+  jest:
+    name: Jest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12  
+
+      - name: Pull origin development
+        run: |
+            git pull origin ${{ github.ref }} 
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run Jest tests
+        run: source/tests/sample.test.js
+        
+  #the puppeteer job
+  puppeteer:
+    name: Puppeteer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          
+      - name: Pull origin development
+        run: |
+            git pull origin ${{ github.ref }} 
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run Puppeteer tests
+        run: source/tests/sampleP.test.js
+          
