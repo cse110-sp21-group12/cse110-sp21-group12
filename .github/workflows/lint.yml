@@ -10,9 +10,6 @@ on:
   
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  strategy:
-    #make sure all jobs run sequentially
-    max-parallel: 1
   # the linter job
   run-linters:
     name: Run linters
