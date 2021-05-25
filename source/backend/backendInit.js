@@ -12,13 +12,12 @@ let db;
 /**
  * Function checks to see if this visotor has a databse set up
  * if it doesn't, then cretaes the stores and indicies
- * lastly, it assigns the actual db object from the promise
- * @returns void:
+ * NOTE: It is up to the CALLER to call "setDB" with the returned database object before making
+ * any transactions
+ * @returns a request for a db object
  */
 // eslint-disable-next-line no-unused-vars
-//function dbInit() {
-
-function initDB(){
+function initDB() {
     if (!('indexedDB' in window)) {
         console.log("This browser doesn't support IndexedDB");
     }
@@ -93,6 +92,10 @@ dbPromise.onerror = function (e) {
 };
 */
 
+/**
+ * used to set the database object to make future transactions with
+ * @param {Object} dbReturn
+ */
 // eslint-disable-next-line no-unused-vars
 function setDB(dbReturn) {
     db = dbReturn;
@@ -502,4 +505,32 @@ function deleteSettings() {
     request.onsuccess = function () {
         console.log('setting entry deleted successful');
     };
+}
+
+/**
+ * Below are constuctors for objects to store
+ * in the database that you may help find useful
+ */
+
+/**
+ * creates a new year object given a year string
+ * @param {String} yearStr - the year (eg: "2020")
+ * @returns {Object} the new year object
+ * @todo Write more documentation on the object's values
+ */
+// eslint-disable-next-line no-unused-vars
+function initYear(yearStr) {
+    return { year: yearStr, goals: [] };
+}
+
+/**
+ * creates a new goal object given a goal string
+ * new goals area always initalized as not done
+ * @param {String} goalStr - a string of the goal
+ * @returns {Object} the new goal object
+ * @todo Write more documentation on the object's values
+ */
+// eslint-disable-next-line no-unused-vars
+function initGoal(goalStr) {
+    return { text: goalStr, done: false };
 }

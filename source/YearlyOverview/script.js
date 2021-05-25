@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+//putting this above b/c the API function are all "unknown" to eslint so it complains
+
 //get the desired year
 let myLocation = window.location.href;
 let currentYear = myLocation.substring(
@@ -10,8 +13,7 @@ if (currentYear == 'html') {
 }
 console.log(currentYear);
 
-// mock data of list of goals to render
-
+// contains the current year's yearlyGoal object from the database
 let goalsObj;
 
 window.onload = displayGoals();
@@ -19,9 +21,13 @@ window.onload = displayGoals();
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
-    let goal = { text: gText, symb: '•' };
+    //let goal = { text: gText, symb: '•' };
     document.querySelector('.entry-form-text').value = '';
-    renderGoals([goal]);
+    let goal = initGoal(gText);
+    goalsObj.goals.push(goal);
+    updateYearsGoals(goalsObj);
+    //renderGoals([goal]);
+    renderGoal(goal);
 });
 
 /**
@@ -40,14 +46,23 @@ function displayGoals() {
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
+        // eslint-disable-next-line no-undef
         setDB(e.target.result);
-        let goals = getYearlyGoals('2020');
+        //tries to get the current year object, could be undefined
+        // eslint-disable-next-line no-undef
+        let goals = getYearlyGoals(currentYear);
         goals.onsuccess = function (e) {
-            goalsObj = e.target.result.goals;
-            goalsObj.forEach((goal) => {
-                console.log(goal);
-                renderGoal(goal);
-            });
+            goalsObj = e.target.result;
+            //if its undefined, then one hasn't been created yet, so make one
+            if (goalsObj === undefined) {
+                goalsObj = initYear(currentYear);
+                createYearlyGoals(goalsObj);
+            } else {
+                goalsObj.goals.forEach((goal) => {
+                    console.log(goal);
+                    renderGoal(goal);
+                });
+            }
         };
     };
 }
