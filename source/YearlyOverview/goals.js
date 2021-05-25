@@ -77,20 +77,9 @@ class GoalsEntry extends HTMLElement {
             this.dispatchEvent(this.edited);
         });
 
-        // delete goal
-        this.shadowRoot
-            .querySelector('#delete')
-            .addEventListener('click', () => {
-                this.dispatchEvent(this.deleted);
-            });
-
-        this.shadowRoot.querySelector('#done').addEventListener('click', () => {
-            let goalBullet = this.shadowRoot.querySelector('.bullet-content');
-            if (goalBullet.style.textDecorationLine == 'none') {
-                goalBullet.style.textDecorationLine = 'line-through';
-            } else {
-                goalBullet.style.textDecorationLine = 'none';
-            }
+        // mark bullet as done
+            this.shadowRoot.querySelector('#done').addEventListener('click', () => {
+            this.dispatchEvent(this.done);
         });
 
         // delete goal
@@ -111,6 +100,12 @@ class GoalsEntry extends HTMLElement {
             bubbles: true,
             composed: true,
         });
+
+        // new event to mark event as done
+        this.done = new CustomEvent('done', {
+            bubbles: true,
+            composed: true,
+        })
     }
 
     /**
@@ -127,7 +122,7 @@ class GoalsEntry extends HTMLElement {
         // set the text of the entry
         this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
         // see if it's marked as done
-        if (entry.done === true) {
+        if (entry.done == true) {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';

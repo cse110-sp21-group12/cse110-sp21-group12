@@ -66,13 +66,24 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     renderGoals(currentYearRes.goals);
 });
 
-// lets todo component listen to when a bullet is deleted
+// lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].text = newText;
+    updateYearsGoals(currentYearRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentYearRes.goals);
+});
+
+// lets bullet component listen to when a bullet is marked done
+document.querySelector('#bullets').addEventListener('done', function (e) {
+    console.log('got done event');
+    console.log(e.composedPath()[0]);
+    let index = e.composedPath()[0].getAttribute('index');
+    currentYearRes.goals[index].done ^= true;
     updateYearsGoals(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
