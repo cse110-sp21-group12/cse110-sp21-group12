@@ -203,9 +203,16 @@ function setupCalendar() {
         // }
 
         // check if today so we can highlight it
-        var today = new Date();
-        var currDay = today.getDate();
-        if (i == dayNumber(currDay)) {
+        let today = new Date();
+        let currDay = today.getDate();
+        let currMonth = today.getMonth();
+        let currYear = today.getFullYear();
+
+        if (
+            i == dayNumber(currDay) &&
+            currMonth == currMonthNumber &&
+            currYear == currYearNumber
+        ) {
             day.classList.add('today');
         }
 

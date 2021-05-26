@@ -1,3 +1,4 @@
 {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "liveServer.settings.port": 5501
 }
