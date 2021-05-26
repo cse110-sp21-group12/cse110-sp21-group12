@@ -1,6 +1,7 @@
-node_modules/
+node_modules/*
 .github/
 docs/
 *.json
 *.config.js
 *.test.js
+source/tests/*

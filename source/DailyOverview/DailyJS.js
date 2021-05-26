@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+//since all backend API calls are unknown to eslint, just disabeling no-undef
 window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
@@ -14,6 +16,10 @@ if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
 console.log(currentDateStr);
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 let relative = 0;
 // Buttons
@@ -40,6 +46,12 @@ let currentDay;
 // }
 
 window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
     // getting backend sample day
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
@@ -456,10 +468,6 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
 
     return { width: width, height: height, startX: startX, startY: startY };
 }
-
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 /**
  * Function that gets photos and renders
