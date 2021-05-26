@@ -1,7 +1,20 @@
+/* eslint-disable no-undef */
 window.img = new Image(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
+
+//get the desired mm/dd/yyyy string
+let myLocation = window.location.href;
+let currentDateStr = myLocation.substring(
+    myLocation.length - 10,
+    myLocation.length
+);
+//default case
+if (currentDateStr == 'html') {
+    currentDateStr = '05/25/2020';
+}
+console.log(currentDateStr);
 
 let relative = 0;
 // Buttons
@@ -29,21 +42,108 @@ let currentDay;
 
 window.addEventListener('load', () => {
     // getting backend sample day
-    let req = getDay('05/20/2021');
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        requestDay();
+        fetchMonthGoals();
+        fetchYearGoals();
+    };
+    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
+});
+
+/**
+ * Gets the current day object (and creates one if one doesn't exist)
+ * and sets the "currentDay" variable
+ * Also renders the days notes and bullets if there are any
+ * @returns void
+ */
+function requestDay() {
+    let req = getDay(currentDateStr);
     req.onsuccess = function (e) {
         console.log('got day');
         console.log(e.target.result);
         currentDay = e.target.result;
-        //Load in bullets
-        let bullets = currentDay.bullets;
-        renderBullets(bullets);
-
-        // Load in notes
-        let newNote = document.createElement('note-box');
-        newNote.entry = currentDay.notes;
-        document.querySelector('#notes').appendChild(newNote);
+        if (currentDay === undefined) {
+            currentDay = initDay(currentDateStr);
+            createDay(currentDay);
+        } else {
+            //Load in bullets
+            let bullets = currentDay.bullets;
+            renderBullets(bullets);
+            // Load in notes
+            let newNote = document.createElement('note-box');
+            newNote.entry = currentDay.notes;
+            document.querySelector('#notes').appendChild(newNote);
+        }
     };
-});
+}
+
+/**
+ * Gets the current month object (and creates one if one doesn't exist)
+ * also renders the monthly goals
+ * @returns void
+ */
+function fetchMonthGoals() {
+    console.log('fetching month');
+    console.log(currentDateStr.substring(6));
+    let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
+    let req = getMonthlyGoals(monthStr);
+    req.onsuccess = function (e) {
+        console.log('got month');
+        let monthObj = e.target.result;
+        console.log(monthObj);
+        if (monthObj === undefined) {
+            createMonthlyGoals(initMonth(monthStr));
+        } else {
+            //load in bullets
+            monthObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
+                let goalElem = document.createElement('p');
+                goalElem.innerHTML = goal.text;
+                if (goal.done === true) {
+                    goalElem.style.textDecoration = 'line-through';
+                }
+                goalElem.classList.add('month-goal');
+                console.log(goalElem);
+                document.querySelector('#monthGoal').appendChild(goalElem);
+            });
+        }
+    };
+}
+
+/**
+ * Gets the current year object (and creates one if one doesn't exist)
+ * also renders the yearly goals
+ * @returns void
+ */
+function fetchYearGoals() {
+    console.log('fetching year');
+    let yearStr = currentDateStr.substring(6);
+    let req = getYearlyGoals(yearStr);
+    req.onsuccess = function (e) {
+        console.log('got year');
+        let yearObj = e.target.result;
+        console.log(yearObj);
+        if (yearObj === undefined) {
+            createYearlyGoals(initYear(yearStr));
+        } else {
+            //load in bullets
+            yearObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
+                let goalElem = document.createElement('p');
+                goalElem.innerHTML = goal.text;
+                if (goal.done === true) {
+                    goalElem.style.textDecoration = 'line-through';
+                }
+                goalElem.classList.add('year-goal');
+                console.log(goalElem);
+                document.querySelector('#yearGoal').appendChild(goalElem);
+            });
+        }
+    };
+}
 
 /* Here is another version of what to do when the window loads, TODO, merge these into one
 window.onload = () => {
@@ -116,7 +216,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     renderBullets(currentDay.bullets);
 });
 
-// lets todo component listen to when a bullet is deleted
+// lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got event');
     console.log(e.composedPath()[0]);
@@ -135,10 +235,27 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
     renderBullets(currentDay.bullets);
 });
 
+// lets bullet component listen to when a bullet is marked done
+document.querySelector('#bullets').addEventListener('done', function (e) {
+    console.log('got done event');
+    console.log(e.composedPath()[0]);
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+    } else {
+        currentDay.bullets[firstIndex].done ^= true;
+    }
+    updateDay(currentDay);
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
+});
+
 /**
  * Function that renders a list of bullets into the todo area
  * Update currentDay json with updated bullets
- * @param {[Object]} a list of bullet objects to render
+ * @param {Object} bullets - a list of bullet objects to render
  */
 function renderBullets(bullets) {
     let iNum = 0;
@@ -165,8 +282,8 @@ function renderBullets(bullets) {
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} a bullet object of child to create
- * @param {[int]} array of integers of index of bullets
+ * @param {Object} bullet - a bullet object of child to create
+ * @param {Number} i -  array of integers of index of bullets
  * @return {Object} new child created
  */
 function renderChild(bullet, i) {
@@ -186,6 +303,7 @@ function renderChild(bullet, i) {
     return newChild;
 }
 
+// eslint-disable-next-line no-unused-vars
 function editBullet() {
     console.log('in here');
     let editedEntry = prompt(
@@ -318,11 +436,11 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
 
 //set back button
 document.getElementById('monthView').children[0].href +=
-    '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
+    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} a bullet object
+ * @param {Object} photos - a bullet object
  * @return {Object} new child created
  */
 // eslint-disable-next-line no-unused-vars

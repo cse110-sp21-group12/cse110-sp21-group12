@@ -1,83 +1,101 @@
+/* eslint-disable no-unused-vars */
+
+/* since many functions here aren't called, eslint complains about unused-vars */
+
 /**
  * Want to first check if database exists, and if not, set it up
+ * a constant name to our database
  */
 const DB_NAME = 'bujoBase';
+
+/**
+ * A constant of our database version
+ */
 const DB_VERSION = 1;
 
 // contains mockData to populate the db
 let mockData;
 
-// eslint-disable-next-line no-unused-vars
+/**
+ * will contain the db object returned from "initDB()" to be used in
+ * creating future transactions, has to be set via "setDB()"
+ */
 let db;
+
 /**
  * Function checks to see if this visotor has a databse set up
  * if it doesn't, then cretaes the stores and indicies
- * lastly, it assigns the actual db object from the promise
- * @returns void:
+ * NOTE: It is up to the CALLER to call "setDB" with the returned database object before making
+ * any transactions
+ * @returns a request for a db object
  */
-// eslint-disable-next-line no-unused-vars
-//function dbInit() {
-if (!('indexedDB' in window)) {
-    console.log("This browser doesn't support IndexedDB");
+function initDB() {
+    if (!('indexedDB' in window)) {
+        console.log("This browser doesn't support IndexedDB");
+    }
+    // not sure if we need to use dbPromise here
+    // eslint-disable-next-line no-unused-vars
+    let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
+    // TBH idk why google calls this "upgradeDb", perhaps they refernce this creations as "upgrading"
+    dbPromise.onupgradeneeded = function (e) {
+        db = e.target.result;
+        if (!db.objectStoreNames.contains('days')) {
+            /**
+                     * creating a object store for days, these will be differentiaed by a date string
+                     * (eg: '05-20-2021')
+                     * Here is a sample of what a 'days' could look like:
+                     {
+                         date: "xx-xx-xxxx",
+                            bullets: [bullet1,...],
+                            photos: [photo1,...]
+                        }
+                    */
+            db.createObjectStore('days', { keyPath: 'date' });
+        }
+        if (!db.objectStoreNames.contains('yearlyGoals')) {
+            /**
+                     * creating a yearly store for yearly goals, since we won't ever need to be getting
+                     * a specific goal (but rather goals within a certain year), we can use an auto-increment key
+                     {
+                            year: xxxx
+                            goals: [yGoal1, yGoal2,..]
+                        }
+                        ^^^ should we store each goal seoerately, or as a list?
+                    */
+            db.createObjectStore('yearlyGoals', { keyPath: 'year' });
+        }
+        if (!db.objectStoreNames.contains('monthlyGoals')) {
+            /**
+                     * creating a montly store for monthly goals, since we won't ever need to be getting
+                     * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
+                     {
+                            month: xx/xxxx (month and year)
+                            goals: [mGoal1, mGoal2,..]
+                        }
+                        ^^^ should we store each goal seoerately, or as a list?
+                    */
+            db.createObjectStore('monthlyGoals', { keyPath: 'month' });
+        }
+        if (!db.objectStoreNames.contains('setting')) {
+            /**
+                     * creating a store to place the settings object
+                     * This one is tricky, since the story would only have a
+                     * max of 1 object (one per use). 
+                     * We can always retrieve it with a key=1, but we have to make sure
+                     * we only create this once
+                     * -there doesn't seem to be a need to create additional indices
+                     { theme: 1, passowrd: ..., name: ...  }
+                    */
+            db.createObjectStore('setting', { autoIncrement: true });
+        }
+        //populate mock data
+        setUpMockData();
+    };
+    return dbPromise;
 }
-// not sure if we need to use dbPromise here
-// eslint-disable-next-line no-unused-vars
-let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
-// TBH idk why google calls this "upgradeDb", perhaps they refernce this creations as "upgrading"
-dbPromise.onupgradeneeded = function (e) {
-    var db = e.target.result;
-    if (!db.objectStoreNames.contains('days')) {
-        /**
-                 * creating a object store for days, these will be differentiaed by a date string
-                 * (eg: '05-20-2021')
-                 * Here is a sample of what a 'days' could look like:
-                 {
-                     date: "xx-xx-xxxx",
-                        bullets: [bullet1,...],
-                        photos: [photo1,...]
-                    }
-                */
-        db.createObjectStore('days', { keyPath: 'date' });
-    }
-    if (!db.objectStoreNames.contains('yearlyGoals')) {
-        /**
-                 * creating a yearly store for yearly goals, since we won't ever need to be getting
-                 * a specific goal (but rather goals within a certain year), we can use an auto-increment key
-                 {
-                        year: xxxx
-                        goals: [yGoal1, yGoal2,..]
-                    }
-                    ^^^ should we store each goal seoerately, or as a list?
-                */
-        db.createObjectStore('yearlyGoals', { keyPath: 'year' });
-    }
-    if (!db.objectStoreNames.contains('monthlyGoals')) {
-        /**
-                 * creating a montly store for monthly goals, since we won't ever need to be getting
-                 * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
-                 {
-                        month: xx/xxxx (month and year)
-                        goals: [mGoal1, mGoal2,..]
-                    }
-                    ^^^ should we store each goal seoerately, or as a list?
-                */
-        db.createObjectStore('monthlyGoals', { keyPath: 'month' });
-    }
-    if (!db.objectStoreNames.contains('setting')) {
-        /**
-                 * creating a store to place the settings object
-                 * This one is tricky, since the story would only have a
-                 * max of 1 object (one per use). 
-                 * We can always retrieve it with a key=1, but we have to make sure
-                 * we only create this once
-                 * -there doesn't seem to be a need to create additional indices
-                 { theme: 1, passowrd: ..., name: ...  }
-                */
-        db.createObjectStore('setting', { autoIncrement: true });
-    }
-    //populate mock data
-    setUpMockData();
-};
+/*
+This is moved to the caller's responsibility
+
 dbPromise.onsuccess = function (e) {
     console.log('database connected');
     db = e.target.result;
@@ -86,6 +104,16 @@ dbPromise.onerror = function (e) {
     console.log('onerror!');
     console.dir(e);
 };
+*/
+
+/**
+ * used to set the database object to make future transactions with
+ * @param {Object} dbReturn
+ */
+function setDB(dbReturn) {
+    db = dbReturn;
+}
+
 //}
 
 /**
@@ -130,7 +158,6 @@ function setUpMockData() {
 /**
  * sample function to get the mock data from the database
  */
-// eslint-disable-next-line no-unused-vars
 function getMockData() {
     let reqD1 = getDay('05/20/2021');
     reqD1.onsuccess = function (e) {
@@ -167,7 +194,6 @@ function getMockData() {
 /**
  * sample function to delete the mock data from database
  */
-// eslint-disable-next-line no-unused-vars
 function deleteMockData() {
     deleteDay('05/20/2021');
     deleteMonthlyGoals('12/2021');
@@ -180,7 +206,6 @@ function deleteMockData() {
 /**
  * sample function to edit the mock data from database
  */
-// eslint-disable-next-line no-unused-vars
 function editMockData() {
     let settings = { username: 'Prospero', passoword: '1611', theme: 0 };
     updateSettings(settings);
@@ -191,7 +216,6 @@ function editMockData() {
  * @param {String} dateStr -  of form "mm/dd/yyyy" eg: "02/12/2020"
  * @returns A request for a date, if no day with the given dateStr exists, returns undefined
  */
-// eslint-disable-next-line no-unused-vars
 function getDay(dateStr) {
     let tx = db.transaction(['days'], 'readonly');
     let store = tx.objectStore('days');
@@ -209,7 +233,6 @@ function getDay(dateStr) {
  * @param {string} dayObj.notes - a string representing the notes
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function createDay(dayObj) {
     let tx = db.transaction('days', 'readwrite');
     let store = tx.objectStore('days');
@@ -233,7 +256,6 @@ function createDay(dayObj) {
  * @param {string} dayObj.notes - a string representing the notes
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function updateDay(dayObj) {
     let tx = db.transaction(['days'], 'readwrite');
     let store = tx.objectStore('days');
@@ -252,7 +274,6 @@ function updateDay(dayObj) {
  * @param {string} date string of the form "mm/dd/yyyy"
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function deleteDay(dayStr) {
     let tx = db.transaction(['days'], 'readwrite');
     let store = tx.objectStore('days');
@@ -271,7 +292,6 @@ function deleteDay(dayStr) {
  * @param {String} yearStr - the year in the form "yyyy" (eg: "2021")
  * @returns A request for the year object, if none exist with the yearStr, returns undefined
  */
-// eslint-disable-next-line no-unused-vars
 function getYearlyGoals(yearStr) {
     let tx = db.transaction(['yearlyGoals'], 'readonly');
     let store = tx.objectStore('yearlyGoals');
@@ -286,7 +306,6 @@ function getYearlyGoals(yearStr) {
  * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function createYearlyGoals(yearObj) {
     let tx = db.transaction(['yearlyGoals'], 'readwrite');
     let store = tx.objectStore('yearlyGoals');
@@ -308,7 +327,6 @@ function createYearlyGoals(yearObj) {
  * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function updateYearsGoals(yearObj) {
     let tx = db.transaction(['yearlyGoals'], 'readwrite');
     let store = tx.objectStore('yearlyGoals');
@@ -327,7 +345,6 @@ function updateYearsGoals(yearObj) {
  * @param {String} yearStr - year string of the form 'xxxx' (eg: "2021")
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function deleteYearlyGoals(yearStr) {
     let tx = db.transaction(['yearlyGoals'], 'readwrite');
     let store = tx.objectStore('yearlyGoals');
@@ -346,7 +363,6 @@ function deleteYearlyGoals(yearStr) {
  * @param {String} monthStr - month along with year in the form "xx/xxxx" (eg: "02/2022")
  * @returns a request for a monthlyGoals object if none with the monthStr exist, returns undefined
  */
-// eslint-disable-next-line no-unused-vars
 function getMonthlyGoals(monthStr) {
     let tx = db.transaction(['monthlyGoals'], 'readonly');
     let store = tx.objectStore('monthlyGoals');
@@ -361,7 +377,6 @@ function getMonthlyGoals(monthStr) {
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function createMonthlyGoals(monthObj) {
     let tx = db.transaction(['monthlyGoals'], 'readwrite');
     let store = tx.objectStore('monthlyGoals');
@@ -383,7 +398,6 @@ function createMonthlyGoals(monthObj) {
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function updateMonthlyGoals(monthObj) {
     let tx = db.transaction(['monthlyGoals'], 'readwrite');
     let store = tx.objectStore('monthlyGoals');
@@ -402,7 +416,6 @@ function updateMonthlyGoals(monthObj) {
  * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function deleteMonthlyGoals(monthStr) {
     let tx = db.transaction(['monthlyGoals'], 'readwrite');
     let store = tx.objectStore('monthlyGoals');
@@ -421,7 +434,6 @@ function deleteMonthlyGoals(monthStr) {
  * NOTE: Since there is only 1 user, there is only 1 setting object
  * @returns a request for a settings object
  */
-// eslint-disable-next-line no-unused-vars
 function getSettings() {
     var tx = db.transaction(['setting'], 'readonly');
     var store = tx.objectStore('setting');
@@ -438,7 +450,6 @@ function getSettings() {
  * @param {Number} setting.theme - theme id of the user (ie: 0)
  * @return void
  */
-// eslint-disable-next-line no-unused-vars
 function createSettings(setting) {
     var tx = db.transaction(['setting'], 'readwrite');
     var store = tx.objectStore('setting');
@@ -460,7 +471,6 @@ function createSettings(setting) {
  * @param {Number} setting.theme - theme id of the user (ie: 0)
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function updateSettings(setting) {
     var tx = db.transaction(['setting'], 'readwrite');
     var store = tx.objectStore('setting');
@@ -478,7 +488,6 @@ function updateSettings(setting) {
  * deletes the setting object
  * @returns void
  */
-// eslint-disable-next-line no-unused-vars
 function deleteSettings() {
     var tx = db.transaction(['setting'], 'readwrite');
     var store = tx.objectStore('setting');
@@ -490,4 +499,50 @@ function deleteSettings() {
     request.onsuccess = function () {
         console.log('setting entry deleted successful');
     };
+}
+
+/**
+ * Below are constuctors for objects to store
+ * in the database that you may help find useful
+ */
+
+/**
+ * creates a new year object given a year string
+ * @param {String} yearStr - the year (eg: "2020")
+ * @returns {Object} the new year object
+ * @todo Write more documentation on the object's values
+ */
+function initYear(yearStr) {
+    return { year: yearStr, goals: [] };
+}
+
+/**
+ * creates a new month object given a month string
+ * @param {String} monthStr - a string repr of the month (this also includes the year)
+ * @returns {Object} the new monthly goal obj
+ * @todo Write more documentation on the object's values
+ */
+function initMonth(monthStr) {
+    return { month: monthStr, goals: [] };
+}
+
+/**
+ * creates a new day object given a date string
+ * @param {String} dateStr - a string of the goal
+ * @returns {Object} the new day object
+ * @todo Write more documentation on the object's values
+ */
+function initDay(dateStr) {
+    return { date: dateStr, bullets: [], photos: [], notes: '' };
+}
+
+/**
+ * creates a new goal object given a goal string
+ * new goals area always initalized as not done
+ * @param {String} goalStr - a string of the goal
+ * @returns {Object} the new goal object
+ * @todo Write more documentation on the object's values
+ */
+function initGoal(goalStr) {
+    return { text: goalStr, done: false };
 }
