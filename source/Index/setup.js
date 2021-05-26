@@ -37,6 +37,15 @@ const year_OV_link = '../YearlyOverview/YearlyOverview.html';
     </div>
 */
 
+window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
+});
+
 function setupContent() {
     //alert("Load runs");
     for (let yr = yr_start; yr <= yr_end; yr++) {
