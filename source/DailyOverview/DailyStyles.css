@@ -98,7 +98,7 @@ h2 {
 }
 
 #todo::-webkit-scrollbar {
-    display: none;      /* color of the tracking area */
+    display: none; /* color of the tracking area */
 }
 
 #addTodo {
