@@ -4,3 +4,4 @@ docs/
 *.json
 *.config.js
 *.test.js
+source/tests/
