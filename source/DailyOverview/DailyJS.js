@@ -182,6 +182,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         done: false,
         childList: [],
         time: null,
+        features: '',
     });
     console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
@@ -246,6 +247,25 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
         currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
     } else {
         currentDay.bullets[firstIndex].done ^= true;
+    }
+    updateDay(currentDay);
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
+});
+
+// lets bullet component listen to when a bullet is clicked category
+document.querySelector('#bullets').addEventListener('features', function (e) {
+    console.log('CHANGED CATEGORY');
+    console.log(e.composedPath()[0]);
+    let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .features;
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        currentDay.bullets[firstIndex].childList[secondIndex].features = newFeatures;
+    } else {
+        currentDay.bullets[firstIndex].features = newFeature;
     }
     updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
@@ -448,5 +468,17 @@ function renderPhotos(photos) {
     for (let i = 0; i < photos.length; i++) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
+    }
+}
+
+function categoryChange(dropdown) {
+    console.log("how about now");
+    let option_value = dropdown.options[dropdown.selectedIndex].value;
+    console.log(option_value);
+    if (option_value == 'important') {
+        this.shadowRoot.querySelector(
+            '.bullet-content'
+        ).style.textDecoration = 'line-through';
+        console.log("important category");
     }
 }
