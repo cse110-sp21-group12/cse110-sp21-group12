@@ -22,7 +22,6 @@ const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
 
-
 // store current day data to update when user leaves page
 let currentDay;
 //  = {
@@ -368,7 +367,7 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
-    
+
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
     updateDay(currentDay);
