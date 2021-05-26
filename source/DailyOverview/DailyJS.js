@@ -1,4 +1,3 @@
-
 /* eslint-disable no-undef */
 window.img = new Image(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
