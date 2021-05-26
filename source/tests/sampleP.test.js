@@ -1,3 +1,4 @@
+/* eslint-disable no-undef*/
 //sample puppeteer test
 describe('Google', () => {
     beforeAll(async () => {
