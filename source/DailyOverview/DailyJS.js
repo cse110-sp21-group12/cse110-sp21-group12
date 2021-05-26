@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-window.img = new Image(); // used to load image from <input> and draw to canvas
+window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
@@ -77,6 +76,10 @@ function requestDay() {
             let newNote = document.createElement('note-box');
             newNote.entry = currentDay.notes;
             document.querySelector('#notes').appendChild(newNote);
+
+            // Load photos
+            let photos = currentDay.photos;
+            renderPhotos(photos);
         }
     };
 }
@@ -110,9 +113,6 @@ function fetchMonthGoals() {
                 console.log(goalElem);
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
-            // Load photos
-            let photos = currentDay.photos;
-            renderPhotos(photos);
         }
     };
 }
@@ -463,7 +463,6 @@ document.getElementById('monthView').children[0].href +=
     '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 /**
-
  * Function that gets photos and renders
  * @param {Object} photos takes in photo object
  * @return nothing
