@@ -51,6 +51,7 @@ class GoalsEntry extends HTMLElement {
                         </ul>
                     <button id="edit">Edit</button>
                     <button id="delete">Delete</button>
+                    <button id="done">Mark Done</button>
                     <div class="child"></div>
                 </div>
             </article>
@@ -58,7 +59,10 @@ class GoalsEntry extends HTMLElement {
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        // edit goal through a prompt
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let newJson = JSON.parse(this.getAttribute('goalJson'));
             let editedEntry = prompt(
                 'Edit Bullet',
                 this.shadowRoot.querySelector('.bullet-content').innerText
@@ -67,13 +71,41 @@ class GoalsEntry extends HTMLElement {
                 this.shadowRoot.querySelector(
                     '.bullet-content'
                 ).innerText = editedEntry;
+                newJson.text = editedEntry;
+                this.setAttribute('goalJson', JSON.stringify(newJson));
             }
+            this.dispatchEvent(this.edited);
         });
+
+        // mark bullet as done
+        this.shadowRoot.querySelector('#done').addEventListener('click', () => {
+            this.dispatchEvent(this.done);
+        });
+
+        // delete goal
         this.shadowRoot
             .querySelector('#delete')
             .addEventListener('click', () => {
-                this.parentNode.removeChild(this);
+                this.dispatchEvent(this.deleted);
             });
+
+        // new event to see when goal is deleted
+        this.deleted = new CustomEvent('deleted', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to see when goal is edited
+        this.edited = new CustomEvent('edited', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to mark event as done
+        this.done = new CustomEvent('done', {
+            bubbles: true,
+            composed: true,
+        });
     }
 
     /**
@@ -89,19 +121,12 @@ class GoalsEntry extends HTMLElement {
     set entry(entry) {
         // set the text of the entry
         this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
-
         // see if it's marked as done
-        if (entry.done === true) {
+        if (entry.done == true) {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
         }
-    }
-
-    set child(child) {
-        // set nested bullets of entries
-        console.log(child);
-        this.shadowRoot.querySelector('.child').appendChild(child);
     }
 }
 
