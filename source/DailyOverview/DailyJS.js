@@ -263,7 +263,9 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].features = newFeatures;
+        currentDay.bullets[firstIndex].childList[
+            secondIndex
+        ].features = newFeatures;
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
     }
@@ -472,13 +474,12 @@ function renderPhotos(photos) {
 }
 
 function categoryChange(dropdown) {
-    console.log("how about now");
+    console.log('how about now');
     let option_value = dropdown.options[dropdown.selectedIndex].value;
     console.log(option_value);
     if (option_value == 'important') {
-        this.shadowRoot.querySelector(
-            '.bullet-content'
-        ).style.textDecoration = 'line-through';
-        console.log("important category");
+        this.shadowRoot.querySelector('.bullet-content').style.textDecoration =
+            'line-through';
+        console.log('important category');
     }
 }

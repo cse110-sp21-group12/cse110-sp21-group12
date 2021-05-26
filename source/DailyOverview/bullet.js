@@ -74,14 +74,14 @@ class BulletEntry extends HTMLElement {
             </article>
         `;
 
-        // <select name="add" id="features"> 
-        //                 <option value="">Category</option> 
+        // <select name="add" id="features">
+        //                 <option value="">Category</option>
         //                 <option value="important">Important</option>
         //                 <option value="workRelated">School/Coursework</option>
         //                 <option value="household">Household/Chores</option>
         //                 <option value="personal">Personal/Well-being</option>
         //                 <option value="other">Other</option>
-        //             </select> 
+        //             </select>
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
@@ -160,16 +160,19 @@ class BulletEntry extends HTMLElement {
         });
 
         // mark bullet category
-        this.shadowRoot.querySelector('#features').addEventListener('change', () => {
-            let newJson = JSON.parse(this.getAttribute('bulletJson'));
-            let selectElement = this.shadowRoot.querySelector('#features');
-            console.log(selectElement);
-            let output = selectElement.options[selectElement.selectedIndex].value;
-            console.log(output);
-            newJson.features = output;
-            this.setAttribute('bulletJson', JSON.stringify(newJson));
-            this.dispatchEvent(this.features);
-        });
+        this.shadowRoot
+            .querySelector('#features')
+            .addEventListener('change', () => {
+                let newJson = JSON.parse(this.getAttribute('bulletJson'));
+                let selectElement = this.shadowRoot.querySelector('#features');
+                console.log(selectElement);
+                let output =
+                    selectElement.options[selectElement.selectedIndex].value;
+                console.log(output);
+                newJson.features = output;
+                this.setAttribute('bulletJson', JSON.stringify(newJson));
+                this.dispatchEvent(this.features);
+            });
 
         // new event to see when bullet child is added
         this.added = new CustomEvent('added', {
@@ -221,7 +224,7 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
-            console.log("testing");
+            console.log('testing');
         }
         console.log('features');
         console.log(entry.features);
@@ -229,36 +232,28 @@ class BulletEntry extends HTMLElement {
         // this.shadowRoot.querySelector('#features').innerHTML = newJson.features;
 
         if (entry.features == 'category') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = none;
-            console.log("changing bullet image");
-        }
-        else if (entry.features == 'important') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = "url('../Images/FallIcon.svg')";
-            console.log("changing bullet image");
+            this.shadowRoot.querySelector('ul').style.listStyleImage = none;
+            console.log('changing bullet image');
+        } else if (entry.features == 'important') {
+            this.shadowRoot.querySelector('ul').style.listStyleImage =
+                "url('../Images/FallIcon.svg')";
+            console.log('changing bullet image');
         } else if (entry.features == 'workRelated') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = "url('../Images/DinoEgg.svg')";
-            console.log("changing bullet image");
+            this.shadowRoot.querySelector('ul').style.listStyleImage =
+                "url('../Images/DinoEgg.svg')";
+            console.log('changing bullet image');
         } else if (entry.features == 'household') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = "url('../Images/Logo.svg')";
-            console.log("changing bullet image");
+            this.shadowRoot.querySelector('ul').style.listStyleImage =
+                "url('../Images/Logo.svg')";
+            console.log('changing bullet image');
         } else if (entry.features == 'personal') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = "url('../Images/DinoEgg.svg')";
-            console.log("changing bullet image");
+            this.shadowRoot.querySelector('ul').style.listStyleImage =
+                "url('../Images/DinoEgg.svg')";
+            console.log('changing bullet image');
         } else if (entry.features == 'other') {
-            this.shadowRoot.querySelector(
-               'ul'
-            ).style.listStyleImage = "url('../Images/DinoEgg.svg')";
-            console.log("changing bullet image");
+            this.shadowRoot.querySelector('ul').style.listStyleImage =
+                "url('../Images/DinoEgg.svg')";
+            console.log('changing bullet image');
         }
     }
 
