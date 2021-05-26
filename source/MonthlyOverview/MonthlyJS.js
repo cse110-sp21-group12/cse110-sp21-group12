@@ -191,7 +191,11 @@ function setupCalendar() {
         let currMonth = today.getMonth();
         let currYear = today.getFullYear();
 
-        if (i == dayNumber(currDay) && (currMonth == currMonthNumber) && (currYear == currYearNumber)) {
+        if (
+            i == dayNumber(currDay) &&
+            currMonth == currMonthNumber &&
+            currYear == currYearNumber
+        ) {
             day.classList.add('today');
         }
 
