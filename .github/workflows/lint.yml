@@ -90,5 +90,5 @@ jobs:
         run: npm ci
 
       - name: Run Puppeteer tests
-        run: npm test source/tests/sampleP.test.js
+        run: npm test -c jest-puppeteer.config.js source/tests/sampleP.test.js
           

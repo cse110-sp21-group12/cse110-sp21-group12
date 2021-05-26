@@ -4,8 +4,7 @@
   "description": "BuJo project",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "testP": "jest -c jest-puppeteer.config.js"
+    "test": "jest"
   },
   "jest": {
     "verbose": true,
