@@ -419,7 +419,8 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
 
 //set back button
 document.getElementById('monthView').children[0].href +=
-    '#' + currentDay.substring(0, 2) + '/' + currentDay.substring(6);
+    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
+    
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
