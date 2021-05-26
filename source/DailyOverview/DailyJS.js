@@ -67,6 +67,8 @@ function requestDay() {
         if (currentDay === undefined) {
             currentDay = initDay(currentDateStr);
             createDay(currentDay);
+            let newNote = document.createElement('note-box');
+            document.querySelector('#notes').appendChild(newNote);
         } else {
             //Load in bullets
             let bullets = currentDay.bullets;
