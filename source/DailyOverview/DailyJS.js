@@ -195,13 +195,15 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    console.log('index '+ index)
-    console.log('childindex length '+ newJson.childList.length)
+    console.log('index ' + index);
+    console.log('childindex length ' + newJson.childList.length);
     // if 3rd layer of nesting
     if (e.composedPath().length > 8) {
         let firstIndex = JSON.parse(e.composedPath()[5].getAttribute('index'));
-        console.log('firstIndex '+ firstIndex)
-        currentDay.bullets[firstIndex].childList[index[newJson.childList.length - 1]] = newJson;
+        console.log('firstIndex ' + firstIndex);
+        currentDay.bullets[firstIndex].childList[
+            index[newJson.childList.length - 1]
+        ] = newJson;
     } else {
         currentDay.bullets[index[0]] = newJson;
     }

@@ -95,13 +95,13 @@ class BulletEntry extends HTMLElement {
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            console.log('adding a new bullet')
+            console.log('adding a new bullet');
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
             let newIndex = JSON.parse(this.getAttribute('index'));
-            console.log('newJson ' + this.getAttribute('bulletJson'))
-            console.log('newIndex ' + this.getAttribute('index'))
+            console.log('newJson ' + this.getAttribute('bulletJson'));
+            console.log('newIndex ' + this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
                 symb: '•',
@@ -110,7 +110,7 @@ class BulletEntry extends HTMLElement {
                 time: null,
             };
             let childLength = newJson.childList.length;
-            console.log('childLength ' + childLength)
+            console.log('childLength ' + childLength);
 
             // set bullet content of new child
             newChild.shadowRoot.querySelector(
