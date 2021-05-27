@@ -1,5 +1,4 @@
-//alert("main script runs");
-var collapsible_years_list = document.getElementsByClassName('coll_yr_button');
+let collapsible_years_list = document.getElementsByClassName('coll_yr_button');
 
 //shows or hides collapsible_child of button
 function collapsible_year_toggle() {
