@@ -9,6 +9,7 @@ class BulletEntry extends HTMLElement {
          * - add some sort of "mark as done"
          * - add a display area for dates?
          * - add max depth for child bullet
+         * - adding bullet and hitting cancel still adds it
          */
 
         template.innerHTML = `

@@ -195,7 +195,12 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    currentDay.bullets[index[0]] = newJson;
+    if (e.composedPath().length > 8) {
+        let firstIndex = JSON.parse(e.composedPath()[5].getAttribute('index'));
+        currentDay.bullets[firstIndex].childList[index[0]] = newJson;
+    } else {
+        currentDay.bullets[index[0]] = newJson;
+    }
     updateDay(currentDay);
 });
 
@@ -207,7 +212,12 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList.splice(thirdIndex, 1);
+        } else {
+            currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        }
     } else {
         currentDay.bullets.splice(firstIndex, 1);
     }
@@ -218,15 +228,21 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
+    console.log('got edited event');
     console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
+    console.log(index);
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[thirdIndex].text = newText;
+        } else {
+            currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
+        }
     } else {
         currentDay.bullets[firstIndex].text = newText;
     }
@@ -243,7 +259,12 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[thirdIndex].done ^= true;
+        } else {
+            currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        }
     } else {
         currentDay.bullets[firstIndex].done ^= true;
     }
