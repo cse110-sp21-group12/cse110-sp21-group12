@@ -14,20 +14,6 @@ class BulletEntry extends HTMLElement {
 
         template.innerHTML = `
             <style>
-                .bullet-content{
-                    flex-basis: 5;
-                }
-                #container{
-                    /* flex container for the image */
-                    display:flex;
-                    flex-direction: row;
-                    align-items: center;
-                    display: block;
-                    /* what should this width be?, inherit from the todo list? */
-                }
-                #egg{
-                    width: 2vw;
-                }
                 .bullet{
                     width: inhert; /* I don't think this works */
                     word-break: break-all;
@@ -39,29 +25,63 @@ class BulletEntry extends HTMLElement {
                 .bullet-container{
                     display: inline-block; !important
                 }
-                ul {
-                    // list-style-image: url('../Images/DinoEgg.svg');
-                }
                 li > span {
                     position: relative;
                     left: -5px;
                 }
-                ul{
-                    padding: 10px 18px;
+                ul {
+                    padding: 0px 18px;
                     margin: 0;
+                }
+                li {
+                    padding: 5px;
+                }
+                .dropdownContainer {
+                    position: relative;
+                    display: inline-block;
+                }
+                .clicked {
+                    background-color: #858585;
+                }
+                .dropdown {
+                    display: none;
+                    position: absolute;
+                    background-color: #f1f1f1;
+                    min-width: 130px;
+                    z-index: 1;
+                }
+                .show {
+                    display: block;
+                }
+                .dropdown p {
+                    color: black;
+                    padding: 12px 16px;
+                    display: block;
+                    margin: 0;
+                }
+                .dropdown p:hover {
+                    background-color: #585858;
+                    cursor: pointer
                 }
 
             </style>
             <article class="bullet">
                 <div id="container">
-                        <ul>
-                        <li><span class="bullet-content">Setting text</span></li>
-                        </ul>
-                    <button id="edit">Edit</button>
-                    <button id="delete">Delete</button>
-                    <button id="add">Add</button>
-                    <button id="done">Mark Done</button>
-                    <div class="child"></div>
+                    <ul>
+                        <li>
+                            <span class="bullet-content">Setting text</span>
+                        <div class="dropdownContainer">
+                            <button id="dropdownButton">v</button>
+                            <div class="dropdown">
+                                <p id="edit">Edit</p>
+                                <p id="delete">Delete</p>
+                                <p id="add">Add</p>
+                                <p id="done">Mark Done</p>
+                            </div>
+                        </div>
+                        <div class="child"></div>
+                        </li>
+                    </ul>
                 </div>
             </article>
         `;
@@ -143,6 +163,12 @@ class BulletEntry extends HTMLElement {
         // mark bullet as done
         this.shadowRoot.querySelector('#done').addEventListener('click', () => {
             this.dispatchEvent(this.done);
+        });
+
+        // dropdown button
+        this.shadowRoot.querySelector('#dropdownButton').addEventListener('click', () => {
+            this.shadowRoot.querySelector('.dropdown').classList.toggle("show");
+            this.shadowRoot.querySelector('#dropdownButton').classList.toggle("clicked");
         });
 
         // new event to see when bullet child is added
