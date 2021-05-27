@@ -214,7 +214,9 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
         let secondIndex = index[1];
         if (index.length > 2) {
             let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList.splice(thirdIndex, 1);
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].childList.splice(thirdIndex, 1);
         } else {
             currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
         }
@@ -239,9 +241,13 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
         let secondIndex = index[1];
         if (index.length > 2) {
             let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[thirdIndex].text = newText;
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].text = newText;
         } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].text = newText;
         }
     } else {
         currentDay.bullets[firstIndex].text = newText;
@@ -261,7 +267,9 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
         let secondIndex = index[1];
         if (index.length > 2) {
             let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[thirdIndex].done ^= true;
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].done ^= true;
         } else {
             currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
         }
