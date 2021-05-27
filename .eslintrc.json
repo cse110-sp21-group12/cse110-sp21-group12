@@ -15,13 +15,19 @@
         "ecmaVersion": 12
     },
     "rules": {
-        "prettier/prettier": [ "error" ]
+        "prettier/prettier": [ "error" ],
         /*
          * add/disable more rules that we want below
          * here is a link to the rules
          * https://eslint.org/docs/rules/
          * --Notice that we extended "eslint:recommended"
          */
+        "trailingComma": "es5",
+        "semi": 1,
+        "singleQuote": true,
+        "printWidth": 80,
+        "tabWidth": 4,
+        "endOfLine": "auto"
     },
     "plugins": [
         "prettier"
