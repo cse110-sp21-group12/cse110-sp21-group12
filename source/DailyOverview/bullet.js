@@ -166,10 +166,16 @@ class BulletEntry extends HTMLElement {
         });
 
         // dropdown button
-        this.shadowRoot.querySelector('#dropdownButton').addEventListener('click', () => {
-            this.shadowRoot.querySelector('.dropdown').classList.toggle("show");
-            this.shadowRoot.querySelector('#dropdownButton').classList.toggle("clicked");
-        });
+        this.shadowRoot
+            .querySelector('#dropdownButton')
+            .addEventListener('click', () => {
+                this.shadowRoot
+                    .querySelector('.dropdown')
+                    .classList.toggle('show');
+                this.shadowRoot
+                    .querySelector('#dropdownButton')
+                    .classList.toggle('clicked');
+            });
 
         // new event to see when bullet child is added
         this.added = new CustomEvent('added', {
