@@ -22,12 +22,9 @@
          * https://eslint.org/docs/rules/
          * --Notice that we extended "eslint:recommended"
          */
-        "trailingComma": 1,
-        "semi": 1,
-        "singleQuote": true,
-        "printWidth": 80,
-        "tabWidth": 4,
-        "endOfLine": "auto"
+        "comma-dangle": ["error","never"],
+        "semi": ["error","always"],
+        "quotes": ["error", "single"]
     },
     "plugins": [
         "prettier"
