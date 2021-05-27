@@ -7,7 +7,7 @@ body {
     grid-template-areas:
         'title title title title title title'
         'todo todo note note note goal'
-        'todo todo note note note album'
+        'todo todo note note note goal'
         'todo todo note note note album'
         'todo todo note note note album';
 }
@@ -29,6 +29,7 @@ h2 {
     grid-area: title;
     display: grid;
     height: 9vh;
+    margin: 2vh;
 
     justify-items: stretch;
     grid-template-areas: 'back one two date three four headerHome';
@@ -37,6 +38,10 @@ h2 {
 #monthView {
     grid-area: back;
     font-size: 3.5vh;
+}
+
+#words {
+    display: block;
 }
 
 #date {
@@ -92,7 +97,7 @@ h2 {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 78vh;
+    height: 75vh;
 
     overflow: auto;
 }
@@ -118,7 +123,16 @@ h2 {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 78vh;
+    height: 75vh;
+    position: relative;
+}
+
+#notesDino {
+    height: 10vh;
+    width: 10vw;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 /* Goal Reminder Block */
@@ -143,14 +157,14 @@ h2 {
 
 #monthGoal {
     grid-row-start: month;
-    height: 15vh;
-    max-height: 15vh;
+    height: 10vh;
+    max-height: 10vh;
 }
 
 #yearGoal {
     grid-row-start: year;
-    height: 15vh;
-    max-height: 15vh;
+    height: 10vh;
+    max-height: 10vh;
 }
 
 /* Photo Album Block */
