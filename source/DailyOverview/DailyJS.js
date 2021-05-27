@@ -215,8 +215,8 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
     console.log('index ' + index);
     console.log('childindex length ' + newJson.childList.length);
     // if 3rd layer of nesting
-    if (e.composedPath().length > 8) {
-        let firstIndex = JSON.parse(e.composedPath()[5].getAttribute('index'));
+    if (e.composedPath().length > 7) {
+        let firstIndex = JSON.parse(e.composedPath()[7].getAttribute('index'));
         console.log('firstIndex ' + firstIndex);
         currentDay.bullets[firstIndex].childList[
             index[newJson.childList.length - 1]

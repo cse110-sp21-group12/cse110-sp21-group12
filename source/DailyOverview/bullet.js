@@ -50,9 +50,6 @@ class BulletEntry extends HTMLElement {
                     min-width: 130px;
                     z-index: 1;
                 }
-                .show {
-                    display: block;
-                }
                 .dropdown p {
                     color: black;
                     padding: 12px 16px;
@@ -63,6 +60,9 @@ class BulletEntry extends HTMLElement {
                     background-color: #585858;
                     cursor: pointer
                 }
+                .dropdownContainer:hover .dropdown {
+                    display: block;
+                }
 
             </style>
             <article class="bullet">
@@ -71,7 +71,7 @@ class BulletEntry extends HTMLElement {
                         <li>
                             <span class="bullet-content">Setting text</span>
                         <div class="dropdownContainer">
-                            <button id="dropdownButton">v</button>
+                            <button class="dropdownButton">v</button>
                             <div class="dropdown">
                                 <p id="edit">Edit</p>
                                 <p id="delete">Delete</p>
@@ -164,18 +164,6 @@ class BulletEntry extends HTMLElement {
         this.shadowRoot.querySelector('#done').addEventListener('click', () => {
             this.dispatchEvent(this.done);
         });
-
-        // dropdown button
-        this.shadowRoot
-            .querySelector('#dropdownButton')
-            .addEventListener('click', () => {
-                this.shadowRoot
-                    .querySelector('.dropdown')
-                    .classList.toggle('show');
-                this.shadowRoot
-                    .querySelector('#dropdownButton')
-                    .classList.toggle('clicked');
-            });
 
         // new event to see when bullet child is added
         this.added = new CustomEvent('added', {
