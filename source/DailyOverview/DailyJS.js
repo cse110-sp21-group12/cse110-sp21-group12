@@ -191,10 +191,11 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got event');
+    console.log('got add event');
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    // if 3rd layer of nesting
     if (e.composedPath().length > 8) {
         let firstIndex = JSON.parse(e.composedPath()[5].getAttribute('index'));
         currentDay.bullets[firstIndex].childList[index[0]] = newJson;
@@ -206,7 +207,7 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got event');
+    console.log('got deleted event');
     console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
@@ -234,7 +235,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
         .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
-    console.log(index);
     if (index.length > 1) {
         let secondIndex = index[1];
         if (index.length > 2) {
@@ -286,6 +286,7 @@ function renderBullets(bullets) {
         newPost.setAttribute('bulletJson', JSON.stringify(bullet));
         newPost.setAttribute('index', JSON.stringify(i));
         newPost.entry = bullet;
+        newPost.index = i;
         console.log(bullet);
         if (bullet.childList.length != 0) {
             i.push(0);
@@ -312,6 +313,7 @@ function renderChild(bullet, i) {
     newChild.setAttribute('bulletJson', JSON.stringify(bullet));
     newChild.setAttribute('index', JSON.stringify(i));
     newChild.entry = bullet;
+    newChild.index = i;
     if (bullet.childList.length != 0) {
         i.push(0);
         bullet.childList.forEach((child) => {
@@ -326,7 +328,6 @@ function renderChild(bullet, i) {
 
 // eslint-disable-next-line no-unused-vars
 function editBullet() {
-    console.log('in here');
     let editedEntry = prompt(
         'Edit Bullet',
         this.shadowRoot.querySelector('.bullet-content').innerText

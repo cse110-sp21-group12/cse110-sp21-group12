@@ -116,15 +116,13 @@ class BulletEntry extends HTMLElement {
             // set new child's new bulletJson and index object
             newChild.setAttribute('bulletJson', JSON.stringify(childJson));
             if (childLength > 0) {
-                newChild.setAttribute(
-                    'index',
-                    JSON.stringify(newIndex[newIndex.length - 1]++)
-                );
+                newIndex.push(childLength);
+                newChild.index = newIndex;
+                newChild.setAttribute('index',JSON.stringify(newIndex));
             } else {
-                newChild.setAttribute(
-                    'index',
-                    JSON.stringify(newIndex.push(0))
-                );
+                newIndex.push(0);
+                newChild.index = newIndex;
+                newChild.setAttribute('index',JSON.stringify(newIndex));
             }
 
             // append new child to page
@@ -187,6 +185,14 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
+        }
+    }
+
+    set index(index) {
+        console.log('entry index: ' + index)
+        console.log('entry index length: ' + index.length)
+        if (index.length > 2) {
+            this.shadowRoot.querySelector('#add').remove();
         }
     }
 
