@@ -120,8 +120,6 @@ class BulletEntry extends HTMLElement {
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
             let newIndex = JSON.parse(this.getAttribute('index'));
-            console.log('newJson ' + this.getAttribute('bulletJson'));
-            console.log('newIndex ' + this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
                 symb: '•',
@@ -130,7 +128,11 @@ class BulletEntry extends HTMLElement {
                 time: null,
             };
             let childLength = newJson.childList.length;
-            console.log('childLength ' + childLength);
+
+            // if user cancels
+            if (newEntry == null) {
+                return;
+            }
 
             // set bullet content of new child
             newChild.shadowRoot.querySelector(
