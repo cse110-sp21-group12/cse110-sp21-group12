@@ -22,7 +22,7 @@
          * https://eslint.org/docs/rules/
          * --Notice that we extended "eslint:recommended"
          */
-        "trailingComma": "es5",
+        "trailingComma": 1,
         "semi": 1,
         "singleQuote": true,
         "printWidth": 80,
