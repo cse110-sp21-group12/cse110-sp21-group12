@@ -122,11 +122,11 @@ class BulletEntry extends HTMLElement {
             if (childLength > 0) {
                 newIndex.push(childLength);
                 newChild.index = newIndex;
-                newChild.setAttribute('index',JSON.stringify(newIndex));
+                newChild.setAttribute('index', JSON.stringify(newIndex));
             } else {
                 newIndex.push(0);
                 newChild.index = newIndex;
-                newChild.setAttribute('index',JSON.stringify(newIndex));
+                newChild.setAttribute('index', JSON.stringify(newIndex));
             }
 
             // append new child to page
@@ -193,8 +193,8 @@ class BulletEntry extends HTMLElement {
     }
 
     set index(index) {
-        console.log('entry index: ' + index)
-        console.log('entry index length: ' + index.length)
+        console.log('entry index: ' + index);
+        console.log('entry index length: ' + index.length);
         if (index.length > 2) {
             this.shadowRoot.querySelector('#add').remove();
         }
