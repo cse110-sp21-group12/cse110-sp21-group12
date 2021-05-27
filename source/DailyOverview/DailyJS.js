@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
-window.img = new Image(); // used to load image from <input> and draw to canvas
+//since all backend API calls are unknown to eslint, just disabeling no-undef
+window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
-const canvas = document.getElementById('myCanvas');
+let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
 //get the desired mm/dd/yyyy string
@@ -15,6 +16,10 @@ if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
 console.log(currentDateStr);
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 let relative = 0;
 // Buttons
@@ -41,6 +46,12 @@ let currentDay;
 // }
 
 window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
     // getting backend sample day
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
@@ -76,6 +87,10 @@ function requestDay() {
             let newNote = document.createElement('note-box');
             newNote.entry = currentDay.notes;
             document.querySelector('#notes').appendChild(newNote);
+
+            // Load photos
+            let photos = currentDay.photos;
+            renderPhotos(photos);
         }
     };
 }
@@ -351,18 +366,28 @@ function updateNote() {
 
 input.addEventListener('change', (event) => {
     window.img[relative] = new Image();
-    window.img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+
+    // This allows you to store blob -> base64
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onloadend = function () {
+        var base64data = reader.result;
+        window.img[relative].src = base64data;
+    };
 });
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
     save.style.display = 'inline';
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+    relative = window.img.length;
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
+
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -376,9 +401,16 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
+
+    // Add Item and update whenever save
+    currentDay.photos.push(window.img[relative].src);
+    updateDay(currentDay);
 });
 left.addEventListener('click', () => {
     relative -= 1;
+    if (relative == -1) {
+        relative = window.img.length - 1;
+    }
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -398,6 +430,9 @@ left.addEventListener('click', () => {
 });
 right.addEventListener('click', () => {
     relative += 1;
+    if (relative == window.img.length) {
+        relative = 0;
+    }
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -456,14 +491,10 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
     return { width: width, height: height, startX: startX, startY: startY };
 }
 
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
-
 /**
- * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} photos - a bullet object
- * @return {Object} new child created
+ * Function that gets photos and renders
+ * @param {Object} photos takes in photo object
+ * @return nothing
  */
 // eslint-disable-next-line no-unused-vars
 function renderPhotos(photos) {
