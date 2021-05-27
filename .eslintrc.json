@@ -22,7 +22,7 @@
          * https://eslint.org/docs/rules/
          * --Notice that we extended "eslint:recommended"
          */
-        "comma-dangle": ["error","never"],
+        "comma-dangle": ["error","only-multiline"],
         "semi": ["error","always"],
         "quotes": ["error", "single"]
     },
