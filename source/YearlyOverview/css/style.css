@@ -44,7 +44,8 @@ div > div#autumn {
 
 /* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
 ::-webkit-scrollbar {
-    width: 0px;
+    /* width: 0px; */
+    display: none;
 }
 
 #month {
