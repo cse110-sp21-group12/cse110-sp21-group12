@@ -212,18 +212,16 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    console.log('index ' + index);
-    console.log('childindex length ' + newJson.childList.length);
+    // console.log('newJson ' + JSON.stringify(newJson));
+    // console.log('index ' + JSON.stringify(index));
     // if 3rd layer of nesting
     if (e.composedPath().length > 7) {
-        let firstIndex = JSON.parse(e.composedPath()[7].getAttribute('index'));
-        console.log('firstIndex ' + firstIndex);
-        currentDay.bullets[firstIndex].childList[
-            index[newJson.childList.length - 1]
-        ] = newJson;
+        currentDay.bullets[index[0]].childList[index[1]] = newJson;
     } else {
         currentDay.bullets[index[0]] = newJson;
     }
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
     updateDay(currentDay);
 });
 

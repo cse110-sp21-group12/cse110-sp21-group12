@@ -30,7 +30,7 @@ class BulletEntry extends HTMLElement {
                     left: -5px;
                 }
                 ul {
-                    padding: 0px 18px;
+                    padding: 0px 0px 0px 15px;
                     margin: 0;
                 }
                 li {
