@@ -43,7 +43,7 @@ jobs:
           prettier_dir: "source/"
           # try to auto-fix problems
           auto_fix: true
-  
+
   #the jest job
   jest:
     name: Jest
@@ -56,18 +56,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12  
+          node-version: 12
 
       - name: Pull origin development
         run: |
-            git pull origin ${{ github.ref }} 
+            git pull origin ${{ github.ref }}
 
       - name: Install Node.js dependencies
         run: npm ci
 
       - name: Run Jest tests
         run: npm test source/tests/sample.test.js
-        
+
   #the puppeteer job
   puppeteer:
     name: Puppeteer
@@ -81,14 +81,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-          
+
       - name: Pull origin development
         run: |
-            git pull origin ${{ github.ref }} 
+            git pull origin ${{ github.ref }}
 
       - name: Install Node.js dependencies
         run: npm ci
 
       - name: Run Puppeteer tests
         run: npm test -c jest-puppeteer.config.js source/tests/sampleP.test.js
-          
