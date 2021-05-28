@@ -208,23 +208,39 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got event');
+    console.log('got add event');
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    currentDay.bullets[index[0]] = newJson;
+    // console.log('newJson ' + JSON.stringify(newJson));
+    // console.log('index ' + JSON.stringify(index));
+    // if 3rd layer of nesting
+    if (e.composedPath().length > 7) {
+        currentDay.bullets[index[0]].childList[index[1]] = newJson;
+    } else {
+        currentDay.bullets[index[0]] = newJson;
+    }
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
     updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got event');
+    console.log('got deleted event');
     console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].childList.splice(thirdIndex, 1);
+        } else {
+            currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        }
     } else {
         currentDay.bullets.splice(firstIndex, 1);
     }
@@ -235,7 +251,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
+    console.log('got edited event');
     console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
@@ -243,7 +259,16 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].text = newText;
+        } else {
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].text = newText;
+        }
     } else {
         currentDay.bullets[firstIndex].text = newText;
     }
@@ -260,7 +285,14 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].done ^= true;
+        } else {
+            currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        }
     } else {
         currentDay.bullets[firstIndex].done ^= true;
     }
@@ -282,7 +314,7 @@ function renderBullets(bullets) {
         newPost.setAttribute('bulletJson', JSON.stringify(bullet));
         newPost.setAttribute('index', JSON.stringify(i));
         newPost.entry = bullet;
-        console.log(bullet);
+        newPost.index = i;
         if (bullet.childList.length != 0) {
             i.push(0);
             bullet.childList.forEach((child) => {
@@ -290,8 +322,8 @@ function renderBullets(bullets) {
                 newPost.child = newChild;
                 i[i.length - 1]++;
             });
+            i.pop();
         }
-        console.log(newPost);
         document.querySelector('#bullets').appendChild(newPost);
         iNum++;
     });
@@ -308,6 +340,7 @@ function renderChild(bullet, i) {
     newChild.setAttribute('bulletJson', JSON.stringify(bullet));
     newChild.setAttribute('index', JSON.stringify(i));
     newChild.entry = bullet;
+    newChild.index = i;
     if (bullet.childList.length != 0) {
         i.push(0);
         bullet.childList.forEach((child) => {
@@ -315,14 +348,13 @@ function renderChild(bullet, i) {
             newChild.child = newNewChild;
             i[i.length - 1]++;
         });
+        i.pop();
     }
-    console.log(newChild);
     return newChild;
 }
 
 // eslint-disable-next-line no-unused-vars
 function editBullet() {
-    console.log('in here');
     let editedEntry = prompt(
         'Edit Bullet',
         this.shadowRoot.querySelector('.bullet-content').innerText
