@@ -113,7 +113,7 @@ body {
 
 /* calendar wrapper */
 #left-bar {
-    padding: 0 4% 4% 4%;
+    padding: 0 4% 4%;
     margin-left: 2vw;
     margin-right: 2vw;
     width: 30vw;
@@ -133,7 +133,7 @@ ul {
 
 #calendar {
     height: 20vw;
-    padding: 2vw 5vw 10vw 5vw;
+    padding: 2vw 5vw 10vw;
 }
 
 /* Month header */
@@ -157,7 +157,7 @@ ul {
 /* Weekdays (Sun-Sat) */
 .weekdays_label {
     margin: 0;
-    padding: 0.8vw 0 0 0;
+    padding: 0.8vw 0 0;
     background-color: #eee;
     display: flex;
     justify-content: space-between;
@@ -173,7 +173,7 @@ ul {
 
 /* Days (1-31) */
 .days_field {
-    padding: 0 0.5vw 0.5vw 0.5vw;
+    padding: 0 0.5vw 0.5vw;
     background: #eee;
     margin: 0;
     display: flex;
