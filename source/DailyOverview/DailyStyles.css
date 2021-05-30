@@ -163,7 +163,7 @@ h2 {
     overflow: auto;
 }
 
-#monthGoal > h2{
+#monthGoal > h2 {
     background-color: white;
     position: -webkit-sticky;
     position: sticky;
@@ -178,7 +178,7 @@ h2 {
     overflow: auto;
 }
 
-#yearGoal > h2{
+#yearGoal > h2 {
     background-color: white;
     position: -webkit-sticky;
     position: sticky;
