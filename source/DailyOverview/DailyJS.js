@@ -178,13 +178,7 @@ window.onload = () => {
 };
 */
 
-document.getElementById('notesb').addEventListener('click', () => {
-    // var divs = document.getElementsByClassName('divs');
-    // for (var i = 0; i < arrows.length; i++) {
-    //     if (this != arrows[i]) {
-    //         arrows[i].style.display = 'none';
-    //     }
-    // }
+document.querySelector('#notes').addEventListener('focusout', () => {
     updateNote();
     updateDay(currentDay);
 });
