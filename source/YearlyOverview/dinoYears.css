@@ -53,6 +53,7 @@ body {
 }
 
 #yearlyGoals {
+    position: relative;
     grid-row-start: backGoal;
     background-color: white;
     margin-top: 2vw;

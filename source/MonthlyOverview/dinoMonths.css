@@ -4,9 +4,9 @@ body {
     justify-items: stretch;
 
     grid-template-areas:
-        'head head home'
-        'goal week week'
-        'goal week week';
+        'head head head'
+        'goal goal goal'
+        'goal goal goal';
 }
 
 #goalsHeader,
@@ -17,15 +17,18 @@ body {
 #header {
     grid-area: head;
     display: grid;
-    justify-items: stretch;
+    margin: 1vh;
+
+    grid-template-areas: 'back . . .  . headerHome';
+}
+
+#house {
+    grid-area: headerHome;
+    justify-self: right;
 }
 
 #homeButton {
-    grid-area: home;
-    position: absolute;
-    right: 15vh;
-    top: 4vh;
-    width: 8vh;
+    margin: 2vh;
     height: 8vh;
 }
 
@@ -34,28 +37,32 @@ body {
     opacity: 0.5;
 }
 
+
+#index {
+    grid-area: back;
+}
+
+#index > a{
+    font-size: 3.5vh;
+}
+
 #name {
     grid-area: goal;
     display: grid;
     justify-items: stretch;
-    grid-template-areas: 'goal empty week';
-    grid-template-columns: 40vw 1fr 40vw;
+    grid-template-areas: 'goalBlock empty week';
+    grid-template-columns: 40vw 10vw 40vw;
 }
 
 #goalSection {
-    grid-area: goal;
+    grid-area: goalBlock;
     display: grid;
     justify-items: center;
-
-    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
-}
-
-#goalSection + h2 {
-    grid-row-start: frontGoal;
+    position: relative;
 }
 
 #monthlyGoals {
-    grid-row-start: backGoal;
+    position: relative;
     background-color: white;
     margin-top: 2vw;
     padding: 1vw;
@@ -64,14 +71,17 @@ body {
     border-width: 1mm;
     height: 67vh;
 }
+
 #goals {
     position: absolute;
-    top: 23%;
-    left: 3%;
-    grid-area: goal;
-    margin: 5vw;
+    top: 15vh;
+    left: 9.5vw;
+
+    margin: 1vw;
     padding: 1vw;
-    height: 90vh;
+    height: 67vh;
+
+    overflow: auto;
 }
 #weekView {
     grid-area: week;

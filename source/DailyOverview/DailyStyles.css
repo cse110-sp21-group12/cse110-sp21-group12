@@ -159,12 +159,30 @@ h2 {
     grid-row-start: month;
     height: 10vh;
     max-height: 10vh;
+
+    overflow: auto;
+}
+
+#monthGoal > h2{
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
 }
 
 #yearGoal {
     grid-row-start: year;
     height: 10vh;
     max-height: 10vh;
+
+    overflow: auto;
+}
+
+#yearGoal > h2{
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
 }
 
 /* Photo Album Block */
