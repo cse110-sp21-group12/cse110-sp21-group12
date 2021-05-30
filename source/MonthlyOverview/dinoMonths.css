@@ -62,7 +62,8 @@ body {
 }
 
 #monthlyGoals {
-    position: relative;
+    position: absolute;
+    top: 5vh;
     background-color: white;
     margin-top: 2vw;
     padding: 1vw;
@@ -74,8 +75,8 @@ body {
 
 #goals {
     position: absolute;
-    top: 15vh;
-    left: 9.5vw;
+    top: 13vh;
+    left: 9vw;
 
     margin: 1vw;
     padding: 1vw;
@@ -83,6 +84,11 @@ body {
 
     overflow: auto;
 }
+
+input{
+    font-size: 1.5vh;
+}
+
 #weekView {
     grid-area: week;
 }
