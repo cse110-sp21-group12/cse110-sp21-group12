@@ -37,12 +37,11 @@ body {
     opacity: 0.5;
 }
 
-
 #index {
     grid-area: back;
 }
 
-#index > a{
+#index > a {
     font-size: 3.5vh;
 }
 
