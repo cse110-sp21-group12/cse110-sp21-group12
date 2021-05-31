@@ -89,7 +89,7 @@ function initDB() {
             db.createObjectStore('setting', { autoIncrement: true });
         }
         //populate mock data
-        setUpMockData();
+        //setUpMockData();
     };
     return dbPromise;
 }
