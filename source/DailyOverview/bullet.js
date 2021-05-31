@@ -62,12 +62,12 @@ class BulletEntry extends HTMLElement {
                     <button id="done">Mark Done</button>
 
                     <select name="add" id="features"> 
-                         <option value="">Category</option> 
-                         <option value="important">Important</option>
-                         <option value="workRelated">School/Coursework</option>
-                         <option value="household">Household/Chores</option>
-                         <option value="personal">Personal/Well-being</option>
-                         <option value="other">Other</option>
+                         <option id="normal" value="normal">Normal</option> 
+                         <option id="important" value="important">Important</option>
+                         <option id="workRelated" value="workRelated">School/Coursework</option>
+                         <option id="household" value="household">Household/Chores</option>
+                         <option id="personal" value="personal">Personal/Well-being</option>
+                         <option id="other" value="other">Other</option>
                     </select>
                     <div class="child"></div>
                 </div>
@@ -117,7 +117,7 @@ class BulletEntry extends HTMLElement {
             let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
-                symb: '•',
+                features: "normal",
                 done: false,
                 childList: [],
                 time: null,
@@ -165,10 +165,9 @@ class BulletEntry extends HTMLElement {
             .addEventListener('change', () => {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
-                console.log(selectElement);
-                let output =
-                    selectElement.options[selectElement.selectedIndex].value;
-                console.log(output);
+                let output = selectElement.value;
+                console.log('debug shit')
+                console.log(newJson)
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -226,13 +225,14 @@ class BulletEntry extends HTMLElement {
             ).style.textDecoration = 'line-through';
             console.log('testing');
         }
+
         console.log('features');
         console.log(entry.features);
-        let newJson = JSON.parse(this.getAttribute('bulletJson'));
-        // this.shadowRoot.querySelector('#features').innerHTML = newJson.features;
+        console.log(this.shadowRoot.getElementById(entry.features))
+        this.shadowRoot.getElementById(entry.features).setAttribute('selected', 'true');
 
-        if (entry.features == 'category') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage = none;
+        if (entry.features == 'normal') {
+            this.shadowRoot.querySelector('ul').style.listStyleImage = "none";
             console.log('changing bullet image');
         } else if (entry.features == 'important') {
             this.shadowRoot.querySelector('ul').style.listStyleImage =

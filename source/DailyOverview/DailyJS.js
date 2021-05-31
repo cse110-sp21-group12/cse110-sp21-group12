@@ -182,7 +182,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         done: false,
         childList: [],
         time: null,
-        features: '',
+        features: 'normal',
     });
     console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
@@ -265,7 +265,7 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
         let secondIndex = index[1];
         currentDay.bullets[firstIndex].childList[
             secondIndex
-        ].features = newFeatures;
+        ].features = newFeature;
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
     }
