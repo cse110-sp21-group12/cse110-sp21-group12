@@ -51,17 +51,20 @@ window.addEventListener('load', () => {
     console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
+        //might need this to create uness entires?
+        return;
+    } else {
+        let dbPromise = initDB();
+        dbPromise.onsuccess = function (e) {
+            console.log('database connected');
+            setDB(e.target.result);
+            requestDay();
+            fetchMonthGoals();
+            fetchYearGoals();
+        };
+        document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
     }
     // getting backend sample day
-    let dbPromise = initDB();
-    dbPromise.onsuccess = function (e) {
-        console.log('database connected');
-        setDB(e.target.result);
-        requestDay();
-        fetchMonthGoals();
-        fetchYearGoals();
-    };
-    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
 });
 
 /**
