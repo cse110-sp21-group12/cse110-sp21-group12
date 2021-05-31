@@ -63,6 +63,13 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer:hover .dropdown {
                     display: block;
                 }
+                #features {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 12px 16px;
+                }
 
             </style>
             <article class="bullet">
@@ -77,16 +84,16 @@ class BulletEntry extends HTMLElement {
                                 <p id="delete">Delete</p>
                                 <p id="add">Add</p>
                                 <p id="done">Mark Done</p>
+                                <select id="features"> 
+                                    <option id="normal" value="normal">Normal</option> 
+                                    <option id="important" value="important">Important</option>
+                                    <option id="workRelated" value="workRelated">School/Coursework</option>
+                                    <option id="household" value="household">Household/Chores</option>
+                                    <option id="personal" value="personal">Personal/Well-being</option>
+                                    <option id="other" value="other">Other</option>
+                                </select>
                             </div>
                         </div>
-                        <select name="add" id="features"> 
-                            <option id="normal" value="normal">Normal</option> 
-                            <option id="important" value="important">Important</option>
-                            <option id="workRelated" value="workRelated">School/Coursework</option>
-                            <option id="household" value="household">Household/Chores</option>
-                            <option id="personal" value="personal">Personal/Well-being</option>
-                            <option id="other" value="other">Other</option>
-                        </select>
                         <div class="child"></div>
                         </li>
                     </ul>
@@ -94,14 +101,6 @@ class BulletEntry extends HTMLElement {
             </article>
         `;
 
-        // <select name="add" id="features">
-        //                 <option value="">Category</option>
-        //                 <option value="important">Important</option>
-        //                 <option value="workRelated">School/Coursework</option>
-        //                 <option value="household">Household/Chores</option>
-        //                 <option value="personal">Personal/Well-being</option>
-        //                 <option value="other">Other</option>
-        //             </select>
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
