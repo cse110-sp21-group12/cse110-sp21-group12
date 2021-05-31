@@ -25,5 +25,8 @@ for (let i = 0; i < collapsible_years_list.length; i++) {
 
 // changes global color theme
 document.querySelector('#themes').addEventListener('change', () => {
-    document.documentElement.style.setProperty('--bg-color', document.querySelector('#themes').value);
+    document.documentElement.style.setProperty(
+        '--bg-color',
+        document.querySelector('#themes').value
+    );
 });
