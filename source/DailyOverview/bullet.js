@@ -257,29 +257,31 @@ class BulletEntry extends HTMLElement {
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
 
-        if (entry.features == 'normal') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage = 'none';
-            console.log('changing bullet image');
-        } else if (entry.features == 'important') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/FallIcon.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'workRelated') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'household') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/Logo.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'personal') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'other') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
+        switch(entry.features) {
+            case "normal":
+                this.shadowRoot.querySelector('ul').style.listStyleImage = 
+                    'none';
+                break;
+            case "important":
+                this.shadowRoot.querySelector('ul').style.listStyleImage = 
+                    "url('../Images/FallIcon.svg')";
+                break;
+            case "workRelated":
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('../Images/DinoEgg.svg')";
+                break;
+            case "household":
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('../Images/Logo.svg')";
+                break;
+            case "personal": 
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('../Images/DinoEgg.svg')";
+                break;
+            case "other": 
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('../Images/DinoEgg.svg')";
+                break;
         }
     }
 
