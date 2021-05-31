@@ -3,6 +3,7 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
+    grid-template-columns: 30% 10% 17%;
 
     grid-template-areas:
         'title title title title title title'
@@ -81,6 +82,10 @@ h2 {
     height: 8vh;
 }
 
+#homeContainer {
+    justify-self: end;
+}
+
 #home:hover {
     cursor: pointer;
     opacity: 0.5;
@@ -92,13 +97,13 @@ h2 {
     grid-area: todo;
     background-color: white;
     margin: 1vw;
-    padding: 1vw;
+    padding: 1vw 3vw 1vw 2vw;
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
     height: 75vh;
-
+    width: 80%;
     overflow: auto;
 }
 
@@ -219,3 +224,13 @@ button#right {
 }
 
 /* Misc */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 50%;
+    font-size: 1.5vh;
+}
