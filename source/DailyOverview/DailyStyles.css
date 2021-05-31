@@ -234,3 +234,12 @@ button#right {
     width: 50%;
     font-size: 1.5vh;
 }
+
+.entry-form-button {
+    height: 100%;
+    width: 6vh;
+    font-size: 1.5vh;
+    background-color: #ecc7c7;
+    border: none;
+    border-radius: 0.5vh;
+}
