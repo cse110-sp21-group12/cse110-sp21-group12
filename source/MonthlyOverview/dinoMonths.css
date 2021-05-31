@@ -3,8 +3,6 @@ body {
     display: grid;
     justify-items: stretch;
 
-
-
     grid-template-areas:
         'head head head'
         'goal goal goal'
@@ -58,7 +56,6 @@ body {
 #goalSection {
     position: relative;
     flex-grow: 4;
-
 }
 
 #monthlyGoals {
