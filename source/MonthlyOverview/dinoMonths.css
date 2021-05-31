@@ -57,7 +57,7 @@ body {
 #goalSection {
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 45vw;
 }
 
 /* #monthlyGoals {
@@ -75,27 +75,23 @@ body {
 #goals {
     position: relative;
     align-self: center;
-
-
-    background-image: url('../Images/GreenDinoBorder.svg');
-    background-size: 100%;
     background-color: white;
-    background-repeat: no-repeat;
+    
+    /* background-image: url('../Images/GreenDinoBorder.svg');
+    background-size: 100%; */
+    /* background-repeat: no-repeat; */
 
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
 
     margin: 1vw;
-    padding: 1vw;
-    height: 30.5vw;
+    padding: 2vw;
+    height: 60vh;
+    max-height: 50vw;
     width: 70%;
 
     overflow: auto;
-}
-
-#container {
-    padding: 2.2vw;
 }
 
 /* add goal form styling */
@@ -106,7 +102,7 @@ body {
 
 .entry-form-text {
     height: 80%;
-    width: 9vw;
+    width: 15vw;
     font-size: 1.5vh;
 }
 
@@ -118,6 +114,10 @@ body {
     background-color: #ecc7c7;
     border: none;
     border-radius: 0.5vh;
+}
+
+#goals::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
 }
 
 /** 
