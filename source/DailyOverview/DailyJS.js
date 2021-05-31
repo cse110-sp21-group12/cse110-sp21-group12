@@ -318,7 +318,9 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
                 thirdIndex
             ].features = newFeature;
         } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].features = newFeature;
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].features = newFeature;
         }
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
