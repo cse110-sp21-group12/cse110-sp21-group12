@@ -74,33 +74,50 @@ body {
 
 #goals {
     position: relative;
+    align-self: center;
+
 
     background-image: url('../Images/GreenDinoBorder.svg');
     background-size: 100%;
     background-color: white;
     background-repeat: no-repeat;
 
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
 
     margin: 1vw;
     padding: 1vw;
-    height: 60vh;
+    height: 30.5vw;
     width: 70%;
-    min-height: 150px;
 
     overflow: auto;
 }
 
 #container {
-    position: absolute;
-    top: 6vh;
-    left: 4vw;
+    padding: 2.2vw;
 }
 
-input {
+/* add goal form styling */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 9vw;
     font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 3.5vw;
+    min-width: 5vh;
+    font-size: 1.5vh;
+    background-color: #ecc7c7;
+    border: none;
+    border-radius: 0.5vh;
 }
 
 /** 
@@ -130,7 +147,6 @@ ul {
 
 #calendar {
     height: 20vw;
-    padding: 2vw 5vw 10vw;
 }
 
 /* Month header */
