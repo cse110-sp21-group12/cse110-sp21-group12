@@ -117,7 +117,7 @@ class BulletEntry extends HTMLElement {
             let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
-                features: "normal",
+                features: 'normal',
                 done: false,
                 childList: [],
                 time: null,
@@ -166,8 +166,8 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit')
-                console.log(newJson)
+                console.log('debug shit');
+                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -228,11 +228,13 @@ class BulletEntry extends HTMLElement {
 
         console.log('features');
         console.log(entry.features);
-        console.log(this.shadowRoot.getElementById(entry.features))
-        this.shadowRoot.getElementById(entry.features).setAttribute('selected', 'true');
+        console.log(this.shadowRoot.getElementById(entry.features));
+        this.shadowRoot
+            .getElementById(entry.features)
+            .setAttribute('selected', 'true');
 
         if (entry.features == 'normal') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage = "none";
+            this.shadowRoot.querySelector('ul').style.listStyleImage = 'none';
             console.log('changing bullet image');
         } else if (entry.features == 'important') {
             this.shadowRoot.querySelector('ul').style.listStyleImage =
