@@ -7,7 +7,7 @@ class GoalsEntry extends HTMLElement {
         template.innerHTML = `
             <style>
                 * {
-                    font-size: .75vw;
+                    font-size: 1.5vh;
                 }
                 .bullet-content{
                     flex-basis: 5;
