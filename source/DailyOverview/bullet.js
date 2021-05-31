@@ -261,25 +261,25 @@ class BulletEntry extends HTMLElement {
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     'none';
                 break;
-            case 'important':
+            case 'important': // star icon
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
-                    "url('../Images/FallIcon.svg')";
+                    "url('./images/Star.svg')";
                 break;
-            case 'workRelated':
+            case 'workRelated': // pencil
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
-                    "url('../Images/DinoEgg.svg')";
+                    "url('./images/Pencil.svg')";
                 break;
-            case 'household':
+            case 'household': // house
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
-                    "url('../Images/Logo.svg')";
+                    "url('./images/House.svg')";
                 break;
-            case 'personal':
+            case 'personal': // heart
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
-                    "url('../Images/DinoEgg.svg')";
+                    "url('./images/Heart.svg')";
                 break;
-            case 'other':
-                this.shadowRoot.querySelector('ul').style.listStyleImage =
-                    "url('../Images/DinoEgg.svg')";
+            case 'other': // square
+                this.shadowRoot.querySelector('ul').style.listStyleType =
+                    'square';
                 break;
         }
     }
