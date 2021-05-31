@@ -75,7 +75,7 @@ body {
 #goals {
     position: relative;
 
-    background-image: url("../Images/GreenDinoBorder.svg");
+    background-image: url('../Images/GreenDinoBorder.svg');
     background-size: 100%;
     background-color: white;
     background-repeat: no-repeat;
