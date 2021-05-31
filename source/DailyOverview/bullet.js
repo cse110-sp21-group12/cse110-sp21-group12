@@ -257,28 +257,28 @@ class BulletEntry extends HTMLElement {
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
 
-        switch(entry.features) {
-            case "normal":
-                this.shadowRoot.querySelector('ul').style.listStyleImage = 
+        switch (entry.features) {
+            case 'normal':
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
                     'none';
                 break;
-            case "important":
-                this.shadowRoot.querySelector('ul').style.listStyleImage = 
+            case 'important':
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
                     "url('../Images/FallIcon.svg')";
                 break;
-            case "workRelated":
+            case 'workRelated':
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     "url('../Images/DinoEgg.svg')";
                 break;
-            case "household":
+            case 'household':
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     "url('../Images/Logo.svg')";
                 break;
-            case "personal": 
+            case 'personal':
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     "url('../Images/DinoEgg.svg')";
                 break;
-            case "other": 
+            case 'other':
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     "url('../Images/DinoEgg.svg')";
                 break;
