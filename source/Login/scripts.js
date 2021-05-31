@@ -1,17 +1,29 @@
 //setup hasher
-//var sha1 = require('sha1');
+//let sha1 = require('sha1');
+
+/**
+ * gets the current session storage,
+ * lasts as long as the tab or the browser is open
+ * survives between reloads
+ * -new tabs or closing it will refresh the session
+ */
+let storageSession = window.sessionStorage;
+console.log('here is the storage session: ', storageSession);
 
 //store current page state
-var loginState = 'returning';
+let loginState;
+
+//sotring setting got back
+let settingObj;
 
 //username box
-var usernameField = document.getElementById('username');
+let usernameField = document.getElementById('username');
 
 //password box
-var passwordField = document.getElementById('pin');
+let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
-var loginButton = document.getElementById('login-button');
+let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
     if (loginState == 'returning') {
         handleLogin(passwordField.value);
@@ -21,20 +33,37 @@ loginButton.addEventListener('click', () => {
 });
 
 //make the toggle button change the page state
-var switchButton = document.getElementById('switch-screen');
-switchButton.addEventListener('click', toggleView);
+//let switchButton = document.getElementById('switch-screen');
+//switchButton.addEventListener('click', toggleView);
+
+window.onload = getLoginState();
 
 /**
- * Handle toggling the state of the page, calls the setNewUser() and setReturningUser() helper functions
+ * Connects to the database, and sees if
+ * the user is new or returning
  */
-function toggleView() {
-    if (loginState == 'returning') {
-        loginState = 'new';
-        setNewUser();
-    } else if (loginState == 'new') {
-        loginState = 'returning';
-        setReturningUser();
-    }
+function getLoginState() {
+    // eslint-disable-next-line no-undef
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        // eslint-disable-next-line no-undef
+        setDB(e.target.result);
+        // eslint-disable-next-line no-undef
+        let req = getSettings();
+        req.onsuccess = function (e) {
+            console.log('got settings');
+            console.log(e.target.result);
+            settingObj = e.target.result;
+            if (settingObj === undefined) {
+                loginState = 'new';
+                setNewUser();
+            } else {
+                loginState = 'returning';
+                setReturningUser();
+            }
+        };
+    };
 }
 
 /**
@@ -46,7 +75,7 @@ function toggleView() {
 function handleSignup(newUsername, newPassword) {
     let userObject = {
         username: newUsername,
-        password: mockHash(newPassword),
+        password: newPassword,
         theme: 1,
     };
     //update settings
@@ -54,8 +83,10 @@ function handleSignup(newUsername, newPassword) {
     updateSettings(userObject);
     console.log('frontend: updating settings...');
     //make them log in
-    toggleView();
+    //toggleView();
     alert('Account created! Please log in');
+    sessionStorage.setItem('loggedIn', 'true');
+    goHome();
 }
 
 /**
@@ -63,27 +94,21 @@ function handleSignup(newUsername, newPassword) {
  * (Password is "dinosaurs12")
  * Begins to handle the Login request. Checks sends the password hash to be verified.
  *
- * @param {*} password : PIN to be verified
+ * @param {String} password : PIN to be verified
  */
 function handleLogin(password) {
-    let hash = mockHash(password);
-    console.log('Getting settings...');
-    // eslint-disable-next-line no-undef
-    let getSettingsRequest = getSettings();
-    getSettingsRequest.onsuccess = (e) => {
-        console.log(e.target.result);
-        let correctPassword = e.target.result.password;
-        console.log(
-            'Input: ' + hash + ' | Correct password: ' + correctPassword
-        );
-        let retval = hash == correctPassword;
-        console.log('Correct? ' + retval);
-        if (retval == true) {
-            goHome();
-        } else {
-            alert('Incorrect password!');
-        }
-    };
+    let correctPassword = settingObj.password;
+    console.log(
+        'Input: ' + password + ' | Correct password: ' + correctPassword
+    );
+    if (correctPassword === password) {
+        //set login flag that user logged in
+        // eslint-disable-next-line no-undef
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
+    } else {
+        alert('Incorrect password!');
+    }
 }
 
 /**
@@ -100,7 +125,6 @@ function goHome() {
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
-    switchButton.innerText = 'Returning user?';
     loginButton.innerText = 'Sign-Up';
 }
 
@@ -111,16 +135,16 @@ function setNewUser() {
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
-    switchButton.innerText = 'New user?';
     loginButton.innerText = 'Sign-In';
 }
+
+/*
 
 /**
  * Mock function for pretending to hash things
  *
  * @param {*} input Plaintext password to be hashed
  * @returns an encrypted hash representation of the password
- */
 function mockHash(input) {
     //console.log(input);
     let retval = 0;
@@ -130,3 +154,5 @@ function mockHash(input) {
     //console.log(retval);
     return retval;
 }
+
+*/

@@ -23,7 +23,7 @@ class noteBox extends HTMLElement {
                 }
             </style>
             <div id="note">
-                <textarea class="noteContent">insert text</textarea>
+                <textarea class="noteContent" placeholder="insert text"></textarea>
             </div>
 
             `;

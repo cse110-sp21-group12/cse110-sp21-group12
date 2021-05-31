@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
-window.img = new Image(); // used to load image from <input> and draw to canvas
+//since all backend API calls are unknown to eslint, just disabeling no-undef
+window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
-const canvas = document.getElementById('myCanvas');
+let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
 //get the desired mm/dd/yyyy string
@@ -15,6 +16,10 @@ if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
 console.log(currentDateStr);
+
+//set back button
+document.getElementById('monthView').children[0].href +=
+    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
 
 let relative = 0;
 // Buttons
@@ -41,6 +46,12 @@ let currentDay;
 // }
 
 window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
     // getting backend sample day
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
@@ -68,6 +79,8 @@ function requestDay() {
         if (currentDay === undefined) {
             currentDay = initDay(currentDateStr);
             createDay(currentDay);
+            let newNote = document.createElement('note-box');
+            document.querySelector('#notes').appendChild(newNote);
         } else {
             //Load in bullets
             let bullets = currentDay.bullets;
@@ -76,6 +89,10 @@ function requestDay() {
             let newNote = document.createElement('note-box');
             newNote.entry = currentDay.notes;
             document.querySelector('#notes').appendChild(newNote);
+
+            // Load photos
+            let photos = currentDay.photos;
+            renderPhotos(photos);
         }
     };
 }
@@ -192,23 +209,39 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got event');
+    console.log('got add event');
     console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    currentDay.bullets[index[0]] = newJson;
+    // console.log('newJson ' + JSON.stringify(newJson));
+    // console.log('index ' + JSON.stringify(index));
+    // if 3rd layer of nesting
+    if (e.composedPath().length > 7) {
+        currentDay.bullets[index[0]].childList[index[1]] = newJson;
+    } else {
+        currentDay.bullets[index[0]] = newJson;
+    }
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
     updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got event');
+    console.log('got deleted event');
     console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].childList.splice(thirdIndex, 1);
+        } else {
+            currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+        }
     } else {
         currentDay.bullets.splice(firstIndex, 1);
     }
@@ -219,7 +252,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
+    console.log('got edited event');
     console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
@@ -227,7 +260,16 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].text = newText;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].text = newText;
+        } else {
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].text = newText;
+        }
     } else {
         currentDay.bullets[firstIndex].text = newText;
     }
@@ -244,7 +286,14 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].done ^= true;
+        } else {
+            currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
+        }
     } else {
         currentDay.bullets[firstIndex].done ^= true;
     }
@@ -263,9 +312,14 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
     let firstIndex = index[0];
     if (index.length > 1) {
         let secondIndex = index[1];
-        currentDay.bullets[firstIndex].childList[
-            secondIndex
-        ].features = newFeature;
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].features = newFeature;
+        } else {
+            currentDay.bullets[firstIndex].childList[secondIndex].features = newFeature;
+        }
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
     }
@@ -287,7 +341,7 @@ function renderBullets(bullets) {
         newPost.setAttribute('bulletJson', JSON.stringify(bullet));
         newPost.setAttribute('index', JSON.stringify(i));
         newPost.entry = bullet;
-        console.log(bullet);
+        newPost.index = i;
         if (bullet.childList.length != 0) {
             i.push(0);
             bullet.childList.forEach((child) => {
@@ -295,8 +349,8 @@ function renderBullets(bullets) {
                 newPost.child = newChild;
                 i[i.length - 1]++;
             });
+            i.pop();
         }
-        console.log(newPost);
         document.querySelector('#bullets').appendChild(newPost);
         iNum++;
     });
@@ -313,6 +367,7 @@ function renderChild(bullet, i) {
     newChild.setAttribute('bulletJson', JSON.stringify(bullet));
     newChild.setAttribute('index', JSON.stringify(i));
     newChild.entry = bullet;
+    newChild.index = i;
     if (bullet.childList.length != 0) {
         i.push(0);
         bullet.childList.forEach((child) => {
@@ -320,14 +375,13 @@ function renderChild(bullet, i) {
             newChild.child = newNewChild;
             i[i.length - 1]++;
         });
+        i.pop();
     }
-    console.log(newChild);
     return newChild;
 }
 
 // eslint-disable-next-line no-unused-vars
 function editBullet() {
-    console.log('in here');
     let editedEntry = prompt(
         'Edit Bullet',
         this.shadowRoot.querySelector('.bullet-content').innerText
@@ -351,18 +405,28 @@ function updateNote() {
 
 input.addEventListener('change', (event) => {
     window.img[relative] = new Image();
-    window.img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+
+    // This allows you to store blob -> base64
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onloadend = function () {
+        var base64data = reader.result;
+        window.img[relative].src = base64data;
+    };
 });
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
     save.style.display = 'inline';
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+    relative = window.img.length;
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
+
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -376,9 +440,16 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
+
+    // Add Item and update whenever save
+    currentDay.photos.push(window.img[relative].src);
+    updateDay(currentDay);
 });
 left.addEventListener('click', () => {
     relative -= 1;
+    if (relative == -1) {
+        relative = window.img.length - 1;
+    }
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -398,6 +469,9 @@ left.addEventListener('click', () => {
 });
 right.addEventListener('click', () => {
     relative += 1;
+    if (relative == window.img.length) {
+        relative = 0;
+    }
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -456,14 +530,10 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
     return { width: width, height: height, startX: startX, startY: startY };
 }
 
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
-
 /**
- * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} photos - a bullet object
- * @return {Object} new child created
+ * Function that gets photos and renders
+ * @param {Object} photos takes in photo object
+ * @return nothing
  */
 // eslint-disable-next-line no-unused-vars
 function renderPhotos(photos) {

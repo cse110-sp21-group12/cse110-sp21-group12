@@ -31,7 +31,7 @@ let db;
  */
 function initDB() {
     if (!('indexedDB' in window)) {
-        console.log("This browser doesn't support IndexedDB");
+        console.log('This browser does not support IndexedDB');
     }
     // not sure if we need to use dbPromise here
     // eslint-disable-next-line no-unused-vars
