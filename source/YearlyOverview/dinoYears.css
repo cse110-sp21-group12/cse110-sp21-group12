@@ -4,27 +4,31 @@ body {
     justify-items: stretch;
 
     grid-template-areas:
-        'head head home'
-        'goal month month'
-        'goal month month';
+        'head head head'
+        'goal goal goal'
+        'goal goal goal';
 }
 #goalsHeader,
 #monthHeader {
     text-align: center;
+    font-size: 3.5vh;
 }
 #header {
     grid-area: head;
     display: grid;
-    justify-items: stretch;
+    margin: 1vh;
+
+    grid-template-areas: 'back . . .  . headerHome';
+}
+
+#house {
+    grid-area: headerHome;
+    justify-self: right;
 }
 
 #homeButton {
-    grid-area: home;
-    position: absolute;
-    right: 15vh;
-    top: 4vh;
-    width: 8vh;
     height: 8vh;
+    margin: 2vh;
 }
 
 #homeButton:hover {
@@ -32,29 +36,30 @@ body {
     opacity: 0.5;
 }
 
+#index {
+    grid-area: back;
+}
+
+#index > a {
+    font-size: 3.5vh;
+}
+
 #name {
     grid-area: goal;
-    display: grid;
+    display: flex;
+    flex-direction: row;
     justify-items: stretch;
-    grid-template-areas: 'goal empty month';
-    grid-template-columns: 40vw 1fr 40vw;
+    justify-content: space-evenly;
 }
 
 #goalSection {
-    grid-area: goal;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-items: center;
-
-    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
+    width: 45vw;
 }
 
-#goalSection + h2 {
-    grid-row-start: frontGoal;
-}
-
-#yearlyGoals {
-    position: relative;
-    grid-row-start: backGoal;
+/* #yearlyGoals {
     background-color: white;
     margin-top: 2vw;
     padding: 1vw;
@@ -62,21 +67,69 @@ body {
     border-style: solid;
     border-width: 1mm;
     height: 67vh;
-}
+} */
 
 #goals {
-    position: absolute;
+    /* position: absolute;
     top: 17%;
     left: 5%;
     grid-area: goal;
     margin: 5vw;
     padding: 1vw;
-    height: 90vh;
+    height: 90vh; */
+    align-self: center;
+    background-color: white;
+
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+
+    margin: 1vw;
+    padding: 2vw;
+    height: 60vh;
+    max-height: 50vw;
+    width: 70%;
+
+    overflow: auto;
+}
+
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 15vw;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 3.5vw;
+    min-width: 5vh;
+    font-size: 1.5vh;
+    background-color: #ecc7c7;
+    border: none;
+    border-radius: 0.5vh;
+}
+
+#monthView {
+    /* display: flex;
+    flex-direction: column; */
+    padding: 0 4% 4%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 30vw;
+    height: 55vh;
+    align-content: center;
+    flex-grow: 3;
+    max-width: 40%;
 }
 
 #months {
-    grid-area: month;
-    margin-right: 5vw;
+    /* grid-area: month; */
+    /* margin-right: 5vw; */
     padding: 1vw;
     /*border-style: solid;
     border-width: 1mm;*/
