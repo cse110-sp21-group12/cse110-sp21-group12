@@ -9,24 +9,11 @@ class BulletEntry extends HTMLElement {
          * - add some sort of "mark as done"
          * - add a display area for dates?
          * - add max depth for child bullet
+         * - adding bullet and hitting cancel still adds it
          */
 
         template.innerHTML = `
             <style>
-                .bullet-content{
-                    flex-basis: 5;
-                }
-                #container{
-                    /* flex container for the image */
-                    display:flex;
-                    flex-direction: row;
-                    align-items: center;
-                    display: block;
-                    /* what should this width be?, inherit from the todo list? */
-                }
-                #egg{
-                    width: 2vw;
-                }
                 .bullet{
                     width: inhert; /* I don't think this works */
                     word-break: break-all;
@@ -38,50 +25,82 @@ class BulletEntry extends HTMLElement {
                 .bullet-container{
                     display: inline-block; !important
                 }
-                ul {
-                    // list-style-image: url('../Images/DinoEgg.svg');
-                }
                 li > span {
                     position: relative;
                     left: -5px;
                 }
-                ul{
-                    padding: 10px 18px;
+                ul {
+                    padding: 0px 0px 0px 15px;
                     margin: 0;
+                }
+                li {
+                    padding: 5px;
+                }
+                .dropdownContainer {
+                    position: relative;
+                    display: inline-block;
+                }
+                .clicked {
+                    background-color: #858585;
+                }
+                .dropdown {
+                    display: none;
+                    position: absolute;
+                    background-color: #f1f1f1;
+                    min-width: 130px;
+                    z-index: 1;
+                }
+                .dropdown p {
+                    color: black;
+                    padding: 12px 16px;
+                    display: block;
+                    margin: 0;
+                }
+                .dropdown p:hover {
+                    background-color: #585858;
+                    cursor: pointer
+                }
+                .dropdownContainer:hover .dropdown {
+                    display: block;
+                }
+                #features {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 12px 16px;
                 }
 
             </style>
             <article class="bullet">
                 <div id="container">
-                        <ul>
-                        <li><span class="bullet-content">Setting text</span></li>
-                        </ul>
-                    <button id="edit">Edit</button>
-                    <button id="delete">Delete</button>
-                    <button id="add">Add</button>
-                    <button id="done">Mark Done</button>
-
-                    <select name="add" id="features"> 
-                         <option value="">Category</option> 
-                         <option value="important">Important</option>
-                         <option value="workRelated">School/Coursework</option>
-                         <option value="household">Household/Chores</option>
-                         <option value="personal">Personal/Well-being</option>
-                         <option value="other">Other</option>
-                    </select>
-                    <div class="child"></div>
+                    <ul>
+                        <li>
+                            <span class="bullet-content">Setting text</span>
+                        <div class="dropdownContainer">
+                            <button class="dropdownButton">v</button>
+                            <div class="dropdown">
+                                <p id="edit">Edit</p>
+                                <p id="delete">Delete</p>
+                                <p id="add">Add</p>
+                                <p id="done">Mark Done</p>
+                                <select id="features"> 
+                                    <option id="normal" value="normal">Normal</option> 
+                                    <option id="important" value="important">Important</option>
+                                    <option id="workRelated" value="workRelated">School/Coursework</option>
+                                    <option id="household" value="household">Household/Chores</option>
+                                    <option id="personal" value="personal">Personal/Well-being</option>
+                                    <option id="other" value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="child"></div>
+                        </li>
+                    </ul>
                 </div>
             </article>
         `;
 
-        // <select name="add" id="features">
-        //                 <option value="">Category</option>
-        //                 <option value="important">Important</option>
-        //                 <option value="workRelated">School/Coursework</option>
-        //                 <option value="household">Household/Chores</option>
-        //                 <option value="personal">Personal/Well-being</option>
-        //                 <option value="other">Other</option>
-        //             </select>
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
@@ -111,18 +130,24 @@ class BulletEntry extends HTMLElement {
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
+            console.log('adding a new bullet');
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
             let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
-                symb: '•',
+                features: 'normal',
                 done: false,
                 childList: [],
                 time: null,
             };
             let childLength = newJson.childList.length;
+
+            // if user cancels
+            if (newEntry == null) {
+                return;
+            }
 
             // set bullet content of new child
             newChild.shadowRoot.querySelector(
@@ -132,15 +157,13 @@ class BulletEntry extends HTMLElement {
             // set new child's new bulletJson and index object
             newChild.setAttribute('bulletJson', JSON.stringify(childJson));
             if (childLength > 0) {
-                newChild.setAttribute(
-                    'index',
-                    JSON.stringify(newIndex[newIndex.length - 1]++)
-                );
+                newIndex.push(childLength);
+                newChild.index = newIndex;
+                newChild.setAttribute('index', JSON.stringify(newIndex));
             } else {
-                newChild.setAttribute(
-                    'index',
-                    JSON.stringify(newIndex.push(0))
-                );
+                newIndex.push(0);
+                newChild.index = newIndex;
+                newChild.setAttribute('index', JSON.stringify(newIndex));
             }
 
             // append new child to page
@@ -165,10 +188,9 @@ class BulletEntry extends HTMLElement {
             .addEventListener('change', () => {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
-                console.log(selectElement);
-                let output =
-                    selectElement.options[selectElement.selectedIndex].value;
-                console.log(output);
+                let output = selectElement.value;
+                console.log('debug shit');
+                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -226,34 +248,47 @@ class BulletEntry extends HTMLElement {
             ).style.textDecoration = 'line-through';
             console.log('testing');
         }
+
         console.log('features');
         console.log(entry.features);
-        let newJson = JSON.parse(this.getAttribute('bulletJson'));
-        // this.shadowRoot.querySelector('#features').innerHTML = newJson.features;
+        console.log(this.shadowRoot.getElementById(entry.features));
+        this.shadowRoot
+            .getElementById(entry.features)
+            .setAttribute('selected', 'true');
 
-        if (entry.features == 'category') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage = none;
-            console.log('changing bullet image');
-        } else if (entry.features == 'important') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/FallIcon.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'workRelated') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'household') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/Logo.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'personal') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
-        } else if (entry.features == 'other') {
-            this.shadowRoot.querySelector('ul').style.listStyleImage =
-                "url('../Images/DinoEgg.svg')";
-            console.log('changing bullet image');
+        switch (entry.features) {
+            case 'normal':
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    'none';
+                break;
+            case 'important': // star icon
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('./images/Star.svg')";
+                break;
+            case 'workRelated': // pencil
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('./images/Pencil.svg')";
+                break;
+            case 'household': // house
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('./images/House.svg')";
+                break;
+            case 'personal': // heart
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    "url('./images/Heart.svg')";
+                break;
+            case 'other': // square
+                this.shadowRoot.querySelector('ul').style.listStyleType =
+                    'square';
+                break;
+        }
+    }
+
+    set index(index) {
+        console.log('entry index: ' + index);
+        console.log('entry index length: ' + index.length);
+        if (index.length > 2) {
+            this.shadowRoot.querySelector('#add').remove();
         }
     }
 

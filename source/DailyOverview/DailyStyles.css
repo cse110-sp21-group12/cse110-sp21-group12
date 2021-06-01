@@ -3,7 +3,6 @@ body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
-    grid-template-columns: 33% 33% 33%;
 
     grid-template-areas:
         'title title title title title title'
@@ -41,6 +40,7 @@ h2 {
 }
 
 #date {
+    display: block;
     grid-area: date;
     justify-self: center;
     font-size: 5vh;
@@ -94,7 +94,11 @@ h2 {
     border-color: black;
     height: 78vh;
 
-    /* width: 25vw; */
+    overflow: auto;
+}
+
+#todo::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
 }
 
 #addTodo {
@@ -115,7 +119,6 @@ h2 {
     border-width: 1mm;
     border-color: black;
     height: 78vh;
-    /* max-width: 30vw; */
 }
 
 /* Goal Reminder Block */
@@ -131,23 +134,23 @@ h2 {
     border-color: black;
 
     display: grid;
-    grid-template-rows: [title] 10% [week] 30% [month] 30% [year] 30%;
+    grid-template-rows: [title] 15% [month] 40% [year] 40%;
 }
 
 #goalReminder + h1 {
     grid-row-start: title;
 }
 
-#weekGoal {
-    grid-row-start: week;
-}
-
 #monthGoal {
     grid-row-start: month;
+    height: 15vh;
+    max-height: 15vh;
 }
 
 #yearGoal {
     grid-row-start: year;
+    height: 15vh;
+    max-height: 15vh;
 }
 
 /* Photo Album Block */
@@ -174,6 +177,13 @@ h2 {
     grid-area: album;
     width: 100%;
     height: 75%;
+}
+
+button#left,
+button#right {
+    background-color: transparent;
+    border: none;
+    font-size: 2vh;
 }
 
 /* Misc */
