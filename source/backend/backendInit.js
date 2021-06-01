@@ -229,7 +229,7 @@ function getDay(dateStr) {
  * @param {Object} dayObj - Custom day object
  * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
  * @param {Object} dayObj.bullets - an array of bullets
- * @param {Object} dayObj.photos - an array of photo objects
+ * @param {Object} dayObj.photos - an array of photo objects, encoded in Base64
  * @param {string} dayObj.notes - a string representing the notes
  * @returns void
  */
@@ -249,7 +249,7 @@ function createDay(dayObj) {
 /**
  * takes a given day object and updates it
  * the date property must match an entry in the database
- * @param {Object} Custom day object
+ * @param {Object} dayObj - Custom day object
  * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
  * @param {Object} dayObj.bullets - an array of bullets
  * @param {Object} dayObj.photos - an array of photo objects
@@ -509,8 +509,9 @@ function deleteSettings() {
 /**
  * creates a new year object given a year string
  * @param {String} yearStr - the year (eg: "2020")
- * @returns {Object} the new year object
- * @todo Write more documentation on the object's values
+ * @returns {Object} yearObj - the new year object
+ * @returns {String} yearObj.year - string of the year
+ * @returns {Object} yearObj.goals- an array (initally empty) of goal objects
  */
 function initYear(yearStr) {
     return { year: yearStr, goals: [] };
@@ -519,8 +520,9 @@ function initYear(yearStr) {
 /**
  * creates a new month object given a month string
  * @param {String} monthStr - a string repr of the month (this also includes the year)
- * @returns {Object} the new monthly goal obj
- * @todo Write more documentation on the object's values
+ * @returns {Object} monthObj - the new monthly goal obj
+ * @returns {String} monthObj.year - string of the month (which is of the form "xx/xxxx" eg: "02/2021")
+ * @returns {Object} monthObj.goals- an array (initally empty) of goal objects
  */
 function initMonth(monthStr) {
     return { month: monthStr, goals: [] };
@@ -529,8 +531,8 @@ function initMonth(monthStr) {
 /**
  * creates a new day object given a date string
  * @param {String} dateStr - a string of the goal
- * @returns {Object} the new day object
- * @todo Write more documentation on the object's values
+ * @returns {Object} dateObj - the new day object
+ * Look into createDay() to see what a date object consists of
  */
 function initDay(dateStr) {
     return { date: dateStr, bullets: [], photos: [], notes: '' };
@@ -540,8 +542,9 @@ function initDay(dateStr) {
  * creates a new goal object given a goal string
  * new goals area always initalized as not done
  * @param {String} goalStr - a string of the goal
- * @returns {Object} the new goal object
- * @todo Write more documentation on the object's values
+ * @returns {Object} goal - the new goal object
+ * @returns {String} goal.text - the string of what the text is
+ * @returns {boolean} goal.done - is the goal is done or not
  */
 function initGoal(goalStr) {
     return { text: goalStr, done: false };
