@@ -544,15 +544,3 @@ function renderPhotos(photos) {
         window.img[i].src = photos[i];
     }
 }
-
-// eslint-disable-next-line no-unused-vars
-function categoryChange(dropdown) {
-    console.log('how about now');
-    let option_value = dropdown.options[dropdown.selectedIndex].value;
-    console.log(option_value);
-    if (option_value == 'important') {
-        this.shadowRoot.querySelector('.bullet-content').style.textDecoration =
-            'line-through';
-        console.log('important category');
-    }
-}
