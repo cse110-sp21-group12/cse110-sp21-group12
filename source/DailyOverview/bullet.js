@@ -263,18 +263,26 @@ class BulletEntry extends HTMLElement {
                 break;
             case 'important': // star icon
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
                     "url('./images/Star.svg')";
                 break;
             case 'workRelated': // pencil
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
                     "url('./images/Pencil.svg')";
                 break;
             case 'household': // house
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
                     "url('./images/House.svg')";
                 break;
             case 'personal': // heart
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
                     "url('./images/Heart.svg')";
                 break;
             case 'other': // square
