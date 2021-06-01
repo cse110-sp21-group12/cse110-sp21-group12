@@ -112,9 +112,8 @@ class BulletEntry extends HTMLElement {
                 this.shadowRoot.querySelector('.bullet-content').innerText
             );
             if (editedEntry != null && editedEntry != '') {
-                this.shadowRoot.querySelector(
-                    '.bullet-content'
-                ).innerText = editedEntry;
+                this.shadowRoot.querySelector('.bullet-content').innerText =
+                    editedEntry;
                 newJson.text = editedEntry;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
             }
@@ -150,9 +149,8 @@ class BulletEntry extends HTMLElement {
             }
 
             // set bullet content of new child
-            newChild.shadowRoot.querySelector(
-                '.bullet-content'
-            ).innerText = newEntry;
+            newChild.shadowRoot.querySelector('.bullet-content').innerText =
+                newEntry;
 
             // set new child's new bulletJson and index object
             newChild.setAttribute('bulletJson', JSON.stringify(childJson));
