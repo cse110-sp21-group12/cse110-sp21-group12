@@ -54,26 +54,27 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
     });
 
-    
-  it('Test5: create an account and login - shows index page ', async () => {
-    jest.setTimeout(30000);
+    it('Test5: create an account and login - shows index page ', async () => {
+        jest.setTimeout(30000);
 
-    await page.$eval('#username', (usernameInput) => { usernameInput.value = 'SampleUsername'; });
-    await page.$eval('#pin', (passwordInput) => { passwordInput.value = '1234'; });
-    await page.waitForTimeout(300);
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
 
-    
-    page.on('dialog', async (dialog) => {
-      await dialog.dismiss();
+        page.on('dialog', async (dialog) => {
+            await dialog.dismiss();
+        });
+
+        await page.$eval('#login-button', (button) => {
+            button.click();
+        });
+
+        console.log(page);
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch('http://127.0.0.1:5501/source/Index/index.html');
     });
-
-    await page.$eval('#login-button', (button) => {
-      button.click();
-    });
-
-    console.log(page);
-    const url = await page.evaluate(() => location.href);
-    expect(url).toMatch('http://127.0.0.1:5501/source/Index/index.html');
-  }); 
-  
 });
