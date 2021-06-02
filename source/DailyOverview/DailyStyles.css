@@ -1,28 +1,34 @@
 :root {
     --bg-color: white;
   }
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
 body {
     /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
     background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
+    grid-template-columns: 30% 10% 17%;
 
     grid-template-areas:
         'title title title title title title'
         'todo todo note note note goal'
-        'todo todo note note note album'
+        'todo todo note note note goal'
         'todo todo note note note album'
         'todo todo note note note album';
 }
 
 h1 {
-    color: black;
+    /* color: black; */
     font-size: 3.5vh;
     margin: 1vh;
 }
 
 h2 {
-    color: black;
+    /* color: black; */
     font-size: 2vh;
 }
 
@@ -32,6 +38,7 @@ h2 {
     grid-area: title;
     display: grid;
     height: 9vh;
+    margin: 2vh;
 
     justify-items: stretch;
     grid-template-areas: 'back one two date three four headerHome';
@@ -40,6 +47,10 @@ h2 {
 #monthView {
     grid-area: back;
     font-size: 3.5vh;
+}
+
+#words {
+    display: block;
 }
 
 #date {
@@ -79,6 +90,10 @@ h2 {
     height: 8vh;
 }
 
+#homeContainer {
+    justify-self: end;
+}
+
 #home:hover {
     cursor: pointer;
     opacity: 0.5;
@@ -90,13 +105,13 @@ h2 {
     grid-area: todo;
     background-color: white;
     margin: 1vw;
-    padding: 1vw;
+    padding: 1vw 3vw 1vw 2vw;
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 78vh;
-
+    height: 75vh;
+    width: 80%;
     overflow: auto;
 }
 
@@ -121,7 +136,16 @@ h2 {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 78vh;
+    height: 75vh;
+    position: relative;
+}
+
+#notesDino {
+    height: 10vh;
+    width: 10vw;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 /* Goal Reminder Block */
@@ -146,14 +170,32 @@ h2 {
 
 #monthGoal {
     grid-row-start: month;
-    height: 15vh;
-    max-height: 15vh;
+    height: 10vh;
+    max-height: 10vh;
+
+    overflow: auto;
+}
+
+#monthGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
 }
 
 #yearGoal {
     grid-row-start: year;
-    height: 15vh;
-    max-height: 15vh;
+    height: 10vh;
+    max-height: 10vh;
+
+    overflow: auto;
+}
+
+#yearGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
 }
 
 /* Photo Album Block */
@@ -190,3 +232,22 @@ button#right {
 }
 
 /* Misc */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 50%;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 6vh;
+    font-size: 1.5vh;
+    background-color: #ecc7c7;
+    border: none;
+    border-radius: 0.5vh;
+}

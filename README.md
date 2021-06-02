@@ -27,5 +27,5 @@ In the `source` directory, we have folders for each page, and each folder will c
 
 
 ### Tutorial on backend API
-Localed [here](./mil-notes/tutorials/Cruc.md)
+Located [here](./mil-notes/tutorials/Cruc.md)
 

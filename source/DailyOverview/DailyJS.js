@@ -125,7 +125,11 @@ function fetchMonthGoals() {
                 console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
-                if (goal.done === true) {
+                goalElem.style.wordBreak = 'break-all';
+                goalElem.style.overflowX = 'hidden';
+                goalElem.style.marginTop = '0';
+                goalElem.style.paddingRight = '1vh';
+                if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('month-goal');
@@ -157,7 +161,11 @@ function fetchYearGoals() {
                 console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
-                if (goal.done === true) {
+                goalElem.style.wordBreak = 'break-all';
+                goalElem.style.overflowX = 'hidden';
+                goalElem.style.marginTop = '0';
+                goalElem.style.paddingRight = '1vh';
+                if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('year-goal');
@@ -184,13 +192,7 @@ window.onload = () => {
 };
 */
 
-document.getElementById('notesb').addEventListener('click', () => {
-    // var divs = document.getElementsByClassName('divs');
-    // for (var i = 0; i < arrows.length; i++) {
-    //     if (this != arrows[i]) {
-    //         arrows[i].style.display = 'none';
-    //     }
-    // }
+document.querySelector('#notes').addEventListener('focusout', () => {
     updateNote();
     updateDay(currentDay);
 });
@@ -205,6 +207,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         done: false,
         childList: [],
         time: null,
+        features: 'normal',
     });
     console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
@@ -301,6 +304,34 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
         }
     } else {
         currentDay.bullets[firstIndex].done ^= true;
+    }
+    updateDay(currentDay);
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
+});
+
+// lets bullet component listen to when a bullet is clicked category
+document.querySelector('#bullets').addEventListener('features', function (e) {
+    console.log('CHANGED CATEGORY');
+    console.log(e.composedPath()[0]);
+    let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .features;
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].features = newFeature;
+        } else {
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].features = newFeature;
+        }
+    } else {
+        currentDay.bullets[firstIndex].features = newFeature;
     }
     updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
