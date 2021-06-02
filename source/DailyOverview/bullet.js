@@ -47,7 +47,7 @@ class BulletEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #f1f1f1;
-                    min-width: 9vh;
+                    min-width: 10vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
                 }
@@ -65,6 +65,16 @@ class BulletEntry extends HTMLElement {
                 }
                 .dropdownContainer:hover .dropdown {
                     display: block;
+                }
+                .dropdownButton {
+                    font-size: 1.5vh;
+                    width: 2vh;
+                    height: 2vh;
+                    transform: translateY(-0.1vh);
+                    padding: 0;
+                    background-color: #ecc7c7;
+                    border: none;
+                    border-radius: 0.5vh;
                 }
                 #features {
                     width: 100%;

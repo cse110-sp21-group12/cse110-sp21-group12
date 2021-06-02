@@ -104,7 +104,7 @@ h2 {
     background-color: white;
     margin: 1vw;
     padding: 1vw 3vw 1vw 2vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
@@ -130,7 +130,7 @@ h2 {
     background-color: white;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
@@ -153,7 +153,7 @@ h2 {
     background-color: white;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
@@ -168,8 +168,9 @@ h2 {
 
 #monthGoal {
     grid-row-start: month;
-    height: 10vh;
+    height: 7vh;
     max-height: 10vh;
+    max-width: 20vw;
 
     overflow: auto;
 }
@@ -183,8 +184,9 @@ h2 {
 
 #yearGoal {
     grid-row-start: year;
-    height: 10vh;
+    height: 7vh;
     max-height: 10vh;
+    max-width: 20vw;
 
     overflow: auto;
 }
@@ -196,6 +198,14 @@ h2 {
     top: 1px;
 }
 
+#monthGoal::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+#yearGoal::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
 /* Photo Album Block */
 
 #photo-album {
@@ -203,7 +213,7 @@ h2 {
     background-color: white;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
