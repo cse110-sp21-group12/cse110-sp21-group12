@@ -119,7 +119,11 @@ function fetchMonthGoals() {
                 console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
-                if (goal.done === true) {
+                goalElem.style.wordBreak = 'break-all';
+                goalElem.style.overflowX = 'hidden';
+                goalElem.style.marginTop = '0';
+                goalElem.style.paddingRight = '1vh';
+                if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('month-goal');
@@ -151,7 +155,11 @@ function fetchYearGoals() {
                 console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
-                if (goal.done === true) {
+                goalElem.style.wordBreak = 'break-all';
+                goalElem.style.overflowX = 'hidden';
+                goalElem.style.marginTop = '0';
+                goalElem.style.paddingRight = '1vh';
+                if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('year-goal');
