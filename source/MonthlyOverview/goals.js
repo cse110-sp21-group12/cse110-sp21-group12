@@ -36,7 +36,7 @@ class GoalsEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #f1f1f1;
-                    min-width: 9vh;
+                    min-width: 10vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
                 }
