@@ -1,31 +1,41 @@
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
+
 body {
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;
 
     grid-template-areas:
-        'head head home'
-        'goal week week'
-        'goal week week';
+        'head head head'
+        'goal goal goal'
+        'goal goal goal';
 }
 
 #goalsHeader,
 #weekHeader {
     text-align: center;
+    font-size: 3.5vh;
 }
 
 #header {
     grid-area: head;
     display: grid;
-    justify-items: stretch;
+    margin: 1vh;
+
+    grid-template-areas: 'back . . .  . headerHome';
+}
+
+#house {
+    grid-area: headerHome;
+    justify-self: right;
 }
 
 #homeButton {
-    grid-area: home;
-    position: absolute;
-    right: 15vh;
-    top: 4vh;
-    width: 8vh;
+    margin: 2vh;
     height: 8vh;
 }
 
@@ -34,85 +44,94 @@ body {
     opacity: 0.5;
 }
 
+#index {
+    grid-area: back;
+}
+
+#index > a {
+    font-size: 3.5vh;
+}
+
 #name {
     grid-area: goal;
-    display: grid;
+    display: flex;
+    flex-direction: row;
     justify-items: stretch;
-    grid-template-areas: 'goal empty week';
-    grid-template-columns: 40vw 1fr 40vw;
+    justify-content: space-evenly;
 }
 
 #goalSection {
-    grid-area: goal;
-    display: grid;
-    justify-items: center;
-
-    grid-template-rows: [frontGoal] 7% [backGoal] 93%;
+    display: flex;
+    flex-direction: column;
+    width: 45vw;
 }
 
-#goalSection + h2 {
-    grid-row-start: frontGoal;
-}
-
-#monthlyGoals {
-    grid-row-start: backGoal;
+/* #monthlyGoals {
+    position: relative;
     background-color: white;
-    margin-top: 2vw;
-    padding: 1vw;
-    border-radius: 10mm;
-    border-style: solid;
-    border-width: 1mm;
-    height: 67vh;
-}
-#goals {
-    position: absolute;
-    top: 23%;
-    left: 3%;
-    grid-area: goal;
-    margin: 5vw;
-    padding: 1vw;
-    height: 90vh;
-}
-#weekView {
-    grid-area: week;
-}
-
-/* week section */
-/*
-#weeks {
-    grid-area: week;
-    grid-template-areas:
-        'week'
-        'week'
-        'week'
-        'week';
-    margin-right: 5vw;
-    padding: 1vw;
-    /*border-style: solid;
-    border-width: 1mm;
-    height: 70vh;
-}
-#week1,
-#week2,
-#week3,
-#week4 {
-    grid-area: week;
-    background-image: url(../Images/GreenDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 10vh;
+    height: 67vh;
+    margin-left: 10vw;
+} */
+
+#goals {
+    position: relative;
+    align-self: center;
+    background-color: white;
+
+    /* background-image: url('../Images/GreenDinoBorder.svg');
+    background-size: 100%; */
+    /* background-repeat: no-repeat; */
+
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+
+    margin: 1vw;
+    padding: 2vw;
+    height: 60vh;
+    max-height: 50vw;
+    width: 70%;
+
+    overflow: auto;
 }
-*/
+
+/* add goal form styling */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 15vw;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 3.5vw;
+    min-width: 5vh;
+    font-size: 1.5vh;
+    background-color: #ecc7c7;
+    border: none;
+    border-radius: 0.5vh;
+}
+
+#goals::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
 
 /** 
 * Calendar styling
 */
 
 /* calendar wrapper */
-#left-bar {
+#weekView {
     padding: 0 4% 4%;
     margin-left: 2vw;
     margin-right: 2vw;
@@ -120,12 +139,13 @@ body {
     height: 55vh;
     align-content: center;
     flex-grow: 3;
+    max-width: 40%;
 }
 
-#left-bar h1 {
+/* #weekView h1 {
     font-size: 2.5vw;
     text-align: center;
-}
+} */
 
 ul {
     list-style-type: none;
@@ -133,7 +153,6 @@ ul {
 
 #calendar {
     height: 20vw;
-    padding: 2vw 5vw 10vw;
 }
 
 /* Month header */

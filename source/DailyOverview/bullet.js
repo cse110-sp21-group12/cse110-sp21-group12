@@ -15,9 +15,9 @@ class BulletEntry extends HTMLElement {
         template.innerHTML = `
             <style>
                 .bullet{
-                    width: inhert; /* I don't think this works */
                     word-break: break-all;
                     max-width: 100%;
+                    font-size: 2.3vh;
                 }
                 .child{
                     padding-left: 2vw;
@@ -47,17 +47,20 @@ class BulletEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #f1f1f1;
-                    min-width: 130px;
+                    min-width: 9vh;
                     z-index: 1;
+                    transform: translateY(-0.1vh);
                 }
                 .dropdown p {
                     color: black;
-                    padding: 12px 16px;
+                    font-size: 1.7vh;
+                    padding: 0.5vh 0 0.5vh 0.5vh;
                     display: block;
                     margin: 0;
+                    background-color: #ecc7c7;
                 }
                 .dropdown p:hover {
-                    background-color: #585858;
+                    background-color: #cecece;
                     cursor: pointer
                 }
                 .dropdownContainer:hover .dropdown {

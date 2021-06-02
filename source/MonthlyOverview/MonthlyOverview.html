@@ -12,52 +12,49 @@
                 <h1 id="index">
                     <a
                         href="/source/YearlyOverview/YearlyOverview.html"
-                        style="
-                            text-decoration: none;
-                            position: absolute;
-                            top: 35px;
-                        "
+                        style="text-decoration: none"
                     >
                         < Year
                     </a>
                 </h1>
             </h1>
-            <a href=" /source/Index/index.html"
-                ><img
-                    src="/source/YearlyOverview/Images/home.png"
-                    alt="home"
-                    width="40"
-                    height="40"
-                    id="homeButton"
-            /></a>
+            <div id="house">
+                <a href=" /source/Index/index.html">
+                    <img
+                        src="/source/YearlyOverview/Images/home.png"
+                        alt="home"
+                        id="homeButton"
+                    />
+                </a>
+            </div>
         </div>
 
         <div id="name">
             <div id="goalSection">
                 <h1 id="goalsHeader">Monthly Goals</h1>
-                <img src="../Images/GreenDinoBorder.svg" id="monthlyGoals" />
+                <!-- <img src="../Images/GreenDinoBorder.svg" id="monthlyGoals" /> -->
                 <div id="goals">
-                    <form class="entry-form">
-                        <input
-                            type="text"
-                            placeholder="New Goal"
-                            class="entry-form-text"
-                        />
-                        <input type="submit" value="Post" />
-                    </form>
-                    <div id="bullets"></div>
+                    <div id="container">
+                        <form class="entry-form">
+                            <input
+                                type="text"
+                                placeholder="New Goal"
+                                class="entry-form-text"
+                            />
+                            <input
+                                type="submit"
+                                value="Post"
+                                class="entry-form-button"
+                            />
+                        </form>
+                        <div id="bullets"></div>
+                    </div>
                 </div>
             </div>
             <div id="empty"></div>
             <div id="weekView">
                 <h1 id="weekHeader">Calendar</h1>
                 <section id="calendar"></section>
-                <!-- <div id="weeks">
-                <h2 id="week1"><a href="../WeeklyOverview/WeeklyOverview.html"> Week 1 </a></h2>
-                <h2 id="week2"><a href=""> Week 2 </a></h2>
-                <h2 id="week3"><a href=""> Week 3 </a></h2>
-                <h2 id="week4"><a href=""> Week 4 </a></h2>
-            </div> -->
             </div>
         </div>
         <script src="./goals.js" type="module"></script>
