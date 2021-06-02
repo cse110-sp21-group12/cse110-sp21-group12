@@ -4,7 +4,7 @@
 
 /* Global styles */
 :root {
-    --bg-color: #BDFFBD;
+    --bg-color: #bdffbd;
 }
 * {
     background-color: var(--bg-color);
