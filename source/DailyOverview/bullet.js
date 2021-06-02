@@ -66,6 +66,7 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer:hover .dropdown {
                     display: block;
                 }
+<<<<<<< HEAD
                 .dropdownButton {
                     font-size: 1.5vh;
                     width: 2vh;
@@ -75,6 +76,14 @@ class BulletEntry extends HTMLElement {
                     background-color: #ecc7c7;
                     border: none;
                     border-radius: 0.5vh;
+=======
+                #features {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 12px 16px;
+>>>>>>> 56724452291c36b210ce488afbcb4e15ff5e1747
                 }
 
             </style>
@@ -90,6 +99,14 @@ class BulletEntry extends HTMLElement {
                                 <p id="delete">Delete</p>
                                 <p id="add">Add</p>
                                 <p id="done">Mark Done</p>
+                                <select id="features"> 
+                                    <option id="normal" value="normal">Normal</option> 
+                                    <option id="important" value="important">Important</option>
+                                    <option id="workRelated" value="workRelated">School/Coursework</option>
+                                    <option id="household" value="household">Household/Chores</option>
+                                    <option id="personal" value="personal">Personal/Well-being</option>
+                                    <option id="other" value="other">Other</option>
+                                </select>
                             </div>
                         </div>
                         <div class="child"></div>
@@ -135,7 +152,7 @@ class BulletEntry extends HTMLElement {
             let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
-                symb: '•',
+                features: 'normal',
                 done: false,
                 childList: [],
                 time: null,
@@ -180,6 +197,20 @@ class BulletEntry extends HTMLElement {
             this.dispatchEvent(this.done);
         });
 
+        // mark bullet category
+        this.shadowRoot
+            .querySelector('#features')
+            .addEventListener('change', () => {
+                let newJson = JSON.parse(this.getAttribute('bulletJson'));
+                let selectElement = this.shadowRoot.querySelector('#features');
+                let output = selectElement.value;
+                console.log('debug shit');
+                console.log(newJson);
+                newJson.features = output;
+                this.setAttribute('bulletJson', JSON.stringify(newJson));
+                this.dispatchEvent(this.features);
+            });
+
         // new event to see when bullet child is added
         this.added = new CustomEvent('added', {
             bubbles: true,
@@ -200,6 +231,12 @@ class BulletEntry extends HTMLElement {
 
         // new event to mark event as done
         this.done = new CustomEvent('done', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to see what category it is
+        this.features = new CustomEvent('features', {
             bubbles: true,
             composed: true,
         });
@@ -224,6 +261,49 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
+            console.log('testing');
+        }
+
+        console.log('features');
+        console.log(entry.features);
+        console.log(this.shadowRoot.getElementById(entry.features));
+        this.shadowRoot
+            .getElementById(entry.features)
+            .setAttribute('selected', 'true');
+
+        switch (entry.features) {
+            case 'normal':
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    'none';
+                break;
+            case 'important': // star icon
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Star.svg')";
+                break;
+            case 'workRelated': // pencil
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Pencil.svg')";
+                break;
+            case 'household': // house
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/House.svg')";
+                break;
+            case 'personal': // heart
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Heart.svg')";
+                break;
+            case 'other': // square
+                this.shadowRoot.querySelector('ul').style.listStyleType =
+                    'square';
+                break;
         }
     }
 

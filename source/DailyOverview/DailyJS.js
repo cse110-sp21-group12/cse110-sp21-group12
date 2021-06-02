@@ -193,6 +193,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         done: false,
         childList: [],
         time: null,
+        features: 'normal',
     });
     console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
@@ -289,6 +290,34 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
         }
     } else {
         currentDay.bullets[firstIndex].done ^= true;
+    }
+    updateDay(currentDay);
+    document.querySelector('#bullets').innerHTML = '';
+    renderBullets(currentDay.bullets);
+});
+
+// lets bullet component listen to when a bullet is clicked category
+document.querySelector('#bullets').addEventListener('features', function (e) {
+    console.log('CHANGED CATEGORY');
+    console.log(e.composedPath()[0]);
+    let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .features;
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            currentDay.bullets[firstIndex].childList[secondIndex].childList[
+                thirdIndex
+            ].features = newFeature;
+        } else {
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].features = newFeature;
+        }
+    } else {
+        currentDay.bullets[firstIndex].features = newFeature;
     }
     updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
