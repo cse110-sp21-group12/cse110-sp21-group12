@@ -1,6 +1,9 @@
+:root {
+    --bg-color: white;
+  }
 body {
     /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
 

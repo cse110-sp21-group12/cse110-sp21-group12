@@ -1,8 +1,12 @@
 /*
  * Page-wide styles
  */
+ 
 
 /* Global styles */
+:root {
+    --bg-color: white;
+  }
 * {
     background-color: var(--bg-color);
     font-family: 'Courier', monospace;

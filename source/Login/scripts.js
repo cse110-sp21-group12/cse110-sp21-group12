@@ -76,7 +76,7 @@ function handleSignup(newUsername, newPassword) {
     let userObject = {
         username: newUsername,
         password: newPassword,
-        theme: 1,
+        theme: 'white',
     };
     //update settings
     // eslint-disable-next-line no-undef

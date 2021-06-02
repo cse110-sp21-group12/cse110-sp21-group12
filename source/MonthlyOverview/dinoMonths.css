@@ -1,5 +1,8 @@
+:root {
+    --bg-color: white;
+  }
 body {
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
 

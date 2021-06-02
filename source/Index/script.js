@@ -1,6 +1,47 @@
 let collapsible_years_list = document.getElementsByClassName('coll_yr_button');
 
-//shows or hides collapsible_child of button
+window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
+    // getting backend sample day
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        let req = getSettings();
+        req.onsuccess = function (e) {
+            let settingObj = e.target.result;
+            console.log('setting initial theme');
+            document.documentElement.style.setProperty('--bg-color', settingObj.theme);
+            setSelected(document.querySelector('#themes'),settingObj.theme);
+        };
+    };
+});
+
+/**
+ * Sets the theme dropdown index choice as selected based on input value
+ * @param {Object} select - the select object
+ * @param {string} val - the value of the option to select
+ * @returns void
+ */
+function setSelected(select, val) {
+    for (let i = 0; i < select.options.length; i++) { 
+        if (select.options[i].value == val) {
+            select.options[i].selected = true;
+            break;
+        }
+    }
+    return;
+}
+
+/**
+ * Shows or hides collapsible_child of button
+ * @returns void
+ */
 function collapsible_year_toggle() {
     this.classList.toggle('active');
     let target_year = this.id.substring(0, 4);
@@ -25,5 +66,13 @@ for (let i = 0; i < collapsible_years_list.length; i++) {
 
 // changes global color theme
 document.querySelector('#themes').addEventListener('change', () => {
-    document.documentElement.style.setProperty('--bg-color', document.querySelector('#themes').value);
+    let req = getSettings();
+    req.onsuccess = function (e) {
+        console.log('got settings');
+        console.log(e.target.result);
+        let settingObj = e.target.result;
+        settingObj.theme = document.querySelector('#themes').value;
+        document.documentElement.style.setProperty('--bg-color', settingObj.theme);
+        updateSettings(settingObj);
+    };
 });
