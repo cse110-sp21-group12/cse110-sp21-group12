@@ -64,7 +64,10 @@ window.addEventListener('load', () => {
         req.onsuccess = function (e) {
             let settingObj = e.target.result;
             console.log('setting theme');
-            document.documentElement.style.setProperty('--bg-color', settingObj.theme);
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
         };
     };
     document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;

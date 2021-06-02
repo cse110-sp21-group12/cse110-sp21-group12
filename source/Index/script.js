@@ -16,8 +16,11 @@ window.addEventListener('load', () => {
         req.onsuccess = function (e) {
             let settingObj = e.target.result;
             console.log('setting initial theme');
-            document.documentElement.style.setProperty('--bg-color', settingObj.theme);
-            setSelected(document.querySelector('#themes'),settingObj.theme);
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
+            setSelected(document.querySelector('#themes'), settingObj.theme);
         };
     };
 });
@@ -29,7 +32,7 @@ window.addEventListener('load', () => {
  * @returns void
  */
 function setSelected(select, val) {
-    for (let i = 0; i < select.options.length; i++) { 
+    for (let i = 0; i < select.options.length; i++) {
         if (select.options[i].value == val) {
             select.options[i].selected = true;
             break;
@@ -72,7 +75,10 @@ document.querySelector('#themes').addEventListener('change', () => {
         console.log(e.target.result);
         let settingObj = e.target.result;
         settingObj.theme = document.querySelector('#themes').value;
-        document.documentElement.style.setProperty('--bg-color', settingObj.theme);
+        document.documentElement.style.setProperty(
+            '--bg-color',
+            settingObj.theme
+        );
         updateSettings(settingObj);
     };
 });

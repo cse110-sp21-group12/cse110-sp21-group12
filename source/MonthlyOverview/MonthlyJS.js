@@ -42,7 +42,10 @@ window.addEventListener('load', () => {
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
             console.log('setting initial theme');
-            document.documentElement.style.setProperty('--bg-color', settingObj.theme);
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
         };
     };
 });
