@@ -1,3 +1,9 @@
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
+
 body {
     /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
     background-color: #ecc7c7;
@@ -14,13 +20,13 @@ body {
 }
 
 h1 {
-    color: black;
+    /* color: black; */
     font-size: 3.5vh;
     margin: 1vh;
 }
 
 h2 {
-    color: black;
+    /* color: black; */
     font-size: 2vh;
 }
 

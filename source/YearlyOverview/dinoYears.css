@@ -1,3 +1,9 @@
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
+
 body {
     background-color: #ecc7c7;
     display: grid;
@@ -125,6 +131,14 @@ body {
     align-content: center;
     flex-grow: 3;
     max-width: 40%;
+}
+
+#months > h2 {
+    font-size: 2.5vh;
+}
+
+#months > h2 > a {
+    text-decoration: none;
 }
 
 #months {

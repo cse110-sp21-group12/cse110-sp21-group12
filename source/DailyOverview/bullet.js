@@ -66,24 +66,12 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer:hover .dropdown {
                     display: block;
                 }
-<<<<<<< HEAD
-                .dropdownButton {
-                    font-size: 1.5vh;
-                    width: 2vh;
-                    height: 2vh;
-                    transform: translateY(-0.1vh);
-                    padding: 0;
-                    background-color: #ecc7c7;
-                    border: none;
-                    border-radius: 0.5vh;
-=======
                 #features {
                     width: 100%;
                     background: transparent;
                     border: none;
                     cursor: pointer;
                     padding: 12px 16px;
->>>>>>> 56724452291c36b210ce488afbcb4e15ff5e1747
                 }
 
             </style>
