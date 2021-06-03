@@ -3,7 +3,6 @@
 }
 
 body {
-    /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
     background-color: #ecc7c7;
     display: grid;
     justify-items: stretch;

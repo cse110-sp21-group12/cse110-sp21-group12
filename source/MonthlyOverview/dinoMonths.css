@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #bdffbd;
+    --bg-color: white;
 }
 * {
     font-family: 'Courier', monospace;
@@ -212,6 +212,10 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
+}
+
+.day:hover {
+    cursor: pointer;
 }
 
 .blank_day {
