@@ -1,12 +1,13 @@
+:root {
+    --bg-color: white;
+}
 * {
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
 }
-
 body {
-    /* colors: #ECC7C7 #FFF7BD #BDFFBD #F2BDFF #FFE5BD #BDFDFF #FFD8E8 */
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
     grid-template-columns: 30% 10% 17%;
@@ -139,11 +140,11 @@ h2 {
 }
 
 #notesDino {
-    height: 10vh;
-    width: 10vw;
+    height: 15vh;
+    width: 15vw;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: -3vh;
+    right: -13vh;
 }
 
 /* Goal Reminder Block */
@@ -245,7 +246,7 @@ button#right {
     height: 100%;
     width: 6vh;
     font-size: 1.5vh;
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
 }

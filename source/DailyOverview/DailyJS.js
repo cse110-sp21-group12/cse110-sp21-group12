@@ -60,6 +60,15 @@ window.addEventListener('load', () => {
         requestDay();
         fetchMonthGoals();
         fetchYearGoals();
+        let req = getSettings();
+        req.onsuccess = function (e) {
+            let settingObj = e.target.result;
+            console.log('setting theme');
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
+        };
     };
     document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
 });

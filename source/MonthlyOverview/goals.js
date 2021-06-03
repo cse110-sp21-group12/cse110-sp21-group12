@@ -35,7 +35,7 @@ class GoalsEntry extends HTMLElement {
                 .dropdown {
                     display: none;
                     position: absolute;
-                    background-color: #f1f1f1;
+                    background-color: #e4e4e4;
                     min-width: 10vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
@@ -46,7 +46,7 @@ class GoalsEntry extends HTMLElement {
                     padding: 0.5vh 0 0.5vh 0.5vh;
                     display: block;
                     margin: 0;
-                    background-color: #ecc7c7;
+                    background-color: #e4e4e4;
                 }
                 .dropdown p:hover {
                     background-color: #cecece;
@@ -61,7 +61,7 @@ class GoalsEntry extends HTMLElement {
                     height: 2vh;
                     transform: translateY(-0.1vh);
                     padding: 0;
-                    background-color: #ecc7c7;
+                    background-color: #e4e4e4;
                     border: none;
                     border-radius: 0.5vh;
                 }
