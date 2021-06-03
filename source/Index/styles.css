@@ -246,3 +246,9 @@ ul {
     display: flex;
     flex-direction: row;
 }
+
+#themes {
+    border-radius: .25vw;
+    border-width: .1vw;
+    font-size: 1vw;
+}
