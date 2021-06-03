@@ -155,10 +155,8 @@ describe('basic navigation for BJ', () => {
 
         //kinda too lazy to build the string
         let boolDay = url.indexOf(`${currentDate.getDate()}`) > -1;
-        let boolMonth =
-            url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
-        let boolYear =
-            url.indexOf(`${currentDate.getFullYear()}`) > -1;
+        let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
+        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
     });
@@ -174,7 +172,8 @@ describe('basic navigation for BJ', () => {
     it('Test13: Notes should be empty ', async () => {
         const noteText = await page.$eval('note-box', (outerNote) => {
             // a lot of nesting inside the shadowDOM to get to the actual notes text box
-            return outerNote.shadowRoot.lastElementChild.lastElementChild.innerHTML;
+            return outerNote.shadowRoot.lastElementChild.lastElementChild
+                .innerHTML;
         });
 
         expect(noteText).toMatch('');
@@ -183,12 +182,10 @@ describe('basic navigation for BJ', () => {
     it('Test13: monthly goals should be empty ', async () => {
         const noteText = await page.$eval('note-box', (outerNote) => {
             // a lot of nesting inside the shadowDOM to get to the actual notes text box
-            return outerNote.shadowRoot.lastElementChild.lastElementChild.innerHTML;
+            return outerNote.shadowRoot.lastElementChild.lastElementChild
+                .innerHTML;
         });
 
         expect(noteText).toMatch('');
     });
-
-
-
 });
