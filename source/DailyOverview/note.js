@@ -14,8 +14,8 @@ class noteBox extends HTMLElement {
                 .noteContent{
                     overflow: auto;
                     resize: none;
-                    width: 30vw;
-                    height: 70vh;
+                    width: 100%;
+                    height: 60vh;
                     border-style: none; 
                 }
                 .note{

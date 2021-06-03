@@ -3,13 +3,17 @@
  */
 
 /* Global styles */
+:root {
+    --bg-color: white;
+}
 * {
-    background-color: white;
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
 }
-
+body {
+    background-color: var(--bg-color);
+}
 /* Body's only child */
 #body-wrapper {
     display: flex;
@@ -57,6 +61,7 @@ Structure
     border-width: 0.2vw;
     border-radius: 3vw;
     padding: 2vw;
+    background-color: white;
 }
 
 #content {
@@ -65,6 +70,10 @@ Structure
     height: 50vh;
     width: auto;
     margin: 1vw 2vw;
+}
+
+#content::-webkit-scrollbar {
+    display: none;
 }
 
 .horiz {
@@ -83,7 +92,7 @@ Structure
 }
 
 #today-button {
-    background-color: #e4e4e4;
+    background-color: var(--bg-color);
     border: none;
     color: #585858;
     text-align: center;
@@ -96,12 +105,8 @@ Structure
     width: 70%;
 }
 
-#today-button:hover {
-    background-color: #cecece;
-}
-
 button {
-    background-color: #e4e4e4;
+    background-color: var(--bg-color);
     border: none;
     color: #585858;
     /*to make the [>] / [v] look consistent */
@@ -109,6 +114,10 @@ button {
     font-size: 1.5vw;
     border-radius: 0.1em;
     padding: 0.1vw 0.5vw;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 #content a {
@@ -213,6 +222,10 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
+}
+
+.day:hover {
+    cursor: pointer;
 }
 
 .blank_day {

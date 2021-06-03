@@ -6,54 +6,82 @@ class GoalsEntry extends HTMLElement {
 
         template.innerHTML = `
             <style>
-                .bullet-content{
-                    flex-basis: 5;
-                }
-                #container{
-                    /* flex container for the image */
-                    display:flex;
-                    flex-direction: row;
-                    align-items: center;
-                    display: block;
-                    /* what should this width be?, inherit from the todo list? */
-                }
-                #egg{
-                    width: 2vw;
-                }
                 .bullet{
-                    width: inhert; /* I don't think this works */
                     word-break: break-all;
                     max-width: 100%;
-                }
-                .child{
-                    padding-left: 2vw;
+                    font-size: 2.3vh;
                 }
                 .bullet-container{
                     display: inline-block; !important
-                }
-                ul {
-                    // list-style-image: url('../Images/DinoEgg.svg');
                 }
                 li > span {
                     position: relative;
                     left: -5px;
                 }
-                ul{
-                    padding: 10px 18px;
+                ul {
+                    padding: 0px 0px 0px 15px;
                     margin: 0;
                 }
-
+                li {
+                    padding: 5px;
+                }
+                .dropdownContainer {
+                    position: relative;
+                    display: inline-block;
+                }
+                .clicked {
+                    background-color: #858585;
+                }
+                .dropdown {
+                    display: none;
+                    position: absolute;
+                    background-color: #e4e4e4;
+                    min-width: 10vh;
+                    z-index: 1;
+                    transform: translateY(-0.1vh);
+                }
+                .dropdown p {
+                    color: black;
+                    font-size: 1.7vh;
+                    padding: 0.5vh 0 0.5vh 0.5vh;
+                    display: block;
+                    margin: 0;
+                    background-color: #e4e4e4;
+                }
+                .dropdown p:hover {
+                    background-color: #cecece;
+                    cursor: pointer
+                }
+                .dropdownContainer:hover .dropdown {
+                    display: block;
+                }
+                .dropdownButton {
+                    font-size: 1.5vh;
+                    width: 2vh;
+                    height: 2vh;
+                    transform: translateY(-0.1vh);
+                    padding: 0;
+                    background-color: #e4e4e4;
+                    border: none;
+                    border-radius: 0.5vh;
+                }
             </style>
             <article class="bullet">
-                <div id="container">
-                        <ul>
-                        <li><span class="bullet-content">Setting text</span></li>
-                        </ul>
-                    <button id="edit">Edit</button>
-                    <button id="delete">Delete</button>
-                    <button id="done">Mark Done</button>
-                    <div class="child"></div>
-                </div>
+            <div id="container">
+                <ul>
+                    <li>
+                        <span class="bullet-content">Setting text</span>
+                    <div class="dropdownContainer">
+                        <button class="dropdownButton">v</button>
+                        <div class="dropdown">
+                            <p id="edit">Edit</p>
+                            <p id="delete">Delete</p>
+                            <p id="done">Mark Done</p>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+            </div>
             </article>
             `;
 

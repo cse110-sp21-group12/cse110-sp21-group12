@@ -12,28 +12,11 @@ if (currentYear == 'html') {
     currentYear = 2021;
 }
 console.log(currentYear);
-//currentYear = '2020';
+// currentYear = '2020';
 // contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
-window.onload = displayGoals();
-
-document.querySelector('.entry-form').addEventListener('submit', (submit) => {
-    submit.preventDefault();
-    let gText = document.querySelector('.entry-form-text').value;
-
-    document.querySelector('.entry-form-text').value = '';
-    currentYearRes.goals.push({
-        text: gText,
-        done: false,
-    });
-    console.log(currentYearRes);
-    document.querySelector('#bullets').innerHTML = '';
-    renderGoals(currentYearRes.goals);
-    updateYearsGoals(currentYearRes);
-});
-
-function displayGoals() {
+window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
     console.log('here is storage session', session);
@@ -58,8 +41,32 @@ function displayGoals() {
                 renderGoals(goals);
             }
         };
+        let settingsReq = getSettings();
+        settingsReq.onsuccess = function (e) {
+            let settingObj = e.target.result;
+            console.log('setting initial theme');
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
+        };
     };
-}
+});
+
+document.querySelector('.entry-form').addEventListener('submit', (submit) => {
+    submit.preventDefault();
+    let gText = document.querySelector('.entry-form-text').value;
+
+    document.querySelector('.entry-form-text').value = '';
+    currentYearRes.goals.push({
+        text: gText,
+        done: false,
+    });
+    console.log(currentYearRes);
+    document.querySelector('#bullets').innerHTML = '';
+    renderGoals(currentYearRes.goals);
+    updateYearsGoals(currentYearRes);
+});
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
@@ -94,7 +101,6 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
 });
-
 /**
  * Function that renders a list of goals into the todo area
  * @param {Object} a list of goal objects
