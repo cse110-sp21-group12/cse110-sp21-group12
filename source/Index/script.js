@@ -8,10 +8,13 @@ window.addEventListener('load', () => {
         window.location.href = '../Login/Login.html';
     }
     // getting backend sample day
+    // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
+        // eslint-disable-next-line no-undef
         setDB(e.target.result);
+        // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
             let settingObj = e.target.result;
@@ -69,6 +72,7 @@ for (let i = 0; i < collapsible_years_list.length; i++) {
 
 // changes global color theme
 document.querySelector('#themes').addEventListener('change', () => {
+    // eslint-disable-next-line no-undef
     let req = getSettings();
     req.onsuccess = function (e) {
         console.log('got settings');
@@ -79,6 +83,7 @@ document.querySelector('#themes').addEventListener('change', () => {
             '--bg-color',
             settingObj.theme
         );
+        // eslint-disable-next-line no-undef
         updateSettings(settingObj);
     };
 });
