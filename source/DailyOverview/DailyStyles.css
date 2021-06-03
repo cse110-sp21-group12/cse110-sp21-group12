@@ -112,6 +112,8 @@ h2 {
     height: 75vh;
     width: 80%;
     overflow: auto;
+
+    min-height: 50vw;
 }
 
 #todo::-webkit-scrollbar {
@@ -137,6 +139,8 @@ h2 {
     border-color: black;
     height: 75vh;
     position: relative;
+
+    min-height: 50vw;
 }
 
 #notesDino {
@@ -230,7 +234,7 @@ h2 {
 
 #myCanvas {
     border: 2px solid #000000;
-    grid-area: album;
+    /* grid-area: album; */
     width: 100%;
     height: 75%;
 }
