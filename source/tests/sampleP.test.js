@@ -73,7 +73,6 @@ describe('basic navigation for BJ', () => {
             button.click();
         });
 
-        console.log(page);
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5501/source/Index/index.html');
     });
@@ -137,7 +136,6 @@ describe('basic navigation for BJ', () => {
             return dateHeader.innerHTML;
         });
 
-        console.log(currentDateStr);
         let currentDate = new Date();
 
         //kinda too lazy to build the string
@@ -150,24 +148,47 @@ describe('basic navigation for BJ', () => {
         expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
     });
 
-    /*
     it('Test11: current date URL should be correct', async () => {
-        await page.$eval('#today-button', (btn) => {
-            btn.click()
-        });
-        await page.waitForTimeout(300);
-
-        const currentDateStr = await page.$eval('#date', (dateHeader) => {
-            return dateHeader.innerHTML;
-        });
+        const url = await page.evaluate(() => location.href);
 
         let currentDate = new Date();
-        //kinda too lazy to build the string
-        let boolDay = currentDateStr.indexof(currentDate.getDate()) > -1;
-        let boolMonth= currentDateStr.indexof(currentDate.getMonth()) > -1;
-        let boolYear= currentDateStr.indexof(currentDate.getFullYear()) > -1;
 
-        expect(boolDay && boolMonth && boolYear).toMatch('true');
+        //kinda too lazy to build the string
+        let boolDay = url.indexOf(`${currentDate.getDate()}`) > -1;
+        let boolMonth =
+            url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
+        let boolYear =
+            url.indexOf(`${currentDate.getFullYear()}`) > -1;
+
+        expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
     });
-    */
+
+    it('Test12: TODOs should be empty ', async () => {
+        const bulletLength = await page.$eval('#bullets', (bullets) => {
+            return bullets.childNodes;
+        });
+
+        expect(`${bulletLength.length}}`).toMatch('0');
+    });
+
+    it('Test13: Notes should be empty ', async () => {
+        const noteText = await page.$eval('note-box', (outerNote) => {
+            // a lot of nesting inside the shadowDOM to get to the actual notes text box
+            return outerNote.shadowRoot.lastElementChild.lastElementChild.innerHTML;
+        });
+
+        expect(noteText).toMatch('');
+    });
+
+    it('Test13: monthly goals should be empty ', async () => {
+        const noteText = await page.$eval('note-box', (outerNote) => {
+            // a lot of nesting inside the shadowDOM to get to the actual notes text box
+            return outerNote.shadowRoot.lastElementChild.lastElementChild.innerHTML;
+        });
+
+        expect(noteText).toMatch('');
+    });
+
+
+
 });
