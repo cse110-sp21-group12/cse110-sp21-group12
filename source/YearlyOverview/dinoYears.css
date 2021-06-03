@@ -1,11 +1,13 @@
+:root {
+    --bg-color: white;
+}
 * {
     font-family: 'Courier', monospace;
     font-weight: bold;
     color: #585858;
 }
-
 body {
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
 
@@ -115,7 +117,7 @@ body {
     width: 3.5vw;
     min-width: 5vh;
     font-size: 1.5vh;
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
 }
