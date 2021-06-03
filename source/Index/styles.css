@@ -13,7 +13,6 @@
 }
 body {
     background-color: var(--bg-color);
-
 }
 /* Body's only child */
 #body-wrapper {
@@ -74,7 +73,7 @@ Structure
 }
 
 #content::-webkit-scrollbar {
-    display: none; 
+    display: none;
 }
 
 .horiz {
