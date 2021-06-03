@@ -140,11 +140,11 @@ h2 {
 }
 
 #notesDino {
-    height: 10vh;
-    width: 10vw;
+    height: 15vh;
+    width: 15vw;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: -3vh;
+    right: -13vh;
 }
 
 /* Goal Reminder Block */
