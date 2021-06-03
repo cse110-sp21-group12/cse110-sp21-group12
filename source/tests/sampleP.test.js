@@ -1,6 +1,6 @@
 /* eslint-disable no-undef*/
 
-const { loadPartialConfigAsync } = require('@babel/core');
+//const { loadPartialConfigAsync } = require('@babel/core');
 
 /*//sample puppeteer test
 describe('Google', () => {
@@ -168,7 +168,7 @@ describe('basic navigation for BJ', () => {
             return bullets.childNodes;
         });
 
-        expect(`${bulletLength.length}}`).toMatch('0');
+        expect(`${bulletLength.length}`).toMatch('0');
     });
 
     it('Test13: Notes should be empty ', async () => {
