@@ -114,9 +114,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test9: go to index screen, make sure highlighted day is the current day', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/Index/index.html'
-        );
+        await page.goto('http://127.0.0.1:5501/source/Index/index.html');
         await page.waitForTimeout(300);
 
         const currentDayHigh = await page.$eval('.today', (day) => {
@@ -131,7 +129,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test10: click on "Go to current day", should go to day with correct date heading', async () => {
         await page.$eval('#today-button', (btn) => {
-            btn.click()
+            btn.click();
         });
         await page.waitForTimeout(300);
 
@@ -144,8 +142,10 @@ describe('basic navigation for BJ', () => {
 
         //kinda too lazy to build the string
         let boolDay = currentDateStr.indexOf(`${currentDate.getDate()}`) > -1;
-        let boolMonth= currentDateStr.indexOf(`${currentDate.getMonth() + 1}`) > -1;
-        let boolYear= currentDateStr.indexOf(`${currentDate.getFullYear()}`) > -1;
+        let boolMonth =
+            currentDateStr.indexOf(`${currentDate.getMonth() + 1}`) > -1;
+        let boolYear =
+            currentDateStr.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
     });
@@ -170,8 +170,4 @@ describe('basic navigation for BJ', () => {
         expect(boolDay && boolMonth && boolYear).toMatch('true');
     });
     */
-
-
-
 });
-
