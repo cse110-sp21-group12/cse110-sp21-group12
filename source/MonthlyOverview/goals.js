@@ -96,8 +96,9 @@ class GoalsEntry extends HTMLElement {
                 this.shadowRoot.querySelector('.bullet-content').innerText
             );
             if (editedEntry != null && editedEntry != '') {
-                this.shadowRoot.querySelector('.bullet-content').innerText =
-                    editedEntry;
+                this.shadowRoot.querySelector(
+                    '.bullet-content'
+                ).innerText = editedEntry;
                 newJson.text = editedEntry;
                 this.setAttribute('goalJson', JSON.stringify(newJson));
             }

@@ -265,9 +265,8 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 document.querySelector('#bullets').addEventListener('edited', function (e) {
     console.log('got edited event');
     console.log(e.composedPath()[0]);
-    let newText = JSON.parse(
-        e.composedPath()[0].getAttribute('bulletJson')
-    ).text;
+    let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -278,8 +277,9 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
                 thirdIndex
             ].text = newText;
         } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].text =
-                newText;
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].text = newText;
         }
     } else {
         currentDay.bullets[firstIndex].text = newText;
@@ -317,9 +317,8 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
 document.querySelector('#bullets').addEventListener('features', function (e) {
     console.log('CHANGED CATEGORY');
     console.log(e.composedPath()[0]);
-    let newFeature = JSON.parse(
-        e.composedPath()[0].getAttribute('bulletJson')
-    ).features;
+    let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .features;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -330,8 +329,9 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
                 thirdIndex
             ].features = newFeature;
         } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].features =
-                newFeature;
+            currentDay.bullets[firstIndex].childList[
+                secondIndex
+            ].features = newFeature;
         }
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
@@ -400,8 +400,9 @@ function editBullet() {
         this.shadowRoot.querySelector('.bullet-content').innerText
     );
     if (editedEntry != null && editedEntry != '') {
-        this.shadowRoot.querySelector('.bullet-content').innerText =
-            editedEntry;
+        this.shadowRoot.querySelector(
+            '.bullet-content'
+        ).innerText = editedEntry;
     }
 }
 
