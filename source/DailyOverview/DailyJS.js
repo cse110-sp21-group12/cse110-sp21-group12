@@ -30,20 +30,6 @@ const left = document.getElementById('left');
 
 // store current day data to update when user leaves page
 let currentDay;
-//  = {
-//     date: "05/20/2021",
-//     bullets: [
-//         {
-//             text: "O, Wonder!",
-//             symb: "•",
-//             done: true,
-//             childList: [],
-//             time: null
-//         }
-//     ],
-//     photos: [],
-//     notes: "Here is some notes sample test this is a note possibly here could be another"
-// }
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
@@ -180,22 +166,6 @@ function fetchYearGoals() {
         }
     };
 }
-
-/* Here is another version of what to do when the window loads, TODO, merge these into one
-window.onload = () => {
-    // eslint-disable-next-line no-undef
-    let req = getDay('05/20/2021');
-    req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
-        let bullets = e.target.result.bullets;
-        let photos = e.target.result.photos;
-        renderPhotos(photos);
-
-        renderBullets(bullets);
-    };
-};
-*/
 
 document.querySelector('#notes').addEventListener('focusout', () => {
     updateNote();
