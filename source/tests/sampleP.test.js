@@ -169,10 +169,10 @@ describe('basic navigation for BJ', () => {
 
     it('Test12: TODOs should be empty ', async () => {
         const bulletLength = await page.$eval('#bullets', (bullets) => {
-            return bullets.childNodes;
+            return bullets.childNodes.length;
         });
 
-        expect(`${bulletLength}`).toMatch('undefined');
+        expect(`${bulletLength}`).toMatch('0');
     });
 
     it('Test13: Notes should be empty ', async () => {
@@ -185,13 +185,13 @@ describe('basic navigation for BJ', () => {
         expect(noteText).toMatch('');
     });
 
-    it('Test13: monthly goals should be empty ', async () => {
-        const noteText = await page.$eval('note-box', (outerNote) => {
-            // a lot of nesting inside the shadowDOM to get to the actual notes text box
-            return outerNote.shadowRoot.lastElementChild.lastElementChild
-                .innerHTML;
+    it('Test14: monthly goals should be empty ', async () => {
+        const mGoalsLength= await page.$eval('#monthGoal', (mGoals) => {
+            console.log(mGoals.childNodes);
+            return mGoals.childNodes.length
         });
 
-        expect(noteText).toMatch('');
+        expect(`${mGoalsLength}`).toMatch('0');
     });
+    //Maybe add more tests here about daily-overview
 });
