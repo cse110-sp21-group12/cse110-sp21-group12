@@ -5,7 +5,7 @@ on:
   #having it generate on push to development
   push:
     branches:
-    - development
+    - main
   workflow_dispatch:
 
 
