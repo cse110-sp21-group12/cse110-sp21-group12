@@ -186,9 +186,9 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test14: monthly goals should be empty ', async () => {
-        const mGoalsLength= await page.$eval('#monthGoal', (mGoals) => {
+        const mGoalsLength = await page.$eval('#monthGoal', (mGoals) => {
             console.log(mGoals.childNodes);
-            return mGoals.childNodes.length
+            return mGoals.childNodes.length;
         });
 
         expect(`${mGoalsLength}`).toMatch('0');
