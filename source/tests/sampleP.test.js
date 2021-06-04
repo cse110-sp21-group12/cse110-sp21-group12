@@ -56,10 +56,13 @@ describe('basic navigation for BJ', () => {
 
     it('Test5: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
+        await page.goto('http://127.0.0.1:5501/source/Login/Login.html');
+        await page.waitForTimeout(500);
 
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
+
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
