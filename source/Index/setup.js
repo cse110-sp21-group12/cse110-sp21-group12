@@ -23,20 +23,6 @@ const day_OV_link = '../DailyOverview/DailyOverview.html';
 const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
 const year_OV_link = '../YearlyOverview/YearlyOverview.html';
 
-/*
-    <div id="2020">
-        <div class="year" class="collapsible" class="horiz">
-            <button id="2020_button" class = "coll_yr_button">></button>
-            <a class="yearlink" href = "/year/2020.html">2020</a>
-        </div>
-        <div id = "2020_months" class = "collapsible_child">
-            <h3>January</h3>
-            <h3>February</h3>
-            <h3>March</h3>
-        </div>
-    </div>
-*/
-
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
@@ -272,17 +258,3 @@ function dayNumber(day) {
 }
 
 sleep(100);
-
-/*
-document.getElementById("work").addEventListener("click", on_work);
-function on_work(){
-    //<!-- <script src="script.js" type="module" defer></script> -->
-    let main_script = document.createElement("script");
-    main_script.src = "script.js";
-    main_script.type="module";
-    main_script.defer = true;
-    document.body.appendChild(main_script);
-}
-*/
-
-//alert("setup finished");
