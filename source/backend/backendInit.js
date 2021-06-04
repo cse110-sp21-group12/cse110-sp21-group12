@@ -89,7 +89,7 @@ function initDB() {
             db.createObjectStore('setting', { autoIncrement: true });
         }
         //populate mock data
-        setUpMockData();
+        //setUpMockData();
     };
     return dbPromise;
 }
@@ -118,6 +118,7 @@ function setDB(dbReturn) {
 
 /**
  * Is called to populate the databse with mockData when one doesn't exist
+ * IS NOW DEPRECATED
  */
 function setUpMockData() {
     fetch('/source/backend/mockData.json')
@@ -157,6 +158,7 @@ function setUpMockData() {
 
 /**
  * sample function to get the mock data from the database
+ * IS NOW DEPRECATED
  */
 function getMockData() {
     let reqD1 = getDay('05/20/2021');
@@ -193,6 +195,7 @@ function getMockData() {
 
 /**
  * sample function to delete the mock data from database
+ * IS NOW DEPRECATED
  */
 function deleteMockData() {
     deleteDay('05/20/2021');
@@ -205,6 +208,7 @@ function deleteMockData() {
 
 /**
  * sample function to edit the mock data from database
+ * IS NOW DEPRECATED
  */
 function editMockData() {
     let settings = { username: 'Prospero', passoword: '1611', theme: 0 };
