@@ -4,13 +4,6 @@ class BulletEntry extends HTMLElement {
         super();
 
         const template = document.createElement('template');
-        /**
-         * TODO:
-         * - add some sort of "mark as done"
-         * - add a display area for dates?
-         * - add max depth for child bullet
-         * - adding bullet and hitting cancel still adds it
-         */
 
         template.innerHTML = `
             <style>
@@ -46,19 +39,17 @@ class BulletEntry extends HTMLElement {
                 .dropdown {
                     display: none;
                     position: absolute;
-                    // background-color: #f1f1f1;
                     background-color: #e4e4e4;
-                    min-width: 10vh;
+                    min-width: 11vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
                 }
                 .dropdown p {
                     color: black;
                     font-size: 1.7vh;
-                    padding: 0.5vh 0 0.5vh 0.5vh;
+                    padding: 0.5vh 0.5vh 0.5vh 0.5vh;
                     display: block;
                     margin: 0;
-                    // background-color: #ecc7c7;
                     background-color: #e4e4e4;
                 }
                 .dropdown p:hover {
@@ -74,7 +65,6 @@ class BulletEntry extends HTMLElement {
                     height: 2vh;
                     transform: translateY(-0.1vh);
                     padding: 0;
-                    // background-color: #ecc7c7;
                     background-color: #e4e4e4;
                     border: none;
                     border-radius: 0.5vh;
@@ -84,15 +74,18 @@ class BulletEntry extends HTMLElement {
                     background: transparent;
                     border: none;
                     cursor: pointer;
-                    padding: 12px 16px;
-
+                    padding: 0.5vh;
                     background-color: #e4e4e4;
                     font-family: 'Courier', monospace;
                     font-weight: bold;
+                    font-size: 1.3vh;
                 }
-
-                #features option {
-                    font-size: 1.5vh;
+                img {
+                    width: 100%;
+                }
+                .row {
+                    display: flex;
+                    flex-direction: row;
                 }
 
             </style>
@@ -104,18 +97,22 @@ class BulletEntry extends HTMLElement {
                         <div class="dropdownContainer">
                             <button class="dropdownButton">v</button>
                             <div class="dropdown">
-                                <p id="edit">Edit</p>
-                                <p id="delete">Delete</p>
-                                <p id="add">Add</p>
-                                <p id="done">Mark Done</p>
-                                <select id="features"> 
-                                    <option id="normal" value="normal">Normal</option> 
-                                    <option id="important" value="important">Important</option>
-                                    <option id="workRelated" value="workRelated">School/Coursework</option>
-                                    <option id="household" value="household">Household/Chores</option>
-                                    <option id="personal" value="personal">Personal/Well-being</option>
-                                    <option id="other" value="other">Other</option>
-                                </select>
+                                <div class="row">
+                                    <p id="edit"><img src="images/Edit.svg" alt="Edit"></p>
+                                    <p id="delete"><img src="images/Delete.svg" alt="Delete"></p>
+                                    <p id="add"><img src="images/Add.svg" alt="Add"></p>
+                                    <p id="done"><img src="images/Done.svg" alt="Done"></p>
+                                </div>
+                                <div class="featuresContainer">
+                                    <select id="features"> 
+                                        <option id="normal" value="normal">Normal</option> 
+                                        <option id="important" value="important">Important</option>
+                                        <option id="workRelated" value="workRelated">School/Coursework</option>
+                                        <option id="household" value="household">Household/Chores</option>
+                                        <option id="personal" value="personal">Personal/Well-being</option>
+                                        <option id="other" value="other">Other</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="child"></div>
