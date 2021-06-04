@@ -132,6 +132,7 @@ function fetchMonthGoals() {
                 goalElem.style.overflowX = 'hidden';
                 goalElem.style.marginTop = '0';
                 goalElem.style.paddingRight = '1vh';
+                goalElem.style.fontSize = '1.25vh';
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
@@ -168,6 +169,7 @@ function fetchYearGoals() {
                 goalElem.style.overflowX = 'hidden';
                 goalElem.style.marginTop = '0';
                 goalElem.style.paddingRight = '1vh';
+                goalElem.style.fontSize = '1.25vh';
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }

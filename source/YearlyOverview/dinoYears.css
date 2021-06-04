@@ -167,7 +167,7 @@ body {
     background-image: url(../Images/BlueDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
@@ -178,7 +178,7 @@ body {
     background-image: url(../Images/GreenDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
@@ -189,7 +189,7 @@ body {
     background-image: url(../Images/YellowDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
@@ -200,7 +200,7 @@ body {
     background-image: url(../Images/OrangeDinoMonth.svg);
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     height: 10vh;
