@@ -107,9 +107,10 @@ class BulletEntry extends HTMLElement {
                                     <select id="features"> 
                                         <option id="normal" value="normal">Normal</option> 
                                         <option id="important" value="important">Important</option>
-                                        <option id="workRelated" value="workRelated">School/Coursework</option>
-                                        <option id="household" value="household">Household/Chores</option>
-                                        <option id="personal" value="personal">Personal/Well-being</option>
+                                        <option id="workRelated" value="workRelated">School</option>
+                                        <option id="household" value="household">Household</option>
+                                        <option id="personal" value="personal">Personal</option>
+                                        <option id="event" value="event">Event</option>
                                         <option id="other" value="other">Other</option>
                                     </select>
                                 </div>
@@ -305,6 +306,12 @@ class BulletEntry extends HTMLElement {
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
                     "url('./images/Heart.svg')";
+                break;
+            case 'event': // heart
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Event.svg')";
                 break;
             case 'other': // square
                 this.shadowRoot.querySelector('ul').style.listStyleType =
