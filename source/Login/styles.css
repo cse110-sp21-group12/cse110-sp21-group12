@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: white;
+    background-color: #d4ffd4;
 }
 
 #dino-align {
@@ -25,7 +25,6 @@ body {
     width: 40vw;
     height: 50vh;
     background-color: white;
-    /* padding: 2vw; */
     border-style: solid;
     border-color: #585858;
     border-width: 0.3vw;
@@ -60,7 +59,6 @@ body {
 }
 
 input {
-    /* margin-bottom: 2.5vh; */
     background-color: white;
     border-radius: 0.5vw;
     flex-grow: 1;
@@ -74,7 +72,6 @@ input {
     text-align: left;
     color: black;
     width: parent;
-    /* margin-top: 2.5vh; */
     background: none;
     border: none;
 }
