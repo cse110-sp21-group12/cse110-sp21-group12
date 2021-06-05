@@ -247,7 +247,10 @@ ul {
 }
 
 #themes {
-    border-radius: 0.25vw;
-    border-width: 0.1vw;
+    position: relative;
+    right: 3vw;
+    top: 1vw;
+    border-radius: 0.8vw;
     font-size: 1vw;
+    padding: 0.3vh;
 }
