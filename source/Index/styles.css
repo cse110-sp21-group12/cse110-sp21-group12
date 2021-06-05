@@ -248,7 +248,6 @@ ul {
 }
 
 #themes {
-    background-color: var(--bg-color);
     position: relative;
     right: 3vw;
     top: 1vw;
