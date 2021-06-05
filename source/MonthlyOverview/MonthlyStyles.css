@@ -227,8 +227,7 @@ ul {
     We can change the color to be based on the theme color
 */
 .today {
-    background: #1e942d;
-    color: white !important;
+    background: var(--bg-color);
     border-radius: 0.5vw;
 }
 
