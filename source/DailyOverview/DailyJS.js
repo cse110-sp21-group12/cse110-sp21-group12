@@ -37,26 +37,28 @@ window.addEventListener('load', () => {
     console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
-    }
-    // getting backend sample day
-    let dbPromise = initDB();
-    dbPromise.onsuccess = function (e) {
-        console.log('database connected');
-        setDB(e.target.result);
-        requestDay();
-        fetchMonthGoals();
-        fetchYearGoals();
-        let req = getSettings();
-        req.onsuccess = function (e) {
-            let settingObj = e.target.result;
-            console.log('setting theme');
-            document.documentElement.style.setProperty(
-                '--bg-color',
-                settingObj.theme
-            );
+        //might need this to create uness entires?
+        return;
+    } else {
+        let dbPromise = initDB();
+        dbPromise.onsuccess = function (e) {
+            console.log('database connected');
+            setDB(e.target.result);
+            requestDay();
+            fetchMonthGoals();
+            fetchYearGoals();
+            let req = getSettings();
+            req.onsuccess = function (e) {
+                let settingObj = e.target.result;
+                console.log('setting theme');
+                document.documentElement.style.setProperty(
+                    '--bg-color',
+                    settingObj.theme
+                );
+            };
         };
-    };
-    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
+        document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
+    }
 });
 
 /**
