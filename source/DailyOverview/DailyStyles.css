@@ -21,13 +21,11 @@ body {
 }
 
 h1 {
-    /* color: black; */
     font-size: 3.5vh;
     margin: 1vh;
 }
 
 h2 {
-    /* color: black; */
     font-size: 2vh;
 }
 
@@ -147,8 +145,6 @@ h2 {
     height: 15vh;
     width: 10vw;
     position: absolute;
-    /* bottom: -3vh;
-    right: -13vh; */
     bottom: 0vh;
     right: 0vh;
 }
@@ -177,8 +173,6 @@ h2 {
     grid-row-start: month;
     height: 7vh;
     max-height: 10vh;
-    max-width: 20vw;
-
     overflow: auto;
 }
 
@@ -193,8 +187,6 @@ h2 {
     grid-row-start: year;
     height: 7vh;
     max-height: 10vh;
-    max-width: 20vw;
-
     overflow: auto;
 }
 
@@ -206,11 +198,11 @@ h2 {
 }
 
 #monthGoal::-webkit-scrollbar {
-    display: none; /* color of the tracking area */
+    /* display: none; color of the tracking area */
 }
 
 #yearGoal::-webkit-scrollbar {
-    display: none; /* color of the tracking area */
+    /* display: none; color of the tracking area */
 }
 
 /* Photo Album Block */
@@ -234,7 +226,6 @@ h2 {
 
 #myCanvas {
     border: 2px solid #000000;
-    /* grid-area: album; */
     width: 100%;
     height: 75%;
 }
