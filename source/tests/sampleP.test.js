@@ -114,7 +114,7 @@ describe('basic navigation for BJ', () => {
              * the one defined in test 2 is dismissing it for us
              * this is behavior that we want to try to avoid
              * since we kinda want each test case to be by itself
-             * you can remove all the event listener functions for a 
+             * you can remove all the event listener functions for a
              * specific event by doing
              * 'page.removeAllEventListeners('dialog');
              * to clear all the event listeners defined by previous test cases
@@ -245,7 +245,7 @@ describe('basic navigation for BJ', () => {
 
         /**
          * .on adds an event listener to the 'dialog' event,
-         * since there are other functions that get called previously, we want to get 
+         * since there are other functions that get called previously, we want to get
          * rid of those using removeAllListeners and add the one we want for
          * this particular test case
          */
@@ -261,13 +261,14 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout('300');
 
         let bulletText = await page.$eval('bullet-entry', (bulletList) => {
-            return bulletList.shadowRoot.querySelector('.bullet-content').innerHTML;
+            return bulletList.shadowRoot.querySelector('.bullet-content')
+                .innerHTML;
         });
 
         expect(bulletText).toMatch('Finish 101 Final');
     });
 
-    it('Test16: delete a bullet in TODO', async() => {
+    it('Test16: delete a bullet in TODO', async () => {
         await page.$eval('bullet-entry', (bulletList) => {
             return bulletList.shadowRoot.querySelector('#delete').click();
         });
@@ -276,12 +277,12 @@ describe('basic navigation for BJ', () => {
 
         const entryLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
-        })
+        });
 
         expect(`${entryLength}`).toMatch('0');
     });
 
-/*
+    /*
 
     it('Test 17: add a child bullet in TODO', async() => {
 
