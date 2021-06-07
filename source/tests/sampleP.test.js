@@ -198,7 +198,7 @@ describe('basic navigation for BJ', () => {
         const yGoalsLength = await page.$eval('#yearGoal', (yGoals) => {
             console.log(yGoals.childNodes);
             return yGoals.childNodes.length;
-        })
+        });
 
         expect(`${yGoalsLength}`).toMatch('0');
     });
@@ -207,32 +207,30 @@ describe('basic navigation for BJ', () => {
         const photoLength = await page.$eval('#myCanvas', () => {
             console.log(window.Image.length);
             return window.Image.length;
-        })
+        });
 
         expect(`${photoLength}`).toMatch('0');
     });
 
     it('Test14: add a bullet to TODO, check length', async () => {
-
         await page.$eval('#entry', (bulletEntry) => {
             bulletEntry.value = 'Finish 110 Lab';
         });
-        
+
         await page.waitForTimeout(300);
 
         await page.$eval('#entry-button', (button) => {
             button.click();
-        })
+        });
 
         const entryLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
-        })
+        });
 
         expect(`${entryLength}`).toMatch('1');
     });
-    
+
     it('Test15: edit a bullet in TODO', async () => {
-        
         await page.waitForTimeout('300');
 
         await page.hover('#dropdownHover');
@@ -241,7 +239,7 @@ describe('basic navigation for BJ', () => {
 
         await page.$eval('#edit', (button) => {
             button.click();
-        })
+        });
 
         await page.waitForTimeout(300);
 
@@ -252,8 +250,8 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(bullet).toMatch('Finish 101 Final');
-    })
-/*
+    });
+    /*
     it('Test 16: delete a bullet in TODO', async() => {
 
     })
@@ -370,5 +368,4 @@ describe('basic navigation for BJ', () => {
     })
 
 */
-
 });
