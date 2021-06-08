@@ -283,7 +283,8 @@ describe('basic navigation for BJ', () => {
 
         let bulletChildren = await page.$eval('bullet-entry', (bulletList) => {
             //gets the length of how many children the bullet has
-            return bulletList.shadowRoot.querySelector('.child').children.length;
+            return bulletList.shadowRoot.querySelector('.child').children
+                .length;
         });
 
         expect(`${bulletChildren}`).toMatch('1');
@@ -292,7 +293,8 @@ describe('basic navigation for BJ', () => {
     it('Test17: child bullet has correct text', async () => {
         let bulletChildText = await page.$eval('bullet-entry', (bulletList) => {
             //gets the content of the child bullet
-            return bulletList.shadowRoot.querySelector('.child > bullet-entry').entry.content
+            return bulletList.shadowRoot.querySelector('.child > bullet-entry')
+                .entry.content;
         });
 
         expect(bulletChildText).toMatch('Remember to fill out CAPES');
@@ -301,13 +303,22 @@ describe('basic navigation for BJ', () => {
     it('Test18: mark child done bullet in TODO', async () => {
         await page.$eval('bullet-entry', (bulletList) => {
             //clicks "done" for the child bullet
-            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('#done').click();
+            return bulletList.shadowRoot
+                .querySelector('.child > bullet-entry')
+                .shadowRoot.querySelector('#done')
+                .click();
         });
 
-        let bulletChildDecor = await page.$eval('bullet-entry', (bulletList) => {
-            //gets the style of the text of the child bullet
-            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('.bullet-content').style.textDecoration;
-        });
+        let bulletChildDecor = await page.$eval(
+            'bullet-entry',
+            (bulletList) => {
+                //gets the style of the text of the child bullet
+                return bulletList.shadowRoot
+                    .querySelector('.child > bullet-entry')
+                    .shadowRoot.querySelector('.bullet-content').style
+                    .textDecoration;
+            }
+        );
 
         expect(bulletChildDecor).toMatch('line-through');
     });
@@ -315,7 +326,10 @@ describe('basic navigation for BJ', () => {
     it('Test19: delete a child bullet in TODO', async () => {
         await page.$eval('bullet-entry', (bulletList) => {
             //gets the child bullet and deletes it
-            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('#delete').click();
+            return bulletList.shadowRoot
+                .querySelector('.child > bullet-entry')
+                .shadowRoot.querySelector('#delete')
+                .click();
         });
 
         await page.waitForTimeout('300');
@@ -328,7 +342,7 @@ describe('basic navigation for BJ', () => {
         expect(`${entryLength}`).toMatch('0');
     });
 
-    /** 
+    /**
      * add a child bullet, delete top level, both should disapear?
      */
     it('Test20a: add a child bullet in TODO, delete parent pt1', async () => {
@@ -346,7 +360,8 @@ describe('basic navigation for BJ', () => {
 
         let bulletChildren = await page.$eval('bullet-entry', (bulletList) => {
             //gets the length of how many children the bullet has
-            return bulletList.shadowRoot.querySelector('.child').children.length;
+            return bulletList.shadowRoot.querySelector('.child').children
+                .length;
         });
 
         expect(`${bulletChildren}`).toMatch('1');
@@ -371,7 +386,8 @@ describe('basic navigation for BJ', () => {
     it('Test20.1: adding notes shows up', async () => {
         await page.$eval('note-box', (notebox) => {
             //stes note box text
-            notebox.shadowRoot.querySelector('.noteContent').innerHTML = 'pickup amazon package from locker';
+            notebox.shadowRoot.querySelector('.noteContent').innerHTML =
+                'pickup amazon package from locker';
         });
 
         await page.waitForTimeout('300');
@@ -388,8 +404,6 @@ describe('basic navigation for BJ', () => {
 
         expect(noteText).toMatch('pickup amazon package from locker');
     });
-
-
 
     it('Test21: go to monthly overview through <Month button', async () => {
         await page.waitForTimeout(300);
