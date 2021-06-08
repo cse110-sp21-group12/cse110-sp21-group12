@@ -383,7 +383,7 @@ describe('basic navigation for BJ', () => {
         expect(`${bulletChildrenLen}`).toMatch('0');
     });
 
-    it('Test20.1: adding notes shows up', async () => {
+    it('Test21: adding notes shows up', async () => {
         await page.$eval('note-box', (notebox) => {
             //stes note box text
             notebox.shadowRoot.querySelector('.noteContent').innerHTML =
@@ -405,7 +405,7 @@ describe('basic navigation for BJ', () => {
         expect(noteText).toMatch('pickup amazon package from locker');
     });
 
-    it('Test21: go to monthly overview through <Month button', async () => {
+    it('Test22: go to monthly overview through <Month button', async () => {
         await page.waitForTimeout(300);
 
         await page.$eval('#words', (button) => {
@@ -423,7 +423,7 @@ describe('basic navigation for BJ', () => {
         expect(`${boolMonth && boolYear}`).toMatch('true');
     });
 
-    it('Test22: making sure monthly goals are empty', async () => {
+    it('Test23: making sure monthly goals are empty', async () => {
         const bulletLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
         });
@@ -431,7 +431,7 @@ describe('basic navigation for BJ', () => {
         expect(`${bulletLength}`).toMatch('0');
     });
 
-    it('Test23: adding monthly goals, check length', async () => {
+    it('Test24: adding monthly goals, check length', async () => {
         await page.$eval('#entry', (bulletEntry) => {
             bulletEntry.value = 'Drink more water';
         });
@@ -449,7 +449,7 @@ describe('basic navigation for BJ', () => {
         expect(`${entryLength}`).toMatch('1');
     });
 
-    it('Test24: navigating to daily through calendar in monthly', async () => {
+    it('Test25: navigating to daily through calendar in monthly', async () => {
         await page.$eval('.today', (button) => {
             button.click();
         });
@@ -466,7 +466,7 @@ describe('basic navigation for BJ', () => {
         expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
     });
 
-    it('Test25: check monthly goals added in daily overview', async () => {
+    it('Test26: check monthly goals added in daily overview', async () => {
         const mGoalsText = await page.$eval('#monthGoal', (mGoals) => {
             return mGoals.innerHTML;
         });
@@ -474,7 +474,7 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsText}`).toMatch('Drink more water');
     });
 
-    it('Test26: edit monthly goals', async () => {
+    it('Test27: edit monthly goals', async () => {
         await page.goBack();
 
         await page.waitForTimeout('300');
@@ -498,7 +498,7 @@ describe('basic navigation for BJ', () => {
         expect(bulletText).toMatch('Drink 5 cups of water everyday');
     });
 
-    it('Test27: check monthly goals edited in daily overview', async () => {
+    it('Test28: check monthly goals edited in daily overview', async () => {
         await page.waitForTimeout('300');
 
         await page.$eval('.today', (button) => {
@@ -512,7 +512,7 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsText}`).toMatch('Drink 5 cups of water everyday');
     });
 
-    it('Test28: mark done monthly goals', async () => {
+    it('Test29: mark done monthly goals', async () => {
         await page.goBack();
 
         await page.$eval('goals-entry', (bulletList) => {
@@ -527,7 +527,7 @@ describe('basic navigation for BJ', () => {
         expect(bulletText).toMatch('line-through');
     });
 
-    it('Test29: check monthly goals marked done in daily overview', async () => {
+    it('Test30: check monthly goals marked done in daily overview', async () => {
         await page.waitForTimeout('300');
 
         await page.$eval('.today', (button) => {
@@ -541,7 +541,7 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsText}`).toMatch('line-through');
     });
 
-    it('Test30: delete monthly goals', async () => {
+    it('Test31: delete monthly goals', async () => {
         await page.goBack();
 
         await page.waitForTimeout('300');
@@ -559,7 +559,7 @@ describe('basic navigation for BJ', () => {
         expect(`${bulletLength}`).toMatch('0');
     });
 
-    it('Test31: check monthly goals removed in daily overview', async () => {
+    it('Test32: check monthly goals removed in daily overview', async () => {
         await page.$eval('.today', (button) => {
             button.click();
         });
@@ -570,5 +570,81 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${mGoalsLength}`).toMatch('0');
+    });
+
+    it('Test33: check <Year button in monthly overview works', async() => {
+        await page.$eval('index', (button) => {
+            button.click();
+        })
+
+        
+    });
+
+    it('Test34: making sure yearly goals should be empty', async() => {
+
+    });
+
+    it('Test35: adding yearly goals, check length', async() => {
+
+    });
+
+    it('Test36: navigating through the months should work', async() => {
+
+    });
+
+    it('Test37: check yearly goals added in daily overview', async() => {
+
+    });
+
+    it('Test38: edit yearly goals', async() => {
+
+    });
+
+    it('Test39: check yearly goals edited in yearly overview', async() => {
+
+    });
+
+    it('Test40: mark done yearly goals', async() => {
+
+    });
+
+    it('Test41: check yearly goals marked done in daily overview', async() => {
+
+    });
+
+    it('Test42: delete yearly goals', async() => {
+
+    });
+
+    it('Test43: check yearly goals removed in daily overview', async() => {
+
+    });
+
+    it('Test44: check <Index button in yearly overview works', async() => {
+
+    });
+
+    it('Test45: check that the calendar in the index page works properly', async() => {
+
+    });
+
+    it('Test46: check that going to certain years work in the index page', async() => {
+
+    });
+
+    it('Test47: check that going to certain months work in the index page', async() => {
+
+    });
+
+    it('Test48: check that the home button works in the yearly overview', async() => {
+
+    });
+
+    it('Test49: check that the home button works in the monthly overview', async() => {
+
+    });
+
+    it('Test50: check that the home button works in the daily overview', async() => {
+
     });
 });
