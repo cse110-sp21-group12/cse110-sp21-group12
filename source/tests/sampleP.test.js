@@ -572,79 +572,43 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsLength}`).toMatch('0');
     });
 
-    it('Test33: check <Year button in monthly overview works', async() => {
+    it('Test33: check <Year button in monthly overview works', async () => {
         await page.$eval('index', (button) => {
             button.click();
-        })
-
-        
+        });
     });
 
-    it('Test34: making sure yearly goals should be empty', async() => {
+    it('Test34: making sure yearly goals should be empty', async () => {});
 
-    });
+    it('Test35: adding yearly goals, check length', async () => {});
 
-    it('Test35: adding yearly goals, check length', async() => {
+    it('Test36: navigating through the months should work', async () => {});
 
-    });
+    it('Test37: check yearly goals added in daily overview', async () => {});
 
-    it('Test36: navigating through the months should work', async() => {
+    it('Test38: edit yearly goals', async () => {});
 
-    });
+    it('Test39: check yearly goals edited in yearly overview', async () => {});
 
-    it('Test37: check yearly goals added in daily overview', async() => {
+    it('Test40: mark done yearly goals', async () => {});
 
-    });
+    it('Test41: check yearly goals marked done in daily overview', async () => {});
 
-    it('Test38: edit yearly goals', async() => {
+    it('Test42: delete yearly goals', async () => {});
 
-    });
+    it('Test43: check yearly goals removed in daily overview', async () => {});
 
-    it('Test39: check yearly goals edited in yearly overview', async() => {
+    it('Test44: check <Index button in yearly overview works', async () => {});
 
-    });
+    it('Test45: check that the calendar in the index page works properly', async () => {});
 
-    it('Test40: mark done yearly goals', async() => {
+    it('Test46: check that going to certain years work in the index page', async () => {});
 
-    });
+    it('Test47: check that going to certain months work in the index page', async () => {});
 
-    it('Test41: check yearly goals marked done in daily overview', async() => {
+    it('Test48: check that the home button works in the yearly overview', async () => {});
 
-    });
+    it('Test49: check that the home button works in the monthly overview', async () => {});
 
-    it('Test42: delete yearly goals', async() => {
-
-    });
-
-    it('Test43: check yearly goals removed in daily overview', async() => {
-
-    });
-
-    it('Test44: check <Index button in yearly overview works', async() => {
-
-    });
-
-    it('Test45: check that the calendar in the index page works properly', async() => {
-
-    });
-
-    it('Test46: check that going to certain years work in the index page', async() => {
-
-    });
-
-    it('Test47: check that going to certain months work in the index page', async() => {
-
-    });
-
-    it('Test48: check that the home button works in the yearly overview', async() => {
-
-    });
-
-    it('Test49: check that the home button works in the monthly overview', async() => {
-
-    });
-
-    it('Test50: check that the home button works in the daily overview', async() => {
-
-    });
+    it('Test50: check that the home button works in the daily overview', async () => {});
 });
