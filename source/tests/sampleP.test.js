@@ -282,7 +282,7 @@ describe('basic navigation for BJ', () => {
         expect(`${entryLength}`).toMatch('0');
     });
 
-    /*
+    
 
     it('Test 17: add a child bullet in TODO', async() => {
 
@@ -370,30 +370,112 @@ describe('basic navigation for BJ', () => {
 
         expect(`${mGoalsText}`).toMatch('Drink more water');
     })
-/*
+
     it ('Test26: edit monthly goals', async() => {
 
+        await page.goBack();
+
+        await page.waitForTimeout('300');
+
+        page.removeAllListeners('dialog');
+        page.on('dialog', async (dialog) => {
+            await dialog.accept('Drink 5 cups of water everyday');
+        });
+
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#edit').click();
+        });
+
+        await page.waitForTimeout('300');
+
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('.bullet-content')
+                .innerHTML;
+        });
+
+        expect(bulletText).toMatch('Drink 5 cups of water everyday');
     })
 
     it ('Test27: check monthly goals edited in daily overview', async() => {
+        await page.waitForTimeout('300');
+
+        await page.$eval('.today', (button) => {
+            button.click();
+        })
+
+        const mGoalsText = await page.$eval('#monthGoal', (mGoals) => {
+            return mGoals.innerHTML;
+        });
+
+        expect(`${mGoalsText}`).toMatch('Drink 5 cups of water everyday');
 
     })
 
     it ('Test28: mark done monthly goals', async() => {
 
+        await page.goBack();
+
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#done').click();
+        });
+
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('.bullet-content')
+                .style.textDecoration;
+        });
+
+        expect(bulletText).toMatch('line-through');
+
     })
 
     it ('Test29: check monthly goals marked done in daily overview', async() => {
+        await page.waitForTimeout('300');
 
+        await page.$eval('.today', (button) => {
+            button.click();
+        })
+
+        const mGoalsText = await page.$eval('p', (mGoals) => {
+            return mGoals.style.textDecoration;
+        });
+
+        expect(`${mGoalsText}`).toMatch('line-through');
     })
 
     it ('Test30: delete monthly goals', async() => {
+
+        await page.goBack();
+
+        await page.waitForTimeout('300');
+
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#delete').click();
+        });
+
+        await page.waitForTimeout('300');
+
+        const bulletLength = await page.$eval('#bullets', (bullets) => {
+            return bullets.childNodes.length;
+        });
+
+        expect(`${bulletLength}`).toMatch('0');
 
     })
 
     it ('Test31: check monthly goals removed in daily overview', async() => {
 
+        await page.$eval('.today', (button) => {
+            button.click();
+        })
+
+        const mGoalsLength = await page.$eval('#monthGoal', (mGoals) => {
+            console.log(mGoals.childNodes);
+            return mGoals.childNodes.length;
+        });
+
+        expect(`${mGoalsLength}`).toMatch('0');
+
     })
 
-*/
+
 });
