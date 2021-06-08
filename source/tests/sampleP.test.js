@@ -268,27 +268,128 @@ describe('basic navigation for BJ', () => {
         expect(bulletText).toMatch('Finish 101 Final');
     });
 
-    it('Test16: delete a bullet in TODO', async () => {
+    it('Test16: add a child bullet in TODO', async () => {
+        page.removeAllListeners('dialog');
+        page.on('dialog', async (dialog) => {
+            await dialog.accept('Remember to fill out CAPES');
+        });
+
         await page.$eval('bullet-entry', (bulletList) => {
-            return bulletList.shadowRoot.querySelector('#delete').click();
+            //clicks "add" for the bullet
+            bulletList.shadowRoot.querySelector('#add').click();
         });
 
         await page.waitForTimeout('300');
 
-        const entryLength = await page.$eval('#bullets', (bullets) => {
-            return bullets.childNodes.length;
+        let bulletChildren = await page.$eval('bullet-entry', (bulletList) => {
+            //gets the length of how many children the bullet has
+            return bulletList.shadowRoot.querySelector('.child').children.length;
+        });
+
+        expect(`${bulletChildren}`).toMatch('1');
+    });
+
+    it('Test17: child bullet has correct text', async () => {
+        let bulletChildText = await page.$eval('bullet-entry', (bulletList) => {
+            //gets the content of the child bullet
+            return bulletList.shadowRoot.querySelector('.child > bullet-entry').entry.content
+        });
+
+        expect(bulletChildText).toMatch('Remember to fill out CAPES');
+    });
+
+    it('Test18: mark child done bullet in TODO', async () => {
+        await page.$eval('bullet-entry', (bulletList) => {
+            //clicks "done" for the child bullet
+            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('#done').click();
+        });
+
+        let bulletChildDecor = await page.$eval('bullet-entry', (bulletList) => {
+            //gets the style of the text of the child bullet
+            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('.bullet-content').style.textDecoration;
+        });
+
+        expect(bulletChildDecor).toMatch('line-through');
+    });
+
+    it('Test19: delete a child bullet in TODO', async () => {
+        await page.$eval('bullet-entry', (bulletList) => {
+            //gets the child bullet and deletes it
+            return bulletList.shadowRoot.querySelector('.child > bullet-entry').shadowRoot.querySelector('#delete').click();
+        });
+
+        await page.waitForTimeout('300');
+
+        const entryLength = await page.$eval('bullet-entry', (bullets) => {
+            //gets how many children the bullet has
+            return bullets.shadowRoot.querySelector('.child').childNodes.length;
         });
 
         expect(`${entryLength}`).toMatch('0');
     });
 
-    it('Test 17: add a child bullet in TODO', async () => {});
+    /** 
+     * add a child bullet, delete top level, both should disapear?
+     */
+    it('Test20a: add a child bullet in TODO, delete parent pt1', async () => {
+        page.removeAllListeners('dialog');
+        page.on('dialog', async (dialog) => {
+            await dialog.accept('Remember to fill out TA CAPES');
+        });
 
-    it('Test18: mark done bullet in TODO', async () => {});
+        await page.$eval('bullet-entry', (bulletList) => {
+            //clicks "add" for the bullet
+            bulletList.shadowRoot.querySelector('#add').click();
+        });
 
-    it('Test19: add notes in notes', async () => {});
+        await page.waitForTimeout('300');
 
-    it('Test 20: add photo in photo album', async () => {});
+        let bulletChildren = await page.$eval('bullet-entry', (bulletList) => {
+            //gets the length of how many children the bullet has
+            return bulletList.shadowRoot.querySelector('.child').children.length;
+        });
+
+        expect(`${bulletChildren}`).toMatch('1');
+    });
+
+    it('Test20b: add a child bullet in TODO, delete parent pt2', async () => {
+        await page.$eval('bullet-entry', (bulletList) => {
+            //clicks "add" for the bullet
+            bulletList.shadowRoot.querySelector('#delete').click();
+        });
+
+        await page.waitForTimeout('300');
+
+        let bulletChildrenLen = await page.$eval('#bullets', (bulletList) => {
+            //gets the length of how many children the bullet has
+            return bulletList.childNodes.length;
+        });
+
+        expect(`${bulletChildrenLen}`).toMatch('0');
+    });
+
+    it('Test20.1: adding notes shows up', async () => {
+        await page.$eval('note-box', (notebox) => {
+            //stes note box text
+            notebox.shadowRoot.querySelector('.noteContent').innerHTML = 'pickup amazon package from locker';
+        });
+
+        await page.waitForTimeout('300');
+
+        let noteText = await page.$eval('note-box', (notebox) => {
+            //gets text from note box
+            return notebox.shadowRoot.querySelector('.noteContent').value;
+        });
+
+        /**
+         * This doesn't actually save the text, since that is done on a "mouse hover" event when the mouse
+         * leaves the text area
+         */
+
+        expect(noteText).toMatch('pickup amazon package from locker');
+    });
+
+
 
     it('Test21: go to monthly overview through <Month button', async () => {
         await page.waitForTimeout(300);
