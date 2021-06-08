@@ -282,31 +282,20 @@ describe('basic navigation for BJ', () => {
         expect(`${entryLength}`).toMatch('0');
     });
 
-    
+    it('Test 17: add a child bullet in TODO', async () => {});
 
-    it('Test 17: add a child bullet in TODO', async() => {
+    it('Test18: mark done bullet in TODO', async () => {});
 
-    })
+    it('Test19: add notes in notes', async () => {});
 
-    it('Test18: mark done bullet in TODO', async() => {
+    it('Test 20: add photo in photo album', async () => {});
 
-    })
-
-    it('Test19: add notes in notes', async() => {
-
-    })
-
-    it('Test 20: add photo in photo album', async() => {
-
-    })
-
-    it('Test21: go to monthly overview through <Month button', async() => {
-
+    it('Test21: go to monthly overview through <Month button', async () => {
         await page.waitForTimeout(300);
 
         await page.$eval('#words', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
@@ -319,36 +308,36 @@ describe('basic navigation for BJ', () => {
         expect(`${boolMonth && boolYear}`).toMatch('true');
     });
 
-    it ('Test22: making sure monthly goals are empty', async() => {
+    it('Test22: making sure monthly goals are empty', async () => {
         const bulletLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
         });
 
         expect(`${bulletLength}`).toMatch('0');
-    })
+    });
 
-    it ('Test23: adding monthly goals, check length', async() => {
+    it('Test23: adding monthly goals, check length', async () => {
         await page.$eval('#entry', (bulletEntry) => {
             bulletEntry.value = 'Drink more water';
         });
-        
+
         await page.waitForTimeout(300);
 
         await page.$eval('#entry-button', (button) => {
             button.click();
-        })
+        });
 
         const entryLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
-        })
+        });
 
         expect(`${entryLength}`).toMatch('1');
-    })
+    });
 
-    it ('Test24: navigating to daily through calendar in monthly', async() => {
+    it('Test24: navigating to daily through calendar in monthly', async () => {
         await page.$eval('.today', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
@@ -360,19 +349,17 @@ describe('basic navigation for BJ', () => {
         let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
-        
-    })
+    });
 
-    it ('Test25: check monthly goals added in daily overview', async() => {
+    it('Test25: check monthly goals added in daily overview', async () => {
         const mGoalsText = await page.$eval('#monthGoal', (mGoals) => {
             return mGoals.innerHTML;
         });
 
         expect(`${mGoalsText}`).toMatch('Drink more water');
-    })
+    });
 
-    it ('Test26: edit monthly goals', async() => {
-
+    it('Test26: edit monthly goals', async () => {
         await page.goBack();
 
         await page.waitForTimeout('300');
@@ -394,25 +381,23 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(bulletText).toMatch('Drink 5 cups of water everyday');
-    })
+    });
 
-    it ('Test27: check monthly goals edited in daily overview', async() => {
+    it('Test27: check monthly goals edited in daily overview', async () => {
         await page.waitForTimeout('300');
 
         await page.$eval('.today', (button) => {
             button.click();
-        })
+        });
 
         const mGoalsText = await page.$eval('#monthGoal', (mGoals) => {
             return mGoals.innerHTML;
         });
 
         expect(`${mGoalsText}`).toMatch('Drink 5 cups of water everyday');
+    });
 
-    })
-
-    it ('Test28: mark done monthly goals', async() => {
-
+    it('Test28: mark done monthly goals', async () => {
         await page.goBack();
 
         await page.$eval('goals-entry', (bulletList) => {
@@ -420,30 +405,28 @@ describe('basic navigation for BJ', () => {
         });
 
         let bulletText = await page.$eval('goals-entry', (bulletList) => {
-            return bulletList.shadowRoot.querySelector('.bullet-content')
-                .style.textDecoration;
+            return bulletList.shadowRoot.querySelector('.bullet-content').style
+                .textDecoration;
         });
 
         expect(bulletText).toMatch('line-through');
+    });
 
-    })
-
-    it ('Test29: check monthly goals marked done in daily overview', async() => {
+    it('Test29: check monthly goals marked done in daily overview', async () => {
         await page.waitForTimeout('300');
 
         await page.$eval('.today', (button) => {
             button.click();
-        })
+        });
 
         const mGoalsText = await page.$eval('p', (mGoals) => {
             return mGoals.style.textDecoration;
         });
 
         expect(`${mGoalsText}`).toMatch('line-through');
-    })
+    });
 
-    it ('Test30: delete monthly goals', async() => {
-
+    it('Test30: delete monthly goals', async () => {
         await page.goBack();
 
         await page.waitForTimeout('300');
@@ -459,14 +442,12 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${bulletLength}`).toMatch('0');
+    });
 
-    })
-
-    it ('Test31: check monthly goals removed in daily overview', async() => {
-
+    it('Test31: check monthly goals removed in daily overview', async () => {
         await page.$eval('.today', (button) => {
             button.click();
-        })
+        });
 
         const mGoalsLength = await page.$eval('#monthGoal', (mGoals) => {
             console.log(mGoals.childNodes);
@@ -474,8 +455,5 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${mGoalsLength}`).toMatch('0');
-
-    })
-
-
+    });
 });
