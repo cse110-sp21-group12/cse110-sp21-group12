@@ -111,7 +111,7 @@ h2 {
     width: 80%;
     overflow: auto;
 
-    min-height: 50vw;
+    min-height: 35vw;
 }
 
 #todo::-webkit-scrollbar {
@@ -138,15 +138,15 @@ h2 {
     height: 75vh;
     position: relative;
 
-    min-height: 50vw;
+    min-height: 35vw;
 }
 
 #notesDino {
-    height: 15vh;
+    height: 13vh;
     width: 10vw;
     position: absolute;
-    bottom: 0vh;
-    right: 0vh;
+    bottom: -3vh;
+    right: 55vh;
 }
 
 /* Goal Reminder Block */
@@ -154,8 +154,8 @@ h2 {
 #goalReminder {
     grid-area: goal;
     background-color: white;
-    margin: 1vw;
-    padding: 1vw;
+    margin: 0.7vw;
+    padding: 0.5vw;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
@@ -171,7 +171,7 @@ h2 {
 
 #monthGoal {
     grid-row-start: month;
-    height: 7vh;
+    height: 8.5vh;
     max-height: 10vh;
     overflow: auto;
 }
@@ -185,7 +185,7 @@ h2 {
 
 #yearGoal {
     grid-row-start: year;
-    height: 7vh;
+    height: 8.5vh;
     max-height: 10vh;
     overflow: auto;
 }
@@ -197,21 +197,23 @@ h2 {
     top: 1px;
 }
 
+/*
 #monthGoal::-webkit-scrollbar {
-    /* display: none; color of the tracking area */
+    display: none; color of the tracking area
 }
 
 #yearGoal::-webkit-scrollbar {
-    /* display: none; color of the tracking area */
+     display: none; color of the tracking area 
 }
+*/
 
 /* Photo Album Block */
 
 #photo-album {
     grid-area: album;
     background-color: white;
-    margin: 1vw;
-    padding: 1vw;
+    margin: 0.5vw;
+    padding: 0.8vw;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
@@ -227,7 +229,7 @@ h2 {
 #myCanvas {
     border: 2px solid #000000;
     width: 100%;
-    height: 75%;
+    height: 70%;
 }
 
 button#left,
