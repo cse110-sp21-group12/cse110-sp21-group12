@@ -2,6 +2,11 @@
 /* since many functions here aren't called, eslint complains about unused-vars */
 
 /**
+ * Here is a comment for the purposes of "adding a small change"
+ * to the repo
+ */
+
+/**
  * Want to first check if database exists, and if not, set it up
  * a constant name to our database
  */
