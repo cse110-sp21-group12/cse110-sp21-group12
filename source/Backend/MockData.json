@@ -1,4 +1,5 @@
 {
+    "README" : {"message": "this file only exists for documentation/record purposes"},
     "sampleDay1": {
         "date": "05/20/2021",
         "bullets": [

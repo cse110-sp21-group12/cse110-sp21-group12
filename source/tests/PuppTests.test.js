@@ -80,7 +80,7 @@ describe('basic navigation for BJ', () => {
         });
 
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Index/index.html');
+        expect(url).toMatch('http://127.0.0.1:5501/source/Index/Index.html');
     });
 
     it('Test3: From index page go back, should be login page ', async () => {
@@ -608,7 +608,7 @@ describe('basic navigation for BJ', () => {
     it('Test47: check that going to certain months work in the index page', async () => {});
 
     it('Test48: check that the home button works in the yearly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html#2021'
         );
@@ -621,7 +621,7 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test49: check that the home button works in the monthly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
@@ -633,7 +633,7 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test50: check that the home button works in the daily overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
