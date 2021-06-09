@@ -180,10 +180,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     document.querySelector('.entry-form-text').value = '';
     currentDay.bullets.push({
         text: bText,
-        symb: '•',
         done: false,
         childList: [],
-        time: null,
         features: 'normal',
     });
     console.log(currentDay);
