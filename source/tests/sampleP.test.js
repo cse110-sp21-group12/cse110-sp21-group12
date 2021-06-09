@@ -243,12 +243,13 @@ describe('basic navigation for BJ', () => {
     it('Test15: edit a bullet in TODO', async () => {
         await page.waitForTimeout('300');
 
-        /**
+        /*
          * .on adds an event listener to the 'dialog' event,
          * since there are other functions that get called previously, we want to get
          * rid of those using removeAllListeners and add the one we want for
          * this particular test case
          */
+
         page.removeAllListeners('dialog');
         page.on('dialog', async (dialog) => {
             await dialog.accept('Finish 101 Final');
@@ -606,9 +607,39 @@ describe('basic navigation for BJ', () => {
 
     it('Test47: check that going to certain months work in the index page', async () => {});
 
-    it('Test48: check that the home button works in the yearly overview', async () => {});
+    it('Test48: check that the home button works in the yearly overview', async () => {
+        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        await page.goto('http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html#2021');
+        
+        await page.$eval('#house > a', (btn) => {
+            btn.click();
+        });
+        const url = await page.evaluate(() => location.href);
 
-    it('Test49: check that the home button works in the monthly overview', async () => {});
-
-    it('Test50: check that the home button works in the daily overview', async () => {});
+        expect(url).toMatch(indexURL);
+    });
+    it('Test49: check that the home button works in the monthly overview', async () => {
+        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        await page.goto('http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html#06/2021');
+        await page.waitForTimeout('300');
+        await page.$eval('#house > a', (btn) => {
+            btn.click();
+        });
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch(indexURL);
+    });
+    it('Test50: check that the home button works in the daily overview', async () => {
+        const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
+        await page.goto('http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html#06/08/2021');
+        await page.waitForTimeout('300');
+        await page.$eval('#homeContainer > a', (btn) => {
+            btn.click();
+        });
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch(indexURL);
+    });
+    it('Test51: Change background color', async () => {
+        const currentTheme = await page.select('#themes', '#ECC7C7')
+        expect(currentTheme.toString()).toMatch('#ECC7C7');
+    });
 });
