@@ -589,7 +589,7 @@ describe('basic navigation for BJ', () => {
 
         await page.$eval('#back', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
@@ -599,10 +599,9 @@ describe('basic navigation for BJ', () => {
         let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolYear}`).toMatch('true');
-        
     });
 
-    it('Test34: making sure yearly goals should be empty', async() => {
+    it('Test34: making sure yearly goals should be empty', async () => {
         const bulletLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
         });
@@ -630,7 +629,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test36: navigating through the months should work', async () => {
 
-        await page.$eval('#juneTest', (button) => {
+        await page.$eval('#June', (button) => {
             button.click();
         });
 
@@ -645,7 +644,6 @@ describe('basic navigation for BJ', () => {
         let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
 
         expect(`${boolMonth && boolYear}`).toMatch('true');
-
     });
 
     it('Test37: check yearly goals added in daily overview', async () => {
