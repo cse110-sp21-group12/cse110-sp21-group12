@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 /* since many functions here aren't called, eslint complains about unused-vars */
 
 /**
