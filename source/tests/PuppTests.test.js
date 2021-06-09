@@ -627,7 +627,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#June', (button) => {
+        await page.$eval('#June > a', (button) => {
             button.click();
         });
 
@@ -682,7 +682,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#juneTest', (button) => {
+        await page.$eval('#June > a', (button) => {
             button.click();
         });
 
@@ -718,7 +718,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#juneTest', (button) => {
+        await page.$eval('#June > a', (button) => {
             button.click();
         });
 
@@ -755,7 +755,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#juneTest', (button) => {
+        await page.$eval('#June > a', (button) => {
             button.click();
         });
 
@@ -810,16 +810,23 @@ describe('basic navigation for BJ', () => {
     it('Test46: check that going to certain years work in the index page', async () => {
         await page.goBack();
 
-        await page.$eval('#2021_link', (button) => {
-            button.click();
+        /**
+         * for some reason, the css selectors don't like underscores or ids beginning with numbers
+         * have to manually traverse through the children to find the correct year
+         * namning mistake
+         * Just going to use 2021 as an example
+         */
+        
+        await page.$eval(`#content`, (div) => {
+            //gets the index of the year 2021
+            div.childNodes[3].querySelector('a').click();
+
         });
 
         const url = await page.evaluate(() => location.href);
 
-        let currentDate = new Date();
-
         //kinda too lazy to build the string
-        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
+        let boolYear = url.indexOf('2021') > -1;
 
         expect(`${boolYear}`).toMatch('true');
     });
