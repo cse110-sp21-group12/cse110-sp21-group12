@@ -609,8 +609,10 @@ describe('basic navigation for BJ', () => {
 
     it('Test48: check that the home button works in the yearly overview', async () => {
         const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
-        await page.goto('http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html#2021');
-        
+        await page.goto(
+            'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html#2021'
+        );
+
         await page.$eval('#house > a', (btn) => {
             btn.click();
         });
@@ -620,7 +622,9 @@ describe('basic navigation for BJ', () => {
     });
     it('Test49: check that the home button works in the monthly overview', async () => {
         const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
-        await page.goto('http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html#06/2021');
+        await page.goto(
+            'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html#06/2021'
+        );
         await page.waitForTimeout('300');
         await page.$eval('#house > a', (btn) => {
             btn.click();
@@ -630,7 +634,9 @@ describe('basic navigation for BJ', () => {
     });
     it('Test50: check that the home button works in the daily overview', async () => {
         const indexURL = 'http://127.0.0.1:5501/source/Index/index.html';
-        await page.goto('http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html#06/08/2021');
+        await page.goto(
+            'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html#06/08/2021'
+        );
         await page.waitForTimeout('300');
         await page.$eval('#homeContainer > a', (btn) => {
             btn.click();
@@ -639,7 +645,7 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test51: Change background color', async () => {
-        const currentTheme = await page.select('#themes', '#ECC7C7')
+        const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
 });
