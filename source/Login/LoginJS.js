@@ -115,7 +115,6 @@ function handleLogin(password) {
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
-    alert('login');
     window.location.href = '../Index/Index.html';
 }
 /**
