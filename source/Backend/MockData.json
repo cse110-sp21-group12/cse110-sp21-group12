@@ -1,0 +1,120 @@
+{
+    "README": {
+        "message": "this file only exists for documentation/record purposes"
+    },
+    "sampleDay1": {
+        "date": "05/20/2021",
+        "bullets": [
+            {
+                "text": "O, Wonder!",
+                "symb": "•",
+                "done": true,
+                "childList": [],
+                "time": null
+            },
+            {
+                "text": "How many goodly creatures are there here! ",
+                "symb": "•",
+                "done": false,
+                "childList": [],
+                "time": null
+            },
+            {
+                "text": "How beateous mankind is! ",
+                "symb": "•",
+                "done": false,
+                "childList": [],
+                "time": null
+            },
+            {
+                "text": "O brave new world, That has such people in't!",
+                "symb": "•",
+                "done": false,
+                "childList": [
+                    {
+                        "text": "child test",
+                        "symb": "•",
+                        "done": false,
+                        "childList": [
+                            {
+                                "text": "extra child test",
+                                "symb": "•",
+                                "done": false,
+                                "childList": [],
+                                "time": null
+                            }
+                        ],
+                        "time": null
+                    },
+                    {
+                        "text": "child test2",
+                        "symb": "•",
+                        "done": false,
+                        "childList": [],
+                        "time": null
+                    }
+                ],
+                "time": null
+            }
+        ],
+        "photos": [
+            "https://i.pinimg.com/originals/9e/69/72/9e6972bcadf9ca16fa639807109dd48c.jpg",
+            "https://m.media-amazon.com/images/I/6196LZs4u7L._AC_SL1214_.jpg"
+        ],
+        "notes": "Here is some notes sample test \n this is a note possibly \n here could be another"
+    },
+    "sampleDay2": {
+        "date": "05/21/2021",
+        "bullets": [],
+        "photos": [],
+        "notes": "This is an empty day...only notes"
+    },
+
+    "sampleMonthlyGoals": {
+        "month": "12/2021",
+        "goals": [
+            {
+                "text": "Train for and run a marathon!",
+                "start": "05/01/2021",
+                "end": "05/31/2021",
+                "done": true
+            },
+            {
+                "text": "Lose 10 pounds by end of the month",
+                "start": "05/10/2021",
+                "end": "05/31/2021",
+                "done": false
+            },
+            {
+                "text": "Finish reading a book",
+                "start": "05/03/2021",
+                "end": "05/15/2021",
+                "done": true
+            }
+        ]
+    },
+
+    "sampleYearlyGoals": {
+        "year": "2020",
+        "goals": [
+            {
+                "text": "Learn how to speak fluent Spanish",
+                "start": "01/01/2021",
+                "end": "01/01/2022",
+                "done": true
+            },
+            {
+                "text": "Lower phone usage time",
+                "start": "01/01/2021",
+                "end": "01/01/2022",
+                "done": false
+            },
+            {
+                "text": "Write a novel from scratch",
+                "start": "01/01/2021",
+                "end": "01/01/2022",
+                "done": false
+            }
+        ]
+    }
+}

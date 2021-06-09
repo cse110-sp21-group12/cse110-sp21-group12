@@ -3,37 +3,49 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="YearlyStyles.css" />
+        <link rel="icon" type="image/png" href="../Images/Icon.png" />
         <title>Yearly Overview</title>
     </head>
+
     <body>
         <div id="header">
-            <h1 id="index"><a href="/source/Index/index.html"> < Index</a></h1>
-            <a href="/source/Index/index.html"
-                ><img
-                    src="/source/YearlyOverview/Images/home.png"
-                    alt="home"
-                    width="40"
-                    height="40"
-            /></a>
+            <h1 id="index">
+                <a
+                    href="https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html"
+                    style="text-decoration: none"
+                    id="back"
+                >
+                    < Index</a
+                >
+            </h1>
+            <div id="house">
+                <a
+                    href="https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html"
+                    ><img src="../Images/home.svg" alt="home" id="homeButton"
+                /></a>
+            </div>
         </div>
 
         <div id="name">
-            <div id="yearlyView">
+            <div id="goalSection">
                 <h1 id="goalsHeader">Yearly Goals</h1>
+                <!-- <img src="../Images/GreenDinoBorder.svg" id="yearlyGoals" /> -->
                 <div id="goals">
-                    <textarea
-                        id="entry"
-                        name="entry"
-                        rows="auto"
-                        cols="auto"
-                        placeholder="Click to add goals..."
-                    ></textarea>
-
-                    <!--section id="entry" contenteditable="true">
-                        <ul>
-                            <li>Click to add goals...</li>
-                        </ul>
-                    </section-->
+                    <form class="entry-form">
+                        <input
+                            type="text"
+                            placeholder="New Goal"
+                            class="entry-form-text"
+                            id="entry"
+                        />
+                        <input
+                            type="submit"
+                            value="Post"
+                            class="entry-form-button"
+                            id="entry-button"
+                        />
+                    </form>
+                    <div id="bullets"></div>
                 </div>
             </div>
             <div id="empty"></div>
@@ -41,7 +53,9 @@
                 <h1 id="monthHeader">Months</h1>
                 <div id="months">
                     <h2 id="January">
-                        <a href="/source/MonthlyOverview/MonthlyOverview.html">
+                        <a
+                            href="https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/MonthlyOverview/MonthlyOverview.html"
+                        >
                             January
                         </a>
                     </h2>
@@ -60,4 +74,8 @@
             </div>
         </div>
     </body>
+
+    <script src="../Backend/BackendInit.js"></script>
+    <script src="./goals.js" type="module"></script>
+    <script src="./YearlyJS.js" type="module"></script>
 </html>

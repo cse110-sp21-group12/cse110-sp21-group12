@@ -3,27 +3,91 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="DailyStyles.css" />
+        <link rel="icon" type="image/png" href="../Images/Icon.png" />
         <title>Daily Overview</title>
     </head>
+
     <body>
         <div id="header">
-            <h1 id="week-view"><a href="">< Week</a></h1>
-            <h1 id="date">Today 5/11/21</h1>
+            <h1 id="monthView">
+                <a
+                    href="https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/MonthlyOverview/MonthlyOverview.html"
+                    style="text-decoration: none"
+                    id="words"
+                >
+                    < Month</a
+                >
+            </h1>
+            <div>
+                <img src="../Images/Logo.svg" id="logo1" />
+            </div>
+            <div>
+                <img src="../Images/Logo.svg" id="logo2" />
+            </div>
+            <h1 id="date">Today 05/01/2021</h1>
+            <div>
+                <img src="../Images/Logo.svg" id="logo3" />
+            </div>
+            <div>
+                <img src="../Images/Logo.svg" id="logo4" />
+            </div>
+            <div id="homeContainer">
+                <a href="../Index/Index.html">
+                    <img src="../Images/home.svg" id="home" />
+                </a>
+            </div>
         </div>
+
         <div id="todo">
             <h1>To-Do</h1>
+            <form class="entry-form">
+                <input
+                    type="text"
+                    placeholder="New Bullet Text"
+                    class="entry-form-text"
+                    id="entry"
+                />
+                <input
+                    type="submit"
+                    value="Post"
+                    class="entry-form-button"
+                    id="entry-button"
+                />
+            </form>
+            <div id="bullets"></div>
         </div>
         <div id="notes">
-            <h1>Notes</h1>
+            <h1 id="notesb">Notes</h1>
+            <img src="../Images/GreenDino.svg" id="notesDino" />
         </div>
-        <div id="goal-reminder">
-            <h1>Goal Reminder</h1>
-            <h2>Weekly:</h2>
-            <h2>Monthly:</h2>
-            <h2>Yearly:</h2>
+        <div id="goalReminder">
+            <h1>Goal Reminders</h1>
+            <div>
+                <h2>Monthly:</h2>
+                <div id="monthGoal"></div>
+            </div>
+            <div>
+                <h2>Yearly:</h2>
+                <div id="yearGoal"></div>
+            </div>
         </div>
         <div id="photo-album">
-            <h1>Photo Album</h1>
+            <h1>Photo Album<button id="addPhoto">+</button></h1>
+            <div>
+                <canvas id="myCanvas"></canvas>
+            </div>
+
+            <div>
+                <input type="hidden" id="image-input" accept="*.jpg" />
+                <button type="button" id="save" hidden>save</button><br />
+                <button type="button" id="left"><</button>
+                <button type="button" id="right">></button>
+            </div>
         </div>
     </body>
+
+    <script src="./bullet.js" type="module"></script>
+    <script src="./DailyJS.js" type="module"></script>
+    <script src="./note.js" type="module"></script>
+    <script src="../Backend/BackendInit.js" type="text/javascript"></script>
 </html>

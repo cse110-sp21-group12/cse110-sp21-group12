@@ -1,0 +1,256 @@
+/*
+ * Page-wide styles
+ */
+
+/* Global styles */
+:root {
+    --bg-color: white;
+}
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
+body {
+    background-color: var(--bg-color);
+}
+/* Body's only child */
+#body-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+/* absolute styling because we want header to be fixed height */
+#topbar {
+    padding-top: 10px;
+    padding-bottom: 4vw;
+    background-image: url(../Images/Logo.svg);
+    background-repeat: repeat-x;
+    background-origin: padding-box;
+    background-size: 5vw;
+}
+
+/**
+* Content styling
+*/
+
+/**
+Structure
+-right-bar
+  -title
+  -right-bar-inner
+    -today-button
+    -content
+*/
+
+#right-bar {
+    margin-right: 8vw;
+    height: 65vh;
+    width: 20vw;
+    flex-grow: 4;
+}
+
+#right-bar h1 {
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+#right-bar-inner {
+    border-style: solid;
+    border-color: #585858;
+    border-width: 0.2vw;
+    border-radius: 3vw;
+    padding: 2vw;
+    background-color: white;
+}
+
+#content {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+    width: auto;
+    margin: 1vw 2vw;
+}
+
+#content::-webkit-scrollbar {
+    display: none;
+}
+
+.horiz {
+    display: inline-block;
+}
+
+.collapsible_child {
+    display: none;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+.monthlink {
+    display: inline-block;
+}
+
+#today-button {
+    background-color: var(--bg-color);
+    border: none;
+    color: #585858;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5vw;
+    padding: 1vw 2vw;
+    margin: auto;
+    border-radius: 0.7em;
+    display: block;
+    width: 70%;
+}
+
+button {
+    background-color: var(--bg-color);
+    border: none;
+    color: #585858;
+    /*to make the [>] / [v] look consistent */
+    font-family: sans-serif;
+    font-size: 1.5vw;
+    border-radius: 0.1em;
+    padding: 0.1vw 0.5vw;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#content a {
+    text-decoration: none;
+    padding-left: 1vw;
+    font-size: 1.5vw;
+}
+
+#content > * {
+    margin-bottom: 0.5vw;
+}
+
+/* year button group */
+.year {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* calendar formatting styles */
+
+/** 
+* Calendar styling
+*/
+
+/* calendar wrapper */
+#left-bar {
+    padding: 0 4% 4%; /* codefactor calls these "shorthand-property-no-redundant-values" */
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 30vw;
+    height: 55vh;
+    align-content: center;
+    flex-grow: 3;
+}
+
+#left-bar h1 {
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#calendar {
+    height: 20vw;
+    padding: 2vw 5vw 10vw;
+}
+
+/* Month header */
+.month_header {
+    padding: 2vw 25px;
+    background: #585858;
+    text-align: center;
+    border-radius: 2vw 2vw 0 0;
+}
+
+/* Month header's text */
+.month_label {
+    background-color: #585858;
+    color: white;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.7vw;
+    margin: auto;
+}
+
+/* Weekdays (Sun-Sat) */
+.weekdays_label {
+    margin: 0;
+    padding: 0.8vw 0 0;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weekday {
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+    font-size: 1.8vw;
+    background: none;
+}
+
+/* Days (1-31) */
+.days_field {
+    padding: 0 0.5vw 0.5vw;
+    background: #eee;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 2vw 2vw;
+}
+
+.day {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    font-size: 2vw;
+    color: black;
+    background: none;
+    padding: 0.8vw 0;
+}
+
+.day:hover {
+    cursor: pointer;
+}
+
+.blank_day {
+    background: none;
+}
+
+/* 
+    Highlight the "current" day 
+    We can change the color to be based on the theme color
+*/
+.today {
+    background: var(--bg-color);
+    border-radius: 0.5vw;
+}
+
+#cal-week-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+#themes {
+    position: relative;
+    right: 3vw;
+    top: 1vw;
+    border-radius: 0.8vw;
+    font-size: 1vw;
+    padding: 0.3vh;
+}

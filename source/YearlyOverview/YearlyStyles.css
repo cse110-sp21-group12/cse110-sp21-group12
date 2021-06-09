@@ -1,68 +1,129 @@
+:root {
+    --bg-color: white;
+}
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
 body {
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
 
     grid-template-areas:
-        'title title title'
-        'name name name'
-        'name name name';
+        'head head head'
+        'goal goal goal'
+        'goal goal goal';
 }
 #goalsHeader,
 #monthHeader {
     text-align: center;
+    font-size: 3.5vh;
 }
-#index {
-    grid-area: title;
+#header {
+    grid-area: head;
     display: grid;
-    justify-items: stretch;
+    margin: 1vh;
+
+    grid-template-areas: 'back . . .  . headerHome';
 }
 
-img {
-    position: absolute;
-    right: 15px;
-    top: 20px;
+#house {
+    grid-area: headerHome;
+    justify-self: right;
 }
 
-img:hover {
+#homeButton {
+    height: 8vh;
+    margin: 2vh;
+}
+
+#homeButton:hover {
     cursor: pointer;
     opacity: 0.5;
 }
 
+#index {
+    grid-area: back;
+}
+
+#index > a {
+    font-size: 3.5vh;
+}
+
 #name {
-    grid-area: name;
-    display: grid;
+    grid-area: goal;
+    display: flex;
+    flex-direction: row;
     justify-items: stretch;
-    grid-template-areas: 'goal empty month';
-    grid-template-columns: 30vw 1fr 40vw;
+    justify-content: space-evenly;
 }
+
+#goalSection {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 45vw;
+}
+
 #goals {
-    grid-area: goal;
-    background-image: url(../Images/AllSeasonsBorderWide.svg);
-    background-size: fit-content;
-    background-repeat: no-repeat;
-    margin-left: 5vw;
-    padding: 1vw;
-    border-radius: 10mm;
-    /*border-style: solid;
-    border-width: 1mm;*/
-    height: 60vh;
-}
-#entry {
-    grid-area: goal;
-    margin: 3vw;
-    padding: 3vw;
-    border-radius: 10mm;
+    align-self: center;
     background-color: white;
-    background-size: 10vw, auto;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    margin: 1vw;
+    padding: 2vw;
+    height: 60vh;
+    max-height: 50vw;
+    width: 70%;
+    overflow: auto;
 }
+
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 15vw;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 3.5vw;
+    min-width: 5vh;
+    font-size: 1.5vh;
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 0.5vh;
+}
+
+#monthView {
+    padding: 0 4% 4%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 30vw;
+    height: 55vh;
+    align-content: center;
+    flex-grow: 3;
+    max-width: 40%;
+}
+
+#months > h2 {
+    font-size: 2.5vh;
+}
+
+#months > h2 > a {
+    text-decoration: none;
+}
+
 #months {
-    grid-area: week;
-    margin-right: 5vw;
     padding: 1vw;
-    /*border-style: solid;
-    border-width: 1mm;*/
-    height: 58vh;
+    height: 70vh;
     overflow: auto;
     overflow: -moz-scrollbars-none;
     /* this will hide the scrollbar in internet explorers */
@@ -71,50 +132,54 @@ img:hover {
 
 /* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
 ::-webkit-scrollbar {
-    width: 0px;
+    /* width: 0px; */
+    display: none;
 }
 #January,
 #February,
 #March {
-    background-image: url(../Images/WinterMonth.svg);
+    background: #c2e0f5 url(../Images/BlueDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 12vh;
+    height: 10vh;
 }
 #April,
 #May,
 #June {
-    background-image: url(../Images/SpringMonth.svg);
+    background: #aad6a2 url(../Images/GreenDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 12vh;
+    height: 10vh;
 }
 #July,
 #August,
 #September {
-    background-image: url(../Images/SummerMonth.svg);
+    background: #ffdea2 url(../Images/YellowDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 12vh;
+    height: 10vh;
 }
 #October,
 #November,
 #December {
-    background-image: url(../Images/FallMonth.svg);
-    background-position: center;
+    background: #fecf94 url(../Images/OrangeDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 12vh;
+    height: 10vh;
 }

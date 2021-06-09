@@ -1,86 +1,237 @@
+:root {
+    --bg-color: white;
+}
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+}
 body {
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
 
     grid-template-areas:
-        'title title title'
-        'name name name'
-        'name name name';
+        'head head head'
+        'goal goal goal'
+        'goal goal goal';
 }
 
 #goalsHeader,
 #weekHeader {
     text-align: center;
+    font-size: 3.5vh;
 }
 
 #header {
-    grid-area: title;
+    grid-area: head;
     display: grid;
-    justify-items: stretch;
+    margin: 1vh;
+
+    grid-template-areas: 'back . . .  . headerHome';
 }
 
-img {
-    position: absolute;
-    right: 15px;
-    top: 20px;
+#house {
+    grid-area: headerHome;
+    justify-self: right;
 }
 
-img:hover {
+#homeButton {
+    margin: 2vh;
+    height: 8vh;
+}
+
+#homeButton:hover {
     cursor: pointer;
     opacity: 0.5;
 }
 
+#index {
+    grid-area: back;
+}
+
+#index > a {
+    font-size: 3.5vh;
+}
+
 #name {
-    grid-area: name;
-    display: grid;
+    grid-area: goal;
+    display: flex;
+    flex-direction: row;
     justify-items: stretch;
-    grid-template-areas: 'goal empty week';
-    grid-template-columns: 40vw 1fr 40vw;
+    justify-content: space-evenly;
 }
-#goals {
-    grid-area: goal;
-    background-image: url(../Images/FallBorder.svg);
-    background-size: fit-content;
-    background-repeat: no-repeat;
-    margin: 5vw;
-    padding: 1vw;
-    border-radius: 10mm;
-    /*border-style: solid;
-    border-width: 1mm;*/
-    height: 90vh;
+
+#goalSection {
+    display: flex;
+    flex-direction: column;
+    width: 45vw;
 }
-#entry {
-    grid-area: goal;
-    margin: 3vw;
-    padding: 3vw;
-    border-radius: 10mm;
+
+/* #monthlyGoals {
+    position: relative;
     background-color: white;
-    background-size: 10vw, auto;
-}
-#weeks {
-    grid-area: week;
-    grid-template-areas:
-        'week'
-        'week'
-        'week'
-        'week';
-    margin: 5vw;
-    padding: 1vw;
-    /*border-style: solid;
-    border-width: 1mm;*/
-    height: fit-content;
-}
-#week1,
-#week2,
-#week3,
-#week4 {
-    grid-area: week;
-    background-image: url(../Images/FallMonth.svg);
     margin: 1vw;
     padding: 1vw;
     border-radius: 10mm;
     border-style: solid;
     border-width: 1mm;
-    height: 12vh;
+    height: 67vh;
+    margin-left: 10vw;
+} */
+
+#goals {
+    position: relative;
+    align-self: center;
+    background-color: white;
+
+    /* background-image: url('../Images/GreenDinoBorder.svg');
+    background-size: 100%; */
+    /* background-repeat: no-repeat; */
+
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+
+    margin: 1vw;
+    padding: 2vw;
+    height: 60vh;
+    max-height: 50vw;
+    width: 70%;
+
+    overflow: auto;
+}
+
+/* add goal form styling */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 15vw;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 3.5vw;
+    min-width: 5vh;
+    font-size: 1.5vh;
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 0.5vh;
+}
+
+#goals::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+/** 
+* Calendar styling
+*/
+
+/* calendar wrapper */
+#weekView {
+    padding: 0 4% 4%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 30vw;
+    height: 55vh;
+    align-content: center;
+    flex-grow: 3;
+    max-width: 40%;
+}
+
+/* #weekView h1 {
+    font-size: 2.5vw;
+    text-align: center;
+} */
+
+ul {
+    list-style-type: none;
+}
+
+#calendar {
+    height: 20vw;
+}
+
+/* Month header */
+.month_header {
+    padding: 2vw 25px;
+    background: #585858;
+    text-align: center;
+    border-radius: 2vw 2vw 0 0;
+}
+
+/* Month header's text */
+.month_label {
+    background-color: #585858;
+    color: white;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.7vw;
+    margin: auto;
+}
+
+/* Weekdays (Sun-Sat) */
+.weekdays_label {
+    margin: 0;
+    padding: 0.8vw 0 0;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weekday {
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+    font-size: 1.8vw;
+    background: none;
+}
+
+/* Days (1-31) */
+.days_field {
+    padding: 0 0.5vw 0.5vw;
+    background: #eee;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 2vw 2vw;
+}
+
+.day {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    font-size: 2vw;
+    color: black;
+    background: none;
+    padding: 0.8vw 0;
+}
+
+.day:hover {
+    cursor: pointer;
+}
+
+.blank_day {
+    background: none;
+}
+
+/* 
+    Highlight the "current" day 
+    We can change the color to be based on the theme color
+*/
+.today {
+    background: var(--bg-color);
+    border-radius: 0.5vw;
+}
+
+#cal-week-wrapper {
+    display: flex;
+    flex-direction: row;
 }

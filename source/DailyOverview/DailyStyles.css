@@ -1,83 +1,261 @@
-h1 {
+:root {
+    --bg-color: white;
+}
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
     color: #585858;
 }
-
 body {
-    background-color: #ecc7c7;
+    background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
+    grid-template-columns: 30% 10% 17%;
 
     grid-template-areas:
-        'title title title'
-        'todo note goal'
-        'todo note goal'
-        'todo note album'
-        'todo note album';
+        'title title title title title title'
+        'todo todo note note note goal'
+        'todo todo note note note goal'
+        'todo todo note note note album'
+        'todo todo note note note album';
 }
+
+h1 {
+    font-size: 3.5vh;
+    margin: 1vh;
+}
+
+h2 {
+    font-size: 2vh;
+}
+
+/* Header Block */
 
 #header {
     grid-area: title;
     display: grid;
+    height: 9vh;
+    margin: 2vh;
 
     justify-items: stretch;
-    grid-template-areas: 'back date .';
+    grid-template-areas: 'back one two date three four headerHome';
 }
 
-#week-view {
+#monthView {
     grid-area: back;
-    background-color: transparent;
+    font-size: 3.5vh;
+}
+
+#words {
+    display: block;
 }
 
 #date {
+    display: block;
     grid-area: date;
     justify-self: center;
+    font-size: 5vh;
 }
+
+#logo1 {
+    grid-area: one;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo2 {
+    grid-area: two;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo3 {
+    grid-area: three;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#logo4 {
+    grid-area: four;
+    margin: 1vh;
+    height: 10vh;
+}
+
+#home {
+    grid-area: headerHome;
+    margin: 2vh;
+    height: 8vh;
+}
+
+#homeContainer {
+    justify-self: end;
+}
+
+#home:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+/* Todo Block */
 
 #todo {
     grid-area: todo;
     background-color: white;
     margin: 1vw;
-    padding: 1vw;
-    border-radius: 10mm;
+    padding: 1vw 3vw 1vw 2vw;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
+    border-color: black;
+    height: 75vh;
+    width: 80%;
+    overflow: auto;
+
+    min-height: 35vw;
 }
+
+#todo::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+/* Note Block */
 
 #notes {
     grid-area: note;
     background-color: white;
     margin: 1vw;
     padding: 1vw;
-    border-radius: 10mm;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    height: 85vh;
+    border-color: black;
+    height: 75vh;
+    position: relative;
+
+    min-height: 35vw;
 }
 
-#goal-reminder {
+#notesDino {
+    height: 13vh;
+    width: 10vw;
+    position: absolute;
+    bottom: -3vh;
+    right: 55vh;
+}
+
+/* Goal Reminder Block */
+
+#goalReminder {
     grid-area: goal;
     background-color: white;
-    margin: 1vw;
-    padding: 1vw;
-    border-radius: 10mm;
+    margin: 0.7vw;
+    padding: 0.5vw;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    /* height: 38vh; */
+    border-color: black;
+
+    display: grid;
+    grid-template-rows: [title] 15% [month] 40% [year] 40%;
 }
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#monthGoal {
+    grid-row-start: month;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#monthGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+#yearGoal {
+    grid-row-start: year;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#yearGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+/*
+#monthGoal::-webkit-scrollbar {
+    display: none; color of the tracking area
+}
+
+#yearGoal::-webkit-scrollbar {
+     display: none; color of the tracking area 
+}
+*/
+
+/* Photo Album Block */
 
 #photo-album {
     grid-area: album;
     background-color: white;
-    margin: 1vw;
-    padding: 1vw;
-    border-radius: 10mm;
+    margin: 0.5vw;
+    padding: 0.8vw;
+    border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-    /* height: 38vh; */
+    border-color: black;
 }
 
-a:active {
-    text-decoration: none;
-    color: #585858;
+#addPhoto {
+    background-color: transparent;
+    border: none;
+    font-size: 2.75vh;
+}
+
+#myCanvas {
+    border: 2px solid #000000;
+    width: 100%;
+    height: 70%;
+}
+
+button#left,
+button#right {
+    background-color: transparent;
+    border: none;
+    font-size: 2vh;
+}
+
+/* Misc */
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 50%;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 6vh;
+    font-size: 1.5vh;
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 0.5vh;
 }

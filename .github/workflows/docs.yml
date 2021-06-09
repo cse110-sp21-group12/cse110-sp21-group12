@@ -1,11 +1,11 @@
 # Generate jsDocs, perhaps only want it when things are pushed/PR'ed into development
-name: jsDocs 
+name: jsDocs
 
 on:
   #having it generate on push to development
   push:
     branches:
-    - development
+    - main
   workflow_dispatch:
 
 
@@ -25,8 +25,8 @@ jobs:
           output_dir: docs/
           recurse: true
           front_page: README.md
-      
-        # push to public repo to host the docs
+
+      # push to public repo to host the docs
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:

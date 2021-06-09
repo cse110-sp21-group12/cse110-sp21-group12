@@ -1,0 +1,77 @@
+* {
+    font-family: 'Courier', monospace;
+    font-weight: bold;
+    color: #585858;
+    font-size: larger;
+}
+
+body {
+    background-color: #d4ffd4;
+}
+
+#dino-align {
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+/* TODO:  */
+#content {
+    margin-left: 7.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40vw;
+    height: 50vh;
+    background-color: white;
+    border-style: solid;
+    border-color: #585858;
+    border-width: 0.3vw;
+    border-radius: 1.5vw;
+    position: relative;
+}
+
+#content > * {
+    box-shadow: 0;
+}
+
+#content > h3 {
+    flex-grow: 1;
+    font-size: 3.5vw;
+    margin: 1% 1vw 0.5%;
+    height: 25%;
+}
+
+#big-logo {
+    width: 30vw;
+    margin-left: 7.5vw;
+}
+
+#login-button {
+    background-color: #1e942d;
+    color: black;
+    border-radius: 0.5vw;
+    flex-grow: 1;
+    font-size: 5vh;
+    margin: 0.5% 1vw;
+    height: 20%;
+}
+
+input {
+    background-color: white;
+    border-radius: 0.5vw;
+    flex-grow: 1;
+    font-size: 3vw;
+    margin: 1%;
+    height: 10%;
+}
+
+#switch-screen {
+    font-size: medium;
+    text-align: left;
+    color: black;
+    width: parent;
+    background: none;
+    border: none;
+}
