@@ -582,6 +582,9 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test33: check <Year button in monthly overview works', async() => {
+
+        await page.goBack();
+
         await page.waitForTimeout(300);
 
         await page.$eval('#back', (button) => {
@@ -608,13 +611,13 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test35: adding yearly goals, check length', async() => {
-        await page.$eval('#entry', (bulletEntry) => {
+        await page.$eval('.entry-form-text', (bulletEntry) => {
             bulletEntry.value = '1 boba per week';
         });
 
         await page.waitForTimeout(300);
 
-        await page.$eval('#entry-button', (button) => {
+        await page.$eval('.entry-form-button', (button) => {
             button.click();
         });
 
@@ -627,7 +630,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test36: navigating through the months should work', async () => {
 
-        await page.$eval('#June', (button) => {
+        await page.$eval('#juneTest', (button) => {
             button.click();
         });
 
@@ -647,36 +650,201 @@ describe('basic navigation for BJ', () => {
 
     it('Test37: check yearly goals added in daily overview', async () => {
 
-        
+        await page.$eval('.today', (button) => {
+            button.click();
+        });
 
         const yGoalsText = await page.$eval('#yearGoal', (yGoals) => {
             return yGoals.innerHTML;
         });
 
-        expect(`${yGoalsText}`).toMatch('Drink more water');
+        expect(`${yGoalsText}`).toMatch('1 boba per week');
     });
 
-    it('Test38: edit yearly goals', async () => {});
+    it('Test38: edit yearly goals', async () => {
 
-    it('Test39: check yearly goals edited in yearly overview', async () => {});
+        await page.goBack();
+        await page.goBack();
 
-    it('Test40: mark done yearly goals', async () => {});
+        await page.waitForTimeout('300');
 
-    it('Test41: check yearly goals marked done in daily overview', async () => {});
+        page.removeAllListeners('dialog');
+        page.on('dialog', async (dialog) => {
+            await dialog.accept('2 boba per week');
+        });
 
-    it('Test42: delete yearly goals', async () => {});
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#edit').click();
+        });
 
-    it('Test43: check yearly goals removed in daily overview', async () => {});
+        await page.waitForTimeout('300');
 
-    it('Test44: check <Index button in yearly overview works', async () => {});
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('.bullet-content')
+                .innerHTML;
+        });
 
-    it('Test45: check that the calendar in the index page works properly', async () => {});
+        expect(bulletText).toMatch('2 boba per week');
 
-    it('Test46: check that going to certain years work in the index page', async () => {});
+    });
 
-    it('Test47: check that going to certain months work in the index page', async () => {});
-/*
-    it('Test48: check that the home button works in the yearly overview', async () => {
+    it('Test39: check yearly goals edited in yearly overview', async () => {
+
+        await page.$eval('#juneTest', (button) => {
+            button.click();
+        });
+
+        await page.waitForTimeout(300);
+
+        await page.$eval('.today', (button) => {
+            button.click();
+        });
+
+        await page.waitForTimeout(300);
+
+        const yGoalsText = await page.$eval('#yearGoal', (yGoals) => {
+            return yGoals.innerHTML;
+        });
+
+        expect(`${yGoalsText}`).toMatch('2 boba per week');
+
+    });
+
+    it('Test40: mark done yearly goals', async () => {
+        
+        await page.goBack();
+        await page.goBack();
+
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#done').click();
+        });
+
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('.bullet-content').style
+                .textDecoration;
+        });
+
+        expect(bulletText).toMatch('line-through');
+
+    });
+
+    it('Test41: check yearly goals marked done in daily overview', async () => {
+
+        await page.$eval('#juneTest', (button) => {
+            button.click();
+        });
+
+        await page.waitForTimeout('300');
+
+        await page.$eval('.today', (button) => {
+            button.click();
+        });
+
+        const yGoalsText = await page.$eval('p', (yGoals) => {
+            return yGoals.style.textDecoration;
+        });
+
+        expect(`${yGoalsText}`).toMatch('line-through');
+
+    });
+
+    it('Test42: delete yearly goals', async () => {
+
+        await page.goBack();
+        await page.goBack();
+
+        await page.waitForTimeout('300');
+
+        await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#delete').click();
+        });
+
+        await page.waitForTimeout('300');
+
+        const bulletLength = await page.$eval('#bullets', (bullets) => {
+            return bullets.childNodes.length;
+        });
+
+        expect(`${bulletLength}`).toMatch('0');
+
+    });
+
+    it('Test43: check yearly goals removed in daily overview', async () => {
+
+        await page.$eval('#juneTest', (button) => {
+            button.click();
+        });
+
+        await page.waitForTimeout('300');
+
+        await page.$eval('.today', (button) => {
+            button.click();
+        });
+
+        const yGoalsLength = await page.$eval('#yearGoal', (yGoals) => {
+            console.log(yGoals.childNodes);
+            return yGoals.childNodes.length;
+        });
+
+        expect(`${yGoalsLength}`).toMatch('0');
+
+    });
+
+    it('Test44: check <Index button in yearly overview works', async () => {
+
+        await page.goBack();
+        await page.goBack();
+
+        await page.waitForTimeout(300);
+
+        await page.$eval('#back', (button) => {
+            button.click();
+        })
+
+        const url = await page.evaluate(() => location.href);
+
+        expect(`${url}`).toMatch('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html');
+
+    });
+
+    it('Test45: check that the calendar in the index page works properly', async () => {
+
+        await page.$eval('.today', (button) => {
+            button.click();
+        });
+
+        const url = await page.evaluate(() => location.href);
+
+        let currentDate = new Date();
+
+        //kinda too lazy to build the string
+        let boolDay = url.indexOf(`${currentDate.getDate()}`) > -1;
+        let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
+        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
+
+        expect(`${boolDay && boolMonth && boolYear}`).toMatch('true');
+    });
+
+    it('Test46: check that going to certain years work in the index page', async () => {
+
+        await page.goBack();
+
+        await page.$eval('#2021_link', (button) => {
+            button.click();
+        })
+
+        const url = await page.evaluate(() => location.href);
+
+        let currentDate = new Date();
+
+        //kinda too lazy to build the string
+        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
+
+        expect(`${boolYear}`).toMatch('true');
+
+    });
+
+    it('Test47: check that the home button works in the yearly overview', async () => {
         const indexURL =
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
@@ -690,7 +858,7 @@ describe('basic navigation for BJ', () => {
 
         expect(url).toMatch(indexURL);
     });
-    it('Test49: check that the home button works in the monthly overview', async () => {
+    it('Test48: check that the home button works in the monthly overview', async () => {
         const indexURL =
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
@@ -703,7 +871,7 @@ describe('basic navigation for BJ', () => {
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch(indexURL);
     });
-    it('Test50: check that the home button works in the daily overview', async () => {
+    it('Test49: check that the home button works in the daily overview', async () => {
         const indexURL =
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
@@ -716,8 +884,8 @@ describe('basic navigation for BJ', () => {
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch(indexURL);
     });
-    it('Test51: Change background color', async () => {
+    it('Test50: Change background color', async () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
-    });*/
+    });
 });
