@@ -67,37 +67,17 @@ body {
     width: 45vw;
 }
 
-/* #yearlyGoals {
-    background-color: white;
-    margin-top: 2vw;
-    padding: 1vw;
-    border-radius: 10mm;
-    border-style: solid;
-    border-width: 1mm;
-    height: 67vh;
-} */
-
 #goals {
-    /* position: absolute;
-    top: 17%;
-    left: 5%;
-    grid-area: goal;
-    margin: 5vw;
-    padding: 1vw;
-    height: 90vh; */
     align-self: center;
     background-color: white;
-
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-
     margin: 1vw;
     padding: 2vw;
     height: 60vh;
     max-height: 50vw;
     width: 70%;
-
     overflow: auto;
 }
 
@@ -123,8 +103,6 @@ body {
 }
 
 #monthView {
-    /* display: flex;
-    flex-direction: column; */
     padding: 0 4% 4%;
     margin-left: 2vw;
     margin-right: 2vw;
@@ -144,11 +122,7 @@ body {
 }
 
 #months {
-    /* grid-area: month; */
-    /* margin-right: 5vw; */
     padding: 1vw;
-    /*border-style: solid;
-    border-width: 1mm;*/
     height: 70vh;
     overflow: auto;
     overflow: -moz-scrollbars-none;
@@ -164,7 +138,8 @@ body {
 #January,
 #February,
 #March {
-    background-image: url(../Images/BlueDinoMonth.svg);
+    background: #c2e0f5 url(../Images/BlueDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
     border-radius: 2vw;
@@ -175,7 +150,8 @@ body {
 #April,
 #May,
 #June {
-    background-image: url(../Images/GreenDinoMonth.svg);
+    background: #aad6a2 url(../Images/GreenDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
     border-radius: 2vw;
@@ -186,7 +162,8 @@ body {
 #July,
 #August,
 #September {
-    background-image: url(../Images/YellowDinoMonth.svg);
+    background: #ffdea2 url(../Images/YellowDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
     border-radius: 2vw;
@@ -197,7 +174,8 @@ body {
 #October,
 #November,
 #December {
-    background-image: url(../Images/OrangeDinoMonth.svg);
+    background: #fecf94 url(../Images/OrangeDino.svg) no-repeat 5% 30%;
+    background-size: 140% 140%;
     margin: 1vw;
     padding: 1vw;
     border-radius: 2vw;
