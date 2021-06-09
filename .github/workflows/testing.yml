@@ -12,11 +12,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  #the jest job
-  jest:
-    name: Jest
-    runs-on: ubuntu-latest
-
   #the puppeteer job
   puppeteer:
     name: Puppeteer
