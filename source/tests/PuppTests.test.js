@@ -581,19 +581,80 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsLength}`).toMatch('0');
     });
 
-    it('Test33: check <Year button in monthly overview works', async () => {
-        await page.$eval('a', (button) => {
+    it('Test33: check <Year button in monthly overview works', async() => {
+        await page.waitForTimeout(300);
+
+        await page.$eval('#back', (button) => {
             button.click();
-        });
+        })
+
+        const url = await page.evaluate(() => location.href);
+
+        let currentDate = new Date();
+
+        //kinda too lazy to build the string
+        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
+
+        expect(`${boolYear}`).toMatch('true');
+        
     });
 
-    it('Test34: making sure yearly goals should be empty', async () => {});
+    it('Test34: making sure yearly goals should be empty', async() => {
+        const bulletLength = await page.$eval('#bullets', (bullets) => {
+            return bullets.childNodes.length;
+        });
 
-    it('Test35: adding yearly goals, check length', async () => {});
+        expect(`${bulletLength}`).toMatch('0');
+    });
 
-    it('Test36: navigating through the months should work', async () => {});
+    it('Test35: adding yearly goals, check length', async() => {
+        await page.$eval('#entry', (bulletEntry) => {
+            bulletEntry.value = '1 boba per week';
+        });
 
-    it('Test37: check yearly goals added in daily overview', async () => {});
+        await page.waitForTimeout(300);
+
+        await page.$eval('#entry-button', (button) => {
+            button.click();
+        });
+
+        const entryLength = await page.$eval('#bullets', (bullets) => {
+            return bullets.childNodes.length;
+        });
+
+        expect(`${entryLength}`).toMatch('1');
+    });
+
+    it('Test36: navigating through the months should work', async () => {
+
+        await page.$eval('#June', (button) => {
+            button.click();
+        });
+
+        await page.waitForTimeout(300);
+
+        const url = await page.evaluate(() => location.href);
+
+        let currentDate = new Date();
+
+        //kinda too lazy to build the string
+        let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
+        let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
+
+        expect(`${boolMonth && boolYear}`).toMatch('true');
+
+    });
+
+    it('Test37: check yearly goals added in daily overview', async () => {
+
+        
+
+        const yGoalsText = await page.$eval('#yearGoal', (yGoals) => {
+            return yGoals.innerHTML;
+        });
+
+        expect(`${yGoalsText}`).toMatch('Drink more water');
+    });
 
     it('Test38: edit yearly goals', async () => {});
 
@@ -614,7 +675,7 @@ describe('basic navigation for BJ', () => {
     it('Test46: check that going to certain years work in the index page', async () => {});
 
     it('Test47: check that going to certain months work in the index page', async () => {});
-
+/*
     it('Test48: check that the home button works in the yearly overview', async () => {
         const indexURL =
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
@@ -658,5 +719,5 @@ describe('basic navigation for BJ', () => {
     it('Test51: Change background color', async () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
-    });
+    });*/
 });
