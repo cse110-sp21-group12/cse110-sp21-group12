@@ -121,7 +121,7 @@ function setDB(dbReturn) {
  * IS NOW DEPRECATED
  */
 function setUpMockData() {
-    fetch('/source/backend/mockData.json')
+    fetch('/source/Backend/MockData.json')
         .then((res) => {
             return res.json();
         })
