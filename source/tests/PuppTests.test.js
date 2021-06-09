@@ -816,11 +816,10 @@ describe('basic navigation for BJ', () => {
          * namning mistake
          * Just going to use 2021 as an example
          */
-        
-        await page.$eval(`#content`, (div) => {
+
+        await page.$eval('#content', (div) => {
             //gets the index of the year 2021
             div.childNodes[3].querySelector('a').click();
-
         });
 
         const url = await page.evaluate(() => location.href);
