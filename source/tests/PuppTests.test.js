@@ -16,7 +16,7 @@ describe('Google', () => {
 
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
-        await page.goto('http://127.0.0.1:5501/source/Login/Login.html');
+        await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html');
         await page.waitForTimeout(500);
     });
 
@@ -59,8 +59,6 @@ describe('basic navigation for BJ', () => {
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
-        //await page.goto('http://127.0.0.1:5501/source/Login/Login.html');
-        //await page.waitForTimeout(500);
 
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
@@ -80,13 +78,13 @@ describe('basic navigation for BJ', () => {
         });
 
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Index/Index.html');
+        expect(url).toMatch('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html');
     });
 
     it('Test3: From index page go back, should be login page ', async () => {
         await page.goBack();
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
+        expect(url).toMatch('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html');
     });
 
     it('Test4: Login page should now be sign-in, not create account', async () => {
@@ -129,7 +127,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
-        await page.goto('http://127.0.0.1:5501/source/Index/index.html');
+        await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html');
         await page.waitForTimeout(300);
 
         const currentDayHigh = await page.$eval('.today', (day) => {
@@ -223,13 +221,13 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test14: add a bullet to TODO, check length', async () => {
-        await page.$eval('#entry', (bulletEntry) => {
+        await page.$eval('.entry-form-text', (bulletEntry) => {
             bulletEntry.value = 'Finish 110 Lab';
         });
 
         await page.waitForTimeout(300);
 
-        await page.$eval('#entry-button', (button) => {
+        await page.$eval('.entry-form-button', (button) => {
             button.click();
         });
 
@@ -413,6 +411,8 @@ describe('basic navigation for BJ', () => {
             button.click();
         });
 
+        await page.waitForTimeout(300);
+
         const url = await page.evaluate(() => location.href);
 
         let currentDate = new Date();
@@ -433,13 +433,13 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test24: adding monthly goals, check length', async () => {
-        await page.$eval('#entry', (bulletEntry) => {
+        await page.$eval('.entry-form-text', (bulletEntry) => {
             bulletEntry.value = 'Drink more water';
         });
 
         await page.waitForTimeout(300);
 
-        await page.$eval('#entry-button', (button) => {
+        await page.$eval('.entry-form-button', (button) => {
             button.click();
         });
 
@@ -574,7 +574,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test33: check <Year button in monthly overview works', async () => {
-        await page.$eval('index', (button) => {
+        await page.$eval('a', (button) => {
             button.click();
         });
     });
@@ -608,9 +608,9 @@ describe('basic navigation for BJ', () => {
     it('Test47: check that going to certain months work in the index page', async () => {});
 
     it('Test48: check that the home button works in the yearly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
+        const indexURL = 'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
-            'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html#2021'
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/YearlyOverview/YearlyOverview.html#2021'
         );
 
         await page.$eval('#house > a', (btn) => {
@@ -621,9 +621,9 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test49: check that the home button works in the monthly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
+        const indexURL = 'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
-            'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html#06/2021'
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#house > a', (btn) => {
@@ -633,9 +633,9 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test50: check that the home button works in the daily overview', async () => {
-        const indexURL = 'http://127.0.0.1:5501/source/Index/Index.html';
+        const indexURL = 'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
         await page.goto(
-            'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html#06/08/2021'
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#homeContainer > a', (btn) => {

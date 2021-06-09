@@ -5,7 +5,8 @@ name: Lint
 on:
   push:
     branches:
-    - testing
+    #testing on testing branch rn
+    - testingBasics-I113
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -15,25 +16,6 @@ jobs:
   jest:
     name: Jest
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-      - name: Pull origin development
-        run: |
-            git pull origin ${{ github.ref }}
-
-      - name: Install Node.js dependencies
-        run: npm ci
-
-      - name: Run Jest tests
-        run: npm test source/tests/sample.test.js
 
   #the puppeteer job
   puppeteer:
@@ -58,4 +40,4 @@ jobs:
 
       - name: Run Puppeteer tests
       # can we just do 'npm test source/tests/sampleP.test.js'
-        run: npm test -c jest-puppeteer.config.js source/tests/sampleP.test.js
+        run: npm test -c jest-puppeteer.config.js source/tests/PuppTests.test.js
