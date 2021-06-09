@@ -384,7 +384,7 @@ function editBullet() {
 function updateNote() {
     let currNote = document
         .querySelector('note-box')
-        .shadowRoot.querySelector('.noteContent').innerHTML;
+        .shadowRoot.querySelector('.noteContent').value;
     currentDay.notes = currNote;
 }
 
