@@ -116,7 +116,7 @@ function handleLogin(password) {
  */
 function goHome() {
     //alert('login');
-    window.location.href = '../Index/index.html';
+    window.location.href = '../Index/Index.html';
 }
 /**
  * Change the login screen to the "New User" mode
