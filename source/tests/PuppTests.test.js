@@ -581,12 +581,12 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsLength}`).toMatch('0');
     });
 
-    it('Test33: check <Year button in monthly overview works', async() => {
+    it('Test33: check <Year button in monthly overview works', async () => {
         await page.waitForTimeout(300);
 
         await page.$eval('#back', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
@@ -596,10 +596,9 @@ describe('basic navigation for BJ', () => {
         let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolYear}`).toMatch('true');
-        
     });
 
-    it('Test34: making sure yearly goals should be empty', async() => {
+    it('Test34: making sure yearly goals should be empty', async () => {
         const bulletLength = await page.$eval('#bullets', (bullets) => {
             return bullets.childNodes.length;
         });
@@ -607,7 +606,7 @@ describe('basic navigation for BJ', () => {
         expect(`${bulletLength}`).toMatch('0');
     });
 
-    it('Test35: adding yearly goals, check length', async() => {
+    it('Test35: adding yearly goals, check length', async () => {
         await page.$eval('#entry', (bulletEntry) => {
             bulletEntry.value = '1 boba per week';
         });
@@ -626,7 +625,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-
         await page.$eval('#June', (button) => {
             button.click();
         });
@@ -642,13 +640,9 @@ describe('basic navigation for BJ', () => {
         let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
 
         expect(`${boolMonth && boolYear}`).toMatch('true');
-
     });
 
     it('Test37: check yearly goals added in daily overview', async () => {
-
-        
-
         const yGoalsText = await page.$eval('#yearGoal', (yGoals) => {
             return yGoals.innerHTML;
         });
@@ -675,7 +669,7 @@ describe('basic navigation for BJ', () => {
     it('Test46: check that going to certain years work in the index page', async () => {});
 
     it('Test47: check that going to certain months work in the index page', async () => {});
-/*
+    /*
     it('Test48: check that the home button works in the yearly overview', async () => {
         const indexURL =
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
