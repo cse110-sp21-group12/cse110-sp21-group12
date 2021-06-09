@@ -15,7 +15,7 @@ class noteBox extends HTMLElement {
                     overflow: auto;
                     resize: none;
                     width: 100%;
-                    height: 75vh;
+                    height: 69vh;
                     max-height: 40vw;
                     border-style: none; 
                 }
@@ -46,14 +46,14 @@ class noteBox extends HTMLElement {
      */
     get entry() {
         let entryObj = {
-            content: this.shadowRoot.querySelector('.noteContent').innerText,
+            content: this.shadowRoot.querySelector('.noteContent').innerHTML,
         };
         return entryObj;
     }
 
     set entry(str) {
         // set the text of the entry
-        this.shadowRoot.querySelector('.noteContent').innerText = str;
+        this.shadowRoot.querySelector('.noteContent').innerHTML = str;
     }
 }
 

@@ -1,6 +1,6 @@
 # How to use Crud functions
 
-The backendInit have implemented the Create, Read, and Update. We do not have a delete because we are assuming that everytime we enter a page, we will create data for that page immediately.
+The BackendInit have implemented the Create, Read, Update, and Delete. In practice we don't use Delete calls becuase we don't actually remove a day or month/year goal entry. Use Update on modified day/month/year objects whenever infromation changes. Refer to the JS documentaion for additional descriptions.
 
 ### Get
 
@@ -49,25 +49,20 @@ Here you need to declare a new variable `req` and set it to one of the get funct
 This is only needed to be used when you have just entered the page, this is the first thing you do as it is a get function.
 
 An example is when you enter the daily page but you need to display all the values of `day.notes, day.bullets, day.date, day.photos`. Once you leave the page, you will use the update function. However, if it is the first time you enter the page, you will need to use the create function.
+
 ### Defining Bullet and Goal objects
 `Day.bullets` contains an array of bullets, each representing a bullet that the user entered. Each Bullet object contains all the information for describing a bullet. Each bullet contains:
 ```
 text: String of the text (eg: "Had eggs for breakfast")
 
-symb: String of the symbol/tag of the bullet (eg: "*", "#", "*")
-
 done: Boolean of if the bullet is marked as "done"
 
 childList: Array of Bullet Objects that are its children (nested bullets)
 
-time String of event time of the bullet
+features: catagory of the bullet (eg: important, school)
 ```
 
 `YearlyGoals.goals`/`MonthlyGoals.goals` contain an array of goals, each representing a goal that the user entered. Each goal object contains all the information for descirbing the goal. Each goal contains:
 ```
 text: String of the text (eg "Lower phone usage time")
-
-start: String of the day the goal was made (eg: "01/01/2021")
-
-end: String of the day the goal ends (eg: "02/01/2021")
 ```

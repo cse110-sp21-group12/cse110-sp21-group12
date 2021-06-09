@@ -180,10 +180,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     document.querySelector('.entry-form-text').value = '';
     currentDay.bullets.push({
         text: bText,
-        symb: '•',
         done: false,
         childList: [],
-        time: null,
         features: 'normal',
     });
     console.log(currentDay);
@@ -386,7 +384,7 @@ function editBullet() {
 function updateNote() {
     let currNote = document
         .querySelector('note-box')
-        .shadowRoot.querySelector('.noteContent').innerHTML;
+        .shadowRoot.querySelector('.noteContent').value;
     currentDay.notes = currNote;
 }
 
