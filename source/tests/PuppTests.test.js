@@ -581,8 +581,7 @@ describe('basic navigation for BJ', () => {
         expect(`${mGoalsLength}`).toMatch('0');
     });
 
-    it('Test33: check <Year button in monthly overview works', async() => {
-
+    it('Test33: check <Year button in monthly overview works', async () => {
         await page.goBack();
 
         await page.waitForTimeout(300);
@@ -609,7 +608,7 @@ describe('basic navigation for BJ', () => {
         expect(`${bulletLength}`).toMatch('0');
     });
 
-    it('Test35: adding yearly goals, check length', async() => {
+    it('Test35: adding yearly goals, check length', async () => {
         await page.$eval('.entry-form-text', (bulletEntry) => {
             bulletEntry.value = '1 boba per week';
         });
@@ -628,7 +627,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-
         await page.$eval('#June', (button) => {
             button.click();
         });
@@ -647,7 +645,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test37: check yearly goals added in daily overview', async () => {
-
         await page.$eval('.today', (button) => {
             button.click();
         });
@@ -660,7 +657,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test38: edit yearly goals', async () => {
-
         await page.goBack();
         await page.goBack();
 
@@ -683,11 +679,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(bulletText).toMatch('2 boba per week');
-
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-
         await page.$eval('#juneTest', (button) => {
             button.click();
         });
@@ -705,11 +699,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${yGoalsText}`).toMatch('2 boba per week');
-
     });
 
     it('Test40: mark done yearly goals', async () => {
-        
         await page.goBack();
         await page.goBack();
 
@@ -723,11 +715,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(bulletText).toMatch('line-through');
-
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-
         await page.$eval('#juneTest', (button) => {
             button.click();
         });
@@ -743,11 +733,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${yGoalsText}`).toMatch('line-through');
-
     });
 
     it('Test42: delete yearly goals', async () => {
-
         await page.goBack();
         await page.goBack();
 
@@ -764,11 +752,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${bulletLength}`).toMatch('0');
-
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-
         await page.$eval('#juneTest', (button) => {
             button.click();
         });
@@ -785,11 +771,9 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(`${yGoalsLength}`).toMatch('0');
-
     });
 
     it('Test44: check <Index button in yearly overview works', async () => {
-
         await page.goBack();
         await page.goBack();
 
@@ -797,16 +781,16 @@ describe('basic navigation for BJ', () => {
 
         await page.$eval('#back', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
-        expect(`${url}`).toMatch('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html');
-
+        expect(`${url}`).toMatch(
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+        );
     });
 
     it('Test45: check that the calendar in the index page works properly', async () => {
-
         await page.$eval('.today', (button) => {
             button.click();
         });
@@ -824,12 +808,11 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test46: check that going to certain years work in the index page', async () => {
-
         await page.goBack();
 
         await page.$eval('#2021_link', (button) => {
             button.click();
-        })
+        });
 
         const url = await page.evaluate(() => location.href);
 
@@ -839,7 +822,6 @@ describe('basic navigation for BJ', () => {
         let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
 
         expect(`${boolYear}`).toMatch('true');
-
     });
 
     it('Test47: check that the home button works in the yearly overview', async () => {
