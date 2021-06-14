@@ -186,6 +186,7 @@ function getMockData() {
     let reqSE = getSettings();
     reqSE.onsuccess = function (e) {
         console.log('got settings');
+        console.log('Checking Testing');
         console.log(e.target.result);
     };
 
