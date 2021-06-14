@@ -169,6 +169,7 @@ function getMockData() {
     let reqMG = getMonthlyGoals('12/2021');
     reqMG.onsuccess = function (e) {
         console.log('got monthly goals');
+        console.log('Testing Build Process');
         console.log(e.target.result);
     };
 
