@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* since many functions here aren't called, eslint complains about unused-vars */
+/* eslint complains about unused-vars because many functions are not called */
 
 /**
  * Want to first check if database exists, and if not, set it up
@@ -24,9 +24,9 @@ let db;
 
 /**
  * Function checks to see if this visitor has a database set up
- * if it doesn't, then creates the stores and indexes
- * NOTE: It is up to the CALLER to call "setDB" with the returned database object
- * before making any transactions
+ * if it doesn't, then creates the stores and indices
+ * NOTE: It is up to the CALLER to call "setDB" with the returned database
+ * object before making any transactions
  * @returns a request for a db object
  */
 function initDB() {
@@ -36,12 +36,14 @@ function initDB() {
     // not sure if we need to use dbPromise here
     // eslint-disable-next-line no-unused-vars
     let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
-    // TBH idk why google calls this "upgradeDb", perhaps they reference this creations as "upgrading"
+    // TBH idk why google calls this "upgradeDb", perhaps they reference this
+    // creations as "upgrading"
     dbPromise.onupgradeneeded = function (e) {
         db = e.target.result;
         if (!db.objectStoreNames.contains('days')) {
             /**
-                     * creating a object store for days, these will be differentiated by a date string
+                     * creating a object store for days, these will be 
+                     * differentiated by a date string
                      * (eg: '05-20-2021')
                      * Here is a sample of what a 'days' could look like:
                      {
@@ -54,8 +56,9 @@ function initDB() {
         }
         if (!db.objectStoreNames.contains('yearlyGoals')) {
             /**
-                     * creating a yearly store for yearly goals, since we won't ever need to be getting
-                     * a specific goal (but rather goals within a certain year), we can use an auto-increment key
+                     * creating a yearly store for yearly goals, since we won't 
+                     * ever need to be getting a specific goal (but rather goals 
+                     * within a certain year), we can use an auto-increment key
                      {
                             year: xxxx
                             goals: [yGoal1, yGoal2,..]
@@ -66,8 +69,10 @@ function initDB() {
         }
         if (!db.objectStoreNames.contains('monthlyGoals')) {
             /**
-                     * creating a monthly store for monthly goals, since we won't ever need to be getting
-                     * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
+                     * creating a monthly store for monthly goals, since we 
+                     * won't ever need to be getting a specific goal (but 
+                     * rather goals within a certain monthly), we can use an 
+                     * auto-increment key
                      {
                             month: xx/xxxx (month and year)
                             goals: [mGoal1, mGoal2,..]
@@ -81,9 +86,10 @@ function initDB() {
                      * creating a store to place the settings object
                      * This one is tricky, since the story would only have a
                      * max of 1 object (one per use). 
-                     * We can always retrieve it with a key=1, but we have to make sure
-                     * we only create this once
-                     * -there doesn't seem to be a need to create additional indices
+                     * We can always retrieve it with a key=1, but we have to 
+                     * make sure we only create this once
+                     * -there doesn't seem to be a need to create additional 
+                     * indices
                      { theme: 1, password: ..., name: ...  }
                     */
             db.createObjectStore('setting', { autoIncrement: true });
@@ -221,7 +227,8 @@ function editMockData() {
 /**
  * given a string date key, will return the correct date object
  * @param {String} dateStr -  of form "mm/dd/yyyy" eg: "02/12/2020"
- * @returns A request for a date, if no day with the given dateStr exists, returns undefined
+ * @returns A request for a date, if no day with the given dateStr exists,
+ *  returns undefined
  */
 function getDay(dateStr) {
     let tx = db.transaction(['days'], 'readonly');
@@ -234,7 +241,8 @@ function getDay(dateStr) {
 /**
  * given a day object, will create an entry in the database
  * @param {Object} dayObj - Custom day object
- * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
+ * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/"
+ *  (ie: "02/28/2021")
  * @param {Object} dayObj.bullets - an array of bullets
  * @param {Object} dayObj.photos - an array of photo objects, encoded in Base64
  * @param {string} dayObj.notes - a string representing the notes
@@ -257,7 +265,8 @@ function createDay(dayObj) {
  * takes a given day object and updates it
  * the date property must match an entry in the database
  * @param {Object} dayObj - Custom day object
- * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/" (ie: "02/28/2021")
+ * @param {string} dayObj.date -  date of the form "mm/dd/yyyy/"
+ *  (ie: "02/28/2021")
  * @param {Object} dayObj.bullets - an array of bullets
  * @param {Object} dayObj.photos - an array of photo objects
  * @param {string} dayObj.notes - a string representing the notes
@@ -297,7 +306,8 @@ function deleteDay(dayStr) {
 /**
  * given a year string, gets the set of yearly goals in that year
  * @param {String} yearStr - the year in the form "yyyy" (eg: "2021")
- * @returns A request for the year object, if none exist with the yearStr, returns undefined
+ * @returns A request for the year object, if none exist with the yearStr,
+ *  returns undefined
  */
 function getYearlyGoals(yearStr) {
     let tx = db.transaction(['yearlyGoals'], 'readonly');
@@ -307,7 +317,8 @@ function getYearlyGoals(yearStr) {
 }
 
 /**
- * given a yearlyGoals obj, creates a yearGoals object which contains the year, as well as a list of yearly goals
+ * given a yearlyGoals obj, creates a yearGoals object which contains the year,
+ * as well as a list of yearly goals
  * @param {Object} yearObj - custom year object
  * @param {string} yearObj.year - year in the form "xxxx" (eg: "2020")
  * @param {Object} yearObj.goals - an array of custom goal objects
@@ -367,8 +378,10 @@ function deleteYearlyGoals(yearStr) {
 
 /**
  * gets a monthlyGoal object given the input month string
- * @param {String} monthStr - month along with year in the form "xx/xxxx" (eg: "02/2022")
- * @returns a request for a monthlyGoals object if none with the monthStr exist, returns undefined
+ * @param {String} monthStr - month along with year in the form "xx/xxxx"
+ *  (eg: "02/2022")
+ * @returns a request for a monthlyGoals object if none with the monthStr
+ *  exist, returns undefined
  */
 function getMonthlyGoals(monthStr) {
     let tx = db.transaction(['monthlyGoals'], 'readonly');
@@ -380,7 +393,8 @@ function getMonthlyGoals(monthStr) {
 /**
  * creates a monthlyGoal object in the database given a monthlyGoal object
  * @param {Object} monthObj
- * @param {string} monthObj.year - month and year in the form "mm/yyyy" (eg: "12/2020")
+ * @param {string} monthObj.year - month and year in the form "mm/yyyy"
+ *  (eg: "12/2020")
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
@@ -401,7 +415,8 @@ function createMonthlyGoals(monthObj) {
  * updates a monthlyGoals object in the database  monthObj.month must
  * match one existing in the database
  * @param {Object} monthlyObj
- * @param {string} monthObj.month - month and year in the form "mm/yyyy" (eg: "12/2020")
+ * @param {string} monthObj.month - month and year in the form "mm/yyyy"
+ *  (eg: "12/2020")
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
@@ -526,9 +541,11 @@ function initYear(yearStr) {
 
 /**
  * creates a new month object given a month string
- * @param {String} monthStr - a string representation of the month (this also includes the year)
+ * @param {String} monthStr - a string representation of the month (this also
+ *  includes the year)
  * @returns {Object} monthObj - the new monthly goal obj
- * @returns {String} monthObj.year - string of the month (which is of the form "xx/xxxx" eg: "02/2021")
+ * @returns {String} monthObj.year - string of the month (which is of the form
+ *  "xx/xxxx" eg: "02/2021")
  * @returns {Object} monthObj.goals- an array (initially empty) of goal objects
  */
 function initMonth(monthStr) {
