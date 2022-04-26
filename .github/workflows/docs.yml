@@ -27,6 +27,8 @@ jobs:
           front_page: README.md
 
       # push to public repo to host the docs, change repo for cse112 group
+      # can check the repo name below for documentation on how it works
+      # https://github.com/cpina/github-action-push-to-another-repository
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -35,4 +37,6 @@ jobs:
           source-directory: 'docs'
           destination-github-username: 'DustinLin'
           destination-repository-name: 'CSE112-sp22-group9-docs'
+          user-email: 'd6lin@ucsd.edu'
+          user-name: 'd6lin'
           target-branch: master

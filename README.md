@@ -2,7 +2,7 @@
 
 [Bullet Journal](https://cse112-sp22-group9.github.io/cse112-sp22-group9/)
 ### Documentation Site
-our jsDocs are hosted [here](https://dustinlin.github.io/110Group12JsDocs/index.html)
+our jsDocs are hosted [here](https://dustinlin.github.io/CSE112-sp22-group9-docs/)
 
 ### Description of Project
 
