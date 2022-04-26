@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint complains about unused-vars because many functions are not called */
+/* es-lint complains about unused-vars because many functions are not called */
 
 /**
  * Want to first check if database exists, and if not, set it up
