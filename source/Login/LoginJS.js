@@ -7,9 +7,8 @@
  * @param {*} param testing docs
  */
 function checkingDeploy(param) {
-    console.log("hello world")
+    console.log('hello world');
 }
-
 
 /**
  * gets the current session storage,
