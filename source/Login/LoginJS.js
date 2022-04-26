@@ -2,6 +2,16 @@
 //let sha1 = require('sha1');
 
 /**
+ * Simple test function to make sure deployment to new CSE112 jsDocs website works, can remove
+ *
+ * @param {*} param testing docs
+ */
+function checkingDeploy(param) {
+    console.log("hello world")
+}
+
+
+/**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
  * survives between reloads

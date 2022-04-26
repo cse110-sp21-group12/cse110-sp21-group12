@@ -5,7 +5,7 @@ on:
   #having it generate on push to development
   push:
     branches:
-    - main
+    - checkingDeploy-I2-Dustin 
   workflow_dispatch:
 
 
@@ -26,7 +26,7 @@ jobs:
           recurse: true
           front_page: README.md
 
-      # push to public repo to host the docs
+      # push to public repo to host the docs, change repo for cse112 group
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -34,5 +34,5 @@ jobs:
         with:
           source-directory: 'docs'
           destination-github-username: 'DustinLin'
-          destination-repository-name: '110Group12JsDocs'
+          destination-repository-name: 'CSE112-sp22-group9-docs'
           target-branch: master
