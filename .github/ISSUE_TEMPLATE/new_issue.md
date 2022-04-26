@@ -1,3 +1,12 @@
+---
+name: Default Issue Template
+about: Always use this template instead of a blank one
+title: ''
+labels: 'issue'
+assignees: ''
+
+---
+
 ## Name and Email
   - Name: 
   - Email: 
