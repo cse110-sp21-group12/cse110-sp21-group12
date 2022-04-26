@@ -5,6 +5,7 @@
  * Want to first check if database exists, and if not, set it up
  * a constant name to our database
  */
+/* cspell:disable-next-line */
 const DB_NAME = 'bujoBase';
 
 /**
@@ -22,10 +23,10 @@ let mockData;
 let db;
 
 /**
- * Function checks to see if this visotor has a databse set up
- * if it doesn't, then cretaes the stores and indicies
- * NOTE: It is up to the CALLER to call "setDB" with the returned database object before making
- * any transactions
+ * Function checks to see if this visitor has a database set up
+ * if it doesn't, then creates the stores and indexes
+ * NOTE: It is up to the CALLER to call "setDB" with the returned database object
+ * before making any transactions
  * @returns a request for a db object
  */
 function initDB() {
@@ -35,12 +36,12 @@ function initDB() {
     // not sure if we need to use dbPromise here
     // eslint-disable-next-line no-unused-vars
     let dbPromise = indexedDB.open(DB_NAME, DB_VERSION);
-    // TBH idk why google calls this "upgradeDb", perhaps they refernce this creations as "upgrading"
+    // TBH idk why google calls this "upgradeDb", perhaps they reference this creations as "upgrading"
     dbPromise.onupgradeneeded = function (e) {
         db = e.target.result;
         if (!db.objectStoreNames.contains('days')) {
             /**
-                     * creating a object store for days, these will be differentiaed by a date string
+                     * creating a object store for days, these will be differentiated by a date string
                      * (eg: '05-20-2021')
                      * Here is a sample of what a 'days' could look like:
                      {
@@ -59,19 +60,19 @@ function initDB() {
                             year: xxxx
                             goals: [yGoal1, yGoal2,..]
                         }
-                        ^^^ should we store each goal seoerately, or as a list?
+                        ^^^ should we store each goal separately, or as a list?
                     */
             db.createObjectStore('yearlyGoals', { keyPath: 'year' });
         }
         if (!db.objectStoreNames.contains('monthlyGoals')) {
             /**
-                     * creating a montly store for monthly goals, since we won't ever need to be getting
+                     * creating a monthly store for monthly goals, since we won't ever need to be getting
                      * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
                      {
                             month: xx/xxxx (month and year)
                             goals: [mGoal1, mGoal2,..]
                         }
-                        ^^^ should we store each goal seoerately, or as a list?
+                        ^^^ should we store each goal separately, or as a list?
                     */
             db.createObjectStore('monthlyGoals', { keyPath: 'month' });
         }
@@ -83,7 +84,7 @@ function initDB() {
                      * We can always retrieve it with a key=1, but we have to make sure
                      * we only create this once
                      * -there doesn't seem to be a need to create additional indices
-                     { theme: 1, passowrd: ..., name: ...  }
+                     { theme: 1, password: ..., name: ...  }
                     */
             db.createObjectStore('setting', { autoIncrement: true });
         }
@@ -116,7 +117,7 @@ function setDB(dbReturn) {
 //}
 
 /**
- * Is called to populate the databse with mockData when one doesn't exist
+ * Is called to populate the database with mockData when one doesn't exist
  * IS NOW DEPRECATED
  */
 function setUpMockData() {
@@ -188,6 +189,7 @@ function getMockData() {
     //This one is getting an entry that doesn't exist
     let reqYGE = getYearlyGoals('2021');
     reqYGE.onsuccess = function (e) {
+        /* cspell:disable-next-line */
         console.log('didnt yearly goals 2021, should be undefined');
         console.log(e.target.result);
     };
@@ -211,6 +213,7 @@ function deleteMockData() {
  * IS NOW DEPRECATED
  */
 function editMockData() {
+    /* cspell:disable-next-line */
     let settings = { username: 'Prospero', passoword: '1611', theme: 0 };
     updateSettings(settings);
 }
@@ -416,7 +419,7 @@ function updateMonthlyGoals(monthObj) {
 }
 
 /**
- * deletes monthly goal obejct associated with the given month string
+ * deletes monthly goal object associated with the given month string
  * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
  * @returns void
  */
@@ -506,7 +509,7 @@ function deleteSettings() {
 }
 
 /**
- * Below are constuctors for objects to store
+ * Below are constructors for objects to store
  * in the database that you may help find useful
  */
 
@@ -515,7 +518,7 @@ function deleteSettings() {
  * @param {String} yearStr - the year (eg: "2020")
  * @returns {Object} yearObj - the new year object
  * @returns {String} yearObj.year - string of the year
- * @returns {Object} yearObj.goals- an array (initally empty) of goal objects
+ * @returns {Object} yearObj.goals- an array (initially empty) of goal objects
  */
 function initYear(yearStr) {
     return { year: yearStr, goals: [] };
@@ -523,10 +526,10 @@ function initYear(yearStr) {
 
 /**
  * creates a new month object given a month string
- * @param {String} monthStr - a string repr of the month (this also includes the year)
+ * @param {String} monthStr - a string representation of the month (this also includes the year)
  * @returns {Object} monthObj - the new monthly goal obj
  * @returns {String} monthObj.year - string of the month (which is of the form "xx/xxxx" eg: "02/2021")
- * @returns {Object} monthObj.goals- an array (initally empty) of goal objects
+ * @returns {Object} monthObj.goals- an array (initially empty) of goal objects
  */
 function initMonth(monthStr) {
     return { month: monthStr, goals: [] };
@@ -544,7 +547,7 @@ function initDay(dateStr) {
 
 /**
  * creates a new goal object given a goal string
- * new goals area always initalized as not done
+ * new goals area always initialized as not done
  * @param {String} goalStr - a string of the goal
  * @returns {Object} goal - the new goal object
  * @returns {String} goal.text - the string of what the text is
