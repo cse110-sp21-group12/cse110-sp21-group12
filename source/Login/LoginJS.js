@@ -124,7 +124,7 @@ function goHome() {
  */
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText = 'Create your login!';
+    document.getElementById('title').innerText = 'Create your login, 9 Lives style!';
     loginButton.innerText = 'Sign-Up';
 }
 
@@ -134,7 +134,7 @@ function setNewUser() {
  */
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
-    document.getElementById('title').innerText = 'Welcome back!';
+    document.getElementById('title').innerText = 'Welcome back, 9 Lives style!';
     loginButton.innerText = 'Sign-In';
 }
 
