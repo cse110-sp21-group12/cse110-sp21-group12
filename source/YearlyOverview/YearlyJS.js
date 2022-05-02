@@ -61,7 +61,6 @@ window.addEventListener('load', () => {
     };
 });
 
-
 // adding listener to goal entry form
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
@@ -87,7 +86,7 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     console.log('got event');
     console.log(e.composedPath());
 
-    // getting index of deleted bullet 
+    // getting index of deleted bullet
     let index = e.composedPath()[0].getAttribute('index');
 
     // removing bullet and updating database
@@ -140,12 +139,12 @@ function renderGoals(goals) {
         // creating goal element
         let newPost = document.createElement('goals-entry');
 
-        // setting attributes 
+        // setting attributes
         newPost.setAttribute('goalJson', JSON.stringify(goal));
         newPost.setAttribute('index', i);
         newPost.entry = goal;
 
-        // debug 
+        // debug
         console.log(newPost);
 
         // appending goal list
