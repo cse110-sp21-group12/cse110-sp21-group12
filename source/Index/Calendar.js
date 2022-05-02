@@ -32,6 +32,9 @@ window.addEventListener('load', () => {
     }
 });
 
+/**
+ * Dynamically setup page content.
+ */
 function setupContent() {
     //alert("Load runs");
     for (let yr = yr_start; yr <= yr_end; yr++) {
@@ -107,7 +110,9 @@ function setupContent() {
     }
 }
 
-//dynamically generates calendar for current month
+/**
+ * Dynamically generate calendar for current month.
+ */
 function setupCalendar() {
     const calTarget = document.getElementById('calendar');
 
@@ -201,12 +206,21 @@ function setupCalendar() {
 setupContent();
 setupCalendar();
 
-//sleep
+/**
+ * Sleep for a set amount of milliseconds - helper function
+ * @param {*} ms 
+ * @returns a Promise object to handle sleeping
+ */
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-//days-in-month helper function
+/**
+ * Gets the number of days in a specified month - helper function
+ * @param {*} month 
+ * @param {*} year 
+ * @returns 
+ */
 function daysInMonth(month, year) {
     return new Date(year, month + 1, 0).getDate();
 }
