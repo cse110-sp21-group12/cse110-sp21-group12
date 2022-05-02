@@ -61,6 +61,7 @@ function collapsible_year_toggle() {
     }
 }
 
+// make collapsible years list clickable
 for (let i = 0; i < collapsible_years_list.length; i++) {
     collapsible_years_list[i].addEventListener(
         'click',
