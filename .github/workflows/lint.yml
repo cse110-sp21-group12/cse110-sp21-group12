@@ -24,7 +24,7 @@ jobs:
           node-version: 12
 
       - name: Pull origin branch
-        # added a pull command b/c sometimes it comaplians about remote changes
+        # added a pull command b/c sometimes it complains about remote changes
         run: |
             git pull origin ${{ github.ref }}
 
