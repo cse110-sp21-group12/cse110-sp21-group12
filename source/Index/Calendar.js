@@ -205,7 +205,7 @@ setupCalendar();
 
 /**
  * Sleep for a set amount of milliseconds - helper function
- * @param {*} ms 
+ * @param {*} ms
  * @returns a Promise object to handle sleeping
  */
 function sleep(ms) {
@@ -214,9 +214,9 @@ function sleep(ms) {
 
 /**
  * Gets the number of days in a specified month - helper function
- * @param {*} month 
- * @param {*} year 
- * @returns 
+ * @param {*} month
+ * @param {*} year
+ * @returns
  */
 function daysInMonth(month, year) {
     return new Date(year, month + 1, 0).getDate();
