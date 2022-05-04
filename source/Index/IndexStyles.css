@@ -5,7 +5,7 @@
 /* Global styles */
 :root {
     --bg-color: white;
-    --clr-bg-hover:hsla(0, 0%, 0%, 0.1);
+    --clr-bg-hover: hsla(0, 0%, 0%, 0.1);
 }
 * {
     font-family: 'Courier', monospace;
