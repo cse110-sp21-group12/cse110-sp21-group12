@@ -222,8 +222,15 @@ h2 {
 
 #addPhoto {
     background-color: transparent;
-    border: none;
-    font-size: 2.75vh;
+    border : 3px solid black; 
+    border-radius: 5px ; 
+    font-size: 2vh; 
+    margin-bottom: 10px; 
+    color: #565252; 
+    cursor: pointer;
+}
+#addPhoto:hover {
+    background-color: rgb(223, 217, 217);  
 }
 
 #myCanvas {
@@ -237,6 +244,7 @@ button#right {
     background-color: transparent;
     border: none;
     font-size: 2vh;
+    cursor: pointer;
 }
 
 /* Misc */

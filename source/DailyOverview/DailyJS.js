@@ -403,7 +403,6 @@ input.addEventListener('change', (event) => {
 add.addEventListener('click', () => {
     input.type = 'file';
     save.style.display = 'inline';
-    canv.clearRect(0, 0, canvas.width, canvas.height);
     relative = window.img.length;
 });
 // Save image and will hide everything else
@@ -411,7 +410,8 @@ add.addEventListener('click', () => {
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
-
+    // clear image space before displaying new image
+    canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
