@@ -1,0 +1,17 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# can list out commnad in this file that will run, eg: linting (even commit msgs), testing, branch name patterns
+
+# custom defined script that will check for branch naming, custom hooks are stored in ".husky/hooks/"
+#npm run check-branch-naming
+echo starting pre-commit stuff
+
+# runs esline and prettier on staged js files, uses this package: https://github.com/okonet/lint-staged
+# defined in package.json in the "lint-staged" tag, first runs "eslint", and if that doesn't fail, runs "prettier --write"
+# want to define "--allow-empty" here, NOT in the actual git commit message, that won't work for some reason
+# by default seems to ignore files placed in the .husky/ folders
+npx lint-staged --verbose
+
+
+#npm test
