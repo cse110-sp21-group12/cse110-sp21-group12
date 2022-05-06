@@ -3,7 +3,6 @@ let collapsible_years_list = document.getElementsByClassName('coll_yr_button');
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
     }
@@ -76,7 +75,6 @@ document.querySelector('#themes').addEventListener('change', () => {
     let req = getSettings();
     req.onsuccess = function (e) {
         console.log('got settings');
-        console.log(e.target.result);
         let settingObj = e.target.result;
         settingObj.theme = document.querySelector('#themes').value;
         document.documentElement.style.setProperty(

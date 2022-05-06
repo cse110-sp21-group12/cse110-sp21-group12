@@ -8,7 +8,6 @@
  * -new tabs or closing it will refresh the session
  */
 let storageSession = window.sessionStorage;
-console.log('here is the storage session: ', storageSession);
 
 //store current page state
 let loginState;
@@ -52,8 +51,6 @@ function getLoginState() {
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            console.log('got settings');
-            console.log(e.target.result);
             settingObj = e.target.result;
             if (settingObj === undefined) {
                 loginState = 'new';
@@ -98,9 +95,6 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
-    console.log(
-        'Input: ' + password + ' | Correct password: ' + correctPassword
-    );
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
