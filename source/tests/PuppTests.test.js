@@ -874,4 +874,23 @@ describe('basic navigation for BJ', () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
+    it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets .today and passes it to callback function to click today calendar btn
+        await page.$eval('.today', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current month name */
+        const currentDate = new Date();
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const expected = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const monthlyOverviewLink = await page.$('#monthView > a:first-child');
+        const linkText = await (await monthlyOverviewLink.getProperty('textContent')).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    })
 });

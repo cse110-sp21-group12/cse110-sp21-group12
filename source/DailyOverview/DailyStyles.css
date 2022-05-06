@@ -50,6 +50,14 @@ h2 {
     display: block;
 }
 
+h1 > a:first-child {
+    text-decoration: none;
+}
+
+h1 > a:first-child:hover {
+    text-decoration: underline !important;
+}
+
 #date {
     display: block;
     grid-area: date;
