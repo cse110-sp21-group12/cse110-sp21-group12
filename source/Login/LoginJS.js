@@ -138,6 +138,43 @@ function handleResetPassword() {
     });
 }
 
+
+
+function verifyValidInputs(newUsername, newPassword){
+    //prohibit empty username
+    if (newUsername == '') {
+        alert('Please provide a username');
+        return false;
+    }
+    //prohibit short names
+    else if (newUsername.length < MIN_NAME_LENGTH) {
+        alert('Username must be at least 2 characters long');
+        return false;
+    }
+    //prohibit invalid characters in username
+    else if (name_regex.test(newUsername)) {
+        alert('Username must not contain special characters');
+        //console.log(newUsername.match(name_regex));
+        return false;
+    }
+
+    //prohibit short passwords
+    else if (newPassword.length < MIN_PIN_LENGTH) {
+        alert('PIN must be at least 4 digits long');
+        return false;
+    }
+    //prohibit non-numeric PIN
+    else if (pin_regex.test(newPassword)) {
+        alert('PIN must contain numbers only');
+        return false;
+    }
+
+    //allow otherwise
+    else {
+        return true;
+    }
+}
+
 /**
  * Handles Login request. Checks if password hash is correct, and if so, goes to index
  * (Password is "dinosaurs12")
