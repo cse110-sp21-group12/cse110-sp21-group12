@@ -79,7 +79,6 @@ function getLoginState() {
  * @param {String} newPassword PIN of new user
  */
 function handleSignup(newUsername, newPassword) {
-
     //call helper to check if inputs are valid
     if (verifyValidInputs(newUsername, newPassword)) {
         //if so, proceed
@@ -96,10 +95,8 @@ function handleSignup(newUsername, newPassword) {
         //automatically log in
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
-
     }
 }
-
 
 /**
  * Helper function called from handleSignup()
@@ -113,7 +110,7 @@ function verifyValidInputs(newUsername, newPassword) {
         alert('Please provide a username');
         return false;
     }
-    //prohibit short names 
+    //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
         alert('Username must be at least 2 characters long');
         return false;
@@ -141,7 +138,6 @@ function verifyValidInputs(newUsername, newPassword) {
         return true;
     }
 }
-
 
 /**
  * Handles Login request. Checks if password hash is correct, and if so, goes to index
