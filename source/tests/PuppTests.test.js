@@ -26,7 +26,7 @@ describe('basic navigation for BJ', () => {
         const headerText = await page.$eval('#title', (header) => {
             return header.innerHTML;
         });
-        expect(headerText).toBe('Create your login!');
+        expect(headerText).toBe('Create your account!');
     });
 
     /*
@@ -58,6 +58,90 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
     });
     */
+
+    it('LoginTest1: no username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = '';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('Please provide a username');
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest2: short username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'a';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('Username must be at least 2 characters long');
+            await dialog.dismiss();
+        });
+    });
+
+
+    it('LoginTest3: bad username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'ABC:DEF';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('Username must not contain special characters');
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest4: short pin', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '12';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('PIN must be at least 4 digits long');
+            await dialog.dismiss();
+        });
+    });
+
+
+    it('LoginTest5: bad pin', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234abc';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('PIN must contain numbers only');
+            await dialog.dismiss();
+        });
+    });
+
+
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
