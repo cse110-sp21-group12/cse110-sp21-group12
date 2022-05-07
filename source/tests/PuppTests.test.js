@@ -86,11 +86,12 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('Username must be at least 2 characters long');
+            expect(dialog.message).toEqual(
+                'Username must be at least 2 characters long'
+            );
             await dialog.dismiss();
         });
     });
-
 
     it('LoginTest3: bad username', async () => {
         await page.$eval('#username', (usernameInput) => {
@@ -103,7 +104,9 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('Username must not contain special characters');
+            expect(dialog.message).toEqual(
+                'Username must not contain special characters'
+            );
             await dialog.dismiss();
         });
     });
@@ -119,11 +122,12 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('PIN must be at least 4 digits long');
+            expect(dialog.message).toEqual(
+                'PIN must be at least 4 digits long'
+            );
             await dialog.dismiss();
         });
     });
-
 
     it('LoginTest5: bad pin', async () => {
         await page.$eval('#username', (usernameInput) => {
@@ -140,8 +144,6 @@ describe('basic navigation for BJ', () => {
             await dialog.dismiss();
         });
     });
-
-
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
