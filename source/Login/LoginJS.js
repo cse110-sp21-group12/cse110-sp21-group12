@@ -81,20 +81,23 @@ function handleLoginButton() {
  * @param {*} newPassword PIN of new user
  */
 function handleSignup(newUsername, newPassword) {
-    let userObject = {
-        username: newUsername,
-        password: newPassword,
-        theme: '#d4ffd4',
-    };
-    //update settings
-    // eslint-disable-next-line no-undef
-    updateSettings(userObject);
-    console.log('frontend: updating settings...');
-    //make them log in
-    //toggleView();
-    console.log('Account created! Please log in');
-    sessionStorage.setItem('loggedIn', 'true');
-    goHome();
+    //call helper to check if inputs are valid
+    if (verifyValidInputs(newUsername, newPassword)) {
+        //if so, proceed
+        let userObject = {
+            username: newUsername,
+            password: newPassword,
+            theme: '#d4ffd4',
+        };
+
+        //update settings
+        // eslint-disable-next-line no-undef
+        updateSettings(userObject);
+
+        //automatically log in
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
+    }
 }
 
 /**
