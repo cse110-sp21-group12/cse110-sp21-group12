@@ -58,6 +58,16 @@ body {
     height: 20%;
 }
 
+#reset-password-button {
+    background-color: #1e942d;
+    color: black;
+    border-radius: 0.5vw;
+    flex-grow: 1;
+    font-size: 5vh;
+    margin: 0.5% 1vw;
+    height: 20%;
+}
+
 input {
     background-color: white;
     border-radius: 0.5vw;

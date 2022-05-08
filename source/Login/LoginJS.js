@@ -24,12 +24,12 @@ let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-loginButton.addEventListener('click', () => {
-    if (loginState == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (loginState == 'new') {
-        handleSignup(usernameField.value, passwordField.value);
-    }
+loginButton.addEventListener('click', handleLoginButton);
+
+// make the reset-password-button redirect to Index
+let resetPasswordButton = document.getElementById('reset-password-button');
+resetPasswordButton.addEventListener('click', () => {
+    handleResetPassword();
 });
 
 //make the toggle button change the page state
@@ -67,6 +67,17 @@ function getLoginState() {
 }
 
 /**
+ * handle the login button functionalities
+ */
+function handleLoginButton() {
+    if (loginState == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (loginState == 'new') {
+        handleSignup(usernameField.value, passwordField.value);
+    }
+}
+
+/**
  * Handle a Sign-Up request from a new user
  *
  * @param {*} newUsername Display name of new user
@@ -84,9 +95,33 @@ function handleSignup(newUsername, newPassword) {
     console.log('frontend: updating settings...');
     //make them log in
     //toggleView();
-    alert('Account created! Please log in');
+    console.lo('Account created! Please log in');
     sessionStorage.setItem('loggedIn', 'true');
     goHome();
+}
+
+/**
+ * handle reset password functionaliy of the associated
+ */
+function handleResetPassword() {
+    loginButton.innerHTML = "Confirm";
+    loginButton.removeEventListener('login-button', handleLoginButton);
+    loginButton.addEventListener(('click'), () => {
+        // update settings
+        let userObject = {
+            username: getSettings().username,
+            password: passwordField.value,
+            theme: '#d4ffd4',
+        };
+        updateSettings(userObject);
+
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
+
+        // reset the button after clicked and update the settings
+        loginButton.innerHTML = 'Sign-In';
+        loginButton.addEventListener('click', handleLoginButton);
+    });
 }
 
 /**
@@ -115,7 +150,7 @@ function handleLogin(password) {
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
-    alert('login');
+    console.log('login');
     window.location.href = '../Index/Index.html';
 }
 /**
