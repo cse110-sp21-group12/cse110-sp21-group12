@@ -104,9 +104,9 @@ function handleSignup(newUsername, newPassword) {
  * handle reset password functionaliy of the associated
  */
 function handleResetPassword() {
-    loginButton.innerHTML = "Confirm";
+    loginButton.innerHTML = 'Confirm';
     loginButton.removeEventListener('login-button', handleLoginButton);
-    loginButton.addEventListener(('click'), () => {
+    loginButton.addEventListener('click', () => {
         // update settings
         let userObject = {
             username: getSettings().username,
