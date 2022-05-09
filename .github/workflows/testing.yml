@@ -4,9 +4,9 @@ name: Testing
   # Controls when the action will run (on every push across all branches)
 on:
   push:
-    branches:
-    #testing on testing branch rn
-    - testing
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
