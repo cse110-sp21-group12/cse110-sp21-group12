@@ -627,7 +627,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -639,7 +639,7 @@ describe('basic navigation for BJ', () => {
 
         //kinda too lazy to build the string
         let boolYear = url.indexOf(`${currentDate.getFullYear()}`) > -1;
-        let boolMonth = url.indexOf(`${5 + 1}`) > -1;
+        let boolMonth = url.indexOf(`${currentDate.getMonth() + 1}`) > -1;
 
         expect(`${boolMonth && boolYear}`).toMatch('true');
     });
