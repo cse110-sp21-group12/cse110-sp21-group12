@@ -113,6 +113,7 @@ function handleResetPassword() {
             password: passwordField.value,
             theme: '#d4ffd4',
         };
+        // eslint-disable-next-line no-undef
         updateSettings(userObject);
 
         sessionStorage.setItem('loggedIn', 'true');
