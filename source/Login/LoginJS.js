@@ -103,6 +103,10 @@ function handleSignup(newUsername, newPassword) {
 /**
  * handle reset password functionaliy of the associated
  */
+/**
+ * handle the login button functionalities
+ */
+ 
 function handleResetPassword() {
     loginButton.innerHTML = 'Confirm';
     loginButton.removeEventListener('login-button', handleLoginButton);
@@ -116,9 +120,8 @@ function handleResetPassword() {
         // eslint-disable-next-line no-undef
         updateSettings(userObject);
 
-        sessionStorage.setItem('loggedIn', 'true');
-        goHome();
-
+        //sessionStorage.setItem('loggedIn', 'true');
+        //handleLogin(userObject.password);
         // reset the button after clicked and update the settings
         loginButton.innerHTML = 'Sign-In';
         loginButton.addEventListener('click', handleLoginButton);
