@@ -109,7 +109,7 @@ function handleResetPassword() {
     loginButton.addEventListener(('click'), () => {
         // update settings
         let userObject = {
-            username: getSettings().username,
+            username: settingObj.username,
             password: passwordField.value,
             theme: '#d4ffd4',
         };
