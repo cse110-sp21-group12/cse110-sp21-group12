@@ -768,7 +768,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -804,7 +804,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -841,7 +841,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
