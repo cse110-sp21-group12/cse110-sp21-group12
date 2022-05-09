@@ -106,7 +106,7 @@ function handleSignup(newUsername, newPassword) {
 /**
  * handle the login button functionalities
  */
- 
+
 function handleResetPassword() {
     loginButton.innerHTML = 'Confirm';
     loginButton.removeEventListener('login-button', handleLoginButton);
