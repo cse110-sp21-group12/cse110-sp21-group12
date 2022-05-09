@@ -404,6 +404,7 @@ add.addEventListener('click', () => {
     input.type = 'file';
     save.style.display = 'inline';
     relative = window.img.length;
+    console.log(currentDay.photos)
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
@@ -428,6 +429,8 @@ save.addEventListener('click', () => {
 
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
+    console.log(currentDay.photos)
+    console.log(window.img[relative].src)
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {
@@ -453,6 +456,7 @@ left.addEventListener('click', () => {
     }
 });
 right.addEventListener('click', () => {
+    
     relative += 1;
     if (relative == window.img.length) {
         relative = 0;
