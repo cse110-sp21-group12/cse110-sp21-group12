@@ -2,11 +2,13 @@ const puppeteer = require('puppeteer');
 // please read through some of the comments with NOTE: if this test fails
 // This test is more for local testing since I am not sure what would happen to the test if it is run on github
 
-describe('basic navigation for BJ',  () => {
-
-    it('Test1: Login, go to specified day, then add 2 photos and view both ', async done => {
+describe('basic navigation for BJ', () => {
+    it('Test1: Login, go to specified day, then add 2 photos and view both ', async (done) => {
         jest.setTimeout(90000);
-        const browser = await puppeteer.launch({ headless: false, slowMo: 250, });
+        const browser = await puppeteer.launch({
+            headless: false,
+            slowMo: 250,
+        });
         const page = await browser.newPage();
         // this lets us see console.logs in this format : await page.evaluate(() => console.log());
         page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
@@ -19,6 +21,10 @@ describe('basic navigation for BJ',  () => {
         // await page.goto(
         //         'http://127.0.0.1:5500/source/Login/Login.html'
         //     );
+        // await page.goto(
+        //     'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+        // );
+
         await page.waitForTimeout(500);
 
         // login page check
@@ -43,7 +49,6 @@ describe('basic navigation for BJ',  () => {
 
         await page.$eval('#login-button', (button) => {
             button.click();
-            
         });
 
         const url = await page.evaluate(() => location.href);
@@ -61,8 +66,8 @@ describe('basic navigation for BJ',  () => {
         // );
 
         // Add two photos and click left then right to switch between the photos
-        await page.click("#addPhoto", {clickCount : 1})
-        await page.waitForTimeout(1000)
+        await page.click('#addPhoto', { clickCount: 1 });
+        await page.waitForTimeout(1000);
         // this lets us upload a photo as input to the input without choosing from the pop up menu
         // NOTE: for local testing you need to have a JPG photo on your machine and change the path for this to work for you
         // const input = await page.$('#image-input')
@@ -87,17 +92,17 @@ describe('basic navigation for BJ',  () => {
         // await page.waitForTimeout(1000)
         
         // This code below doesn't actually test how many images are stored
-        // Why? this test is from a user's perspective and to know how many images are stored would require getting a 
+        // Why? this test is from a user's perspective and to know how many images are stored would require getting a
         // variable from the DailyJS.js such as currentDay.photos since you clear the canvas every time you
         // add or click left/right.  But a user shouldn't have access to this data
-        // const photoLength = await page.$eval('#myCanvas',  () => { 
+        // const photoLength = await page.$eval('#myCanvas',  () => {
         //     console.log(window.Image)
         //     return window.Image.length;
         // });
         // expect(`${photoLength}`).toMatch('0');
-        
+
         done();
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(3000);
         browser.close();
     });
 });
