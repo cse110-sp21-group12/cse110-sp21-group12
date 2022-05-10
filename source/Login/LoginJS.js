@@ -95,7 +95,7 @@ function handleSignup(newUsername, newPassword) {
     console.log('frontend: updating settings...');
     //make them log in
     //toggleView();
-    console.lo('Account created! Please log in');
+    console.log('Account created! Please log in');
     sessionStorage.setItem('loggedIn', 'true');
     goHome();
 }
