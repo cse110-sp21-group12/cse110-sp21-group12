@@ -4,6 +4,8 @@
 // const { getDatabase, get, query, ref, remove, update } = require("https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js");
 
 import { initializeApp } from './firebase-src/firebase-app.min.js';
+import { getDatabase } from './firebase-src/firebase-database.min.js';
+import { getAuth } from './firebase-src/firebase-auth.min.js';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -19,14 +21,23 @@ const firebaseConfig = {
 };
 
 // // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+export const db = getDatabase(app);
+export const auth = getAuth(app);
 
-// module.exports = {
-//   app,
-//   getDatabase,
-//   get,
-//   query,
-//   ref,
-//   remove,
-//   update
-// }
+/**
+ * get current user's id
+ * @returns user id. null if no user is signed in or the
+ * user is not signed in (i.e bypassing the authentication).
+ */
+export function getUserID() {
+  let user_id = null;
+  auth.onAuthStateChanged(function(u) {
+    if(u) {
+        user_id = u.uid;
+    } else {
+        // no user signed in or not signed in
+    }
+  });
+  return user_id;
+}

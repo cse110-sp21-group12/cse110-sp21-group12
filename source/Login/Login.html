@@ -12,20 +12,22 @@
             <div id="content">
                 <h3 id="title">Welcome back!</h3>
                 <input
-                    type="text"
-                    placeholder="Username"
-                    id="username"
-                    style="display: none"
+                    type="email"
+                    placeholder="Email"
+                    id="email"
+                    required
                 />
-                <input type="password" placeholder="PIN" id="pin" />
+                <input type="password" placeholder="PIN" id="pin" required />
+                <!-- <input type="password" placeholder="Retype PIN" id="pin-conf" required /> -->
                 <button id="login-button">Sign-In</button>
             </div>
         </div>
-        <script
+        <!-- <script
             src="../Backend/BackendInit.js"
             type="text/javascript"
             defer
-        ></script>
-        <script src="LoginJS.js" type="text/javascript" defer></script>
+        ></script> -->
+        <script src="../Backend/FirebaseInit.js" type="module"></script>
+        <script src="Login.js" type="module"></script>
     </body>
 </html>
