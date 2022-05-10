@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# https://git-scm.com/docs/githooks#_commit_msg
+# a hook that runs *after pre-commit*, and takes in one parameter, the name of the file containing the commit message
+# can accesss the filename with regular $1 param access
+# note that the git hook "pre-commit" is executed *before* this one, and doesn't take in any params
+
+latestCommitMsg="$(cat $1)"
+exit 0
+
+# regexp checking here TODO
+
+validCommitMsg='^((fix|feat)\/[a-zA-Z0-9\-]+)$'
+
+message="There is something wrong with your commit message. Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
+
+if [[ ! $local_branch_name =~ $valid_branch_regex ]]; then
+    echo "$message"
+    exit 1
+fi
+
+exit 0
+
