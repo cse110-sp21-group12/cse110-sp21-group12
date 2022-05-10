@@ -874,4 +874,28 @@ describe('basic navigation for BJ', () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
+    it('Test51: Reset password, should be loggedIn state after resetting password', async () => {
+        jest.setTimeout(30000);
+
+        await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html')
+        await page.waitForTimeout(300);
+
+        await page.$eval('#reset-password-button', (button) => {
+            button.click();
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '8848';
+        });
+        await page.waitForTimeout(300);
+
+        await page.$eval('#login-button', (button) => {
+            button.click();
+        });
+
+        const url2 = await page.evaluate(() => location.href);
+        expect(url2).toMatch(
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+        );
+    })
 });
