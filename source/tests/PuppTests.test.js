@@ -877,7 +877,9 @@ describe('basic navigation for BJ', () => {
     it('Test51: Reset password, should be loggedIn state after resetting password', async () => {
         jest.setTimeout(30000);
 
-        await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html')
+        await page.goto(
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+        );
         await page.waitForTimeout(300);
 
         await page.$eval('#reset-password-button', (button) => {
@@ -897,5 +899,5 @@ describe('basic navigation for BJ', () => {
         expect(url2).toMatch(
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
         );
-    })
+    });
 });

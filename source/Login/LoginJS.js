@@ -1,6 +1,3 @@
-//setup hasher
-//let sha1 = require('sha1');
-
 /**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
@@ -106,7 +103,6 @@ function handleSignup(newUsername, newPassword) {
 /**
  * handle the login button functionalities
  */
-
 function handleResetPassword() {
     loginButton.innerHTML = 'Confirm';
     loginButton.removeEventListener('click', handleLoginButton);
@@ -187,22 +183,3 @@ function setReturningUser() {
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign-In';
 }
-
-/*
-
-/**
- * Mock function for pretending to hash things
- *
- * @param {*} input Plaintext password to be hashed
- * @returns an encrypted hash representation of the password
-function mockHash(input) {
-    //console.log(input);
-    let retval = 0;
-    for (let i = 0; i < input.length; i++) {
-        retval += input.charCodeAt(i);
-    }
-    //console.log(retval);
-    return retval;
-}
-
-*/
