@@ -109,7 +109,8 @@ function handleSignup(newUsername, newPassword) {
 
 function handleResetPassword() {
     loginButton.innerHTML = 'Confirm';
-    loginButton.removeEventListener('login-button', handleLoginButton);
+    loginButton.removeEventListener('click', handleLoginButton);
+
     loginButton.addEventListener('click', () => {
         // update settings
         let userObject = {
@@ -119,12 +120,14 @@ function handleResetPassword() {
         };
         // eslint-disable-next-line no-undef
         updateSettings(userObject);
-
-        //sessionStorage.setItem('loggedIn', 'true');
-        //handleLogin(userObject.password);
-        // reset the button after clicked and update the settings
-        loginButton.innerHTML = 'Sign-In';
-        loginButton.addEventListener('click', handleLoginButton);
+        settingObj.password = passwordField.value;
+        
+        // log the user in
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
+        // // reset the button after clicked and update the settings
+        // loginButton.innerHTML = 'Sign-In';
+        // loginButton.addEventListener('click', handleLoginButton);
     });
 }
 
