@@ -110,7 +110,7 @@ function handleResetPassword() {
     loginButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            if (passwordField.value != "") {
+            if (passwordField.value != '') {
                 let userObject = {
                     username: settingObj.username,
                     password: passwordField.value,
@@ -119,7 +119,7 @@ function handleResetPassword() {
                 // eslint-disable-next-line no-undef
                 updateSettings(userObject);
                 settingObj.password = passwordField.value;
-                
+
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
@@ -127,7 +127,7 @@ function handleResetPassword() {
                 // loginButton.innerHTML = 'Sign-In';
                 // loginButton.addEventListener('click', handleLoginButton);
             } else {
-                alert("empty password detected!");
+                alert('empty password detected!');
             }
         } else {
             handleSignup(usernameField.value, passwordField.value);
