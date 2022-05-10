@@ -122,7 +122,7 @@ function handleResetPassword() {
             // eslint-disable-next-line no-undef
             updateSettings(userObject);
             settingObj.password = passwordField.value;
-            
+
             // log the user in
             sessionStorage.setItem('loggedIn', 'true');
             goHome();
