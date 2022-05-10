@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 // please read through some of the comments with NOTE: if this test fails
+// This test is more for local testing since I am not sure what would happen to the test if it is run on github
 
 describe('basic navigation for BJ',  () => {
 
@@ -11,13 +12,13 @@ describe('basic navigation for BJ',  () => {
         page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
         // NOTE: use this link for when our changes are pushed to the master branch
-        // await page.goto(
-        //     'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
-        // );
-        // NOTE: depending on what URL live server takes you, you will need to change this
         await page.goto(
-                'http://127.0.0.1:5500/source/Login/Login.html'
-            );
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+        );
+        // NOTE: for local testing depending on what URL live server takes you, you will need to change this
+        // await page.goto(
+        //         'http://127.0.0.1:5500/source/Login/Login.html'
+        //     );
         await page.waitForTimeout(500);
 
         // login page check
@@ -47,45 +48,43 @@ describe('basic navigation for BJ',  () => {
 
         const url = await page.evaluate(() => location.href);
         // NOTE: use this link for when our changes are pushed to the master branch
-        // expect(url).toMatch(
-        //     'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
-        // );
-
-        // NOTE: use this link for when our changes are pushed to the master branch
-        // await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/DailyOverview/DailyOverview.html#06/08/2021');
-        
-        // NOTE: Pre-testing before changes pushed to branch
-        // NOTE: depending on what URL live server takes you, you will need to change this URL
         expect(url).toMatch(
-            'http://127.0.0.1:5500/source/Index/Index.html'
+            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
         );
-        await page.goto('http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#06/08/2021');
+        //go to current day daily overview
+        await page.click('#today-button', {clickCount : 1});
+
+        // NOTE: Pre-testing before changes pushed to branch
+        // NOTE: for local depending on what URL live server takes you, you will need to change this URL
+        // expect(url).toMatch(
+        //     'http://127.0.0.1:5500/source/Index/Index.html'
+        // );
 
         // Add two photos and click left then right to switch between the photos
         await page.click("#addPhoto", {clickCount : 1})
         await page.waitForTimeout(1000)
         // this lets us upload a photo as input to the input without choosing from the pop up menu
-        // NOTE: you need to have a JPG photo on your machine and change the path for this to work for you
-        const input = await page.$('#image-input')
-		await input.uploadFile(`C:/Users/David/Downloads/ProfGreeting.jpg`)       
+        // NOTE: for local testing you need to have a JPG photo on your machine and change the path for this to work for you
+        // const input = await page.$('#image-input')
+		// await input.uploadFile(`C:/Users/David/Downloads/ProfGreeting.jpg`)       
     
-        await page.click("#save", {clickCount : 1})
-        await page.waitForTimeout(2000)
+        // await page.click("#save", {clickCount : 1})
+        // await page.waitForTimeout(2000)
 
-        await page.click("#addPhoto", {clickCount : 1})
-        await page.waitForTimeout(1000)
+        // await page.click("#addPhoto", {clickCount : 1})
+        // await page.waitForTimeout(1000)
         // this lets us upload a photo as input to the input without choosing from the pop up menu
-        // NOTE: you need to have a JPG photo on your machine and change the path for this to work for you
-        const input2 = await page.$('#image-input')
-		await input2.uploadFile(`C:/Users/David/Downloads/house.jpg`)       
+        // NOTE:for local testing  you need to have a JPG photo on your machine and change the path for this to work for you
+        // const input2 = await page.$('#image-input')
+		// await input2.uploadFile(`C:/Users/David/Downloads/house.jpg`)       
     
-        await page.click("#save", {clickCount : 1})
-        await page.waitForTimeout(2000)
+        // await page.click("#save", {clickCount : 1})
+        // await page.waitForTimeout(2000)
 
-        await page.click("#left", {clickCount : 1})
-        await page.waitForTimeout(1000)
-        await page.click("#right", {clickCount : 1})
-        await page.waitForTimeout(1000)
+        // await page.click("#left", {clickCount : 1})
+        // await page.waitForTimeout(1000)
+        // await page.click("#right", {clickCount : 1})
+        // await page.waitForTimeout(1000)
         
         // This code below doesn't actually test how many images are stored
         // Why? this test is from a user's perspective and to know how many images are stored would require getting a 
