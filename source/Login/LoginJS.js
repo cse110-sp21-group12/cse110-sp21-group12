@@ -114,21 +114,25 @@ function handleResetPassword() {
     loginButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            let userObject = {
-                username: settingObj.username,
-                password: passwordField.value,
-                theme: '#d4ffd4',
-            };
-            // eslint-disable-next-line no-undef
-            updateSettings(userObject);
-            settingObj.password = passwordField.value;
-            
-            // log the user in
-            sessionStorage.setItem('loggedIn', 'true');
-            goHome();
-            // // reset the button after clicked and update the settings
-            // loginButton.innerHTML = 'Sign-In';
-            // loginButton.addEventListener('click', handleLoginButton);
+            if (passwordField.value != "") {
+                let userObject = {
+                    username: settingObj.username,
+                    password: passwordField.value,
+                    theme: '#d4ffd4',
+                };
+                // eslint-disable-next-line no-undef
+                updateSettings(userObject);
+                settingObj.password = passwordField.value;
+                
+                // log the user in
+                sessionStorage.setItem('loggedIn', 'true');
+                goHome();
+                // // reset the button after clicked and update the settings
+                // loginButton.innerHTML = 'Sign-In';
+                // loginButton.addEventListener('click', handleLoginButton);
+            } else {
+                alert("empty password detected!");
+            }
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
