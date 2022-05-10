@@ -222,15 +222,15 @@ h2 {
 
 #addPhoto {
     background-color: transparent;
-    border : 3px solid black; 
-    border-radius: 5px ; 
-    font-size: 2vh; 
-    margin-bottom: 10px; 
-    color: #565252; 
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 2vh;
+    margin-bottom: 10px;
+    color: #565252;
     cursor: pointer;
 }
 #addPhoto:hover {
-    background-color: rgb(223, 217, 217);  
+    background-color: rgb(223, 217, 217);
 }
 
 #myCanvas {
