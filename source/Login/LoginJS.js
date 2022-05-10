@@ -1,5 +1,3 @@
-
-
 /**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
@@ -112,7 +110,7 @@ function handleResetPassword() {
     loginButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            
+
             // eslint-disable-next-line no-undef
             settingObj.password = passwordField.value;
 
@@ -176,5 +174,3 @@ function setReturningUser() {
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign-In';
 }
-
-
