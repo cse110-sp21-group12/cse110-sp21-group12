@@ -57,7 +57,7 @@ describe('basic navigation for BJ', () => {
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
         );
         //go to current day daily overview
-        await page.click('#today-button', {clickCount : 1});
+        await page.click('#today-button', { clickCount: 1 });
 
         // NOTE: Pre-testing before changes pushed to branch
         // NOTE: for local depending on what URL live server takes you, you will need to change this URL
@@ -71,8 +71,8 @@ describe('basic navigation for BJ', () => {
         // this lets us upload a photo as input to the input without choosing from the pop up menu
         // NOTE: for local testing you need to have a JPG photo on your machine and change the path for this to work for you
         // const input = await page.$('#image-input')
-		// await input.uploadFile(`C:/Users/David/Downloads/ProfGreeting.jpg`)       
-    
+        // await input.uploadFile(`C:/Users/David/Downloads/ProfGreeting.jpg`)
+
         // await page.click("#save", {clickCount : 1})
         // await page.waitForTimeout(2000)
 
@@ -81,8 +81,8 @@ describe('basic navigation for BJ', () => {
         // this lets us upload a photo as input to the input without choosing from the pop up menu
         // NOTE:for local testing  you need to have a JPG photo on your machine and change the path for this to work for you
         // const input2 = await page.$('#image-input')
-		// await input2.uploadFile(`C:/Users/David/Downloads/house.jpg`)       
-    
+        // await input2.uploadFile(`C:/Users/David/Downloads/house.jpg`)
+
         // await page.click("#save", {clickCount : 1})
         // await page.waitForTimeout(2000)
 
@@ -90,7 +90,7 @@ describe('basic navigation for BJ', () => {
         // await page.waitForTimeout(1000)
         // await page.click("#right", {clickCount : 1})
         // await page.waitForTimeout(1000)
-        
+
         // This code below doesn't actually test how many images are stored
         // Why? this test is from a user's perspective and to know how many images are stored would require getting a
         // variable from the DailyJS.js such as currentDay.photos since you clear the canvas every time you
