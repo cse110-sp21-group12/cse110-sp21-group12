@@ -875,25 +875,5 @@ describe('basic navigation for BJ', () => {
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
 
-    it ('Test51 : Add photo to photo album', async () => {
-        
-        
-        await page.goto('https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/DailyOverview/DailyOverview.html#06/08/2021');
-
-        await page.click("#addPhoto", {clickCount : 1})
-        await page.waitForTimeout(2000)
-        
-        await page.click("#save", {clickCount : 1})
-        await page.waitForTimeout(2000)
-
-        const photoLength = await page.$eval('#myCanvas', () => {
-            // console.log(window.Image.length);
-            
-            return window.Image.length;
-        });
-
-        expect(`${photoLength}`).toMatch('0');
-        
-        
-    });
+    
 });

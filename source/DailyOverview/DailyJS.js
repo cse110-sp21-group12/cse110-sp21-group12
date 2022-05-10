@@ -405,12 +405,14 @@ add.addEventListener('click', () => {
     save.style.display = 'inline';
     relative = window.img.length;
     console.log(currentDay.photos)
+    
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
+    
     // clear image space before displaying new image
     canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
@@ -429,8 +431,8 @@ save.addEventListener('click', () => {
 
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
-    console.log(currentDay.photos)
-    console.log(window.img[relative].src)
+    // console.log(currentDay.photos)
+    // console.log(window.img[relative].src)
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {
