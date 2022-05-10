@@ -874,6 +874,4 @@ describe('basic navigation for BJ', () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
-
-    
 });

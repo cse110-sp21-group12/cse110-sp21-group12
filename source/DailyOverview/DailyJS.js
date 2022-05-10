@@ -404,15 +404,14 @@ add.addEventListener('click', () => {
     input.type = 'file';
     save.style.display = 'inline';
     relative = window.img.length;
-    console.log(currentDay.photos)
-    
+    console.log(currentDay.photos);
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
-    
+
     // clear image space before displaying new image
     canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
@@ -458,7 +457,6 @@ left.addEventListener('click', () => {
     }
 });
 right.addEventListener('click', () => {
-    
     relative += 1;
     if (relative == window.img.length) {
         relative = 0;
