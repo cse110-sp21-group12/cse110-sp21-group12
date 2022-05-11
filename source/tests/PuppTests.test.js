@@ -26,7 +26,7 @@ describe('basic navigation for BJ', () => {
         const headerText = await page.$eval('#title', (header) => {
             return header.innerHTML;
         });
-        expect(headerText).toBe('Create your account!');
+        expect(headerText).toBe('Create your login!');
     });
 
     /*
@@ -59,6 +59,11 @@ describe('basic navigation for BJ', () => {
     });
     */
 
+
+
+    //Login tests
+
+    /*
     it('LoginTest1: no username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = '';
@@ -144,6 +149,8 @@ describe('basic navigation for BJ', () => {
             await dialog.dismiss();
         });
     });
+
+    */
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
