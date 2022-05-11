@@ -28,9 +28,11 @@ These below enforce the use of having dangling commas, semi quotes, use of singl
 ```
 
 Branch formatting guidelines:
-
 the regular expression checking branch guidelines want the following format: "NL-[issue number from github]_[some description of issue *in camcelcase*]-[names of ppl working on it]"
 
 note that multiple people on a branch should be separated by an underscore "_"
 
 eg: "NL-2_testIssue-Dustin_Shawn"
+
+### recommendations
+installing the prettier and eslint plugins on vscode are nice to get you live error feedback:w
