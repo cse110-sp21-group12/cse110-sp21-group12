@@ -1,0 +1,27 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# can list out commnad in this file that will run, eg: linting (even commit msgs), testing, branch name patterns
+
+# pre-commit is a git defined hook: https://git-scm.com/docs/githooks#_pre_commit
+# this DOES NOT take any parameters (see "commit-msg")
+# script will run the following commands defined below
+
+# custom defined script that will check for branch naming, custom hooks are stored in ".husky/hooks/"
+#npm run check-branch-naming
+echo starting pre-commit/commit-msg checks
+
+# custom defined script that will check for commit message naming, custom hooks are stored in ".husky/hooks/"
+
+# runs eslint and prettier on staged js files, uses this package: https://github.com/okonet/lint-staged
+# defined in package.json in the "lint-staged" tag, first runs "eslint", and if that doesn't fail, runs "prettier"
+
+# by default seems to ignore files placed in the .husky/ folders
+# for testing the pipeline want to define "--allow-empty" here, NOT in the actual git commit message, that won't work for some reason
+npx lint-staged --verbose
+
+# runs hook defined in ./hooks to check for branch naming
+npm run check-branch-naming
+
+# still unsure if we want to run tests locally on every pre-commit check
+#npm test

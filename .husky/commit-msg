@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# https://git-scm.com/docs/githooks#_commit_msg
+# a hook that runs *after pre-commit*, and takes in one parameter, the name of the file containing the commit message
+# can accesss the filename with regular $1 param access
+# note that the git hook "pre-commit" is executed *before* this one, and doesn't take in any params
+
+# As of the Jira deprecation we aren't going to be enforcing commit message fomatting
+# this will be skeleton code here in case we want to do something in the future
+latestCommitMsg="$(cat $1)"
+
+exit 0

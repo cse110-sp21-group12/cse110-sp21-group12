@@ -25,7 +25,8 @@
          */
         "comma-dangle": ["error","only-multiline"],
         "semi": ["error","always"],
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "camelcase": ["error"]
     },
     "plugins": [
         "prettier"

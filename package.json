@@ -1,10 +1,17 @@
 {
-  "name": "cse110-sp21-group12",
-  "version": "1.0.0",
+  "name": "cse112-sp22-group9",
+  "version": "0.5.0",
   "description": "BuJo project",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install",
+    "check-branch-naming": "chmod 755 .husky/hooks/checkBranchNaming.sh && sh .husky/hooks/checkBranchNaming.sh",
+    "my-custom-script": "linter --arg1 --arg2"
+  },
+  "lint-staged": {
+    "*.js": ["eslint", "prettier"],
+    "*.{md,html,css}": "prettier"
   },
   "jest": {
     "verbose": true,
@@ -12,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cse110-sp21-group12/cse110-sp21-group12.git"
+    "url": "git+ https://github.com/CSE112-sp22-group9/cse112-sp22-group9.git"
   },
-  "author": "Team 12 - Dinosource",
+  "author": "Team 9 - Dinosource",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cse110-sp21-group12/cse110-sp21-group12/issues"
+    "url": " https://github.com/cse112-sp22-group9/cse112-sp22-group9.git"
   },
-  "homepage": "https://github.com/cse110-sp21-group12/cse110-sp21-group12#readme",
+  "homepage": " https://github.com/CSE112-sp22-group9/cse112-sp22-group9",
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
@@ -27,13 +34,14 @@
     "eslint": "7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.0",
     "jest": "^26.6.3",
     "jest-puppeteer": "^5.0.3",
-    "puppeteer": "^9.1.1",
     "jsdoc": "^3.6.7",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "puppeteer": "^9.1.1",
+    "lint-staged": "^12.4.1"
   },
   "dependencies": {
-    "sha1": "^1.1.1"
   }
 }

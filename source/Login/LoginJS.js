@@ -2,6 +2,15 @@
 //let sha1 = require('sha1');
 
 /**
+ * Simple test function to make sure deployment to new CSE112 jsDocs website works, can remove
+ *
+ * @param {*} param testing docs
+ */
+function checkingDeploy(param) {
+    console.log('hello world');
+}
+
+/**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
  * survives between reloads
@@ -124,7 +133,8 @@ function goHome() {
  */
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText = 'Create your login!';
+    document.getElementById('title').innerText =
+        'Create your login, 9 Lives style!';
     loginButton.innerText = 'Sign-Up';
 }
 
@@ -134,7 +144,7 @@ function setNewUser() {
  */
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
-    document.getElementById('title').innerText = 'Welcome back!';
+    document.getElementById('title').innerText = 'Welcome back, 9 Lives style!';
     loginButton.innerText = 'Sign-In';
 }
 
