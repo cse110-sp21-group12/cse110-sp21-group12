@@ -118,7 +118,6 @@ function verifyValidInputs(newUsername, newPassword) {
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
         alert('Username must not contain special characters');
-        //console.log(newUsername.match(name_regex));
         return false;
     }
 
@@ -165,7 +164,6 @@ function handleLogin(password) {
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
-    //alert('login');
     window.location.href = '../Index/Index.html';
 }
 /**
