@@ -61,8 +61,7 @@ describe('basic navigation for BJ', () => {
 
     //Login tests
 
-    /*
-    it('LoginTest1: no username', async () => {
+    it('LoginTest1: try to create account with blank username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = '';
         });
@@ -78,7 +77,7 @@ describe('basic navigation for BJ', () => {
         });
     });
 
-    it('LoginTest2: short username', async () => {
+    it('LoginTest2: try to create account with short username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'a';
         });
@@ -96,7 +95,7 @@ describe('basic navigation for BJ', () => {
         });
     });
 
-    it('LoginTest3: bad username', async () => {
+    it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'ABC:DEF';
         });
@@ -114,7 +113,7 @@ describe('basic navigation for BJ', () => {
         });
     });
 
-    it('LoginTest4: short pin', async () => {
+    it('LoginTest4: try to create account with pin that is too short', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
@@ -132,7 +131,7 @@ describe('basic navigation for BJ', () => {
         });
     });
 
-    it('LoginTest5: bad pin', async () => {
+    it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
@@ -147,8 +146,6 @@ describe('basic navigation for BJ', () => {
             await dialog.dismiss();
         });
     });
-
-    */
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
