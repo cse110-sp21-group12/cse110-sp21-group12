@@ -59,8 +59,6 @@ describe('basic navigation for BJ', () => {
     });
     */
 
-
-
     //Login tests
 
     /*
