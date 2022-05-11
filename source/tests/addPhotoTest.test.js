@@ -57,7 +57,7 @@ describe('basic navigation for BJ', () => {
             'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
         );
         //go to current day daily overview
-        await page.click('#today-button', {clickCount : 1});
+        await page.click('#today-button', { clickCount: 1 });
 
         // NOTE: Pre-testing before changes pushed to branch
         // NOTE: for local depending on what URL live server takes you, you will need to change this URL
