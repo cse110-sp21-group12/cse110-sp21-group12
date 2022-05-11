@@ -6,8 +6,7 @@
   "scripts": {
     "test": "jest",
     "prepare": "husky install",
-    "check-branch-naming": "chmod 755 .husky/hooks/check_branch_naming.sh && sh .husky/hooks/check_branch_naming.sh",
-    "check-commit-naming": "chmod 755 .husky/hooks/checkCommitNaming.sh && sh .husky/hooks/checkCommitNaming.sh",
+    "check-branch-naming": "chmod 755 .husky/hooks/checkBranchNaming.sh && sh .husky/hooks/checkBranchNaming.sh",
     "my-custom-script": "linter --arg1 --arg2"
   },
   "lint-staged": {

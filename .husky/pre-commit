@@ -3,34 +3,25 @@
 
 # can list out commnad in this file that will run, eg: linting (even commit msgs), testing, branch name patterns
 
+# pre-commit is a git defined hook: https://git-scm.com/docs/githooks#_pre_commit
+# this DOES NOT take any parameters (see "commit-msg")
+# script will run the following commands defined below
+
 # custom defined script that will check for branch naming, custom hooks are stored in ".husky/hooks/"
 #npm run check-branch-naming
-echo starting pre-commit stuff
+echo starting pre-commit/commit-msg checks
 
 # custom defined script that will check for commit message naming, custom hooks are stored in ".husky/hooks/"
 
-# trying proof of concept for getting commit message, this doesn't seem to work
-# based on this: https://typicode.github.io/husky/#/?id=husky_git_params-ie-commitlint-
-# trying to get command arugments from the original commit message not working
-# original post: https://stackoverflow.com/questions/57864037/how-to-access-commit-message-with-husky-pre-commit-hook
-latestCommitMsg="$(echo "$0")"
-#echo "starting arams: $HUSKY_GIT_PARAMS 0: $0 1: $1 2: $2 3: $3 4:$4"
+# runs eslint and prettier on staged js files, uses this package: https://github.com/okonet/lint-staged
+# defined in package.json in the "lint-staged" tag, first runs "eslint", and if that doesn't fail, runs "prettier"
 
-#echo "hello world testing checking commit messages , exit w/ code 1"
-echo $latestCommitMsg
-exit 0
-
-
-
-
-
-#npm run check-commit-naming
-
-# runs esline and prettier on staged js files, uses this package: https://github.com/okonet/lint-staged
-# defined in package.json in the "lint-staged" tag, first runs "eslint", and if that doesn't fail, runs "prettier --write"
-# want to define "--allow-empty" here, NOT in the actual git commit message, that won't work for some reason
 # by default seems to ignore files placed in the .husky/ folders
-#npx lint-staged --verbose
+# for testing the pipeline want to define "--allow-empty" here, NOT in the actual git commit message, that won't work for some reason
+npx lint-staged --verbose
 
+# runs hook defined in ./hooks to check for branch naming
+npm run check-branch-naming
 
+# still unsure if we want to run tests locally on every pre-commit check
 #npm test

@@ -7,10 +7,12 @@
 # note that the git hook "pre-commit" is executed *before* this one, and doesn't take in any params
 
 latestCommitMsg="$(cat $1)"
+
 exit 0
 
-# regexp checking here TODO
 
+
+# regexp checking here TODO once we establish what we want to check for in a commit message
 validCommitMsg='^((fix|feat)\/[a-zA-Z0-9\-]+)$'
 
 message="There is something wrong with your commit message. Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
