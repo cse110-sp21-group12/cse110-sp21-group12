@@ -70,28 +70,29 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(1000);
         // this lets us upload a photo as input to the input without choosing from the pop up menu
         // NOTE: this is taking a jpg photo from the images folder under the DailyOverview Folder
-        const input = await page.$('#image-input')
-        await input.uploadFile(`source/DailyOverview/images/house.jpg`)       
-     
-    
-        await page.click("#save", {clickCount : 1})
-        await page.waitForTimeout(2000)
+        const input = await page.$('#image-input');
+        await input.uploadFile('source/DailyOverview/images/house.jpg');
 
-        await page.click("#addPhoto", {clickCount : 1})
-        await page.waitForTimeout(1000)
+        await page.click('#save', { clickCount: 1 });
+        await page.waitForTimeout(2000);
+
+        await page.click('#addPhoto', { clickCount: 1 });
+        await page.waitForTimeout(1000);
         // this lets us upload a photo as input to the input without choosing from the pop up menu
         // NOTE: this image is currentDayTestDinos in the source\DailyOverview\images
-        const input2 = await page.$('#image-input')
-		await input2.uploadFile(`source/DailyOverview/images/currentDayTestDinos.jpg`)       
-    
-        await page.click("#save", {clickCount : 1})
-        await page.waitForTimeout(2000)
+        const input2 = await page.$('#image-input');
+        await input2.uploadFile(
+            'source/DailyOverview/images/currentDayTestDinos.jpg'
+        );
 
-        await page.click("#left", {clickCount : 1})
-        await page.waitForTimeout(1000)
-        await page.click("#right", {clickCount : 1})
-        await page.waitForTimeout(1000)
-        
+        await page.click('#save', { clickCount: 1 });
+        await page.waitForTimeout(2000);
+
+        await page.click('#left', { clickCount: 1 });
+        await page.waitForTimeout(1000);
+        await page.click('#right', { clickCount: 1 });
+        await page.waitForTimeout(1000);
+
         // This code below doesn't actually test how many images are stored
         // Why? this test is from a user's perspective and to know how many images are stored would require getting a
         // variable from the DailyJS.js such as currentDay.photos since you clear the canvas every time you
