@@ -10,11 +10,6 @@
         "eslint:recommended",
         "prettier"
     ],
-    "overrides": [
-        {
-          "excludedFiles": "FirebaseInit.js"
-        }
-    ],
     "parserOptions": {
         //Specifies which version of ECMA we want to use (picked latest one)
         "ecmaVersion": 12
