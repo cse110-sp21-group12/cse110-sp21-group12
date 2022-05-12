@@ -23,24 +23,32 @@ window.addEventListener('load', () => {
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
     }
+
+    // connecting to database
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
         setDB(e.target.result);
+
+        // attempting to load selected year's goals
         let req = getYearlyGoals(currentYear);
         req.onsuccess = function (e) {
             console.log('got year');
             console.log(e.target.result);
             currentYearRes = e.target.result;
+
             if (currentYearRes === undefined) {
+                // creating yearly goals element in database if undefined
                 currentYearRes = initYear(currentYear);
                 createYearlyGoals(currentYearRes);
             } else {
-                //Load in bullets
+                // loading in goals from database
                 let goals = currentYearRes.goals;
                 renderGoals(goals);
             }
         };
+
+        // attempting to load settings
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
@@ -53,15 +61,19 @@ window.addEventListener('load', () => {
     };
 });
 
+// adding listener to goal entry form
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
 
+    // clearing form value and adding entry to goals list
     document.querySelector('.entry-form-text').value = '';
     currentYearRes.goals.push({
         text: gText,
         done: false,
     });
+
+    // updating goals in database
     console.log(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
@@ -70,9 +82,14 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    // debug
     console.log('got event');
     console.log(e.composedPath());
+
+    // getting index of deleted bullet
     let index = e.composedPath()[0].getAttribute('index');
+
+    // removing bullet and updating database
     currentYearRes.goals.splice(index, 1);
     updateYearsGoals(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
@@ -81,10 +98,15 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
+    // debug
     console.log('got event');
     console.log(e.composedPath()[0]);
+
+    // getting the index of edited bullet and the updated goal field
     let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
+
+    // updating database with edited bullet
     currentYearRes.goals[index].text = newText;
     updateYearsGoals(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
@@ -93,14 +115,20 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
+    // debug
     console.log('got done event');
     console.log(e.composedPath()[0]);
+
+    // getting index of completed bullet
     let index = e.composedPath()[0].getAttribute('index');
+
+    // marking goal as completed and updating database
     currentYearRes.goals[index].done ^= true;
     updateYearsGoals(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
 });
+
 /**
  * Function that renders a list of goals into the todo area
  * @param {Object} a list of goal objects
@@ -108,11 +136,18 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
 function renderGoals(goals) {
     let i = 0;
     goals.forEach((goal) => {
+        // creating goal element
         let newPost = document.createElement('goals-entry');
+
+        // setting attributes
         newPost.setAttribute('goalJson', JSON.stringify(goal));
         newPost.setAttribute('index', i);
         newPost.entry = goal;
+
+        // debug
         console.log(newPost);
+
+        // appending goal list
         document.querySelector('#bullets').appendChild(newPost);
         i++;
     });

@@ -14,7 +14,7 @@
         //Specifies which version of ECMA we want to use (picked latest one)
         "ecmaVersion": 12
     },
-
+    
     "rules": {
         "prettier/prettier": [ "error", {"trailingComma": "es5", "semi": true, "singleQuote": true, "printWidth": 80, "tabWidth": 4, "endOfLine": "auto"}],
         /*
@@ -25,7 +25,8 @@
          */
         "comma-dangle": ["error","only-multiline"],
         "semi": ["error","always"],
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "camelcase": ["error"]
     },
     "plugins": [
         "prettier"
