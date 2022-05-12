@@ -203,7 +203,7 @@ function setupCalendar() {
         let day = document.createElement('li');
         day.classList.add('day');
         day.innerText = i;
-        
+
         // check if today so we can highlight it
         let today = new Date();
         let currDay = today.getDate();
