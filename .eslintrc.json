@@ -19,7 +19,7 @@
     ],
     "overrides": [
       {
-        "files": [ "FirebaseInit.js" ],
+        "files": [ "FirebaseInit.js", "Login.js" ],
         "parserOptions": {
           "sourceType": "module"
         }
