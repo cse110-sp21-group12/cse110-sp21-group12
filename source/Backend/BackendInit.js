@@ -92,18 +92,6 @@ function initDB() {
     };
     return dbPromise;
 }
-/*
-This is moved to the caller's responsibility
-
-dbPromise.onsuccess = function (e) {
-    console.log('database connected');
-    db = e.target.result;
-};
-dbPromise.onerror = function (e) {
-    console.log('onerror!');
-    console.dir(e);
-};
-*/
 
 /**
  * used to set the database object to make future transactions with
@@ -134,25 +122,6 @@ function setUpMockData() {
             createYearlyGoals(mockData.sampleYearlyGoals);
             createSettings(mockData.sampleSetting);
         });
-
-    /* sample way to update the monthly goals
-        let month = mockData.sampleMonthlyGoals;
-        month.goals[0].text = 'run some laps';
-        updateMonthGoals(month);
-    */
-
-    /* sample way to delete day
-    
-    deleteDay('05/20/2021');
-    */
-
-    /* sample way to get the monthly goals
-        let req = getMonthlyGoals('12/2021');
-        req.onsuccess = function (e) {
-            console.log('got monthly goals');
-            console.log(e.target.result);
-        };
-    */
 }
 
 /**
@@ -443,7 +412,7 @@ function getSettings() {
     var store = tx.objectStore('setting');
     //Since there is only one setting, we just get the first one
     let request = store.get(1);
-    console.log(request);
+    console.log(request)
     return request;
 }
 

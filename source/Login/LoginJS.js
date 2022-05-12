@@ -1,3 +1,12 @@
+//minimum length values
+const MIN_NAME_LENGTH = 2;
+const MIN_PIN_LENGTH = 4;
+
+//PIN restriction regex (identify bad PINs)
+const pin_regex = /\D/;
+//Username restriction regex (identify bad Usernames)
+const name_regex = /[^\w-]/;
+
 /**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
@@ -10,7 +19,7 @@ console.log('here is the storage session: ', storageSession);
 //store current page state
 let loginState;
 
-//sotring setting got back
+//"settings" object retrieved from backend/storage
 let settingObj;
 
 //username box
@@ -22,7 +31,6 @@ let passwordField = document.getElementById('pin');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', handleLoginButton);
-
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
@@ -43,13 +51,13 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
+        //console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            console.log('got settings');
+            //console.log('got settings');
             console.log(e.target.result);
             settingObj = e.target.result;
             if (settingObj === undefined) {
@@ -77,8 +85,8 @@ function handleLoginButton() {
 /**
  * Handle a Sign-Up request from a new user
  *
- * @param {*} newUsername Display name of new user
- * @param {*} newPassword PIN of new user
+ * @param {String} newUsername Display name of new user
+ * @param {String} newPassword PIN of new user
  */
 function handleSignup(newUsername, newPassword) {
     //call helper to check if inputs are valid
@@ -109,11 +117,10 @@ function handleSignup(newUsername, newPassword) {
 function handleResetPassword() {
     loginButton.innerHTML = 'Confirm';
     loginButton.removeEventListener('click', handleLoginButton);
-
     loginButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            if (passwordField.value != '') {
+            if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
                     username: settingObj.username,
                     password: passwordField.value,
@@ -126,12 +133,7 @@ function handleResetPassword() {
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
-                // // reset the button after clicked and update the settings
-                // loginButton.innerHTML = 'Sign-In';
-                // loginButton.addEventListener('click', handleLoginButton);
-            } else {
-                alert('empty password detected!');
-            }
+            } 
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
@@ -140,7 +142,13 @@ function handleResetPassword() {
 
 
 
-function verifyValidInputs(newUsername, newPassword){
+/*function verifyValidInputs(newUsername, newPassword){
+ * Helper function called from handleSignup()
+ * Checks that username and PIN comply with length requirements and don't contain prohibited characters.
+ * @param {String} newUsername Username to check
+ * @param {String} newPassword password to check
+ */
+function verifyValidInputs(newUsername, newPassword) {
     //prohibit empty username
     if (newUsername == '') {
         alert('Please provide a username');
@@ -201,7 +209,6 @@ function handleLogin(password) {
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
-    console.log('login');
     window.location.href = '../Index/Index.html';
 }
 /**
@@ -210,8 +217,8 @@ function goHome() {
  */
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText = 'Create your login!';
-    loginButton.innerText = 'Sign-Up';
+    document.getElementById('title').innerText = 'Create your account!';
+    loginButton.innerText = 'Sign Up';
 }
 
 /**
@@ -221,5 +228,5 @@ function setNewUser() {
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
-    loginButton.innerText = 'Sign-In';
+    loginButton.innerText = 'Sign In';
 }
