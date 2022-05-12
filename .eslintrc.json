@@ -17,6 +17,14 @@
     "plugins": [
         "prettier"
     ],
+    "overrides": [
+      {
+        "files": [ "FirebaseInit.js" ],
+        "parserOptions": {
+          "sourceType": "module"
+        }
+      }
+    ],
     "rules": {
         /*
          * add/disable more rules that we want below
