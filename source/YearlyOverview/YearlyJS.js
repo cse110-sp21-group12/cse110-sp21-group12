@@ -12,8 +12,6 @@ if (currentYear == 'html') {
     currentYear = 2021;
 }
 console.log(currentYear);
-// currentYear = '2020';
-// contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
 window.addEventListener('load', () => {

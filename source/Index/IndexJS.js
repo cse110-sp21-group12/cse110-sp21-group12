@@ -61,8 +61,7 @@ function collapsible_year_toggle() {
     }
 }
 
-//alert("Collapsibles found: "+ collapsible_years_list.length);
-//alert("Sanity check: " + sanity_check.length);
+
 for (let i = 0; i < collapsible_years_list.length; i++) {
     collapsible_years_list[i].addEventListener(
         'click',

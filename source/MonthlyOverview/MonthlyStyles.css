@@ -68,27 +68,12 @@ body {
     width: 45vw;
 }
 
-/* #monthlyGoals {
-    position: relative;
-    background-color: white;
-    margin: 1vw;
-    padding: 1vw;
-    border-radius: 10mm;
-    border-style: solid;
-    border-width: 1mm;
-    height: 67vh;
-    margin-left: 10vw;
-} */
+
 
 #goals {
     position: relative;
     align-self: center;
     background-color: white;
-
-    /* background-image: url('../Images/GreenDinoBorder.svg');
-    background-size: 100%; */
-    /* background-repeat: no-repeat; */
-
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;

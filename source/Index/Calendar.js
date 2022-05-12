@@ -33,7 +33,6 @@ window.addEventListener('load', () => {
 });
 
 function setupContent() {
-    //alert("Load runs");
     for (let yr = yr_start; yr <= yr_end; yr++) {
         //
         //wrapper
@@ -74,7 +73,6 @@ function setupContent() {
             let month_link = document.createElement('a');
             month_link.class = 'monthlink ' + month_name_lc;
             month_link.id = yr + '_' + month_name_lc;
-            //month_link.href = 'months/' + yr + '/' + month_name_lc + '.html';
             month_link.href = month_OV_link + '#' + monthNumber(m) + '/' + yr;
             month_link.innerText = months[m];
             //add this month to list of months

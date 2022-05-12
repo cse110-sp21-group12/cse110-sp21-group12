@@ -146,18 +146,16 @@ function setupCalendar() {
     const calTarget = document.getElementById('calendar');
 
     //get today code stolen from stackoverflow
-    // var today = new Date();
     let thisDate = new Date(
         currentMonth.substring(3) +
             '-' +
             currentMonth.substring(0, 2) +
             '-03T00:00:00.000-07:00'
     );
-    //thisDate = new Date('2021-05-23');
+
     console.log(currentMonth.substring(0, 2));
     console.log(thisDate);
 
-    //var curr_day_number = today.getDate();
     let currMonthNumber = thisDate.getMonth();
     let currYearNumber = thisDate.getFullYear();
 
@@ -205,12 +203,7 @@ function setupCalendar() {
         let day = document.createElement('li');
         day.classList.add('day');
         day.innerText = i;
-
-        //check if today (so we can highlight it)
-        // if (i == curr_day_number) {
-        //     day.classList.add('today');
-        // }
-
+        
         // check if today so we can highlight it
         let today = new Date();
         let currDay = today.getDate();
