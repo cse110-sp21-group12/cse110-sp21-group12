@@ -412,7 +412,7 @@ function getSettings() {
     var store = tx.objectStore('setting');
     //Since there is only one setting, we just get the first one
     let request = store.get(1);
-    console.log(request)
+    console.log(request);
     return request;
 }
 

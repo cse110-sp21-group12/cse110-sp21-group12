@@ -133,14 +133,12 @@ function handleResetPassword() {
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
-            } 
+            }
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
     });
 }
-
-
 
 /*function verifyValidInputs(newUsername, newPassword){
  * Helper function called from handleSignup()
