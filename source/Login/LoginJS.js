@@ -157,7 +157,6 @@ function verifyValidInputs(newUsername, newPassword) {
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
         alert('Username must not contain special characters');
-        //console.log(newUsername.match(name_regex));
         return false;
     }
 

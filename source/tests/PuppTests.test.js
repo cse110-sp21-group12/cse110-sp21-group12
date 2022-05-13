@@ -17,7 +17,7 @@ describe('Google', () => {
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+            'http://127.0.0.1:5500/source/Login/Login.html'
         );
         await page.waitForTimeout(500);
     });
@@ -167,7 +167,7 @@ describe('basic navigation for BJ', () => {
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+            'http://127.0.0.1:5500/source/Index/Index.html'
         );
     });
 
@@ -175,7 +175,7 @@ describe('basic navigation for BJ', () => {
         await page.goBack();
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+            'http://127.0.0.1:5500/source/Login/Login.html'
         );
     });
 
@@ -220,7 +220,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+            'http://127.0.0.1:5500/source/Index/Index.html'
         );
         await page.waitForTimeout(300);
 
@@ -872,7 +872,7 @@ describe('basic navigation for BJ', () => {
         const url = await page.evaluate(() => location.href);
 
         expect(`${url}`).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+            'http://127.0.0.1:5500/source/Index/Index.html'
         );
     });
 
@@ -918,9 +918,9 @@ describe('basic navigation for BJ', () => {
 
     it('Test47: check that the home button works in the yearly overview', async () => {
         const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/YearlyOverview/YearlyOverview.html#2021'
+            'http://127.0.0.1:5500/source/YearlyOverview/YearlyOverview.html#2021'
         );
 
         await page.$eval('#house > a', (btn) => {
@@ -932,9 +932,9 @@ describe('basic navigation for BJ', () => {
     });
     it('Test48: check that the home button works in the monthly overview', async () => {
         const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/MonthlyOverview/MonthlyOverview.html#06/2021'
+            'http://127.0.0.1:5500/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#house > a', (btn) => {
@@ -945,9 +945,9 @@ describe('basic navigation for BJ', () => {
     });
     it('Test49: check that the home button works in the daily overview', async () => {
         const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/DailyOverview/DailyOverview.html#06/08/2021'
+            'http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#homeContainer > a', (btn) => {
@@ -964,7 +964,7 @@ describe('basic navigation for BJ', () => {
         jest.setTimeout(30000);
 
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+            'http://127.0.0.1:5500/source/Login/Login.html'
         );
         await page.waitForTimeout(300);
 
@@ -983,7 +983,7 @@ describe('basic navigation for BJ', () => {
 
         const url2 = await page.evaluate(() => location.href);
         expect(url2).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+            'http://127.0.0.1:5500/source/Index/Index.html'
         );
     });
 });

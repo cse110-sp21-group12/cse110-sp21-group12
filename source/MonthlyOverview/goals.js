@@ -36,7 +36,7 @@ class GoalsEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #e4e4e4;
-                    min-width: 10vh;
+                    min-width: 15vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
                 }
@@ -155,6 +155,9 @@ class GoalsEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
+            this.shadowRoot.querySelector('#done').innerText = 'Mark Not Done';
+        } else {
+            this.shadowRoot.querySelector('#done').innerText = 'Mark Done';
         }
     }
 }
