@@ -35,6 +35,5 @@
   },
   "dependencies": {
     "sha1": "^1.1.1"
-  },
-  "type": "module"
+  }
 }

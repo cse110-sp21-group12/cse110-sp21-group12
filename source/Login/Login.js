@@ -1,16 +1,19 @@
 import { db, auth } from '../Backend/FirebaseInit.js';
-import { browserSessionPersistence, 
-         signInWithEmailAndPassword, 
-         signOut,
-         createUserWithEmailAndPassword 
-       } from '../Backend/firebase-src/firebase-auth.min.js';
-import { set, ref } from "../Backend/firebase-src/firebase-database.min.js";
+import {
+    browserSessionPersistence,
+    signInWithEmailAndPassword,
+    signOut,
+    createUserWithEmailAndPassword,
+} from '../Backend/firebase-src/firebase-auth.min.js';
+import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
 window.onload = () => {
     // login event
     const loginBtn = document.getElementById('login-button');
-    if(loginBtn !== null) {
-        loginBtn.onclick = () => { signIn(); };
+    if (loginBtn !== null) {
+        loginBtn.onclick = () => {
+            signIn();
+        };
     }
 };
 
@@ -22,9 +25,9 @@ function signIn() {
     let userEmail = document.getElementById('email').value;
     let password = document.getElementById('pin').value;
 
-    if(userEmail.indexOf('@') !== -1 && password.length !== 0) {
+    if (userEmail.indexOf('@') !== -1 && password.length !== 0) {
         // set session persistence so status unchanged after refreshing
-        auth.setPersistence(browserSessionPersistence).then((_) => {
+        auth.setPersistence(browserSessionPersistence).then(() => {
             signInWithEmailAndPassword(auth, userEmail, password)
             .then((userCredential) => {
                 // TODO
@@ -40,16 +43,17 @@ function signIn() {
 /**
  * New user sign up with email and password given.
  */
+// eslint-disable-next-line no-unused-vars
 function signUp() {
-  let userEmail = document.getElementById('email').value;
-  let userPassword = document.getElementById('pin').value;
-  let passwordConfirm = document.getElementById('pin-conf').value;
+    let userEmail = document.getElementById('email').value;
+    let userPassword = document.getElementById('pin').value;
+    let passwordConfirm = document.getElementById('pin-conf').value;
 
-  //ensure password === confirm password
-  if (userPassword !== passwordConfirm) {
-    alert('Password and re-typed password are different!');
-    return;
-  }
+    //ensure password === confirm password
+    if (userPassword !== passwordConfirm) {
+        alert('Password and re-typed password are different!');
+        return;
+    }
 
   auth.setPersistence(browserSessionPersistence).then((_) => {
     createUserWithEmailAndPassword(auth, userEmail, userPassword)
@@ -61,11 +65,11 @@ function signUp() {
                 theme: '#d4ffd4'
             };
 
-            // add user data to db
-            set(ref(db, `${user.uid}`), data)
-            .then(() => { 
-                console.log('Successfully added!'); 
-            });
+                    // add user data to db
+                    // eslint-disable-next-line no-undef
+                    set(ref(db, `${user.uid}`), data).then(() => {
+                        console.log('Successfully added!');
+                    });
 
             alert('Successful Sign Up');
             window.location.replace('../Index/Index.html');
@@ -78,11 +82,12 @@ function signUp() {
 }
 
 export function logout() {
-    signOut(auth).then(() => {
-        // TODO
-        // window.location.replace('./Login.html');
-    })
-    .catch((error) => {
-        alert(error.message);
-    });
+    signOut(auth)
+        .then(() => {
+            // TODO
+            // window.location.replace('./Login.html');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 }
