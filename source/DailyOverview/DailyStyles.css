@@ -236,12 +236,6 @@ h2 {
     height: 70%;
 }
 
-button#save,
-button#cancel {
-    position:relative;
-    left: 4.5vw;
-}
-
 button#left,
 button#right {
     background-color: transparent;

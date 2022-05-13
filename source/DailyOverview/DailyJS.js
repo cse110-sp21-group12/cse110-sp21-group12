@@ -403,6 +403,7 @@ input.addEventListener('change', (event) => {
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
+    //add.style.display = 'none';
     cancel.style.display = 'inline';
     save.style.display = 'inline';
     relative = window.img.length;
@@ -410,6 +411,7 @@ add.addEventListener('click', () => {
 });
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
+    //add.style.display = 'inline';
     save.style.display = 'none';
     cancel.style.display = 'none';
     relative = 0;
@@ -418,6 +420,7 @@ cancel.addEventListener('click', () => {
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
+    //add.style.display = 'inline';
     save.style.display = 'none';
     cancel.style.display = 'none';
 

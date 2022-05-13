@@ -58,6 +58,11 @@ describe('basic navigation for BJ', () => {
         // NOTE: for local depending on what URL live server takes you, you will need to change this URL
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
 
+        // Try to Add a Photo and then Cancel
+        await page.click('#addPhoto', { clickCount: 1 });
+        await page.click('#cancel', { clickCount: 1 });
+        await page.waitForTimeout(1000);
+
         // Add two photos and click left then right to switch between the photos
         await page.click('#addPhoto', { clickCount: 1 });
         await page.waitForTimeout(1000);
