@@ -14,16 +14,13 @@ describe('basic navigation for BJ', () => {
         page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
         // NOTE: use this link for when our changes are pushed to the master branch
-        await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
-        );
-        // NOTE: for local testing depending on what URL live server takes you, you will need to change this
         // await page.goto(
-        //         'http://127.0.0.1:5500/source/Login/Login.html'
-        //     );
-        // await page.goto(
-        //     'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
+        //     'https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html'
         // );
+        // NOTE: for local testing depending on what URL live server takes you, you will need to change this
+        await page.goto(
+                'http://127.0.0.1:5500/source/Login/Login.html'
+            );
 
         await page.waitForTimeout(500);
 
@@ -53,17 +50,17 @@ describe('basic navigation for BJ', () => {
 
         const url = await page.evaluate(() => location.href);
         // NOTE: use this link for when our changes are pushed to the master branch
-        expect(url).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
-        );
+        // expect(url).toMatch(
+        //     'https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html'
+        // );
         //go to current day daily overview
         await page.click('#today-button', { clickCount: 1 });
 
         // NOTE: Pre-testing before changes pushed to branch
         // NOTE: for local depending on what URL live server takes you, you will need to change this URL
-        // expect(url).toMatch(
-        //     'http://127.0.0.1:5500/source/Index/Index.html'
-        // );
+        expect(url).toMatch(
+            'http://127.0.0.1:5500/source/Index/Index.html'
+        );
 
         // Add two photos and click left then right to switch between the photos
         await page.click('#addPhoto', { clickCount: 1 });
