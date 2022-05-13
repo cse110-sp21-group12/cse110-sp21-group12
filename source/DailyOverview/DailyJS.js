@@ -413,7 +413,7 @@ cancel.addEventListener('click', () => {
     save.style.display = 'none';
     cancel.style.display = 'none';
     relative = 0;
-})
+});
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
