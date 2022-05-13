@@ -31,35 +31,6 @@ describe('basic navigation for BJ', () => {
         expect(headerText).toBe('Create your login!');
     });
 
-    /*
-
-    it('Test2: Try to access another page Daily - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-
-    it('Test3: Try to access another page Monthly - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-
-    it('Test4: Try to access another page Yearly - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-    */
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
@@ -416,10 +387,10 @@ describe('basic navigation for BJ', () => {
 
     it('Test22: go to monthly overview through <Month button', async () => {
         await page.waitForTimeout(300);
-        await 
-        // await page.$eval('#words', (button) => {
-        //     button.click();
-        // });
+        
+        await page.$eval('#words', (button) => {
+            button.click();
+        });
 
         await page.waitForTimeout(300);
 
@@ -461,7 +432,9 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test25: navigating to daily through calendar in monthly', async () => {
+
         await page.$eval('.today', (button) => {
+
             button.click();
         });
 
