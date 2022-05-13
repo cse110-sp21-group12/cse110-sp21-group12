@@ -19,7 +19,13 @@
     ],
     "overrides": [
       {
-        "files": [ "FirebaseInit.js", "Login.js" ],
+        "files": [ 
+            "FirebaseInit.js",
+            "firebase-app.min.js",
+            "firebase-auth.min.js",
+            "firebase-database.min.js",
+            "Login.js"
+        ],
         "parserOptions": {
           "sourceType": "module"
         }
