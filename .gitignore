@@ -2,5 +2,3 @@ source/Yearly Overview/Yearly_Overview.html
 node_modules/
 *.scss
 *.css.map
-.vscode/package-lock.json
-package-lock.json
