@@ -29,7 +29,7 @@ function signIn() {
             .then((userCredential) => {
                 // TODO
                 alert('Successfully signed in!');
-                // window.location.replace('./index.html');
+                window.location.replace('../Index/Index.html');
             }).catch((error) => {
                 alert('Login Failed: ' + error.message);
             });
@@ -56,7 +56,7 @@ function signUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user) {
-            data = {
+            let data = {
                 email: userEmail,
                 theme: '#d4ffd4'
             };
@@ -68,7 +68,7 @@ function signUp() {
             });
 
             alert('Successful Sign Up');
-            // window.location.replace('/index.html');
+            window.location.replace('../Index/Index.html');
         }
       })
       .catch((error) => {
