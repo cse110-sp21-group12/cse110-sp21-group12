@@ -21,7 +21,7 @@ const firebaseConfig = {
 };
 
 // // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
 
@@ -31,13 +31,9 @@ export const auth = getAuth(app);
  * user is not signed in (i.e bypassing the authentication).
  */
 export function getUserID() {
-    let user_id = null;
-    auth.onAuthStateChanged((u) => {
-        if (u) {
-            user_id = u.uid;
-        } else {
-            // no user signed in or not signed in
-        }
-    });
-    return user_id;
+    return auth.currentUser.uid;
+}
+
+export function getUserEmail() {
+    return auth.currentUser.email;
 }

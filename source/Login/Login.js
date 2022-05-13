@@ -10,11 +10,16 @@ import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 window.onload = () => {
     // login event
     const loginBtn = document.getElementById('login-button');
+    const testBtn = document.getElementById('test');
     if (loginBtn !== null) {
         loginBtn.onclick = () => {
             signIn();
         };
     }
+    testBtn.onclick = () => {
+        console.log('dwadawdawdaw');
+        console.log(auth.currentUser);
+    };
 };
 
 /**
@@ -33,7 +38,7 @@ function signIn() {
                 .then((userCredential) => {
                     // TODO
                     alert('Successfully signed in!');
-                    window.location.replace('../Index/Index.html');
+                    window.location.replace('../Index/TEMP-REMOVE/test.html');
                 })
                 .catch((error) => {
                     alert('Login Failed: ' + error.message);
