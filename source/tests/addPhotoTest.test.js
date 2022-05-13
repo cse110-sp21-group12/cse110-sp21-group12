@@ -18,9 +18,7 @@ describe('basic navigation for BJ', () => {
         //     'https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html'
         // );
         // NOTE: for local testing depending on what URL live server takes you, you will need to change this
-        await page.goto(
-                'http://127.0.0.1:5500/source/Login/Login.html'
-            );
+        await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
 
         await page.waitForTimeout(500);
 
@@ -58,9 +56,7 @@ describe('basic navigation for BJ', () => {
 
         // NOTE: Pre-testing before changes pushed to branch
         // NOTE: for local depending on what URL live server takes you, you will need to change this URL
-        expect(url).toMatch(
-            'http://127.0.0.1:5500/source/Index/Index.html'
-        );
+        expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
 
         // Add two photos and click left then right to switch between the photos
         await page.click('#addPhoto', { clickCount: 1 });

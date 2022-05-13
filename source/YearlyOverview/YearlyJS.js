@@ -121,50 +121,26 @@ function renderGoals(goals) {
 /**kk */
 //link the months
 document.getElementById('January').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#01/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#01/' + currentYear;
 document.getElementById('February').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#02/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#02/' + currentYear;
 document.getElementById('March').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#03/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#03/' + currentYear;
 document.getElementById('April').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#04/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#04/' + currentYear;
 document.getElementById('May').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#05/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#05/' + currentYear;
 document.getElementById('June').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#06/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#06/' + currentYear;
 document.getElementById('July').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#07/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#07/' + currentYear;
 document.getElementById('August').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#08/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#08/' + currentYear;
 document.getElementById('September').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#09/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#09/' + currentYear;
 document.getElementById('October').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#10/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#10/' + currentYear;
 document.getElementById('November').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#11/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#11/' + currentYear;
 document.getElementById('December').children[0].href =
-    '../MonthlyOverview/MonthlyOverview.html' +
-    '#12/' +
-    currentYear;
+    '../MonthlyOverview/MonthlyOverview.html' + '#12/' + currentYear;
