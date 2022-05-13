@@ -1,12 +1,8 @@
-# Group 12 - Stegosource
+# ~~Group 12~~ Now Group 9 in 112 - Stegosource
 
-[Bullet Journal](https://cse110-sp21-group12.github.io/cse110-sp21-group12/)
-
-
-[Team Page](admin/team.md)
-
+[Bullet Journal](https://cse112-sp22-group9.github.io/cse112-sp22-group9/)
 ### Documentation Site
-our jsDocs are hosted [here](https://dustinlin.github.io/110Group12JsDocs/index.html)
+our jsDocs are hosted [here](https://dustinlin.github.io/CSE112-sp22-group9-docs/)
 
 ### Description of Project
 
