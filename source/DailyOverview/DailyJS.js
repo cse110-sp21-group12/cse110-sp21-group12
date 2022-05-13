@@ -24,6 +24,7 @@ document.getElementById('monthView').children[0].href +=
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
+const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
@@ -402,15 +403,23 @@ input.addEventListener('change', (event) => {
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
+    cancel.style.display = 'inline';
     save.style.display = 'inline';
     relative = window.img.length;
     console.log(currentDay.photos);
 });
+cancel.addEventListener('click', () => {
+    input.type = 'hidden';
+    save.style.display = 'none';
+    cancel.style.display = 'none';
+    relative = 0;
+})
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
     save.style.display = 'none';
+    cancel.style.display = 'none';
 
     // clear image space before displaying new image
     canv.clearRect(0, 0, canvas.width, canvas.height);
