@@ -29,13 +29,15 @@ function signIn() {
         // set session persistence so status unchanged after refreshing
         auth.setPersistence(browserSessionPersistence).then(() => {
             signInWithEmailAndPassword(auth, userEmail, password)
-            .then((userCredential) => {
-                // TODO
-                alert('Successfully signed in!');
-                window.location.replace('../Index/Index.html');
-            }).catch((error) => {
-                alert('Login Failed: ' + error.message);
-            });
+                // eslint-disable-next-line no-unused-vars
+                .then((userCredential) => {
+                    // TODO
+                    alert('Successfully signed in!');
+                    window.location.replace('../Index/Index.html');
+                })
+                .catch((error) => {
+                    alert('Login Failed: ' + error.message);
+                });
         });
     }
 }
@@ -55,15 +57,15 @@ function signUp() {
         return;
     }
 
-  auth.setPersistence(browserSessionPersistence).then((_) => {
-    createUserWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user) {
-            let data = {
-                email: userEmail,
-                theme: '#d4ffd4'
-            };
+    auth.setPersistence(browserSessionPersistence).then(() => {
+        createUserWithEmailAndPassword(auth, userEmail, userPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                if (user) {
+                    let data = {
+                        email: userEmail,
+                        theme: '#d4ffd4',
+                    };
 
                     // add user data to db
                     // eslint-disable-next-line no-undef
@@ -71,14 +73,14 @@ function signUp() {
                         console.log('Successfully added!');
                     });
 
-            alert('Successful Sign Up');
-            window.location.replace('../Index/Index.html');
-        }
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  });
+                    alert('Successful Sign Up');
+                    window.location.replace('../Index/Index.html');
+                }
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    });
 }
 
 export function logout() {
