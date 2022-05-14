@@ -24,16 +24,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
-
-/**
- * get current user's id
- * @returns user id. null if no user is signed in or the
- * user is not signed in (i.e bypassing the authentication).
- */
-export function getUserID() {
-    return auth.currentUser.uid;
-}
-
-export function getUserEmail() {
-    return auth.currentUser.email;
-}

@@ -17,7 +17,7 @@ window.onload = () => {
         };
     }
     testBtn.onclick = () => {
-        console.log('dwadawdawdaw');
+        console.log('Login 20 | Current User Object:');
         console.log(auth.currentUser);
     };
 };
