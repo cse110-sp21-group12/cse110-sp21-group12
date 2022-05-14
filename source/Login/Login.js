@@ -10,10 +10,14 @@ import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 window.onload = () => {
     // login event
     const loginBtn = document.getElementById('login-button');
-    if (loginBtn !== null) {
-        loginBtn.onclick = () => {
-            signIn();
-        };
+    if (loginBtn) {
+        loginBtn.onclick = signIn;
+    }
+
+    // signup event
+    const signupBtn = document.getElementById('signup-button');
+    if(signupBtn) {
+        signupBtn.onclick = signUp;
     }
 };
 
@@ -25,21 +29,25 @@ function signIn() {
     let userEmail = document.getElementById('email').value;
     let password = document.getElementById('pin').value;
 
-    if (userEmail.indexOf('@') !== -1 && password.length !== 0) {
-        // set session persistence so status unchanged after refreshing
-        auth.setPersistence(browserSessionPersistence).then(() => {
-            signInWithEmailAndPassword(auth, userEmail, password)
-                // eslint-disable-next-line no-unused-vars
-                .then((userCredential) => {
-                    // TODO
-                    alert('Successfully signed in!');
-                    window.location.replace('../Index/Index.html');
-                })
-                .catch((error) => {
-                    alert('Login Failed: ' + error.message);
-                });
-        });
+    // validity check
+    if(!isValidEmail(userEmail) 
+    || !isValidPassword(password)) {
+        return;
     }
+
+    // set session persistence so status unchanged after refreshing
+    auth.setPersistence(browserSessionPersistence).then(() => {
+        signInWithEmailAndPassword(auth, userEmail, password)
+            // eslint-disable-next-line no-unused-vars
+            .then((userCredential) => {
+                // TODO
+                alert('Successfully signed in!');
+                window.location.replace('../Index/Index.html');
+            })
+            .catch((error) => {
+                alert('Login Failed: ' + error.message);
+            });
+    });
 }
 
 /**
@@ -48,48 +56,72 @@ function signIn() {
 // eslint-disable-next-line no-unused-vars
 function signUp() {
     let userEmail = document.getElementById('email').value;
-    let userPassword = document.getElementById('pin').value;
-    let passwordConfirm = document.getElementById('pin-conf').value;
+    let password = document.getElementById('pin').value;
 
-    //ensure password === confirm password
-    if (userPassword !== passwordConfirm) {
+    // validity check
+    if(!isValidEmail(userEmail) 
+    || !isValidPassword(password)) {
+        return;
+    }
+
+    let passwordConfirm = prompt('Please retype password:');
+    if(!passwordConfirm) { return; } // user cancels signup
+
+    // ensure password is the same as confirmed password
+    if (password !== passwordConfirm) {
         alert('Password and re-typed password are different!');
         return;
     }
 
     auth.setPersistence(browserSessionPersistence).then(() => {
-        createUserWithEmailAndPassword(auth, userEmail, userPassword)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                if (user) {
-                    let data = {
-                        email: userEmail,
-                        theme: '#d4ffd4',
-                    };
+        createUserWithEmailAndPassword(auth, userEmail, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            if (user) {
+                let data = {
+                    email: userEmail,
+                    theme: '#d4ffd4',
+                };
 
-                    // add user data to db
-                    // eslint-disable-next-line no-undef
-                    set(ref(db, `${user.uid}`), data).then(() => {
-                        console.log('Successfully added!');
-                    });
+                // add user data to db
+                // eslint-disable-next-line no-undef
+                set(ref(db, `${user.uid}`), data).then(() => {
+                    console.log('Successfully added!');
+                });
 
-                    alert('Successful Sign Up');
-                    window.location.replace('../Index/Index.html');
-                }
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
+                alert('Successful Sign Up');
+                window.location.replace('../Index/Index.html');
+            }
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
     });
 }
 
 export function logout() {
     signOut(auth)
-        .then(() => {
-            // TODO
-            // window.location.replace('./Login.html');
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
+    .then(() => {
+        // TODO
+        // window.location.replace('./Login.html');
+    })
+    .catch((error) => {
+        alert(error.message);
+    });
+}
+
+function isValidEmail(userEmail) {
+    if(userEmail.indexOf('@') === -1) {
+        alert('Invalid email!');
+        return false;
+    }
+    return true;
+}
+
+function isValidPassword(password) {
+    if(password.length < 6) {
+        alert('Password length must be at least six!');
+        return false;
+    }
+    return true;
 }

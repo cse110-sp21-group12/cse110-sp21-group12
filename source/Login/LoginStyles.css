@@ -2,6 +2,7 @@
     font-family: 'Montserrat', Montserrat;
     font-weight: bold;
     color: #585858;
+    /* font-size: larger; */
 }
 body {
     background-color: white; 
@@ -10,8 +11,15 @@ body {
     margin:0; 
     padding:0; 
 }
-
+#dino-align {
+    /* margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch; */
+}
+/* TODO:  */
 #content {
+    /* margin-left: 7.5vw; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +27,10 @@ body {
     height: 60%;
     background-color: white;
     right: 0px;
+    /* border-style: solid;
+    border-color: #585858;
+    border-width: 0.3vw;
+    border-radius: 1.5vw; */
     position: absolute;
     top: 30%;
     
@@ -34,6 +46,7 @@ body {
     text-align: center;
 }
 #big-logo {
+    /*background-repeat: no-repeat;*/
     width: 60%;
     position: absolute;
     left: 0px;
@@ -68,7 +81,7 @@ body {
     display: flex;
 }
 #login-button {
-    position: absolute;
+    /* position: absolute; */
     background-color: #38B593;
     color: white;
     border-color:transparent;
@@ -76,10 +89,11 @@ body {
     flex-grow: 1;
     font-size: 2vh;
     margin-top: 3%;
+    margin-left: 15%;
+    margin-right: 10%;
     height: 5vh;
-    width: 100%;
-    top: 100%;
-    
+    width: 70%;
+    /* top: 100%; */
 }
 input {
     background-color: #f4f4f4;
@@ -91,19 +105,20 @@ input {
     height: 5vh;
     width:100%;
 }
-input[type=text]:focus {
+input[type=email]:focus {
     border: 1px solid #555;
 }
-​
 #sign-up-text {
-    position: absolute;
-    font-size: 0.2vh;
-    justify-content: center;
+    /* position: absolute; */
+    font-size: 0.8rem;
+    /* padding-left: 15%; */
+    /* justify-content: center; */
     flex-grow: 1;
     margin-top: 15px;
+    text-align: center;
 }
 #signup-button{
-    position: absolute;
+    /* position: absolute; */
     background-color: white;
     color: #38B593;
     border-color:#38B593;
@@ -112,5 +127,14 @@ input[type=text]:focus {
     font-size: 2vh;
     width: 50%;
     height: 5vh;
-    margin-top: 50%;
+    /* margin-top: 50%; */
+    margin-left: 25%;
 }
+/* #switch-screen {
+    font-size: medium;
+    text-align: left;
+    color: black;
+    width: parent;
+    background: none;
+    border: none;
+} */

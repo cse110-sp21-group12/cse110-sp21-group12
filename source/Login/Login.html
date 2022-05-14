@@ -8,31 +8,26 @@
         <title>Bullet Journal</title>
     </head>
     <body>
-        <img src="../Images/dino2.jpg" id="big-logo" />
-        <div id="content">
-            <!-- The text here gets replaced by JS in "LoginJs.js", can think of this as place holder text -->
-            <h3 id="title">Login to your Account</h3>
-            <div id="login-container">
-                <div id="login-center">
-                    
-                    <input type="text" placeholder="Username" id="username" />
-                    <input type="text" placeholder="Password" id="pin" />
-                    <div id="button-center">
+        <div id="dino-align">
+            <img src="../Images/dino2.jpg" id="big-logo" />
+            <div id="content">
+                <!-- The text here gets replaced by JS in "LoginJs.js", can think of this as place holder text -->
+                <h3 id="title">Login to your Account</h3>
+                <div id="login-container">
+                    <div id="login-center">
+                        
+                        <input type="email" placeholder="Email" id="email" />
+                        <input type="password" placeholder="Password" id="pin" />
                         <button id="login-button">LOGIN</button>
+
+                        <p id="sign-up-text">Don't have an account?</p>
+                        <button id="signup-button">SIGN UP</button>
                     </div>
-                </div>
+                </div>          
             </div>
-            <div id="button-center">
-                <h6 id="sign-up-text">Don't have an account?</h6>
-                <button id="signup-button">SIGN UP</button>
-            </div>      
-         </div>
-        
-        <script
-            src="../Backend/BackendInit.js"
-            type="text/javascript"
-            defer
-        ></script>
-        <script src="LoginJS.js" type="text/javascript" defer></script>
+        </div>
+
+        <script src="../Backend/FirebaseInit.js" type="module"></script>
+        <script src="./Login.js" type="module"></script>
     </body> 
 </html>
