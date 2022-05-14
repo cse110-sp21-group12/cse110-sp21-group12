@@ -2,7 +2,7 @@
     font-family: 'Montserrat', Montserrat;
     font-weight: bold;
     color: #585858;
-    font-size: larger;
+    /* font-size: larger; */
 }
 body {
     background-color: white; 
@@ -75,7 +75,10 @@ body {
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: 40%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 #login-button {
     position: absolute;
@@ -84,7 +87,9 @@ body {
     border-color:transparent;
     border-radius: 5vw;
     flex-grow: 1;
-    font-size: 2.5vh;
+    font-size: 2vh;
+    margin-top: 3%;
+    height: 5vh;
     width: 100%;
     top: 100%;
     
@@ -92,9 +97,11 @@ body {
 input {
     background-color: #f4f4f4;
     border-radius: 0.5vw;
+    margin-top: 5%;
     border-color:transparent;
-    /* flex-grow: 1; */
-    font-size: 3vh;
+    flex-grow: 1;
+    font-size: 2.5vh;
+    height: 5vh;
     width:100%;
 }
 input[type=text]:focus {
@@ -103,10 +110,12 @@ input[type=text]:focus {
 ​
 #sign-up-text {
     position: absolute;
-    font-size: 1vw;
-    top: 50%;
-    left: 35%;
-    text-align: center;
+    font-size: 0.2vh;
+    /* margin: 15%; */
+    justify-content: center;
+    flex-grow: 1;
+    margin-top: 15px;
+    /* text-align: center; */
 }
 #signup-button{
     position: absolute;
@@ -115,17 +124,16 @@ input[type=text]:focus {
     border-color:#38B593;
     border-radius: 5vw;
     flex-grow: 1;
-    font-size: 2.5vh;
-    margin: 15%;
+    font-size: 2vh;
     width: 50%;
-    top: 0%;
-    left: 10%;
+    height: 5vh;
+    margin-top: 50%;
 }
-#switch-screen {
+/* #switch-screen {
     font-size: medium;
     text-align: left;
     color: black;
     width: parent;
     background: none;
     border: none;
-}
+} */
