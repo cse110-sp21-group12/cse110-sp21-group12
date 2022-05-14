@@ -5,6 +5,7 @@
 /* Global styles */
 :root {
     --bg-color: white;
+    --clr-bg-hover: hsla(0, 0%, 0%, 0.1);
 }
 * {
     font-family: 'Courier', monospace;
@@ -67,7 +68,8 @@ Structure
 #content {
     overflow: hidden;
     overflow-y: scroll;
-    height: 50vh;
+    min-height: 50vh;
+    max-height: 100vh;
     width: auto;
     margin: 1vw 2vw;
 }
@@ -83,8 +85,16 @@ Structure
 .collapsible_child {
     display: none;
     flex-direction: column;
-    margin-left: 30px;
-    margin-bottom: 10px;
+    padding-left: 2rem;
+}
+
+.collapsible_child > a {
+    width: max-content;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+.collapsible_child > a:hover {
+    background-color: var(--clr-bg-hover);
 }
 
 .monthlink {
@@ -120,20 +130,25 @@ button:hover {
     cursor: pointer;
 }
 
+.coll_yr_button {
+    margin-right: 1rem;
+    border: 1px solid transparent;
+}
+.coll_yr_button:hover {
+    border: 1px solid black;
+}
+
+#content .yearlink:hover {
+    text-decoration: underline;
+}
+
 #content a {
     text-decoration: none;
-    padding-left: 1vw;
-    font-size: 1.5vw;
+    font-size: 1.25em;
 }
 
 #content > * {
     margin-bottom: 0.5vw;
-}
-
-/* year button group */
-.year {
-    margin-top: 2px;
-    margin-bottom: 2px;
 }
 
 /* calendar formatting styles */

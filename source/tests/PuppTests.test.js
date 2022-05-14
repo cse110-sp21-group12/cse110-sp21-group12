@@ -59,6 +59,94 @@ describe('basic navigation for BJ', () => {
     });
     */
 
+    //Login tests
+
+    it('LoginTest1: try to create account with blank username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = '';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('Please provide a username');
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest2: try to create account with short username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'a';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual(
+                'Username must be at least 2 characters long'
+            );
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'ABC:DEF';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual(
+                'Username must not contain special characters'
+            );
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest4: try to create account with pin that is too short', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '12';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual(
+                'PIN must be at least 4 digits long'
+            );
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234abc';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message).toEqual('PIN must contain numbers only');
+            await dialog.dismiss();
+        });
+    });
+
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
 
@@ -627,7 +715,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -682,7 +770,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -718,7 +806,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -755,7 +843,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
