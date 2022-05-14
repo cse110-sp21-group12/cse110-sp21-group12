@@ -10,7 +10,10 @@
     "my-custom-script": "linter --arg1 --arg2"
   },
   "lint-staged": {
-    "*.js": ["eslint", "prettier"],
+    "*.js": [
+      "eslint",
+      "prettier"
+    ],
     "*.{md,html,css}": "prettier"
   },
   "jest": {
@@ -42,6 +45,5 @@
     "puppeteer": "^9.1.1",
     "lint-staged": "^12.4.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

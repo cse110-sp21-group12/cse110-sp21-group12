@@ -6,6 +6,7 @@
  *
  * @param {*} param testing docs
  */
+// eslint-disable-next-line no-unused-vars
 function checkingDeploy(param) {
     console.log('hello world');
 }
