@@ -144,3 +144,4 @@ document.getElementById('November').children[0].href =
     '../MonthlyOverview/MonthlyOverview.html' + '#11/' + currentYear;
 document.getElementById('December').children[0].href =
     '../MonthlyOverview/MonthlyOverview.html' + '#12/' + currentYear;
+
