@@ -91,10 +91,9 @@ function signUp() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         console.log('Successfully added!');
+                        alert('Successful Sign Up');
+                        window.location.replace('../Index/Index.html');
                     });
-
-                    alert('Successful Sign Up');
-                    window.location.replace('../Index/Index.html');
                 }
             })
             .catch((error) => {
