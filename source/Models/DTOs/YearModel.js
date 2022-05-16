@@ -1,9 +1,9 @@
-import { GoalObj } from 'GoalModel.js';
+import { GoalModel } from './GoalModel.js';
 
 /**
  * Represents a year object.
  */
-export class YearObj extends GoalObj {
+export class YearModel extends GoalModel {
     constructor(yearStr) {
         super();
         this.year = yearStr;

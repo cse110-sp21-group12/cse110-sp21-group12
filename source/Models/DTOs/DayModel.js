@@ -1,9 +1,9 @@
-import { GoalObj } from 'GoalModel.js';
+import { GoalModel } from './GoalModel.js';
 
 /**
  * Represents a month object.
  */
-export class DateObj extends GoalObj {
+export class DateModel extends GoalModel {
     constructor(dateStr) {
         super();
         this.bullets = [];

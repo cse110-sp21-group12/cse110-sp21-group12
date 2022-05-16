@@ -1,5 +1,6 @@
 // yearObj: { year: yearStr, goals: [] }
-import { auth } from '../Backend/FirebaseInit.js';
+import { db, auth } from '../Backend/FirebaseInit.js';
+import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
 // Path to webpage's root directory
 // eslint-disable-next-line no-unused-vars
@@ -21,7 +22,7 @@ export function getUserEmail() {
 export function getCurrentDate() {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
     const yyyy = today.getFullYear();
 
     const todayObj = {
@@ -33,6 +34,6 @@ export function getCurrentDate() {
     return todayObj;
 }
 
-// export const pathObj = {
-//     loginPath:
-// }
+export function pushObjToDB(path, obj) {
+    set(ref(db, path), obj);
+}
