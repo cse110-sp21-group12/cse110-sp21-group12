@@ -133,7 +133,7 @@ describe('basic navigation for BJ', () => {
         });
         await page.waitForTimeout(300);
 
-        page.on('dialog', async (dialog) => {});
+        //page.on('dialog', async (dialog) => {});
 
         await page.$eval('#login-button', (button) => {
             button.click();
