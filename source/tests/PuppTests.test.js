@@ -153,7 +153,7 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
 
-        page.on('dialog', async (dialog) => {
+        page.on('dialog', async () => {
             await page.waitForTimeout(1000);
             // await dialog.dismiss();
         });
