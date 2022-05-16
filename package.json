@@ -29,12 +29,11 @@
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^26.6.3",
     "jest-puppeteer": "^5.0.3",
-    "jsdoc": "^3.6.10",
-    "prettier": "2.2.1",
-    "puppeteer": "^9.1.1"
+    "puppeteer": "^9.1.1",
+    "jsdoc": "^3.6.7",
+    "prettier": "2.2.1"
   },
   "dependencies": {
-    "mocha": "^10.0.0",
     "sha1": "^1.1.1"
   }
 }
