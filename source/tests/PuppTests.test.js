@@ -16,13 +16,11 @@ describe('Google', () => {
 // need this line for the browser
 const puppeteer = require('puppeteer');
 
-describe('basic navigation for BJ',  () => {
+describe('basic navigation for BJ', () => {
     var browser = null;
     var page = null;
-    
-    
-    
-    beforeAll (async () => {
+
+    beforeAll(async () => {
         // need this to extend the amount of time that the jest can run. I just arbitrarily set it to a high number
         // so that we can test for a longer period
         jest.setTimeout(90000);
@@ -37,10 +35,8 @@ describe('basic navigation for BJ',  () => {
         // used for seeing console messages
         // page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
         await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
-        
+
         await page.waitForTimeout(1000);
-        
-        
     });
 
     it('Test1: Initial Home Page - Shows create your login ', async () => {
@@ -50,7 +46,6 @@ describe('basic navigation for BJ',  () => {
         expect(headerText).toBe('Create your login!');
     });
 
-    
     //Login tests
 
     it('LoginTest1: try to create account with blank username', async () => {
@@ -61,8 +56,7 @@ describe('basic navigation for BJ',  () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        
-        
+
         let msg = null;
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
@@ -72,15 +66,14 @@ describe('basic navigation for BJ',  () => {
             await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
-        console.log(msg)
-        expect(msg).toMatch("Please provide a username");
+        console.log(msg);
+        expect(msg).toMatch('Please provide a username');
     });
 
     it('LoginTest2: try to create account with short username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'a';
         });
-        
 
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
@@ -92,7 +85,7 @@ describe('basic navigation for BJ',  () => {
             // await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('Username must be at least 2 characters long')
+        expect(msg).toMatch('Username must be at least 2 characters long');
     });
 
     it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
@@ -124,7 +117,7 @@ describe('basic navigation for BJ',  () => {
         let msg = null;
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
-            msg = dialog.message();            
+            msg = dialog.message();
             // await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
@@ -139,10 +132,10 @@ describe('basic navigation for BJ',  () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234abc';
         });
-        
+
         let msg = null;
         page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);            
+            await page.waitForTimeout(1000);
             // await dialog.dismiss();
             msg = dialog.message();
         });
@@ -159,7 +152,6 @@ describe('basic navigation for BJ',  () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        
 
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
@@ -169,7 +161,6 @@ describe('basic navigation for BJ',  () => {
         await page.$eval('#login-button', (button) => {
             button.click();
         });
-        
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
@@ -194,18 +185,18 @@ describe('basic navigation for BJ',  () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
-        
+
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '123';
         });
-        
-        console.log("here2")
+
+        console.log('here2');
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
             msg = dialog.message();
             // await dialog.dismiss()
         });
-        
+
         await page.$eval('#login-button', (button) => {
             button.click();
         });
@@ -952,5 +943,5 @@ describe('basic navigation for BJ',  () => {
 
     it('close browser', async () => {
         browser.close();
-    })
+    });
 });
