@@ -211,7 +211,7 @@ function goHome() {
  */
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText = 'Create your account!';
+    document.getElementById('title').innerText = 'Create your login!';
     loginButton.innerText = 'Sign Up';
 }
 

@@ -1,19 +1,5 @@
 /* eslint-disable no-undef*/
 
-//const { loadPartialConfigAsync } = require('@babel/core');
-
-/*//sample puppeteer test
-describe('Google', () => {
-    beforeAll(async () => {
-        await page.goto('https://google.com');
-    });
-
-    it('should display "google" text on page', async () => {
-        await expect(page).toMatch('google');
-    });
-});*/
-//npm test source/tests/sampleP.test.js
-
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
         await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
@@ -24,7 +10,7 @@ describe('basic navigation for BJ', () => {
         const headerText = await page.$eval('#title', (header) => {
             return header.innerHTML;
         });
-        expect(headerText).toBe('Create your account!');
+        expect(headerText).toBe('Create your login!');
     });
 
     /*
