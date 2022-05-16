@@ -16,9 +16,7 @@ describe('Google', () => {
 
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
-        await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
-        );
+        await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
         await page.waitForTimeout(500);
     });
 
@@ -59,6 +57,87 @@ describe('basic navigation for BJ', () => {
     });
     */
 
+    //Login tests
+
+    it('LoginTest1: try to create account with blank username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = '';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message()).toEqual('Incorrect password!');
+            await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest2: try to create account with short username', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'a';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message()).toEqual('Incorrect password!');
+        });
+    });
+
+    it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'ABC:DEF';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message()).toEqual('Incorrect password!');
+            // await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest4: try to create account with pin that is too short', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '12';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message()).toEqual('Incorrect password!');
+            // await dialog.dismiss();
+        });
+    });
+
+    it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234abc';
+        });
+        await page.waitForTimeout(300);
+
+        page.on('dialog', async (dialog) => {
+            expect(dialog.message()).toEqual('Incorrect password!');
+            // await dialog.dismiss();
+        });
+    });
+
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
 
@@ -71,26 +150,20 @@ describe('basic navigation for BJ', () => {
         });
         await page.waitForTimeout(300);
 
-        page.on('dialog', async (dialog) => {
-            await dialog.dismiss();
-        });
+        page.on('dialog', async (dialog) => {});
 
         await page.$eval('#login-button', (button) => {
             button.click();
         });
 
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
-        );
+        expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
     });
 
     it('Test3: From index page go back, should be login page ', async () => {
         await page.goBack();
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Login/Login.html'
-        );
+        expect(url).toMatch('http://127.0.0.1:5500/source/Login/Login.html');
     });
 
     it('Test4: Login page should now be sign-in, not create account', async () => {
@@ -133,9 +206,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
-        await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
-        );
+        await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
         await page.waitForTimeout(300);
 
         const currentDayHigh = await page.$eval('.today', (day) => {
@@ -627,7 +698,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -682,7 +753,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -718,7 +789,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -755,7 +826,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#June > a', (button) => {
+        await page.$eval('#May > a', (button) => {
             button.click();
         });
 
@@ -786,7 +857,7 @@ describe('basic navigation for BJ', () => {
         const url = await page.evaluate(() => location.href);
 
         expect(`${url}`).toMatch(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html'
+            'http://127.0.0.1:5500/source/Index/Index.html'
         );
     });
 
@@ -831,10 +902,9 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test47: check that the home button works in the yearly overview', async () => {
-        const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/YearlyOverview/YearlyOverview.html#2021'
+            'http://127.0.0.1:5500/source/YearlyOverview/YearlyOverview.html#2021'
         );
 
         await page.$eval('#house > a', (btn) => {
@@ -845,10 +915,9 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test48: check that the home button works in the monthly overview', async () => {
-        const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/MonthlyOverview/MonthlyOverview.html#06/2021'
+            'http://127.0.0.1:5500/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#house > a', (btn) => {
@@ -858,10 +927,9 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test49: check that the home button works in the daily overview', async () => {
-        const indexURL =
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
-            'https://cse110-sp21-group12.github.io/cse110-sp21-group12/source/DailyOverview/DailyOverview.html#06/08/2021'
+            'http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
         await page.waitForTimeout('300');
         await page.$eval('#homeContainer > a', (btn) => {
