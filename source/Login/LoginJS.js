@@ -1,5 +1,11 @@
-//setup hasher
-//let sha1 = require('sha1');
+//minimum length values
+const MIN_NAME_LENGTH = 2;
+const MIN_PIN_LENGTH = 4;
+
+//PIN restriction regex (identify bad PINs)
+const pin_regex = /\D/;
+//Username restriction regex (identify bad Usernames)
+const name_regex = /[^\w-]/;
 
 /**
  * gets the current session storage,
@@ -13,7 +19,7 @@ console.log('here is the storage session: ', storageSession);
 //store current page state
 let loginState;
 
-//sotring setting got back
+//"settings" object retrieved from backend/storage
 let settingObj;
 
 //username box
@@ -28,7 +34,7 @@ loginButton.addEventListener('click', () => {
     if (loginState == 'returning') {
         handleLogin(passwordField.value);
     } else if (loginState == 'new') {
-        handleSignup(usernameField.value, passwordField.value);
+        handleSignup(usernameField.value.trim(), passwordField.value.trim());
     }
 });
 
@@ -46,13 +52,13 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
+        //console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            console.log('got settings');
+            //console.log('got settings');
             console.log(e.target.result);
             settingObj = e.target.result;
             if (settingObj === undefined) {
@@ -69,24 +75,68 @@ function getLoginState() {
 /**
  * Handle a Sign-Up request from a new user
  *
- * @param {*} newUsername Display name of new user
- * @param {*} newPassword PIN of new user
+ * @param {String} newUsername Display name of new user
+ * @param {String} newPassword PIN of new user
  */
 function handleSignup(newUsername, newPassword) {
-    let userObject = {
-        username: newUsername,
-        password: newPassword,
-        theme: '#d4ffd4',
-    };
-    //update settings
-    // eslint-disable-next-line no-undef
-    updateSettings(userObject);
-    console.log('frontend: updating settings...');
-    //make them log in
-    //toggleView();
-    alert('Account created! Please log in');
-    sessionStorage.setItem('loggedIn', 'true');
-    goHome();
+    //call helper to check if inputs are valid
+    if (verifyValidInputs(newUsername, newPassword)) {
+        //if so, proceed
+        let userObject = {
+            username: newUsername,
+            password: newPassword,
+            theme: '#d4ffd4',
+        };
+
+        //update settings
+        // eslint-disable-next-line no-undef
+        updateSettings(userObject);
+
+        //automatically log in
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
+    }
+}
+
+/**
+ * Helper function called from handleSignup()
+ * Checks that username and PIN comply with length requirements and don't contain prohibited characters.
+ * @param {String} newUsername Username to check
+ * @param {String} newPassword password to check
+ */
+function verifyValidInputs(newUsername, newPassword) {
+    //prohibit empty username
+    console.log("here")
+    if (newUsername.length == 0) {
+        alert('Please provide a username');
+        return false;
+    }
+    //prohibit short names
+    else if (newUsername.length < MIN_NAME_LENGTH) {
+        alert('Username must be at least 2 characters long');
+        return false;
+    }
+    //prohibit invalid characters in username
+    else if (name_regex.test(newUsername)) {
+        alert('Username must not contain special characters');
+        return false;
+    }
+
+    //prohibit short passwords
+    else if (newPassword.length < MIN_PIN_LENGTH) {
+        alert('PIN must be at least 4 digits long');
+        return false;
+    }
+    //prohibit non-numeric PIN
+    else if (pin_regex.test(newPassword)) {
+        alert('PIN must contain numbers only');
+        return false;
+    }
+
+    //allow otherwise
+    else {
+        return true;
+    }
 }
 
 /**
@@ -115,7 +165,6 @@ function handleLogin(password) {
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
-    alert('login');
     window.location.href = '../Index/Index.html';
 }
 /**
@@ -125,7 +174,7 @@ function goHome() {
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
-    loginButton.innerText = 'Sign-Up';
+    loginButton.innerText = 'Sign Up';
 }
 
 /**
@@ -135,7 +184,7 @@ function setNewUser() {
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
-    loginButton.innerText = 'Sign-In';
+    loginButton.innerText = 'Sign In';
 }
 
 /*

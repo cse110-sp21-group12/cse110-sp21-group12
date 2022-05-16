@@ -3,3 +3,5 @@ node_modules/
 *.scss
 *.css.map
 .vscode/
+*.DS_Store
+*/.DS_Store
