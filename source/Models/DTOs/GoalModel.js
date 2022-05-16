@@ -1,9 +1,9 @@
 /**
  * Represents a goal object.
  */
-export class GoalObj {
+export class GoalModel {
     constructor() {
-        this.goals = [];
+        this.goals = {};
     }
 
     getObj() {
@@ -14,8 +14,8 @@ export class GoalObj {
         return this.goals;
     }
 
-    addGoal(goalObj) {
-        this.goals.append(goalObj);
+    addGoal(goalEntry) {
+        this.goals.append(goalEntry);
         return true;
     }
 }
