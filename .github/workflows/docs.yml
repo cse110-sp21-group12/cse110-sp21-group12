@@ -35,4 +35,4 @@ jobs:
           source-directory: 'docs'
           destination-github-username: 'CSE112-SP22-TeamXRefactor'
           destination-repository-name: 'jsDocs'
-          target-branch: master
+          target-branch: main
