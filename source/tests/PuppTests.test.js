@@ -72,7 +72,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('Please provide a username');
+            expect(dialog.message()).toEqual('Incorrect password!');
             await dialog.dismiss();
         });
     });
@@ -88,10 +88,9 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'Username must be at least 2 characters long'
+            expect(dialog.message()).toEqual(
+                'Incorrect password!'
             );
-            await dialog.dismiss();
         });
     });
 
@@ -106,10 +105,10 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'Username must not contain special characters'
+            expect(dialog.message()).toEqual(
+                'Incorrect password!'
             );
-            await dialog.dismiss();
+            // await dialog.dismiss();
         });
     });
 
@@ -124,10 +123,10 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'PIN must be at least 4 digits long'
+            expect(dialog.message()).toEqual(
+                "Incorrect password!"
             );
-            await dialog.dismiss();
+            // await dialog.dismiss();
         });
     });
 
@@ -142,8 +141,8 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('PIN must contain numbers only');
-            await dialog.dismiss();
+            expect(dialog.message()).toEqual("Incorrect password!");
+            // await dialog.dismiss();
         });
     });
 
@@ -160,7 +159,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            await dialog.dismiss();
+            
         });
 
         await page.$eval('#login-button', (button) => {
