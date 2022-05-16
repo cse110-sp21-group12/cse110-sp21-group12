@@ -168,6 +168,7 @@ function setupCalendar() {
             day.classList.add('today');
         }
 
+        
         days_field.appendChild(day);
 
         //link to daily overview
