@@ -30,6 +30,7 @@ window.addEventListener('load', () => {
             console.log(e.target.result);
             currentMonthRes = e.target.result;
             if (currentMonthRes === undefined) {
+                // creates a month object which will be used to create a blank template of monthly goals
                 currentMonthRes = initMonth(currentMonth);
                 createMonthlyGoals(currentMonthRes);
             } else {
@@ -38,6 +39,7 @@ window.addEventListener('load', () => {
                 renderGoals(goals);
             }
         };
+        // gets the users preferred settings and switches the theme to match their stated preference
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
@@ -50,6 +52,7 @@ window.addEventListener('load', () => {
     };
 });
 
+// creates a form for entering the text for monthly goals and will create a list of them and update in database accordingly
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
@@ -61,12 +64,15 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     });
     console.log(currentMonthRes);
     document.querySelector('#bullets').innerHTML = '';
+    // turns the goals from text into bullets
     renderGoals(currentMonthRes.goals);
+    // updates the goals in the database
     updateMonthlyGoals(currentMonthRes);
 });
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    // potentially bad console logs that is used for debugging and should be deleted when finished
     console.log('got event');
     console.log(e.composedPath());
     let index = e.composedPath()[0].getAttribute('index');
@@ -133,7 +139,7 @@ const months = [
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 //link to daily overview
-const day_OV_link = '../DailyOverview/DailyOverview.html';
+const dayOverviewLink = '../DailyOverview/DailyOverview.html';
 
 function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
@@ -161,43 +167,43 @@ function setupCalendar() {
     let currMonthNumber = thisDate.getMonth();
     let currYearNumber = thisDate.getFullYear();
 
-    let month_first_dow = firstDow(currMonthNumber, currYearNumber);
+    let monthFirstDow = firstDow(currMonthNumber, currYearNumber);
 
     //month title on top
     //wrapper
-    let month_header = document.createElement('div');
-    month_header.classList.add('month_header');
+    let monthHeader = document.createElement('div');
+    monthHeader.classList.add('monthHeader');
     //text
-    let month_label = document.createElement('p');
-    month_label.classList.add('month_label');
-    month_label.innerText = months[currMonthNumber];
-    month_header.appendChild(month_label);
-    calTarget.appendChild(month_header);
+    let monthLabel = document.createElement('p');
+    monthLabel.classList.add('monthLabel');
+    monthLabel.innerText = months[currMonthNumber];
+    monthHeader.appendChild(monthLabel);
+    calTarget.appendChild(monthHeader);
 
     //top bar of weekday names
-    let weekdays_label = document.createElement('ul');
-    weekdays_label.classList.add('weekdays_label');
+    let weekdaysLabel = document.createElement('ul');
+    weekdaysLabel.classList.add('weekdaysLabel');
     for (let i = 0; i < weekdays.length; i++) {
         let weekday = document.createElement('li');
         weekday.innerText = weekdays[i];
         weekday.classList.add('weekday');
-        weekdays_label.appendChild(weekday);
+        weekdaysLabel.appendChild(weekday);
     }
-    calTarget.appendChild(weekdays_label);
+    calTarget.appendChild(weekdaysLabel);
 
     //all the little days
-    let days_field = document.createElement('ul');
-    days_field.classList.add('days_field');
+    let daysField = document.createElement('ul');
+    daysField.classList.add('daysField');
     let endDay = daysInMonth(currMonthNumber + 1, currYearNumber);
     console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
-    for (let i = 0; i < month_first_dow; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
-        blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
+    for (let i = 0; i < monthFirstDow; i++) {
+        let blankDay = document.createElement('li');
+        blankDay.classList.add('day');
+        blankDay.classList.add('blankDay');
+        blankDay.innerText = '';
+        daysField.appendChild(blankDay);
     }
 
     //real days
@@ -225,12 +231,12 @@ function setupCalendar() {
             day.classList.add('today');
         }
 
-        days_field.appendChild(day);
+        daysField.appendChild(day);
 
         //link to daily overview
         day.addEventListener('click', () => {
             window.location.href =
-                day_OV_link +
+                dayOverviewLink +
                 '#' +
                 monthNumber(currMonthNumber) +
                 '/' +
@@ -244,14 +250,14 @@ function setupCalendar() {
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
     for (let i = monthLastDow; i < 6; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
-        blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
+        let blankDay = document.createElement('li');
+        blankDay.classList.add('day');
+        blankDay.classList.add('blankDay');
+        blankDay.innerText = '';
+        daysField.appendChild(blankDay);
     }
 
-    calTarget.append(days_field);
+    calTarget.append(daysField);
 }
 
 //
