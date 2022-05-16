@@ -16,9 +16,7 @@ describe('Google', () => {
 
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
-        await page.goto(
-            'http://127.0.0.1:5500/source/Login/Login.html'
-        );
+        await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
         await page.waitForTimeout(500);
     });
 
@@ -88,9 +86,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual(
-                'Incorrect password!'
-            );
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
     });
 
@@ -105,9 +101,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual(
-                'Incorrect password!'
-            );
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
     });
 
@@ -122,9 +116,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual(
-                "Incorrect password!"
-            );
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
     });
 
@@ -139,7 +131,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual("Incorrect password!");
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
     });
 
@@ -155,26 +147,20 @@ describe('basic navigation for BJ', () => {
         });
         await page.waitForTimeout(300);
 
-        page.on('dialog', async (dialog) => {
-            
-        });
+        page.on('dialog', async (dialog) => {});
 
         await page.$eval('#login-button', (button) => {
             button.click();
         });
 
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch(
-            'http://127.0.0.1:5500/source/Index/Index.html'
-        );
+        expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
     });
 
     it('Test3: From index page go back, should be login page ', async () => {
         await page.goBack();
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch(
-            'http://127.0.0.1:5500/source/Login/Login.html'
-        );
+        expect(url).toMatch('http://127.0.0.1:5500/source/Login/Login.html');
     });
 
     it('Test4: Login page should now be sign-in, not create account', async () => {
@@ -217,9 +203,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
-        await page.goto(
-            'http://127.0.0.1:5500/source/Index/Index.html'
-        );
+        await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
         await page.waitForTimeout(300);
 
         const currentDayHigh = await page.$eval('.today', (day) => {
@@ -915,8 +899,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test47: check that the home button works in the yearly overview', async () => {
-        const indexURL =
-            'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/YearlyOverview/YearlyOverview.html#2021'
         );
@@ -929,8 +912,7 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test48: check that the home button works in the monthly overview', async () => {
-        const indexURL =
-            'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
@@ -942,8 +924,7 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test49: check that the home button works in the daily overview', async () => {
-        const indexURL =
-            'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
