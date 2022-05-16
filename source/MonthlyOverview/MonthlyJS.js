@@ -30,6 +30,7 @@ window.addEventListener('load', () => {
             console.log(e.target.result);
             currentMonthRes = e.target.result;
             if (currentMonthRes === undefined) {
+                // creates a month object which will be used to create a blank template of monthly goals
                 currentMonthRes = initMonth(currentMonth);
                 createMonthlyGoals(currentMonthRes);
             } else {
@@ -38,6 +39,7 @@ window.addEventListener('load', () => {
                 renderGoals(goals);
             }
         };
+        // gets the users preferred settings and switches the theme to match their stated preference
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
@@ -50,6 +52,7 @@ window.addEventListener('load', () => {
     };
 });
 
+// creates a form for entering the text for monthly goals and will create a list of them and update in database accordingly
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     let gText = document.querySelector('.entry-form-text').value;
@@ -61,12 +64,15 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     });
     console.log(currentMonthRes);
     document.querySelector('#bullets').innerHTML = '';
+    // turns the goals from text into bullets
     renderGoals(currentMonthRes.goals);
+    // updates the goals in the database
     updateMonthlyGoals(currentMonthRes);
 });
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    // potentially bad console logs that is used for debugging and should be deleted when finished
     console.log('got event');
     console.log(e.composedPath());
     let index = e.composedPath()[0].getAttribute('index');
