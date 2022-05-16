@@ -16,11 +16,13 @@ describe('Google', () => {
 
 describe('basic navigation for BJ', () => {
     beforeAll(async () => {
-        await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
+        await page.goto(
+            'http://127.0.0.1:5500/source/Login/Login.html'
+        );
         await page.waitForTimeout(500);
     });
 
-    it('Test1: Initial Home Page - Shows create your login ', async () => {
+    it('Test1: Initial Home Page - Shows create your account ', async () => {
         const headerText = await page.$eval('#title', (header) => {
             return header.innerHTML;
         });
@@ -57,7 +59,9 @@ describe('basic navigation for BJ', () => {
     });
     */
 
-    it('LoginTest1: no username', async () => {
+    //Login tests
+
+    it('LoginTest1: try to create account with blank username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = '';
         });
@@ -68,12 +72,12 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('Please provide a username');
+            expect(dialog.message()).toEqual('Incorrect password!');
             await dialog.dismiss();
         });
     });
 
-    it('LoginTest2: short username', async () => {
+    it('LoginTest2: try to create account with short username', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'a';
         });
@@ -84,14 +88,13 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'Username must be at least 2 characters long'
+            expect(dialog.message()).toEqual(
+                'Incorrect password!'
             );
-            await dialog.dismiss();
         });
     });
 
-    it('LoginTest3: bad username', async () => {
+    it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'ABC:DEF';
         });
@@ -102,14 +105,13 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'Username must not contain special characters'
+            expect(dialog.message()).toEqual(
+                'Incorrect password!'
             );
-            await dialog.dismiss();
         });
     });
 
-    it('LoginTest4: short pin', async () => {
+    it('LoginTest4: try to create account with pin that is too short', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
@@ -120,14 +122,13 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual(
-                'PIN must be at least 4 digits long'
+            expect(dialog.message()).toEqual(
+                "Incorrect password!"
             );
-            await dialog.dismiss();
         });
     });
 
-    it('LoginTest5: bad pin', async () => {
+    it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
@@ -138,8 +139,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            expect(dialog.message).toEqual('PIN must contain numbers only');
-            await dialog.dismiss();
+            expect(dialog.message()).toEqual("Incorrect password!");
         });
     });
 
@@ -156,7 +156,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
-            await dialog.dismiss();
+            
         });
 
         await page.$eval('#login-button', (button) => {
@@ -164,13 +164,17 @@ describe('basic navigation for BJ', () => {
         });
 
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
+        expect(url).toMatch(
+            'http://127.0.0.1:5500/source/Index/Index.html'
+        );
     });
 
     it('Test3: From index page go back, should be login page ', async () => {
         await page.goBack();
         const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5500/source/Login/Login.html');
+        expect(url).toMatch(
+            'http://127.0.0.1:5500/source/Login/Login.html'
+        );
     });
 
     it('Test4: Login page should now be sign-in, not create account', async () => {
@@ -213,7 +217,9 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
-        await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
+        await page.goto(
+            'http://127.0.0.1:5500/source/Index/Index.html'
+        );
         await page.waitForTimeout(300);
 
         const currentDayHigh = await page.$eval('.today', (day) => {
@@ -909,7 +915,8 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test47: check that the home button works in the yearly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL =
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/YearlyOverview/YearlyOverview.html#2021'
         );
@@ -922,7 +929,8 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test48: check that the home button works in the monthly overview', async () => {
-        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL =
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/MonthlyOverview/MonthlyOverview.html#06/2021'
         );
@@ -934,7 +942,8 @@ describe('basic navigation for BJ', () => {
         expect(url).toMatch(indexURL);
     });
     it('Test49: check that the home button works in the daily overview', async () => {
-        const indexURL = 'http://127.0.0.1:5500/source/Index/Index.html';
+        const indexURL =
+            'http://127.0.0.1:5500/source/Index/Index.html';
         await page.goto(
             'http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#06/08/2021'
         );
@@ -948,27 +957,5 @@ describe('basic navigation for BJ', () => {
     it('Test50: Change background color', async () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
-    });
-    it('Test51: Reset password, should be loggedIn state after resetting password', async () => {
-        jest.setTimeout(30000);
-
-        await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
-        await page.waitForTimeout(300);
-
-        await page.$eval('#reset-password-button', (button) => {
-            button.click();
-        });
-
-        await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '8848';
-        });
-        await page.waitForTimeout(300);
-
-        await page.$eval('#login-button', (button) => {
-            button.click();
-        });
-
-        const url2 = await page.evaluate(() => location.href);
-        expect(url2).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
     });
 });
