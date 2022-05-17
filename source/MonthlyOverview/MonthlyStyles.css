@@ -54,6 +54,10 @@ body {
     font-size: 3.5vh;
 }
 
+#back:hover {
+    text-decoration: underline !important;
+}
+
 #name {
     grid-area: goal;
     display: flex;
