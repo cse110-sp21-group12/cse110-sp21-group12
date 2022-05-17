@@ -8,13 +8,25 @@ import {
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
 window.onload = () => {
-    // login event
+    // login / signup event depending on button texts
     const loginBtn = document.getElementById('login-button');
-    if (loginBtn !== null) {
-        loginBtn.onclick = () => {
+    loginBtn.onclick = () => {
+        if (loginBtn.innerText === 'LOGIN') {
             signIn();
-        };
-    }
+        } else {
+            signUp();
+        }
+    };
+
+    // change view of login and signup
+    const signupBtn = document.getElementById('signup-button');
+    signupBtn.onclick = () => {
+        if (signupBtn.innerText === 'LOGIN') {
+            setLogin();
+        } else {
+            setSignUp();
+        }
+    };
 };
 
 /**
@@ -25,21 +37,24 @@ function signIn() {
     let userEmail = document.getElementById('email').value;
     let password = document.getElementById('pin').value;
 
-    if (userEmail.indexOf('@') !== -1 && password.length !== 0) {
-        // set session persistence so status unchanged after refreshing
-        auth.setPersistence(browserSessionPersistence).then(() => {
-            signInWithEmailAndPassword(auth, userEmail, password)
-                // eslint-disable-next-line no-unused-vars
-                .then((userCredential) => {
-                    // TODO
-                    alert('Successfully signed in!');
-                    window.location.replace('../Index/Index.html');
-                })
-                .catch((error) => {
-                    alert('Login Failed: ' + error.message);
-                });
-        });
+    // validity check
+    if (!isValidEmail(userEmail) || !isValidPassword(password)) {
+        return;
     }
+
+    // set session persistence so status unchanged after refreshing
+    auth.setPersistence(browserSessionPersistence).then(() => {
+        signInWithEmailAndPassword(auth, userEmail, password)
+            // eslint-disable-next-line no-unused-vars
+            .then((userCredential) => {
+                // TODO
+                alert('Successfully signed in!');
+                window.location.replace('../Index/Index.html');
+            })
+            .catch((error) => {
+                alert('Login Failed: ' + error.message);
+            });
+    });
 }
 
 /**
@@ -48,17 +63,22 @@ function signIn() {
 // eslint-disable-next-line no-unused-vars
 function signUp() {
     let userEmail = document.getElementById('email').value;
-    let userPassword = document.getElementById('pin').value;
-    let passwordConfirm = document.getElementById('pin-conf').value;
+    let password = document.getElementById('pin').value;
+    let passConfirm = document.getElementById('passConf').value;
 
-    //ensure password === confirm password
-    if (userPassword !== passwordConfirm) {
+    // validity check
+    if (!isValidEmail(userEmail) || !isValidPassword(password)) {
+        return;
+    }
+
+    // ensure password is the same as confirmed password
+    if (password !== passConfirm) {
         alert('Password and re-typed password are different!');
         return;
     }
 
     auth.setPersistence(browserSessionPersistence).then(() => {
-        createUserWithEmailAndPassword(auth, userEmail, userPassword)
+        createUserWithEmailAndPassword(auth, userEmail, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 if (user) {
@@ -71,10 +91,9 @@ function signUp() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         console.log('Successfully added!');
+                        alert('Successful Sign Up');
+                        window.location.replace('../Index/Index.html');
                     });
-
-                    alert('Successful Sign Up');
-                    window.location.replace('../Index/Index.html');
                 }
             })
             .catch((error) => {
@@ -83,13 +102,83 @@ function signUp() {
     });
 }
 
+/**
+ * Handle user logout event and redirection to login page.
+ */
 export function logout() {
     signOut(auth)
         .then(() => {
             // TODO
-            // window.location.replace('./Login.html');
+            window.location.replace('./Login.html');
         })
         .catch((error) => {
             alert(error.message);
         });
+}
+
+/**
+ * Check if input string is an email
+ * @param {String} userEmail
+ * @returns true if email is valid
+ */
+function isValidEmail(userEmail) {
+    if (userEmail.indexOf('@') === -1) {
+        alert('Invalid email!');
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Check if password length is at least six.
+ * @param {String} password
+ * @returns true or false
+ */
+function isValidPassword(password) {
+    if (password.length < 6) {
+        alert('Password length must be at least six!');
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Modify login page from login mode to signup mode
+ */
+function setSignUp() {
+    document.getElementById('title').innerText = 'Make your Account';
+
+    const passwordField = document.getElementById('pin');
+
+    // create password confirmation field
+    let passConfField = document.createElement('input');
+    passConfField.type = 'password';
+    passConfField.placeholder = 'Confirm Password';
+    passConfField.id = 'passConf';
+    // insert password confirmation after password field
+    passwordField.parentNode.insertBefore(
+        passConfField,
+        passwordField.nextSibling
+    );
+
+    document.getElementById('sign-up-text').innerText =
+        'Already have an account?';
+
+    document.getElementById('login-button').innerText = 'SIGN UP';
+    document.getElementById('signup-button').innerText = 'LOGIN';
+}
+
+function setLogin() {
+    document.getElementById('title').innerText = 'Login to your Account';
+
+    document.getElementById('sign-up-text').innerText =
+        // eslint-disable-next-line
+        "Don't have an account?";
+
+    let passConf = document.getElementById('passConf');
+    if (passConf) {
+        document.getElementById('login-center').removeChild(passConf);
+    }
+    document.getElementById('login-button').innerText = 'LOGIN';
+    document.getElementById('signup-button').innerText = 'SIGN UP';
 }
