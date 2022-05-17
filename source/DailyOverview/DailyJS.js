@@ -24,8 +24,19 @@ const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
 const LENGTH_OF_YEAR_NUMBER = -4;
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
 ];
 
 // store current day data to update when user leaves page
@@ -70,11 +81,20 @@ window.addEventListener('load', () => {
  */
 function setMonthlyOverviewLink() {
     // get MonthlyOverview link in top left corner of DailyOverview screen
-    let monthlyOverviewLink = document.querySelector('#monthView > a:first-child');
+    let monthlyOverviewLink = document.querySelector(
+        '#monthView > a:first-child'
+    );
     // set the link to be to the month of the current DailyOverview
-    monthlyOverviewLink.href += '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
+    monthlyOverviewLink.href +=
+        '#' +
+        currentDateStr.substring(0, 2) +
+        '/' +
+        currentDateStr.substring(6);
     /* set link text */
-    const monthString = currentDateStr.substring(0, currentDateStr.indexOf('/'));
+    const monthString = currentDateStr.substring(
+        0,
+        currentDateStr.indexOf('/')
+    );
     const month = monthNames[parseInt(monthString) - 1];
     const year = currentDateStr.slice(LENGTH_OF_YEAR_NUMBER);
     monthlyOverviewLink.textContent = `${month} ${year} Overview`;
