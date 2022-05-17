@@ -952,13 +952,50 @@ describe('basic navigation for BJ', () => {
 
         /* gets current month name */
         const currentDate = new Date();
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const expected = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()} Overview`;
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        const expected = `${
+            monthNames[currentDate.getMonth()]
+        } ${currentDate.getFullYear()} Overview`;
 
         /* gets MonthlyOverview link text */
         const monthlyOverviewLink = await page.$('#monthView > a:first-child');
-        const linkText = await (await monthlyOverviewLink.getProperty('textContent')).jsonValue();
+        const linkText = await (
+            await monthlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
 
         expect(expected).toMatch(linkText); // compare expected month to real month
-    })
+    });
+    it('Test52: Check YearlyOverview link text is correct on MonthlyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets MonthlyOverview link and passes it to callback function to click MonthlyOverview btn
+        await page.$eval('#monthView > a:first-child', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current year */
+        const currentDate = new Date();
+        const expected = `${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const yearlyOverviewLink = await page.$('#back');
+        const linkText = await (
+            await yearlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
 });
