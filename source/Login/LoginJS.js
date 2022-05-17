@@ -135,7 +135,7 @@ function setLogin() {
     document.getElementById('sign-up-text').innerText =
         // enforcing use of single quotes for the next line will result in needing to escape the apos. in "don't". manually overriding
         // eslint-disable-next-line
-        'Don\'t have an account?';
+        "Don't have an account?";
     loginButton.innerText = 'LOGIN';
     signupButton.innerText = 'SIGN UP';
 }

@@ -173,7 +173,7 @@ function setLogin() {
 
     document.getElementById('sign-up-text').innerText =
         // eslint-disable-next-line
-        'Don\'t have an account?';
+        "Don't have an account?";
 
     let passConf = document.getElementById('passConf');
     if (passConf) {
