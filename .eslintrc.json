@@ -6,7 +6,7 @@
         "commonjs": true,
         "es2021": true
     },
-    "extends":[
+    "extends": [
         "eslint:recommended",
         "prettier"
     ],
@@ -14,21 +14,52 @@
         //Specifies which version of ECMA we want to use (picked latest one)
         "ecmaVersion": 12
     },
-    
+    "plugins": [
+        "prettier"
+    ],
+    "overrides": [
+      {
+        "files": [ 
+            "FirebaseInit.js",
+            "firebase-app.min.js",
+            "firebase-auth.min.js",
+            "firebase-database.min.js",
+            "Login.js"
+        ],
+        "parserOptions": {
+          "sourceType": "module"
+        }
+      }
+    ],
     "rules": {
-        "prettier/prettier": [ "error", {"trailingComma": "es5", "semi": true, "singleQuote": true, "printWidth": 80, "tabWidth": 4, "endOfLine": "auto"}],
         /*
          * add/disable more rules that we want below
          * here is a link to the rules
          * https://eslint.org/docs/rules/
          * --Notice that we extended "eslint:recommended"
          */
-        "comma-dangle": ["error","only-multiline"],
-        "semi": ["error","always"],
-        "quotes": ["error", "single"],
-        "camelcase": ["error"]
-    },
-    "plugins": [
-        "prettier"
-    ]
+        "comma-dangle": [
+            "error",
+            "only-multiline"
+        ],
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "printWidth": 80,
+                "semi": true,
+                "singleQuote": true,
+                "tabWidth": 4,
+                "trailingComma": "es5"
+            }
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
 }
