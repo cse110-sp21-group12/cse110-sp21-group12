@@ -1,3 +1,4 @@
+/* eslint-disable no-undef*/
 const puppeteer = require('puppeteer');
 // please read through some of the comments with NOTE: if this test fails
 // This test is more for local testing since I am not sure what would happen to the test if it is run on github
