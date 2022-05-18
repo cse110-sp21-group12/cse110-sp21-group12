@@ -1,0 +1,179 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', Montserrat;
+}
+.wrapper{
+    background: black;
+    display:grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-rows: 1fr 3fr;
+    /* grid-column-gap: 1em;
+    grid-row-gap: 1em; */
+    justify-items: stretch;
+    align-items: stretch;
+    height: 100vh;
+    width: 100vw;
+}
+.header{
+    background-image: url("../Images/weekly_header.jpg");
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#header_date{
+    position: relative;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 7vh;
+    padding-left: 7%;
+    padding-top: 2%;
+}
+
+.content{
+    display:grid;
+    grid-template-columns: 4fr 3fr 3fr;
+}
+.weekly_preview{
+    background: #C2F7B5;
+}
+.monthly_preview{
+    background: #C2F7B5;
+    display: grid;
+    grid-template-rows: 2fr 8fr;
+}
+.photo_album{
+    background: pink;
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+}
+.photo_header{
+    display:grid;
+    grid-template-columns: 8fr 2fr;
+    text-align: left;
+}
+#photo_title{
+
+}
+
+/* Todo Block */
+
+#todo {
+    grid-area: todo;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw 3vw 1vw 2vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    height: 75vh;
+    width: 80%;
+    overflow: auto;
+
+    min-height: 35vw;
+}
+
+#todo::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+
+
+/* Calendar Block */
+
+/* TODO: fix calendar sizes */
+#calendar {
+    position: relative;
+    right: 15px;
+    top: 10px;
+    height: 5vw;
+    padding: .5vw .5vw .5vw;
+}
+
+/* Month header */
+.calMonthHeader {
+    padding: 2vw 25px;
+    background: #585858;
+    text-align: center;
+    border-radius: 2vw 2vw 0 0;
+}
+
+/* Month header's text */
+.calMonthLabel {
+    background-color: #585858;
+    color: white;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.7vw;
+    margin: auto;
+}
+
+/* Weekdays (Sun-Sat) */
+.calWeekdaysLabel {
+    margin: 0;
+    padding: 0.8vw 0 0;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.calWeekday {
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+    font-size: 1.8vw;
+    background: none;
+}
+
+/* Days (1-31) */
+.calDaysField {
+    padding: 0 0.5vw 0.5vw;
+    background: #eee;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-radius: 0 0 2vw 2vw;
+}
+
+.calDay {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    font-size: 2vw;
+    color: black;
+    background: none;
+    padding: 0.8vw 0;
+}
+
+.calDay:hover {
+    cursor: pointer;
+    outline: 2px solid black;
+}
+
+.calBlankDay {
+    background: none;
+}
+
+/* 
+    Highlight the "current" day 
+    We can change the color to be based on the theme color
+*/
+.calToday {
+    background: var(--bg-color);
+    border-radius: 0.5vw;
+}
+
+#calendar>ul {
+    list-style-type: none;
+}
