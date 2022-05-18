@@ -55,7 +55,7 @@ h1 > a:first-child {
 }
 
 h1 > a:first-child:hover {
-    text-decoration: underline !important;
+    text-decoration: underline;
 }
 
 #date {
