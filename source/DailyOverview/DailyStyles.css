@@ -230,6 +230,10 @@ h2 {
     cursor: pointer;
 }
 
+#addPhoto:hover {
+    background-color: #f1e8e8;
+}
+
 #myCanvas {
     border: 2px solid #000000;
     width: 100%;
