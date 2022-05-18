@@ -37,9 +37,6 @@ resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
 
-//make the toggle button change the page state
-//let switchButton = document.getElementById('switch-screen');
-//switchButton.addEventListener('click', toggleView);
 
 window.onload = getLoginState();
 
@@ -51,7 +48,6 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        //console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef

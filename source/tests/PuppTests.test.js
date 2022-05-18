@@ -132,9 +132,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
         await page.waitForTimeout(300);
-
-        //page.on('dialog', async (dialog) => {});
-
         await page.$eval('#login-button', (button) => {
             button.click();
         });
