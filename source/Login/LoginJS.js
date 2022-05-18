@@ -37,7 +37,6 @@ resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
 
-
 window.onload = getLoginState();
 
 /**
