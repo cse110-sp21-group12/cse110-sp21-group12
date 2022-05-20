@@ -35,6 +35,9 @@ const yearOVLink = '../YearlyOverview/YearlyOverview.html';
     }
 });*/
 
+// Event listeners to react to buttons
+const openCalendarButton = document.getElementById('header_date');
+
 /**
  * Dynamically setup page content
  */
@@ -60,8 +63,11 @@ function setupContent() {
         yearlink.classList.add('yearlink');
         yearlink.id = yr + '_link';
         // eslint-disable-next-line
-        yearlink.href = yearOVLink + '#' + yr;
-        yearlink.innerText = yr + ' Yearly Overview';
+        
+        // TODO: have year link to yearly overview
+        //yearlink.href = yearOVLink + '#' + yr;
+        //yearlink.innerText = yr + ' Yearly Overview';
+
         //add parts to button group
         yearNav.appendChild(collButton);
         yearNav.appendChild(yearlink);
@@ -80,8 +86,10 @@ function setupContent() {
             monthLink.class = 'monthlink ' + monthNameLc;
             monthLink.id = yr + '_' + monthNameLc;
             // eslint-disable-next-line
-            monthLink.href = monthOVLink + '#' + monthNumber(m) + '/' + yr;
-            monthLink.innerText = months[m];
+
+            // TODO: have month link to monthly overview
+            //monthLink.href = monthOVLink + '#' + monthNumber(m) + '/' + yr;
+            //monthLink.innerText = months[m];
             //add this month to list of months
             monthsDiv.appendChild(monthLink);
         }
@@ -91,7 +99,8 @@ function setupContent() {
         yearWrapper.appendChild(monthsDiv);
 
         //add this year to list of years
-        targetSection.appendChild(yearWrapper);
+        // TODO: let year wrapper be functional
+        // targetSection.appendChild(yearWrapper);
 
         // var today = new Date();
         // var currDay = today.getDate();
@@ -208,9 +217,6 @@ function setupCalendar() {
     calTarget.append(daysField);
 }
 
-window.addEventListener('load', setupContent);
-window.addEventListener('load', setupCalendar);
-
 /**
  * Sleep for a set amount of milliseconds - helper function
  * @param {*} ms
@@ -261,6 +267,32 @@ function monthNumber(month) {
     } else {
         return '0' + (month + 1);
     }
+}
+
+setupContent();
+setupCalendar();
+
+openCalendarButton.addEventListener('click', () => {
+    const calendar = document.getElementById('calendar');
+    openCalendar(calendar)
+});
+
+/**
+ * Makes the calendar visible. Called when date button is clicked.
+ * @param {*} the calendar element 
+ */
+function openCalendar(calendar) {
+    if (calendar == null) return;
+    calendar.classList.add('active')
+}
+
+/**
+ * Hides the calendar pop up. Called when calendar is closed (TODO).
+ * @param {*} the calendar element
+ */
+function closeCalendar(calendar) {
+    if (calendar == null) return;
+    calendar.classList.remove('active')
 }
 
 /**
