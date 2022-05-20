@@ -50,6 +50,11 @@ body {
 
 #index > a {
     font-size: 3.5vh;
+    text-decoration: none;
+}
+
+#index > a:hover {
+    text-decoration: underline;
 }
 
 #name {
