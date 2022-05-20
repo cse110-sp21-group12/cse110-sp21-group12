@@ -2,16 +2,6 @@
 //let sha1 = require('sha1');
 
 /**
- * Simple test function to make sure deployment to new CSE112 jsDocs website works, can remove
- *
- * @param {*} param testing docs
- */
-// eslint-disable-next-line no-unused-vars
-function checkingDeploy(param) {
-    console.log('hello world');
-}
-
-/**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
  * survives between reloads
@@ -23,7 +13,7 @@ console.log('here is the storage session: ', storageSession);
 //store current page state
 let loginState;
 
-//sotring setting got back
+//storing setting got back
 let settingObj;
 
 //username box
@@ -31,6 +21,12 @@ let usernameField = document.getElementById('username');
 
 //password box
 let passwordField = document.getElementById('pin');
+
+//get sign up button
+let signupButton = document.getElementById('signup-button');
+
+//boolean for determining if login or sign up is displayed
+let loginPage = true;
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
@@ -65,13 +61,13 @@ function getLoginState() {
             console.log('got settings');
             console.log(e.target.result);
             settingObj = e.target.result;
-            if (settingObj === undefined) {
-                loginState = 'new';
-                setNewUser();
-            } else {
-                loginState = 'returning';
-                setReturningUser();
-            }
+            // if (settingObj === undefined) {
+            //     loginState = 'new';
+            //     setNewUser();
+            // } else {
+            //     loginState = 'returning';
+            //     setReturningUser();
+            // }
         };
     };
 }
@@ -129,27 +125,46 @@ function goHome() {
     window.location.href = '../Index/Index.html';
 }
 /**
- * Change the login screen to the "New User" mode
- * Hide username, update text.
+ * Change the login screen to the "Login" mode
+ * login is first button, sign up is second.
  */
-function setNewUser() {
+function setLogin() {
+    loginPage = true;
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText =
-        'Create your login, 9 Lives style!';
-    loginButton.innerText = 'Sign-Up';
+    document.getElementById('title').innerText = 'Login to your Account';
+    document.getElementById('sign-up-text').innerText =
+        // enforcing use of single quotes for the next line will result in needing to escape the apos. in "don't". manually overriding
+        // eslint-disable-next-line
+        "Don't have an account?";
+    loginButton.innerText = 'LOGIN';
+    signupButton.innerText = 'SIGN UP';
 }
 
 /**
- * Change the login screen to the "Returning User" mode
- * Show username, update text
+ * Change the login screen to the "Sign Up" mode
+ * sign up is first button, login is second.
  */
-function setReturningUser() {
-    document.getElementById('username').style.display = 'none';
-    document.getElementById('title').innerText = 'Welcome back, 9 Lives style!';
-    loginButton.innerText = 'Sign-In';
+function setSignUp() {
+    loginPage = false;
+    document.getElementById('username').style.display = 'flex';
+    document.getElementById('title').innerText = 'Make your Account';
+    document.getElementById('sign-up-text').innerText =
+        'Already have an account?';
+    loginButton.innerText = 'SIGN UP';
+    signupButton.innerText = 'LOGIN';
 }
 
-/*
+/**
+ * Checks login state to see if needs to change to sign up mode if alreday in login
+ * or login mode if already in sign up.
+ */
+signupButton.addEventListener('click', () => {
+    if (loginPage) {
+        setSignUp();
+    } else {
+        setLogin();
+    }
+});
 
 /**
  * Mock function for pretending to hash things
