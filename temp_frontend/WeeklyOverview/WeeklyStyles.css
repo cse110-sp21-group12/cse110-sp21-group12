@@ -123,6 +123,12 @@ body{
     margin: auto;
 }
 
+.calCloseButton {
+    border: none;
+    outline: none;
+    background: none;
+}
+
 /* Weekdays (Sun-Sat) */
 .calWeekdaysLabel {
     margin: 0;

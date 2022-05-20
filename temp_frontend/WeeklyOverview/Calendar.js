@@ -146,8 +146,16 @@ function setupCalendar() {
     let monthLabel = document.createElement('p');
     monthLabel.classList.add('calMonthLabel');
     monthLabel.innerText = months[currMonthNumber];
+
+    // close button, put with the month header
+    let closeButton = document.createElement('button');
+    closeButton.setAttribute('id','calCloseButton')
+    closeButton.classList.add('calCloseButton')
+    closeButton.innerText = 'x'
+    monthLabel.appendChild(closeButton);
     monthHeader.appendChild(monthLabel);
     calTarget.appendChild(monthHeader);
+
 
     //top bar of weekday names
     let weekdaysLabel = document.createElement('ul');
@@ -272,9 +280,16 @@ function monthNumber(month) {
 setupContent();
 setupCalendar();
 
+const closeCalendarButton = document.getElementById('calCloseButton');
+
 openCalendarButton.addEventListener('click', () => {
     const calendar = document.getElementById('calendar');
     openCalendar(calendar)
+});
+
+closeCalendarButton.addEventListener('click', () => {
+    const calendar = document.getElementById('calendar');
+    closeCalendar(calendar)
 });
 
 /**
