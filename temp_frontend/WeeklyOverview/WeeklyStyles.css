@@ -42,22 +42,53 @@ body{
 .monthly_preview{
     background: #C2F7B5;
     display: grid;
-    grid-template-rows: 2fr 8fr;
+    grid-template-rows: 4fr 6fr;
 }
-.photo_album{
-    background: pink;
+
+/* Photo Album Block */
+.photo_section{
+    background: #C2F7B5;
+    position: relative;
     display: grid;
     grid-template-rows: 1fr 9fr;
+    height: 84vh;
 }
 .photo_header{
     display:grid;
     grid-template-columns: 8fr 2fr;
     text-align: left;
 }
-#photo_title{
+/* temp */ 
+#photo_album {
+    overflow-y: scroll;
+    margin: 2vh;
+}
+
+ul.stage {
+    height: 100%;
+    padding-left: 0;
+    white-space: nowrap;
+    
+}
+ul.stage::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+li.image-wrapper {
+    display: block;
+    position: relative;
+    left: 5%;
+    width: 90%;
 
 }
 
+img {
+    display: block;
+    width: 100%;
+}
+span {
+    display: block;
+}
 /* Todo Block */
 
 #todo {
@@ -176,4 +207,64 @@ body{
 
 #calendar>ul {
     list-style-type: none;
+}
+
+/* Goal Reminder Block */
+
+#goalReminder {
+    background-color: white;
+    margin: 0.7vw;
+    padding: 0.5vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+
+    display: grid;
+    grid-template-rows: [title] 15% [month] 40% [year] 40%;
+}
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#monthGoal {
+    grid-row-start: month;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#monthGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+#yearGoal {
+    grid-row-start: year;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#yearGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+/* Note Block */
+
+#notes {
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    position: relative;
 }

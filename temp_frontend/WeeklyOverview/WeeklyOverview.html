@@ -4,33 +4,60 @@
         <title>Weekly Overivew</title>
         <link rel="stylesheet" href="WeeklyStyles.css" />
     </head>
-    <body>
+    <body> 
         <div class="wrapper">
-           <div class="header">
-            <div id="header_date"> may 14 2022 </div>
-           </div>
-           <div class="content">
-               <div class="weekly_preview">
+            <div class="header">
+                <div id="header_date"> may 14 2022 </div>
+            </div>
+            <div class="content">
+                <div class="weekly_preview">
                 <div id="todo">
                     <h1>Weekly Preview</h1>
                     <hr style="width:100%", size="5", color=black>  
                     <ul id="weekly_list"></ul>
                 </div>
-               </div>
-               <div class="monthly_preview">
-                   <div class="monthly_goals">
-                        put some goals here :)
+                </div>
+                <div class="monthly_preview">
+                    <div id="notes">
+                        <h1 id="notesb">Notes</h1>
                     </div>
-                    <section id="calendar"></section>
-               </div>
-               <div class="photo_album">
-                   <div class="photo_header">
+                    <div id="goalReminder">
+                        <h1>Goal Reminders</h1>
+                        <div>
+                            <h2>Monthly:</h2>
+                            <div id="monthGoal"></div>
+                        </div>
+                        <div>
+                            <h2>Yearly:</h2>
+                            <div id="yearGoal"></div>
+                        </div>
+                    </div>
+                     
+                </div>
+                <div class="photo_section">
+                    <div class="photo_header">
                        <h2> Photo Album </h2>
                        <h2> button</h2>
-                   </div>
-                   <div class="photo_list">
-                       photo list goes here
-                   </div>
+                    </div>
+                    <div id="photo_album">
+                        <ul class="stage">
+                            <li class="image-wrapper">
+                                <img src="../Images/dino2.jpg"/>
+                                <span>Caption 1</span>        
+                            <li class="image-wrapper">
+                                <img src="../Images/dino2.jpg"/>
+                                <span>Caption 2</span>        
+                            <li class="image-wrapper">
+                                <img src="../Images/dino2.jpg"/>
+                                <span>Caption 3</span>        
+                            <li class="image-wrapper">
+                                <img src="../Images/dino2.jpg"/>
+                                <span>Caption 4</span>        
+                            <li class="image-wrapper">
+                                <img src="../Images/dino2.jpg"/>
+                                <span>Caption 5</span>      
+                        </ul>
+                    </div>
                </div>
            </div>
         </div>
@@ -38,4 +65,5 @@
 
     <script src="WeeklyJS.js" type="module"></script>
     <script src="Calendar.js" type="module"></script>
+    <script src="./note.js" type="module"></script>
 </html>
