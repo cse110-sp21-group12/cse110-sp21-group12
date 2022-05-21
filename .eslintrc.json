@@ -24,7 +24,8 @@
             "firebase-app.min.js",
             "firebase-auth.min.js",
             "firebase-database.min.js",
-            "Login.js"
+            "Login.js",
+            "Index.js"
         ],
         "parserOptions": {
           "sourceType": "module"

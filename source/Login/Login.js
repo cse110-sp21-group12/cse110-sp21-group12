@@ -16,7 +16,7 @@ window.onload = () => {
 
     // signup event
     const signupBtn = document.getElementById('signup-button');
-    if(signupBtn) {
+    if (signupBtn) {
         signupBtn.onclick = signUp;
     }
 };
@@ -30,8 +30,7 @@ function signIn() {
     let password = document.getElementById('pin').value;
 
     // validity check
-    if(!isValidEmail(userEmail) 
-    || !isValidPassword(password)) {
+    if (!isValidEmail(userEmail) || !isValidPassword(password)) {
         return;
     }
 
@@ -59,13 +58,14 @@ function signUp() {
     let password = document.getElementById('pin').value;
 
     // validity check
-    if(!isValidEmail(userEmail) 
-    || !isValidPassword(password)) {
+    if (!isValidEmail(userEmail) || !isValidPassword(password)) {
         return;
     }
 
     let passwordConfirm = prompt('Please retype password:');
-    if(!passwordConfirm) { return; } // user cancels signup
+    if (!passwordConfirm) {
+        return;
+    } // user cancels signup
 
     // ensure password is the same as confirmed password
     if (password !== passwordConfirm) {
@@ -75,43 +75,43 @@ function signUp() {
 
     auth.setPersistence(browserSessionPersistence).then(() => {
         createUserWithEmailAndPassword(auth, userEmail, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            if (user) {
-                let data = {
-                    email: userEmail,
-                    theme: '#d4ffd4',
-                };
+            .then((userCredential) => {
+                const user = userCredential.user;
+                if (user) {
+                    let data = {
+                        email: userEmail,
+                        theme: '#d4ffd4',
+                    };
 
-                // add user data to db
-                // eslint-disable-next-line no-undef
-                set(ref(db, `${user.uid}`), data).then(() => {
-                    console.log('Successfully added!');
-                });
+                    // add user data to db
+                    // eslint-disable-next-line no-undef
+                    set(ref(db, `${user.uid}`), data).then(() => {
+                        console.log('Successfully added!');
+                    });
 
-                alert('Successful Sign Up');
-                window.location.replace('../Index/Index.html');
-            }
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
+                    alert('Successful Sign Up');
+                    window.location.replace('../Index/Index.html');
+                }
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
     });
 }
 
 export function logout() {
     signOut(auth)
-    .then(() => {
-        // TODO
-        // window.location.replace('./Login.html');
-    })
-    .catch((error) => {
-        alert(error.message);
-    });
+        .then(() => {
+            // TODO
+            // window.location.replace('./Login.html');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 }
 
 function isValidEmail(userEmail) {
-    if(userEmail.indexOf('@') === -1) {
+    if (userEmail.indexOf('@') === -1) {
         alert('Invalid email!');
         return false;
     }
@@ -119,7 +119,7 @@ function isValidEmail(userEmail) {
 }
 
 function isValidPassword(password) {
-    if(password.length < 6) {
+    if (password.length < 6) {
         alert('Password length must be at least six!');
         return false;
     }

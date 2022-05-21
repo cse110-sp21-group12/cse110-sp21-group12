@@ -1,8 +1,3 @@
-// Import the functions you need from the SDKs you need
-// const { initializeApp } = require("https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js");
-// // import { } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-// const { getDatabase, get, query, ref, remove, update } = require("https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js");
-
 import { initializeApp } from './firebase-src/firebase-app.min.js';
 import { getDatabase } from './firebase-src/firebase-database.min.js';
 import { getAuth } from './firebase-src/firebase-auth.min.js';
@@ -20,7 +15,7 @@ const firebaseConfig = {
     measurementId: 'G-ZFDM7MHPBX',
 };
 
-// // Initialize Firebase
+// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
@@ -37,6 +32,8 @@ export function getUserID() {
             user_id = u.uid;
         } else {
             // no user signed in or not signed in
+            // redirect to login page
+            window.location.href = '../../source/Login/Login.html';
         }
     });
     return user_id;
