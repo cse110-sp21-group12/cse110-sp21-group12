@@ -2,21 +2,24 @@ import { db } from '../../Backend/FirebaseInit.js';
 import {
     set,
     ref,
-    push,
     onValue,
 } from '../../Backend/firebase-src/firebase-database.min.js';
 import {
     getUserID,
     getUserEmail,
     getCurrentDate,
-    pushObjToDB,
+    pushToDBPath,
+    checkDayPathExists,
 } from '../../General/GlobalUtility.js';
-// import { YearModel } from '../../Models/DTOs/YearModel.js';
+import { GoalEntry } from '../../Models/DTOs/ModelExport.js';
 
 window.onload = () => {
     const button1 = document.getElementById('Test1');
     const button2 = document.getElementById('Test2');
     const formSubmit = document.getElementById('my-form-submit');
+    const testAddGoal = document.getElementById('Test3');
+    testAddGoal.addEventListener('click', () => addGoal('2022', 'goal1'));
+
     button1.onclick = () => {
         pushMockData();
     };
@@ -52,20 +55,48 @@ window.onload = () => {
         }
 
         const goalsEndpoint = `${currentUserID}/${currentDateObj.year}/goals`;
-        const goalsRef = ref(db, goalsEndpoint);
-        const newKey = push(goalsRef).key;
 
         const newObj = {
-            [newKey]: {
-                done: completedBox,
-                'goal-name': goalTitle,
-            },
+            done: completedBox,
+            goalName: goalTitle,
         };
 
-        console.log(newObj);
-        pushObjToDB(goalsEndpoint, newObj);
+        pushToDBPath(goalsEndpoint, newObj);
     };
 };
+
+async function addGoal(goalPath, goalName, existingGoalKeys = '') {
+    const currentUserID = getUserID();
+    let dbPath = `${currentUserID}/`;
+    // object we want to push to firebase
+    const obj = new GoalEntry(goalName, false);
+
+    // objects for storing year/month/day string values
+    let [year, month, day, childLvl1, childLvl2] = goalPath.split('-');
+
+    // firebase keys for goals (should be stored as attributes to
+    // goals in the frontend)
+    let [dayGoalKey, childLvl1GoalKey] = existingGoalKeys.split('-');
+
+    // append goal to specified year
+    if (year && month && day && childLvl1 && childLvl2) {
+        dbPath =
+            `${year}/${month}/${day}/goals/${dayGoalKey}` +
+            `/child-lvl1/goals/${childLvl1GoalKey}/child-lvl2/goals`;
+    } else if (year && month && day && childLvl1) {
+        dbPath += `${year}/${month}/${day}/goals/${dayGoalKey}/child-lvl1/goals`;
+    } else if (year && month && day) {
+        dbPath += `${year}/${month}/${day}/`;
+        await checkDayPathExists(dbPath, day);
+        dbPath += '/goals';
+    } else if (year && month) {
+        dbPath += `${year}/${month}/goals`;
+    } else {
+        dbPath += `${year}/goals`;
+    }
+
+    pushToDBPath(dbPath, obj);
+}
 
 function renderGoals(listId, goals) {
     console.log('rendering goals');
@@ -73,7 +104,7 @@ function renderGoals(listId, goals) {
     for (const [k, v] of Object.entries(goals)) {
         console.log(`processing goal ${k}`);
         const entry = document.createElement('li');
-        entry.appendChild(document.createTextNode(v['goal-name']));
+        entry.appendChild(document.createTextNode(v['goalName']));
 
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'Trash';

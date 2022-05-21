@@ -47,9 +47,9 @@ function signIn() {
         signInWithEmailAndPassword(auth, userEmail, password)
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
-                // TODO
+                // TODO:
                 alert('Successfully signed in!');
-                window.location.replace('../Index/Index.html');
+                window.location.replace('../Index/TEMP-REMOVE/test.html');
             })
             .catch((error) => {
                 alert('Login Failed: ' + error.message);

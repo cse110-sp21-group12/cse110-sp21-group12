@@ -14,8 +14,8 @@ export class GoalModel {
         return this.goals;
     }
 
-    addGoal(goalEntry) {
-        this.goals.append(goalEntry);
+    addGoal(firebaseUUID, goalEntry) {
+        this.goals.push({ [firebaseUUID]: goalEntry });
         return true;
     }
 }
