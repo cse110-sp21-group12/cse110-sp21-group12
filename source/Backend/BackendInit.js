@@ -40,70 +40,56 @@ function initDB() {
         db = e.target.result;
         if (!db.objectStoreNames.contains('days')) {
             /**
-                     * creating a object store for days, these will be differentiaed by a date string
-                     * (eg: '05-20-2021')
-                     * Here is a sample of what a 'days' could look like:
-                     {
-                         date: "xx-xx-xxxx",
-                            bullets: [bullet1,...],
-                            photos: [photo1,...]
-                        }
-                    */
+              * creating a object store for days, these will be differentiaed by a date string
+              * (eg: '05-20-2021')
+              * Here is a sample of what a 'days' could look like:
+              {
+                  date: "xx-xx-xxxx",
+                     bullets: [bullet1,...],
+                     photos: [photo1,...]
+                 }
+             */
             db.createObjectStore('days', { keyPath: 'date' });
         }
         if (!db.objectStoreNames.contains('yearlyGoals')) {
             /**
-                     * creating a yearly store for yearly goals, since we won't ever need to be getting
-                     * a specific goal (but rather goals within a certain year), we can use an auto-increment key
-                     {
-                            year: xxxx
-                            goals: [yGoal1, yGoal2,..]
-                        }
-                        ^^^ should we store each goal seoerately, or as a list?
-                    */
+              * creating a yearly store for yearly goals, since we won't ever need to be getting
+              * a specific goal (but rather goals within a certain year), we can use an auto-increment key
+              {
+                     year: xxxx
+                     goals: [yGoal1, yGoal2,..]
+                 }
+                 ^^^ should we store each goal seoerately, or as a list?
+             */
             db.createObjectStore('yearlyGoals', { keyPath: 'year' });
         }
         if (!db.objectStoreNames.contains('monthlyGoals')) {
             /**
-                     * creating a montly store for monthly goals, since we won't ever need to be getting
-                     * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
-                     {
-                            month: xx/xxxx (month and year)
-                            goals: [mGoal1, mGoal2,..]
-                        }
-                        ^^^ should we store each goal seoerately, or as a list?
-                    */
+              * creating a montly store for monthly goals, since we won't ever need to be getting
+              * a specific goal (but rather goals within a certain monthly), we can use an auto-increment key
+              {
+                     month: xx/xxxx (month and year)
+                     goals: [mGoal1, mGoal2,..]
+                 }
+                 ^^^ should we store each goal seoerately, or as a list?
+             */
             db.createObjectStore('monthlyGoals', { keyPath: 'month' });
         }
         if (!db.objectStoreNames.contains('setting')) {
             /**
-                     * creating a store to place the settings object
-                     * This one is tricky, since the story would only have a
-                     * max of 1 object (one per use). 
-                     * We can always retrieve it with a key=1, but we have to make sure
-                     * we only create this once
-                     * -there doesn't seem to be a need to create additional indices
-                     { theme: 1, passowrd: ..., name: ...  }
-                    */
+                      * creating a store to place the settings object
+                      * This one is tricky, since the story would only have a
+                      * max of 1 object (one per use). 
+                      * We can always retrieve it with a key=1, but we have to make sure
+                      * we only create this once
+                      * -there doesn't seem to be a need to create additional indices
+                      { theme: 1, passowrd: ..., name: ...  }
+                     */
             db.createObjectStore('setting', { autoIncrement: true });
         }
-        //populate mock data
-        //setUpMockData();
     };
     return dbPromise;
 }
-/*
-This is moved to the caller's responsibility
-
-dbPromise.onsuccess = function (e) {
-    console.log('database connected');
-    db = e.target.result;
-};
-dbPromise.onerror = function (e) {
-    console.log('onerror!');
-    console.dir(e);
-};
-*/
 
 /**
  * used to set the database object to make future transactions with
@@ -111,108 +97,6 @@ dbPromise.onerror = function (e) {
  */
 function setDB(dbReturn) {
     db = dbReturn;
-}
-
-//}
-
-/**
- * Is called to populate the databse with mockData when one doesn't exist
- * IS NOW DEPRECATED
- */
-function setUpMockData() {
-    fetch('/source/Backend/MockData.json')
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            mockData = data;
-            console.log('here is the mock Data', mockData);
-            console.log('setting up mock data');
-            createDay(mockData.sampleDay1);
-            createDay(mockData.sampleDay2);
-            createMonthlyGoals(mockData.sampleMonthlyGoals);
-            createYearlyGoals(mockData.sampleYearlyGoals);
-            createSettings(mockData.sampleSetting);
-        });
-
-    /* sample way to update the monthly goals
-        let month = mockData.sampleMonthlyGoals;
-        month.goals[0].text = 'run some laps';
-        updateMonthGoals(month);
-    */
-
-    /* sample way to delete day
-    
-    deleteDay('05/20/2021');
-    */
-
-    /* sample way to get the monthly goals
-        let req = getMonthlyGoals('12/2021');
-        req.onsuccess = function (e) {
-            console.log('got monthly goals');
-            console.log(e.target.result);
-        };
-    */
-}
-
-/**
- * sample function to get the mock data from the database
- * IS NOW DEPRECATED
- */
-function getMockData() {
-    let reqD1 = getDay('05/20/2021');
-    reqD1.onsuccess = function (e) {
-        console.log('got daily goals 05/20/2021');
-        console.log(e.target.result);
-    };
-
-    let reqMG = getMonthlyGoals('12/2021');
-    reqMG.onsuccess = function (e) {
-        console.log('got monthly goals');
-        console.log('Testing Build Process');
-        console.log(e.target.result);
-    };
-
-    let reqYG = getYearlyGoals('2020');
-    reqYG.onsuccess = function (e) {
-        console.log('got yearly goals 2020');
-        console.log(e.target.result);
-    };
-
-    let reqSE = getSettings();
-    reqSE.onsuccess = function (e) {
-        console.log('got settings');
-        console.log(e.target.result);
-    };
-
-    //This one is getting an entry that doesn't exist
-    let reqYGE = getYearlyGoals('2021');
-    reqYGE.onsuccess = function (e) {
-        console.log('didnt yearly goals 2021, should be undefined');
-        console.log(e.target.result);
-    };
-}
-
-/**
- * sample function to delete the mock data from database
- * IS NOW DEPRECATED
- */
-function deleteMockData() {
-    deleteDay('05/20/2021');
-    deleteMonthlyGoals('12/2021');
-    deleteYearlyGoals('2020');
-    deleteSettings();
-    //deleting something that isn't there actually doesn't throw an error
-    deleteYearlyGoals('2020');
-}
-
-/**
- * sample function to edit the mock data from database
- * IS NOW DEPRECATED
- */
-function editMockData() {
-    let settings = { username: 'Prospero', passoword: '1611', theme: 0 };
-    updateSettings(settings);
 }
 
 /**
