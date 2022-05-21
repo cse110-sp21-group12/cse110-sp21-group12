@@ -1,16 +1,25 @@
-// /**
-//  * Represents a goal entry object.
-//  */
-// export class GoalEntry {
-//     constructor() {
-//         this.month = monthStr;
-//     }
+/**
+ * Represents a goal entry object.
+ */
+export class GoalEntry {
+    constructor(goalName, completed) {
+        this.goalName = goalName;
+        this.done = completed;
+    }
 
-//     getMonth() {
-//         return this.month;
-//     }
+    getGoalName() {
+        return this.goalName;
+    }
 
-//     setMonth(monthStr) {
-//         this.month = monthStr;
-//     }
-// }
+    setGoalName(goalName) {
+        this.goalName = goalName;
+    }
+
+    getDoneStatus() {
+        return this.done;
+    }
+
+    setDoneStatus(doneStatus) {
+        this.done = doneStatus;
+    }
+}

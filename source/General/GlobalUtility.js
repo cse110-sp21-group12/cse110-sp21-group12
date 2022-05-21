@@ -1,25 +1,27 @@
 // yearObj: { year: yearStr, goals: [] }
 import { db, auth } from '../Backend/FirebaseInit.js';
-import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
-
-// Path to webpage's root directory
-// eslint-disable-next-line no-unused-vars
-const originPath = window.location.origin;
+import {
+    set,
+    ref,
+    push,
+    get,
+} from '../Backend/firebase-src/firebase-database.min.js';
+import { DayModel } from '../../Models/DTOs/ModelExport.js';
 
 /**
  * Get current user's id
  * @returns user id. null if no user is signed in or the
  * user is not signed in (i.e bypassing the authentication).
  */
-export function getUserID() {
+function getUserID() {
     return auth.currentUser.uid;
 }
 
-export function getUserEmail() {
+function getUserEmail() {
     return auth.currentUser.email;
 }
 
-export function getCurrentDate() {
+function getCurrentDate() {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
@@ -34,6 +36,39 @@ export function getCurrentDate() {
     return todayObj;
 }
 
-export function pushObjToDB(path, obj) {
+function setObjAtDBPath(path, obj) {
     set(ref(db, path), obj);
 }
+
+function pushToDBPath(path, obj) {
+    push(ref(db, path), obj);
+}
+
+async function getDataAtDBPath(path) {
+    const snapshot = await get(ref(db, path));
+    if (!snapshot.exists()) {
+        console.log(`No DB path ${path}`);
+        return undefined;
+    } else {
+        return snapshot.val();
+    }
+}
+
+async function checkDayPathExists(path, day) {
+    const notesAtDayPath = `${path}/notes`;
+    const dayPathExists = await getDataAtDBPath(notesAtDayPath);
+    if (!dayPathExists) {
+        const newDayObj = new DayModel(day);
+        setObjAtDBPath(path, newDayObj);
+    }
+}
+
+export {
+    getUserID,
+    getUserEmail,
+    getCurrentDate,
+    setObjAtDBPath,
+    pushToDBPath,
+    getDataAtDBPath,
+    checkDayPathExists,
+};

@@ -3,11 +3,11 @@ import { GoalModel } from './GoalModel.js';
 /**
  * Represents a month object.
  */
-export class DateModel extends GoalModel {
-    constructor(dateStr) {
+export class DayModel extends GoalModel {
+    constructor(dayStr) {
         super();
         this.bullets = [];
-        this.dateStr = dateStr;
+        this.dayStr = dayStr;
         this.photos = [];
         this.notes = '';
     }
@@ -17,10 +17,10 @@ export class DateModel extends GoalModel {
     }
 
     getDate() {
-        return this.date;
+        return this.dayStr;
     }
 
-    setDate(dateStr) {
-        this.date = dateStr;
+    setDate(dayStr) {
+        this.dayStr = dayStr;
     }
 }

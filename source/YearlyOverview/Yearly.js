@@ -1,7 +1,7 @@
 import { db } from '../Backend/FirebaseInit.js';
 import {
     getUserID,
-    // pushObjToDB,
+    // setObjAtDBPath,
     // getCurrentDate,
 } from '../../General/GlobalUtility.js';
 import { ref, onValue } from '../Backend/firebase-src/firebase-database.min.js';
@@ -21,7 +21,7 @@ window.onload = () => {
             console.log('data is null');
             // const dbPath = `${currentUserID}/${currentDateObj.year}`;
 
-            //  pushObjToDB(dbPath, )
+            //  setObjAtDBPath(dbPath, )
         }
     });
 };
