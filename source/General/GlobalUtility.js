@@ -6,7 +6,7 @@ import {
     push,
     get,
 } from '../Backend/firebase-src/firebase-database.min.js';
-import { DayModel } from '../../Models/DTOs/ModelExport.js';
+import { DayModel } from '../Models/DTOs/ModelExport.js';
 
 /**
  * Get current user's id
@@ -54,11 +54,11 @@ async function getDataAtDBPath(path) {
     }
 }
 
-async function checkDayPathExists(path, day) {
+async function checkDayPathExists(path) {
     const notesAtDayPath = `${path}/notes`;
     const dayPathExists = await getDataAtDBPath(notesAtDayPath);
     if (!dayPathExists) {
-        const newDayObj = new DayModel(day);
+        const newDayObj = new DayModel();
         setObjAtDBPath(path, newDayObj);
     }
 }

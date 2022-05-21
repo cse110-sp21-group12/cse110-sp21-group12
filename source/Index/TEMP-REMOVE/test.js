@@ -18,7 +18,9 @@ window.onload = () => {
     const button2 = document.getElementById('Test2');
     const formSubmit = document.getElementById('my-form-submit');
     const testAddGoal = document.getElementById('Test3');
-    testAddGoal.addEventListener('click', () => addGoal('2022', 'goal1'));
+    testAddGoal.addEventListener('click', () =>
+        addGoal('2022|5|5|-N2cLk1gLMBPi1lnUeaX', 'goal3')
+    );
 
     button1.onclick = () => {
         pushMockData();
@@ -65,29 +67,29 @@ window.onload = () => {
     };
 };
 
-async function addGoal(goalPath, goalName, existingGoalKeys = '') {
+async function addGoal(goalPath, goalName) {
     const currentUserID = getUserID();
     let dbPath = `${currentUserID}/`;
     // object we want to push to firebase
     const obj = new GoalEntry(goalName, false);
 
     // objects for storing year/month/day string values
-    let [year, month, day, childLvl1, childLvl2] = goalPath.split('-');
-
-    // firebase keys for goals (should be stored as attributes to
-    // goals in the frontend)
-    let [dayGoalKey, childLvl1GoalKey] = existingGoalKeys.split('-');
+    // dayGoalKey and childLvl1GoalKey are firebase keys for
+    //  goals (should be stored as attributes to goals in the frontend)
+    const [year, month, day, dayGoalKey, childLvl1GoalKey] = goalPath.split(
+        '|'
+    );
 
     // append goal to specified year
-    if (year && month && day && childLvl1 && childLvl2) {
+    if (year && month && day && dayGoalKey && childLvl1GoalKey) {
         dbPath =
             `${year}/${month}/${day}/goals/${dayGoalKey}` +
             `/child-lvl1/goals/${childLvl1GoalKey}/child-lvl2/goals`;
-    } else if (year && month && day && childLvl1) {
+    } else if (year && month && day && dayGoalKey) {
         dbPath += `${year}/${month}/${day}/goals/${dayGoalKey}/child-lvl1/goals`;
     } else if (year && month && day) {
         dbPath += `${year}/${month}/${day}/`;
-        await checkDayPathExists(dbPath, day);
+        await checkDayPathExists(dbPath);
         dbPath += '/goals';
     } else if (year && month) {
         dbPath += `${year}/${month}/goals`;
