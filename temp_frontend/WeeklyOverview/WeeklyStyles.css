@@ -128,6 +128,12 @@ span {
     top: 10px;
     height: 5vw;
     padding: .5vw .5vw .5vw;
+    transform: scale(0);
+    z-index: 5;
+}
+
+#calendar.active {
+    transform: scale(1);
 }
 
 /* Month header */
@@ -146,6 +152,12 @@ span {
     text-transform: uppercase;
     letter-spacing: 0.7vw;
     margin: auto;
+}
+
+.calCloseButton {
+    border: none;
+    outline: none;
+    background: none;
 }
 
 /* Weekdays (Sun-Sat) */
