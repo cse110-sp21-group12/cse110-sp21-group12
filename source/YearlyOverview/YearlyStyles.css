@@ -126,7 +126,7 @@ body {
     text-decoration: underline;
 }
 
-#months > a  {
+#months > a {
     text-decoration: none;
 }
 
@@ -137,7 +137,6 @@ body {
     overflow: -moz-scrollbars-none;
     /* this will hide the scrollbar in internet explorers */
     -ms-overflow-style: none;
-    
 }
 
 /* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
@@ -162,7 +161,7 @@ body {
 
 #April :first-child,
 #May :first-child,
-#June :first-child{
+#June :first-child {
     background: #aad6a2 url(../Images/GreenDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
@@ -190,7 +189,7 @@ body {
 
 #October :first-child,
 #November :first-child,
-#December :first-child{
+#December :first-child {
     background: #fecf94 url(../Images/OrangeDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
