@@ -932,7 +932,6 @@ describe('basic navigation for BJ', () => {
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
 
-    
     it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
         // Testing solution to Issue #27
 
