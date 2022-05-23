@@ -151,7 +151,6 @@ class GoalsEntry extends HTMLElement {
     set entry(entry) {
         // set the text of the entry
         this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
-        console.log(entry.done);
         // see if it's marked as done
         if (entry.done == true) {
             this.shadowRoot.querySelector(
