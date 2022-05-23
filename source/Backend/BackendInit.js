@@ -5,6 +5,7 @@ import {
     get,
     update,
     remove,
+    set,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 let currentUserID;
@@ -86,7 +87,7 @@ function deleteMonthlyGoals(monthStr) {
 }
 
 function deleteObjAtDBPath(path) {
-    remove(ref(db, path));
+    remove(ref(db, path)).catch((err) => console.log(err));
 }
 
 /**
@@ -163,12 +164,12 @@ function getYearlyGoals(yearStr) {
 //     push(ref(db, path), obj);
 // }
 
-// function setObjAtDBPath(path, obj) {
-//     set(ref(db, path), obj);
-// }
+function setObjAtDBPath(path, obj) {
+    set(ref(db, path), obj).catch((err) => console.log(err));
+}
 
 function updateObjAtDBPath(path, obj) {
-    update(ref(db, path), obj);
+    update(ref(db, path), obj).catch((err) => console.log(err));
 }
 
 /**
@@ -209,6 +210,18 @@ function updateMonthlyGoals(monthObj) {
  */
 function updateYearsGoals(yearObj) {
     createYearlyGoals(yearObj);
+}
+
+/**
+ * Update the notes of year/month/day
+ * @param {String} year year of notes to update
+ * @param {String} month month of notes to update
+ * @param {String} day day of notes to update
+ * @param {String} notes notes to update
+ */
+function updateNote(year, month, day, notes) {
+    let dbPath = `${currentUserID}/${year}/${month}/${day}/notes`;
+    setObjAtDBPath(dbPath, notes);
 }
 
 /**
@@ -296,4 +309,5 @@ export {
     createMonthlyGoals,
     updateMonthlyGoals,
     deleteMonthlyGoals,
+    updateNote,
 };
