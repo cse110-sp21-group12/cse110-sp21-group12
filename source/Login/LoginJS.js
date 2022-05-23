@@ -2,16 +2,6 @@
 //let sha1 = require('sha1');
 
 /**
- * Simple test function to make sure deployment to new CSE112 jsDocs website works, can remove
- *
- * @param {*} param testing docs
- */
-// eslint-disable-next-line no-unused-vars
-function checkingDeploy(param) {
-    console.log('hello world');
-}
-
-/**
  * gets the current session storage,
  * lasts as long as the tab or the browser is open
  * survives between reloads
@@ -23,7 +13,7 @@ console.log('here is the storage session: ', storageSession);
 //store current page state
 let loginState;
 
-//sotring setting got back
+//storing setting got back
 let settingObj;
 
 //username box
@@ -141,10 +131,11 @@ function goHome() {
 function setLogin() {
     loginPage = true;
     document.getElementById('username').style.display = 'flex';
-    document.getElementById('title').innerText =
-        'Login to your Account';
+    document.getElementById('title').innerText = 'Login to your Account';
     document.getElementById('sign-up-text').innerText =
-        'Don\'t have an account?';
+        // enforcing use of single quotes for the next line will result in needing to escape the apos. in "don't". manually overriding
+        // eslint-disable-next-line
+        "Don't have an account?";
     loginButton.innerText = 'LOGIN';
     signupButton.innerText = 'SIGN UP';
 }

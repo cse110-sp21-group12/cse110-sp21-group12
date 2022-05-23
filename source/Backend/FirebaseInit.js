@@ -15,26 +15,7 @@ const firebaseConfig = {
     measurementId: 'G-ZFDM7MHPBX',
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+// // Initialize Firebase
+const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
-
-/**
- * get current user's id
- * @returns user id. null if no user is signed in or the
- * user is not signed in (i.e bypassing the authentication).
- */
-export function getUserID() {
-    let user_id = null;
-    auth.onAuthStateChanged((u) => {
-        if (u) {
-            user_id = u.uid;
-        } else {
-            // no user signed in or not signed in
-            // redirect to login page
-            window.location.href = '../../source/Login/Login.html';
-        }
-    });
-    return user_id;
-}
