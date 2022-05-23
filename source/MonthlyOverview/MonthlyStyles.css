@@ -1,5 +1,6 @@
 :root {
     --bg-color: white;
+    --clr-bg-hover: hsla(0, 0%, 0%, 0.1);
 }
 * {
     font-family: 'Courier', monospace;
@@ -52,6 +53,11 @@ body {
 
 #index > a {
     font-size: 3.5vh;
+    text-decoration: none;
+}
+
+#index a:hover {
+    text-decoration: underline;
 }
 
 #name {
@@ -212,13 +218,17 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
+    border-radius: 0.5vw;
+    font-weight: lighter;
 }
 
 .day:hover {
     cursor: pointer;
+    background-color: var(--clr-bg-hover);
 }
 
-.blank_day {
+.blank_day,
+.blank_day:hover {
     background: none;
 }
 
@@ -226,9 +236,15 @@ ul {
     Highlight the "current" day 
     We can change the color to be based on the theme color
 */
-.today {
+
+.today,
+.today:hover {
     background: var(--bg-color);
     border-radius: 0.5vw;
+}
+
+.today {
+    font-weight: bold;
 }
 
 #cal-week-wrapper {
