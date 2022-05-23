@@ -12,7 +12,7 @@ describe('basic navigation for BJ', () => {
         });
         const page = await browser.newPage();
         // this lets us see console.logs in this format : await page.evaluate(() => console.log());
-        page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
+        // page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
         // NOTE: use this link for when our changes are pushed to the master branch
         // await page.goto(

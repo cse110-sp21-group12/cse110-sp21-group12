@@ -45,6 +45,33 @@ describe('basic navigation for BJ', () => {
         });
         expect(headerText).toBe('Create your login!');
     });
+    // need to see if this is deprecated
+     /*
+    it('Test2: Try to access another page Daily - Shows create your login ', async () => {
+        await page.goto(
+            'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html'
+        );
+        await page.waitForTimeout(300);
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
+    });
+    it('Test3: Try to access another page Monthly - Shows create your login ', async () => {
+        await page.goto(
+            'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html'
+        );
+        await page.waitForTimeout(300);
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
+    });
+    it('Test4: Try to access another page Yearly - Shows create your login ', async () => {
+        await page.goto(
+            'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html'
+        );
+        await page.waitForTimeout(300);
+        const url = await page.evaluate(() => location.href);
+        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
+    });
+    */
 
     //Login tests
 
@@ -151,11 +178,6 @@ describe('basic navigation for BJ', () => {
 
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
-        });
-
-        page.on('dialog', async () => {
-            await page.waitForTimeout(1000);
-            // await dialog.dismiss();
         });
 
         await page.$eval('#login-button', (button) => {
@@ -939,6 +961,64 @@ describe('basic navigation for BJ', () => {
     it('Test50: Change background color', async () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
+    });
+
+    
+    it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets .today and passes it to callback function to click today calendar btn
+        await page.$eval('.today', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current month name */
+        const currentDate = new Date();
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        const expected = `${
+            monthNames[currentDate.getMonth()]
+        } ${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const monthlyOverviewLink = await page.$('#monthView > a:first-child');
+        const linkText = await (
+            await monthlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
+    it('Test52: Check YearlyOverview link text is correct on MonthlyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets MonthlyOverview link and passes it to callback function to click MonthlyOverview btn
+        await page.$eval('#monthView > a:first-child', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current year */
+        const currentDate = new Date();
+        const expected = `${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const yearlyOverviewLink = await page.$('#back');
+        const linkText = await (
+            await yearlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
     });
 
     it('close browser', async () => {

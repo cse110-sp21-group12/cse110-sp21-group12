@@ -106,7 +106,6 @@ function handleSignup(newUsername, newPassword) {
  */
 function verifyValidInputs(newUsername, newPassword) {
     //prohibit empty username
-    console.log('here');
     if (newUsername.length == 0) {
         alert('Please provide a username');
         return false;

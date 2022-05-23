@@ -1,7 +1,12 @@
-source/Yearly Overview/Yearly_Overview.html
 node_modules/
 *.scss
 *.css.map
 .vscode/
 *.DS_Store
 */.DS_Store
+.parcel-cache
+.parcel-cache/*
+.parcel-cache/**/*
+coverage
+coverage/*
+coverage/**/*
