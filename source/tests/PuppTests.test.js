@@ -46,7 +46,7 @@ describe('basic navigation for BJ', () => {
         expect(headerText).toBe('Create your login!');
     });
     // need to see if this is deprecated
-     /*
+    /*
     it('Test2: Try to access another page Daily - Shows create your login ', async () => {
         await page.goto(
             'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html'
@@ -963,7 +963,6 @@ describe('basic navigation for BJ', () => {
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
 
-    
     it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
         // Testing solution to Issue #27
 
