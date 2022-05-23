@@ -7,9 +7,10 @@
         <title>Bullet Journal</title>
     </head>
     <body>
-        <div id="topbar"></div>
-        <div id="body-wrapper">
-            <div id="left-bar">
+        <!-- topbar is hidden from screen readers because it is a decorational element -->
+        <div id="topbar" aria-hidden="true"></div>
+        <main id="body-wrapper">
+            <section id="left-bar" role="region">
                 <select id="themes">
                     <option value="#d4ffd4">Green</option>
                     <option value="#ECC7C7">Pink</option>
@@ -21,15 +22,15 @@
                 </select>
                 <h1>Index</h1>
                 <section id="calendar"></section>
-            </div>
-            <div id="right-bar">
+            </section>
+            <section id="right-bar" role="region">
                 <h1>Content</h1>
                 <div id="right-bar-inner">
                     <button id="today-button">Go to current day</button>
                     <section id="content"></section>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
 
         <!--The javascript file-->
         <script src="Calendar.js" type="module" defer></script>
