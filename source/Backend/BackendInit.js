@@ -1,16 +1,15 @@
 import { db, auth } from '../Backend/FirebaseInit.js';
 import {
-    set,
+    // set,
     ref,
     get,
-    // update,
+    update,
+    remove,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 let currentUserID;
-let dbPath;
 getUserID().then((user) => {
     currentUserID = user.uid;
-    dbPath = `${currentUserID}/`;
 });
 
 // Create Day
@@ -26,22 +25,29 @@ getUserID().then((user) => {
  */
 function createDay(dayObj) {
     const [month, day, year] = dayObj.date.split('/');
-    dbPath += `${year}/${month}/${day}`;
-    setObjAtDBPath(dbPath, dayObj);
+    const dbPath = `${currentUserID}/${year}/${month}/${day}`;
+    if (dayObj.bullets.length === 0) {
+        dayObj.bullets.push('');
+    }
+    if (dayObj.photos.length === 0) {
+        dayObj.photos.push('');
+    }
+
+    updateObjAtDBPath(dbPath, dayObj);
 }
 
 /**
  * creates a monthlyGoal object in the database given a monthlyGoal object
  * @param {Object} monthObj
- * @param {string} monthObj.year - month and year in the form "mm/yyyy"
+ * @param {string} monthObj.month - month and year in the form "mm/yyyy"
  *  (eg: "12/2020")
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
 function createMonthlyGoals(monthObj) {
-    const [month, year] = monthObj.year.split('/');
-    dbPath += `${year}/${month}`;
-    setObjAtDBPath(dbPath, monthObj);
+    const [month, year] = monthObj.month.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}`;
+    updateObjAtDBPath(dbPath, monthObj);
 }
 
 /**
@@ -53,8 +59,8 @@ function createMonthlyGoals(monthObj) {
  * @returns void
  */
 function createYearlyGoals(yearObj) {
-    dbPath += `${yearObj.year}`;
-    setObjAtDBPath(dbPath, yearObj);
+    const dbPath = `${currentUserID}/${yearObj.year}`;
+    updateObjAtDBPath(dbPath, yearObj);
 }
 
 /**
@@ -64,7 +70,7 @@ function createYearlyGoals(yearObj) {
  */
 function deleteDay(dayStr) {
     const [month, day, year] = dayStr.split('/');
-    dbPath += `${year}/${month}/${day}`;
+    const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     deleteObjAtDBPath(dbPath);
 }
 
@@ -75,12 +81,12 @@ function deleteDay(dayStr) {
  */
 function deleteMonthlyGoals(monthStr) {
     const [month, year] = monthStr.split('/');
-    dbPath += `${year}/${month}`;
+    const dbPath = `${currentUserID}/${year}/${month}/goals`;
     deleteObjAtDBPath(dbPath);
 }
 
 function deleteObjAtDBPath(path) {
-    ref(db, path).remove();
+    remove(ref(db, path));
 }
 
 /**
@@ -89,7 +95,7 @@ function deleteObjAtDBPath(path) {
  * @returns void
  */
 function deleteYearlyGoals(yearStr) {
-    dbPath += `${yearStr}`;
+    const dbPath = `${currentUserID}/${yearStr}/goals`;
     deleteObjAtDBPath(dbPath);
 }
 
@@ -111,7 +117,7 @@ async function getDataAtDBPath(path) {
  */
 function getDay(dateStr) {
     const [month, day, year] = dateStr.split('/');
-    dbPath += `${year}/${month}/${day}`;
+    const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     return getDataAtDBPath(dbPath);
 }
 
@@ -124,7 +130,7 @@ function getDay(dateStr) {
  */
 function getMonthlyGoals(monthStr) {
     const [month, year] = monthStr.split('/');
-    dbPath += `${year}/${month}`;
+    const dbPath = `${currentUserID}/${year}/${month}/goals`;
     return getDataAtDBPath(dbPath);
 }
 
@@ -149,7 +155,7 @@ function getUserID() {
  *  returns undefined
  */
 function getYearlyGoals(yearStr) {
-    dbPath += `${yearStr}`;
+    const dbPath = `${currentUserID}/${yearStr}/goals`;
     return getDataAtDBPath(dbPath);
 }
 
@@ -157,13 +163,13 @@ function getYearlyGoals(yearStr) {
 //     push(ref(db, path), obj);
 // }
 
-function setObjAtDBPath(path, obj) {
-    set(ref(db, path), obj);
-}
-
-// function updateAtDBPath(path, obj) {
-//     update(ref(db, path), obj);
+// function setObjAtDBPath(path, obj) {
+//     set(ref(db, path), obj);
 // }
+
+function updateObjAtDBPath(path, obj) {
+    update(ref(db, path), obj);
+}
 
 /**
  * takes a given day object and updates it

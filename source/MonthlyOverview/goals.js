@@ -1,5 +1,5 @@
 // <goals-entry> custom web component
-export class GoalsEntry extends HTMLElement {
+class GoalsEntry extends HTMLElement {
     constructor() {
         super();
         const template = document.createElement('template');

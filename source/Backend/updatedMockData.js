@@ -2,9 +2,8 @@ export default {
     README: {
         message: 'this file only exists for documentation/record purposes',
     },
-
     'days object store': {
-        date: '05/20/2021',
+        date: '05/21/2021',
         bullets: [
             {
                 text: 'O, Wonder!',
@@ -63,7 +62,6 @@ export default {
         photos: [],
         notes: 'This is an empty day...only notes',
     },
-
     'monthlyGoals Object store': {
         month: '12/2021',
         goals: [
@@ -81,9 +79,8 @@ export default {
             },
         ],
     },
-
     'yearlyGoals Object store': {
-        year: '2020',
+        year: '2021',
         goals: [
             {
                 text: 'Learn how to speak fluent Spanish',
