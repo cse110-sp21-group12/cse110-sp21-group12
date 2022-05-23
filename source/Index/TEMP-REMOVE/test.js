@@ -11,16 +11,13 @@ import {
     pushToDBPath,
     checkDayPathExists,
 } from '../../General/GlobalUtility.js';
-import { GoalEntry } from '../../Models/DTOs/ModelExport.js';
 
 window.onload = () => {
     const button1 = document.getElementById('Test1');
     const button2 = document.getElementById('Test2');
     const formSubmit = document.getElementById('my-form-submit');
     const testAddGoal = document.getElementById('Test3');
-    testAddGoal.addEventListener('click', () =>
-        addGoal('2022|5|5|-N2cLk1gLMBPi1lnUeaX', 'goal3')
-    );
+    testAddGoal.addEventListener('click', () => addGoal('2022', 'goal1'));
 
     button1.onclick = () => {
         pushMockData();
@@ -67,11 +64,12 @@ window.onload = () => {
     };
 };
 
-async function addGoal(goalPath, goalName) {
+async function addGoal(goalPath) {
     const currentUserID = getUserID();
+    console.log(currentUserID);
     let dbPath = `${currentUserID}/`;
     // object we want to push to firebase
-    const obj = new GoalEntry(goalName, false);
+    const obj = undefined;
 
     // objects for storing year/month/day string values
     // dayGoalKey and childLvl1GoalKey are firebase keys for
@@ -82,7 +80,7 @@ async function addGoal(goalPath, goalName) {
 
     // append goal to specified year
     if (year && month && day && dayGoalKey && childLvl1GoalKey) {
-        dbPath =
+        dbPath +=
             `${year}/${month}/${day}/goals/${dayGoalKey}` +
             `/child-lvl1/goals/${childLvl1GoalKey}/child-lvl2/goals`;
     } else if (year && month && day && dayGoalKey) {
@@ -97,6 +95,7 @@ async function addGoal(goalPath, goalName) {
         dbPath += `${year}/goals`;
     }
 
+    // TODO: Return key to frontend
     pushToDBPath(dbPath, obj);
 }
 
