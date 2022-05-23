@@ -1,5 +1,3 @@
-
-   
 /* eslint-disable no-undef*/
 
 //const { loadPartialConfigAsync } = require('@babel/core');
@@ -597,12 +595,11 @@ describe('basic navigation for BJ', () => {
             return bulletList.shadowRoot.querySelector('.bullet-content').style
                 .textDecoration;
         });
-        
+
         expect(bulletText).toMatch('line-through');
     });
 
     it('Test30: mark not done monthly goals', async () => {
-
         let bulletText = await page.$eval('goals-entry', (bulletList) => {
             return bulletList.shadowRoot.querySelector('#done').innerText;
         });
