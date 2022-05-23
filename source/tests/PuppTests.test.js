@@ -153,8 +153,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
 
-        await page.waitForTimeout(1000);
-
         await page.$eval('#login-button', (button) => {
             button.click();
         });
@@ -992,5 +990,8 @@ describe('basic navigation for BJ', () => {
         ).jsonValue();
 
         expect(expected).toMatch(linkText); // compare expected month to real month
+    });
+    it('close browser', async () => {
+        browser.close();
     });
 });
