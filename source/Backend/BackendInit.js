@@ -5,12 +5,26 @@ import {
     get,
     update,
     remove,
+    push,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 let currentUserID;
 getUserID().then((user) => {
     currentUserID = user.uid;
 });
+
+/**
+ * takes a given date string and adds a base64 encoded photo in the database
+ * @param {string} date string of the form "mm/dd/yyyy"
+ * @param {file} photo as file-type that will be converted to base64
+ * @returns void
+ */
+async function addPhoto(dayStr, photoFile) {
+    const [month, day, year] = dayStr.split('/');
+    const base64Str = await getBase64(photoFile);
+    const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+    pushObjToDBPath(dbPath, base64Str);
+}
 
 // Create Day
 /**
@@ -104,6 +118,18 @@ function deleteYearlyGoals(yearStr) {
     deleteObjAtDBPath(dbPath);
 }
 
+function getBase64(file) {
+    let reader = new FileReader();
+    // eslint-disable-next-line no-unused-vars
+    let promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+            resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+    });
+    return promise;
+}
+
 /**
  * get data from db
  * @param {String} path - path to key you would like to retrieve eg:
@@ -171,9 +197,9 @@ function getYearlyGoals(yearStr) {
     return getDataAtDBPath(dbPath);
 }
 
-// function pushToDBPath(path, obj) {
-//     push(ref(db, path), obj);
-// }
+function pushObjToDBPath(path, obj) {
+    push(ref(db, path), obj);
+}
 
 // function setObjAtDBPath(path, obj) {
 //     set(ref(db, path), obj);
@@ -300,6 +326,7 @@ function updateYearsGoals(yearObj) {
 // }
 
 export {
+    addPhoto,
     getDay,
     createDay,
     updateDay,
