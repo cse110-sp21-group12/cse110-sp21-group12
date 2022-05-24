@@ -80,6 +80,13 @@ function deleteDay(dayStr) {
     deleteObjAtDBPath(dbPath);
 }
 
+/**
+ * takes a given date string and a base64 representation of an image
+ * and deletes the corresponding image from the database
+ * @param {string} dayStr string of the form "mm/dd/yyyy"
+ * @param {string} base64 an encoding of an image from getBase64()
+ * @returns void
+ */
 async function deletePhoto(dayStr, base64) {
     const [month, day, year] = dayStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
