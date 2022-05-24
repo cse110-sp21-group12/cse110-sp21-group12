@@ -26,9 +26,9 @@ async function addPhoto(dayStr, photoFile) {
     pushObjToDBPath(dbPath, base64Str);
 }
 
-// Create Day
 /**
- * create db object for day
+ * Create Day
+ * given a day object, will create an entry in the database
  * @param {Object} dayObj - Custom day object
  * @param {String} dayObj.date -  date of the form "mm/dd/yyyy/"
  *  (ie: "02/28/2021")
@@ -40,13 +40,6 @@ async function addPhoto(dayStr, photoFile) {
 function createDay(dayObj) {
     const [month, day, year] = dayObj.date.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
-    if (dayObj.bullets.length === 0) {
-        dayObj.bullets.push('');
-    }
-    if (dayObj.photos.length === 0) {
-        dayObj.photos.push('');
-    }
-
     updateObjAtDBPath(dbPath, dayObj);
 }
 
@@ -87,6 +80,18 @@ function deleteDay(dayStr) {
     deleteObjAtDBPath(dbPath);
 }
 
+async function deletePhoto(dayStr, base64) {
+    const [month, day, year] = dayStr.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+    const dayPhotos = await getDataAtDBPath(dbPath);
+    for (const [base64UUID, storedBase64] of Object.entries(dayPhotos)) {
+        if (storedBase64.length == base64.length && storedBase64 == base64) {
+            deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
+            break;
+        }
+    }
+}
+
 /**
  * delete db object for month
  * @param {String} monthStr - string of the form "xx/xxxx" eg: "02/2022"
@@ -105,7 +110,13 @@ function deleteMonthlyGoals(monthStr) {
  * @returns void
  */
 function deleteObjAtDBPath(path) {
-    remove(ref(db, path));
+    remove(ref(db, path))
+        .then(() => {
+            console.log(`Data deleted successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not deleted successfully: ${error}`);
+        });
 }
 
 /**
@@ -198,7 +209,13 @@ function getYearlyGoals(yearStr) {
 }
 
 function pushObjToDBPath(path, obj) {
-    push(ref(db, path), obj);
+    push(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data pushed successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not pushed successfully: ${error}`);
+        });
 }
 
 // function setObjAtDBPath(path, obj) {
@@ -213,7 +230,13 @@ function pushObjToDBPath(path, obj) {
  * @returns void
  */
 function updateObjAtDBPath(path, obj) {
-    update(ref(db, path), obj);
+    update(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data updated successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not updated successfully: ${error}`);
+        });
 }
 
 /**
@@ -339,4 +362,6 @@ export {
     createMonthlyGoals,
     updateMonthlyGoals,
     deleteMonthlyGoals,
+    deletePhoto,
+    getBase64,
 };
