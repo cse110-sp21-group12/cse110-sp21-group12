@@ -7,7 +7,6 @@ describe('Google', () => {
     beforeAll(async () => {
         await page.goto('https://google.com');
     });
-
     it('should display "google" text on page', async () => {
         await expect(page).toMatch('google');
     });
@@ -598,6 +597,14 @@ describe('basic navigation for BJ', () => {
         });
 
         expect(bulletText).toMatch('line-through');
+    });
+
+    it('Test30: mark not done monthly goals', async () => {
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#done').innerText;
+        });
+
+        expect(bulletText).toMatch('Mark Not Done');
     });
 
     it('Test30: check monthly goals marked done in daily overview', async () => {
