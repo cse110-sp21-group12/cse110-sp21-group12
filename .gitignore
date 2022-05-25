@@ -4,6 +4,9 @@ node_modules/
 *.css.map
 .vscode/
 
+# Rickesh uses this for his local testing
+TEMP-REMOVE/
+
 # below are from firebase configs
 
 # Logs
