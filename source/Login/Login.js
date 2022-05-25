@@ -1,9 +1,10 @@
-import { db, auth } from '../Backend/FirebaseInit.js';
+import { db, auth, provider2 } from '../Backend/FirebaseInit.js';
 import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
     signOut,
     createUserWithEmailAndPassword,
+    signInWithPopup
 } from '../Backend/firebase-src/firebase-auth.min.js';
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
@@ -26,6 +27,12 @@ window.onload = () => {
         } else {
             setSignUp();
         }
+    };
+
+    // login event with Google authentication
+    const googleLoginBtn = document.getElementById('login-google-button');
+    googleLoginBtn.onclick = () => {
+        googleSignIn();
     };
 };
 
@@ -99,6 +106,36 @@ function signUp() {
             .catch((error) => {
                 alert(error.message);
             });
+    });
+}
+
+/**
+ * Sign in with the Google.
+ * Authentication persistence is Session based.
+ */
+ function googleSignIn() {
+    // set session persistence so status unchanged after refreshing
+    auth.setPersistence(browserSessionPersistence).then(() => {
+        signInWithPopup(auth, provider2)
+            .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            // switch to homepage
+            // TODO
+            alert('Successfully signed in!');
+            window.location.replace('../Index/Index.html');
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+        });
     });
 }
 
