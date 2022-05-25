@@ -1,10 +1,11 @@
-import { db, auth, provider2 } from '../Backend/FirebaseInit.js';
+import { db, auth, googleProvider } from '../Backend/FirebaseInit.js';
 import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
     signOut,
     createUserWithEmailAndPassword,
-    signInWithPopup
+    signInWithPopup,
+    GoogleAuthProvider
 } from '../Backend/firebase-src/firebase-auth.min.js';
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
@@ -116,7 +117,7 @@ function signUp() {
  function googleSignIn() {
     // set session persistence so status unchanged after refreshing
     auth.setPersistence(browserSessionPersistence).then(() => {
-        signInWithPopup(auth, provider2)
+        signInWithPopup(auth, googleProvider)
             .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -125,16 +126,17 @@ function signUp() {
             const user = result.user;
             // switch to homepage
             // TODO
-            alert('Successfully signed in!');
+            alert('Successfully signed in!' + user + token);
             window.location.replace('../Index/Index.html');
         }).catch((error) => {
             // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
             // The email of the user's account used.
-            const email = error.customData.email;
+            // const email = error.customData.email;
             // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            // const credential = GoogleAuthProvider.credentialFromError(error);
+            alert('Login Failed: ' + error.message);
         });
     });
 }

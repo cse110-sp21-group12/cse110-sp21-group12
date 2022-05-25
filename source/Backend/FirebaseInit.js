@@ -25,7 +25,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
-export const provider2 = new GoogleAuthProvider(app)
+export const googleProvider = new GoogleAuthProvider(app)
 
 /**
  * get current user's id
