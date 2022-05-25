@@ -31,7 +31,7 @@ window.addEventListener('load', () => {
 /**
  * Sets the theme dropdown index choice as selected based on input value
  * @param {Object} select - the select object
- * @param {string} val - the value of the option to select
+ * @param {String} val - the value of the option to select
  * @returns void
  */
 function setSelected(select, val) {
