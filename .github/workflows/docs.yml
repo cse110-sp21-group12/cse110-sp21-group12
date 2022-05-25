@@ -33,6 +33,6 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'docs'
-          destination-github-username: 'DustinLin'
-          destination-repository-name: '110Group12JsDocs'
-          target-branch: master
+          destination-github-username: 'CSE112-SP22-TeamXRefactor'
+          destination-repository-name: 'jsDocs'
+          target-branch: main
