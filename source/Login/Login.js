@@ -5,7 +5,7 @@ import {
     signOut,
     createUserWithEmailAndPassword,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
 } from '../Backend/firebase-src/firebase-auth.min.js';
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
@@ -114,30 +114,33 @@ function signUp() {
  * Sign in with the Google.
  * Authentication persistence is Session based.
  */
- function googleSignIn() {
+function googleSignIn() {
     // set session persistence so status unchanged after refreshing
     auth.setPersistence(browserSessionPersistence).then(() => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            // switch to homepage
-            // TODO
-            alert('Successfully signed in!' + user + token);
-            window.location.replace('../Index/Index.html');
-        }).catch((error) => {
-            // Handle Errors here.
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
-            // The email of the user's account used.
-            // const email = error.customData.email;
-            // The AuthCredential type that was used.
-            // const credential = GoogleAuthProvider.credentialFromError(error);
-            alert('Login Failed: ' + error.message);
-        });
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(
+                    result
+                );
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // switch to homepage
+                // TODO
+                alert('Successfully signed in!' + user + token);
+                window.location.replace('../Index/Index.html');
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // The email of the user's account used.
+                // const email = error.customData.email;
+                // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+                alert('Login Failed: ' + error.message);
+            });
     });
 }
 
