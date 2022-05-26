@@ -88,7 +88,7 @@ body {
     margin-right: 4px;
     flex-grow: 1;
     vertical-align: middle;
-  }
+}
 
 #sign-in-email-text {
     font-size: 1vw;
@@ -118,7 +118,7 @@ body {
     background-color: #f4f4f4;
     border-radius: 0.5vw;
     border-color: transparent;
-    display:flex;
+    display: flex;
     font-size: 1.5vh;
     height: 5vh;
     width: 100%;
@@ -188,7 +188,7 @@ input[type='email']:focus {
 }
 
 .flex-box {
-    display:flex;
+    display: flex;
     margin-left: 20%;
     margin-right: 20%;
 }
