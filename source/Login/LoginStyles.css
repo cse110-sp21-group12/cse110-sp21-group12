@@ -133,7 +133,7 @@ input {
 
 input[type='email']:focus {
     border: 1px solid #555;
-} 
+}
 
 .left-icons img {
     width: 90%;
@@ -206,8 +206,8 @@ input[type='email']:focus {
     left: 50%;
     right: 0px;
     position: absolute;
-  }
-  
+}
+
 /* The close button */
 .closebtn {
     margin-left: 10%;
@@ -219,9 +219,8 @@ input[type='email']:focus {
     cursor: pointer;
     transition: 0.3s;
 }
-  
+
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
 }
-
