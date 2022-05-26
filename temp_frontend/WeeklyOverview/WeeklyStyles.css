@@ -16,6 +16,21 @@ body{
     height: 100vh;
     width: 100vw;
 }
+.calendar-wrapper{
+    background: #C2F7B5;
+    /* display:grid; */
+    margin: 0px;
+    padding: 0px;
+    /* grid-template-rows: 1fr 3fr; */
+    /* grid-column-gap: 1em;
+    grid-row-gap: 1em; */
+    display: flex;
+    justify-content: center;
+    justify-items: stretch;
+    align-items: stretch;
+    height: 100vh;
+    width: 100vw;
+}
 .header{
     background-image: url("../Images/weekly_header.jpg");
     display: flex;
@@ -42,7 +57,7 @@ body{
 .monthly_preview{
     background: #C2F7B5;
     display: grid;
-    grid-template-rows: 2fr 8fr;
+    /* grid-template-rows: 2fr 8fr; */
 }
 .photo_album{
     background: pink;
@@ -91,39 +106,75 @@ body{
 /* Calendar Block */
 
 /* TODO: fix calendar sizes */
-#calendar {
-    position: relative;
+.calendar-div {
+    /* position: relative; */
+    width: 80vw;
+    /* height: 60vh; */
     right: 15px;
     top: 10px;
-    height: 5vw;
-    padding: .5vw .5vw .5vw;
+    /* height: 10vh; */
+    /* padding: 5vh .5vw .5vw; */
+    padding-top: 5vh;
 }
 
 /* Month header */
 .calMonthHeader {
+    height: 10vh;
+    /* width: 50vw; */
     padding: 2vw 25px;
     background: #585858;
-    text-align: center;
+    color: white;
+    /* display: flex; */
+    /* text-align: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
     border-radius: 2vw 2vw 0 0;
 }
 
 /* Month header's text */
 .calMonthLabel {
     background-color: #585858;
-    color: white;
     font-size: 2.5vw;
     text-transform: uppercase;
     letter-spacing: 0.7vw;
+    float: left;
     margin: auto;
 }
+
+.calDropBtn {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    font-size: 2.5vw;
+    color: white;
+    background: #585858;
+}
+
+.calDropBtn:hover {
+    color:#C2F7B5;
+}
+
+.show-content {
+    display: none;
+}
+
+.dropdown-content {
+    display: block;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
 
 /* Weekdays (Sun-Sat) */
 .calWeekdaysLabel {
     margin: 0;
-    padding: 0.8vw 0 0;
-    background-color: #eee;
+    /* padding: 0.8vw 0 0; */
+    background-color: white;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .calWeekday {
@@ -136,29 +187,33 @@ body{
 
 /* Days (1-31) */
 .calDaysField {
-    padding: 0 0.5vw 0.5vw;
-    background: #eee;
+    padding-bottom: 2vh;
+    background: white;
     margin: 0;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
     border-radius: 0 0 2vw 2vw;
 }
 
 .calDay {
     list-style-type: none;
-    display: inline-block;
+    /* display: inline-block; */
     width: 13.6%;
-    text-align: center;
-    font-size: 2vw;
+    height: 10vh;
+    text-align: start;
+    font-size: 1.25vmax;
     color: black;
     background: none;
     padding: 0.8vw 0;
+    border-color: black;
+    border-width: 0.5px;
+    border-style: solid;
 }
 
 .calDay:hover {
     cursor: pointer;
-    outline: 2px solid black;
+    outline: 2px solid #C2F7B5;
 }
 
 .calBlankDay {
@@ -170,10 +225,10 @@ body{
     We can change the color to be based on the theme color
 */
 .calToday {
-    background: var(--bg-color);
-    border-radius: 0.5vw;
+    background: #C2F7B5;
+    /* border-radius: 0.5vw; */
 }
 
-#calendar>ul {
+.calendar-div>ul {
     list-style-type: none;
 }

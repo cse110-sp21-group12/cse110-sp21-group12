@@ -118,7 +118,7 @@ function setupContent() {
  * Dynamically generate calendar for current month
  */
 function setupCalendar() {
-    const calTarget = document.getElementById('calendar');
+    const calTarget = document.querySelector('.calendar-div');
 
     //get today code stolen from stackoverflow
     var today = new Date();
@@ -136,8 +136,37 @@ function setupCalendar() {
     //text
     let monthLabel = document.createElement('p');
     monthLabel.classList.add('calMonthLabel');
-    monthLabel.innerText = months[currMonthNumber];
+    monthLabel.innerText = months[currMonthNumber] + ' ' + currYearNumber;
+    let dropBtn = document.createElement('button');
+    dropBtn.classList.add('calDropBtn');
+    let dropIcon = document.createElement('i');
+    dropIcon.classList.add('fa', 'fa-caret-down');
+    dropBtn.appendChild(dropIcon);
+    dropBtn.onclick = function () {
+        document.getElementById('dropdown').classList.toggle('show-content');
+        document
+            .getElementById('dropdown')
+            .classList.toggle('dropdown-content');
+    };
+    let dropdown = document.createElement('div');
+    dropdown.classList.add('show-content');
+    dropdown.id = 'dropdown';
+    let monthSelect = document.createElement('ul');
+    for (let m = 0; m < months.length; m++) {
+        //setup month link
+        let monthLink = document.createElement('li');
+        // monthLink.class = 'monthlink ' + monthNameLc;
+        // monthLink.id = yr + '_' + monthNameLc;
+        // // eslint-disable-next-line
+        // monthLink.href = monthOVLink + '#' + monthNumber(m) + '/' + yr;
+        monthLink.innerText = months[m];
+        //add this month to list of months
+        monthSelect.appendChild(monthLink);
+    }
+    dropdown.appendChild(monthSelect);
     monthHeader.appendChild(monthLabel);
+    monthHeader.appendChild(dropBtn);
+    monthHeader.appendChild(dropdown);
     calTarget.appendChild(monthHeader);
 
     //top bar of weekday names
@@ -197,7 +226,7 @@ function setupCalendar() {
 
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
-    for (let i = monthLastDow; i < 7; i++) {
+    for (let i = monthLastDow; i < 6; i++) {
         let blankDay = document.createElement('li');
         blankDay.classList.add('calDay');
         blankDay.classList.add('calBlankDay');
@@ -210,6 +239,15 @@ function setupCalendar() {
 
 window.addEventListener('load', setupContent);
 window.addEventListener('load', setupCalendar);
+
+window.onclick = function (e) {
+    if (!e.target.matches('.calDropBtn')) {
+        var myDropdown = document.getElementById('dropdown');
+        if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+        }
+    }
+};
 
 /**
  * Sleep for a set amount of milliseconds - helper function
