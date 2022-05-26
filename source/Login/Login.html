@@ -7,36 +7,115 @@
             href="https://fonts.googleapis.com/css?family=Montserrat"
             rel="stylesheet"
         />
-        <link rel="icon" type="image/png" href="../Images/Icon.png" />
-        <title>Bullet Journal on regular deployment</title>
+        <link rel="icon" type="image/png" href="../Images/dinofav.png" />
+        <title>Bullet Journal</title>
     </head>
     <body>
-        <div id="dino-align">
-            <img src="../Images/dino2.jpg" id="big-logo" />
-            <div id="content">
-                <!-- The text here gets replaced by JS in "LoginJs.js", can think of this as place holder text -->
-                <h3 id="title">Login to your Account</h3>
-                <div id="login-container">
-                    <button id="login-google-button"></button>
-                    <div id="divider-line">
-                        <span id="divider-text"> Or sign in with email </span>
+        <div class="alert">
+            <span
+                class="closebtn"
+                onclick="this.parentElement.style.display='none';"
+                >&times;</span
+            >
+            This is an alert box.
+        </div>
+        <img src="../Images/dino2.jpg" id="big-logo" />
+        <div id="content">
+            <!-- The text here gets replaced by JS in "LoginJs.js", can think of this as place holder text -->
+            <h3 id="title">Login to your Account</h3>
+            <div id="login-container">
+                <div id="login-center">
+                    <button id="google-button">
+                        <img src="../Images/google.png" />Sign in with Google
+                    </button>
+
+                    <div
+                        id="choice-barrier"
+                        style="opacity: 60%; align-items: center"
+                    >
+                        <hr
+                            size="1"
+                            color="black"
+                            style="
+                                display: inline-block;
+                                width: 27%;
+                                flex-grow: 1;
+                                flex-shrink: 1;
+                            "
+                        />
+                        <h3
+                            id="sign-in-email-text"
+                            style="display: inline-block"
+                        >
+                            or sign in with email
+                        </h3>
+                        <hr
+                            size="1"
+                            color="black"
+                            style="
+                                display: inline-block;
+                                width: 27%;
+                                flex-grow: 1;
+                                flex-shrink: 1;
+                            "
+                        />
                     </div>
-                    <div id="login-center">
-                        <input type="email" placeholder="Email" id="email" />
+
+                    <!-- <h3 id="sign-in-email-text">-----or sign in with email-----</h3> -->
+                    <h3 class="outside-input-text">Email</h3>
+                    <div class="input-icons">
+                        <i class="left-icons"
+                            ><img src="../Images/user-icon.png"
+                        /></i>
+                        <input
+                            type="email"
+                            placeholder="mail@website.com"
+                            id="email"
+                        />
+                    </div>
+
+                    <h3 class="outside-input-text">Password</h3>
+
+                    <div class="input-icons">
+                        <i class="left-icons"
+                            ><img src="../Images/password-icon.png"
+                        /></i>
                         <input
                             type="password"
-                            placeholder="Password"
+                            placeholder="Min. 8 characters"
                             id="pin"
+                            class="pass"
                         />
-                        <button id="login-button">LOGIN</button>
+                        <input
+                            type="image"
+                            src="../Images/show-pass.png"
+                            class="right-icons"
+                        />
+                    </div>
+                    <div class="input-icons" id="passConfirm">
+                        <i class="left-icons"
+                            ><img src="../Images/password-icon.png"
+                        /></i>
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            id="passConf"
+                            class="pass"
+                        />
+                    </div>
+                    <h3 id="passReq">
+                        Your password must be at least 8 characters, contain an
+                        upper case letter, a number, and a special character.
+                    </h3>
+                    <button id="login-button">LOGIN</button>
 
+                    <div class="flex-box">
                         <p id="sign-up-text">Don't have an account?</p>
                         <button id="signup-button">SIGN UP</button>
                     </div>
                 </div>
             </div>
         </div>
-
         <script src="../Backend/FirebaseInit.js" type="module"></script>
         <script src="./Login.js" type="module"></script>
     </body>

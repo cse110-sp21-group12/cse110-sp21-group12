@@ -56,12 +56,12 @@ function signIn() {
         signInWithEmailAndPassword(auth, userEmail, password)
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
-                // TODO:
-                alert('Successfully signed in!');
+                // TODO
+                custAlert('Successfully signed in!');
                 window.location.replace('../Index/Index.html');
             })
             .catch((error) => {
-                alert('Login Failed: ' + error.message);
+                custAlert('Login Failed: ' + error.message);
             });
     });
 }
@@ -82,7 +82,7 @@ function signUp() {
 
     // ensure password is the same as confirmed password
     if (password !== passConfirm) {
-        alert('Password and re-typed password are different!');
+        custAlert('Password and re-typed password are different!');
         return;
     }
 
@@ -100,13 +100,13 @@ function signUp() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         console.log('Successfully added!');
-                        alert('Successful Sign Up');
+                        custAlert('Successful Sign Up');
                         window.location.replace('../Index/Index.html');
                     });
                 }
             })
             .catch((error) => {
-                alert(error.message);
+                custAlert(error.message);
             });
     });
 }
@@ -182,7 +182,7 @@ export function logout() {
  */
 function isValidEmail(userEmail) {
     if (userEmail.indexOf('@') === -1) {
-        alert('Invalid email!');
+        custAlert('Invalid email!');
         return false;
     }
     return true;
@@ -195,11 +195,38 @@ function isValidEmail(userEmail) {
  */
 function isValidPassword(password) {
     if (password.length < 6) {
-        alert('Password length must be at least six!');
+        custAlert('Password length must be at least six!');
         return false;
     }
     return true;
 }
+
+/**
+ * Make pop up alert with custom css and text that is passed in
+ * @param {String} text
+ */
+function custAlert(text) {
+    document.querySelector('.alert').style.display = 'block';
+    document.querySelector('.alert').innerHTML =
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>' +
+        text;
+}
+
+let togPassword = document.querySelector('.right-icons');
+let password = document.querySelector('.pass');
+/**
+ * Show or hide password
+ */
+togPassword.addEventListener('click', function () {
+    let type =
+        password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    if (type === 'password') {
+        togPassword.setAttribute('src', '../Images/show-pass.png');
+    } else {
+        togPassword.setAttribute('src', '../Images/hide-pass.png');
+    }
+});
 
 /**
  * Modify login page from login mode to signup mode
@@ -207,19 +234,25 @@ function isValidPassword(password) {
 function setSignUp() {
     document.getElementById('title').innerText = 'Make your Account';
 
-    const passwordField = document.getElementById('pin');
+    //const passwordField = document.getElementById('pin');
 
-    // create password confirmation field
-    let passConfField = document.createElement('input');
-    passConfField.type = 'password';
-    passConfField.placeholder = 'Confirm Password';
-    passConfField.id = 'passConf';
-    // insert password confirmation after password field
-    passwordField.parentNode.insertBefore(
-        passConfField,
-        passwordField.nextSibling
-    );
+    // // create password confirmation field
+    // let passConfField = document.createElement('input');
+    // passConfField.type = 'password';
+    // passConfField.placeholder = 'Confirm Password';
+    // passConfField.id = 'passConf';
+    // // insert password confirmation after password field
+    // passwordField.parentNode.insertBefore(
+    //     passConfField,
+    //     passwordField.nextSibling
+    // );
 
+    document.getElementById('passConfirm').style.display = 'flex';
+    document.getElementById('passReq').style.display = 'flex';
+    document.getElementById('sign-in-email-text').innerText =
+        'or sign up with email';
+    document.getElementById('google-button').innerHTML =
+        '<img src="../Images/google.png">Sign up with Google';
     document.getElementById('sign-up-text').innerText =
         'Already have an account?';
 
@@ -229,15 +262,19 @@ function setSignUp() {
 
 function setLogin() {
     document.getElementById('title').innerText = 'Login to your Account';
-
+    document.getElementById('google-button').innerHTML =
+        '<img src="../Images/google.png">Sign in with Google';
+    document.getElementById('sign-in-email-text').innerText =
+        'or sign in with email';
     document.getElementById('sign-up-text').innerText =
         // eslint-disable-next-line
         "Don't have an account?";
-
-    let passConf = document.getElementById('passConf');
-    if (passConf) {
-        document.getElementById('login-center').removeChild(passConf);
-    }
+    document.getElementById('passConfirm').style.display = 'none';
+    document.getElementById('passReq').style.display = 'none';
+    // let passConf = document.getElementById('passConf');
+    // if (passConf) {
+    //     document.getElementById('login-center').removeChild(passConf);
+    // }
     document.getElementById('login-button').innerText = 'LOGIN';
     document.getElementById('signup-button').innerText = 'SIGN UP';
 }
