@@ -157,7 +157,7 @@ let password = document.querySelector('.pass');
 /**
  * Show or hide password
  */
-togPassword.addEventListener('click', function (e) {
+togPassword.addEventListener('click', function () {
     let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     if (type === 'password') {
@@ -175,7 +175,7 @@ togPassword.addEventListener('click', function (e) {
 function setSignUp() {
     document.getElementById('title').innerText = 'Make your Account';
 
-    const passwordField = document.getElementById('pin');
+    //const passwordField = document.getElementById('pin');
 
     // // create password confirmation field
     // let passConfField = document.createElement('input');
