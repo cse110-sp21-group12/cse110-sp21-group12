@@ -24,6 +24,7 @@ body{
 }
 #header_date{
     position: relative;
+    width: 30%;
     font-family: 'Inter';
     font-style: normal;
     color: white;
@@ -31,46 +32,64 @@ body{
     padding-left: 7%;
     padding-top: 2%;
 }
+#header_button_container{
+    position: relative;
+    width: 8vw;
+    margin-left: 85%;
+    margin-top: -3%;
+    display: inline;
+}
+#header_calendar{
+
+}
 
 .content{
     display:grid;
     grid-template-columns: 4fr 3fr 3fr;
 }
-.weekly_preview{
+.weekly_column{
     background: #C2F7B5;
 }
-.monthly_preview{
+.monthly_column{
     background: #C2F7B5;
     display: grid;
     grid-template-rows: 4fr 6fr;
 }
 
 /* Photo Album Block */
-.photo_section{
+.photo_column{
     background: #C2F7B5;
+}
+.photo_wrapper{
+    background: white;
+    margin: 1vw;
+    padding: 1vw 2vw 2vw 1vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
     position: relative;
     display: grid;
     grid-template-rows: 1fr 9fr;
-    height: 84vh;
+    height: 75vh;
 }
 .photo_header{
     display:grid;
-    grid-template-columns: 8fr 2fr;
+    grid-template-columns: 9fr 1fr;
     text-align: left;
 }
 /* temp */ 
 #photo_album {
     overflow-y: scroll;
-    margin: 2vh;
+
 }
 
 ul.stage {
     height: 100%;
     padding-left: 0;
     white-space: nowrap;
-    
 }
-ul.stage::-webkit-scrollbar {
+#photo_album::-webkit-scrollbar {
     display: none; /* color of the tracking area */
 }
 
@@ -79,6 +98,7 @@ li.image-wrapper {
     position: relative;
     left: 5%;
     width: 90%;
+    padding: 5px;
 
 }
 
@@ -115,110 +135,6 @@ span {
     background-color: transparent;
     border: none;
     font-size: 3vh;
-}
-
-
-
-/* Calendar Block */
-
-/* TODO: fix calendar sizes */
-#calendar {
-    position: relative;
-    right: 15px;
-    top: 10px;
-    height: 5vw;
-    padding: .5vw .5vw .5vw;
-    transform: scale(0);
-    z-index: 5;
-}
-
-#calendar.active {
-    transform: scale(1);
-}
-
-/* Month header */
-.calMonthHeader {
-    padding: 2vw 25px;
-    background: #585858;
-    text-align: center;
-    border-radius: 2vw 2vw 0 0;
-}
-
-/* Month header's text */
-.calMonthLabel {
-    background-color: #585858;
-    color: white;
-    font-size: 2.5vw;
-    text-transform: uppercase;
-    letter-spacing: 0.7vw;
-    margin: auto;
-}
-
-.calCloseButton {
-    border: none;
-    outline: none;
-    background: none;
-}
-
-/* Weekdays (Sun-Sat) */
-.calWeekdaysLabel {
-    margin: 0;
-    padding: 0.8vw 0 0;
-    background-color: #eee;
-    display: flex;
-    justify-content: space-between;
-}
-
-.calWeekday {
-    width: 13.6%;
-    color: #666;
-    text-align: center;
-    font-size: 1.8vw;
-    background: none;
-}
-
-/* Days (1-31) */
-.calDaysField {
-    padding: 0 0.5vw 0.5vw;
-    background: #eee;
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border-radius: 0 0 2vw 2vw;
-}
-
-.calDay {
-    list-style-type: none;
-    display: inline-block;
-    width: 13.6%;
-    text-align: center;
-    font-size: 2vw;
-    color: black;
-    background: none;
-    padding: 0.8vw 0;
-}
-
-.calDay:hover {
-    cursor: pointer;
-    outline: 2px solid black;
-}
-
-.calBlankDay {
-    background: none;
-}
-
-/* 
-    Highlight the "current" day 
-    We can change the color to be based on the theme color
-*/
-.calToday {
-    background: var(--bg-color);
-    border-radius: 0.5vw;
-}
-
-#calendar>ul {
-    list-style-type: none;
 }
 
 /* Goal Reminder Block */

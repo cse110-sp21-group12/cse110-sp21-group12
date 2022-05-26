@@ -8,20 +8,21 @@
         <div class="wrapper">
             <div class="header">
                 <div id="header_date"> may 14 2022 </div>
-                <!-- TODO: make "header_date" a button and style appropriately -->
-                <div class="calendarPopUp" id="calendarPopUp">
-                    <section id="calendar"></section>
+                <div id="header_button_container">
+                    <button id="header_calendar_button"> calendar </button>
+                    <button id="header_settings_button"> settings </button>
                 </div>
+                <!-- TODO: make "header_date" a button and style appropriately -->
             </div>
             <div class="content">
-                <div class="weekly_preview">
+                <div class="weekly_column">
                 <div id="todo">
                     <h1>Weekly Preview</h1>
                     <hr style="width:100%", size="5", color=black>  
                     <ul id="weekly_list"></ul>
                 </div>
                 </div>
-                <div class="monthly_preview">
+                <div class="monthly_column">
                     <div id="notes">
                         <h1 id="notesb">Notes</h1>
                     </div>
@@ -38,29 +39,21 @@
                     </div>
                      
                 </div>
-                <div class="photo_section">
-                    <div class="photo_header">
-                       <h2> Photo Album </h2>
-                       <h2> button</h2>
-                    </div>
-                    <div id="photo_album">
-                        <ul class="stage">
-                            <li class="image-wrapper">
-                                <img src="../Images/dino2.jpg"/>
-                                <span>Caption 1</span>        
-                            <li class="image-wrapper">
-                                <img src="../Images/dino2.jpg"/>
-                                <span>Caption 2</span>        
-                            <li class="image-wrapper">
-                                <img src="../Images/dino2.jpg"/>
-                                <span>Caption 3</span>        
-                            <li class="image-wrapper">
-                                <img src="../Images/dino2.jpg"/>
-                                <span>Caption 4</span>        
-                            <li class="image-wrapper">
-                                <img src="../Images/dino2.jpg"/>
-                                <span>Caption 5</span>      
-                        </ul>
+                <div class="photo_column">
+                    <div class="photo_wrapper">
+                        <div class="photo_header">
+                        <h2> Photo Album </h2>
+                        </div>
+                        <div id="photo_album">
+                            <ul class="stage">
+                                <li class="image-wrapper">
+                                    <span>Caption 1</span> 
+                                    <img src="../Images/dino2.jpg"/>           
+                                <li class="image-wrapper">
+                                    <span>Caption 2</span>  
+                                    <img src="../Images/dino2.jpg"/>    
+                            </ul>
+                        </div>
                     </div>
                </div>
            </div>
