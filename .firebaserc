@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "stegosource-9lives",
+    "testAlias": "stegosource-9lives"
+  },
+  "targets": {
+    "stegosource-9lives": {
+      "hosting": {
+        "testing-stegosource-9lives": [
+          "testing-stegosource-9lives"
+        ],
+        "stegosource-9lives": [
+          "stegosource-9lives"
+        ]
+      }
+    }
+  }
+}
