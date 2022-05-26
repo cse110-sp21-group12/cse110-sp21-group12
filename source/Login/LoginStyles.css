@@ -21,11 +21,9 @@ body {
     background-color: white;
     right: 0px;
     position: absolute;
-    top: 25%;
+    top: 20%;
 }
-#content > * {
-    /* box-shadow: 0; */
-}
+
 #content > h3 {
     flex-grow: 1;
     font-size: 2.5vw;
@@ -33,6 +31,7 @@ body {
     height: 10%;
     text-align: center;
 }
+
 #big-logo {
     /*background-repeat: no-repeat;*/
     width: 50%;
@@ -60,6 +59,7 @@ body {
     height: 60%;
     width: 50%;
 }
+
 #button-center {
     position: absolute;
     top: 50%;
@@ -129,15 +129,11 @@ input {
     /* border-radius: 0.5vw; */
     border-color: transparent;
     width: 100%;
-    /* flex-grow: 1;
-    font-size: 1.5vh;
-    height: 100%;
-    width: 100%; */
 }
 
 input[type='email']:focus {
     border: 1px solid #555;
-}
+} 
 
 .left-icons img {
     width: 90%;
@@ -151,6 +147,16 @@ input[type='email']:focus {
     /* padding: 10px; */
     /* min-width: 50px;
     text-align: center; */
+}
+
+.right-icons {
+    width: 10%;
+    height: 70%;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 2%;
+    flex-grow: 1;
+    opacity: 50%;
 }
 
 #sign-up-text {
@@ -167,16 +173,55 @@ input[type='email']:focus {
     flex-grow: 1;
     font-size: 1.5vh;
 }
-.flex-box {
-    display:flex;
+
+#passConfirm {
+    display: none;
+    margin-top: 3%;
 }
 
-
-/* #switch-screen {
-    font-size: medium;
+#passReq {
+    display: none;
+    margin-top: 2%;
+    font-size: 1.3vh;
+    flex-grow: 2;
     text-align: left;
+}
+
+.flex-box {
+    display:flex;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/* The alert message box */
+.alert {
+    padding: 20px;
+    background-color: #38b593;
+    color: white;
+    margin-bottom: 15px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    /* height: 10%; */
+    left: 50%;
+    right: 0px;
+    position: absolute;
+  }
+  
+/* The close button */
+.closebtn {
+    margin-left: 10%;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+/* When moving the mouse over the close button */
+.closebtn:hover {
     color: black;
-    width: parent;
-    background: none;
-    border: none;
-} */
+}
+
