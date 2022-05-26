@@ -148,8 +148,9 @@ function isValidPassword(password) {
  */
 function custAlert(text) {
     document.querySelector('.alert').style.display = 'block';
-    document.querySelector('.alert').innerHTML = 
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>' + text;
+    document.querySelector('.alert').innerHTML =
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>' +
+        text;
 }
 
 let togPassword = document.querySelector('.right-icons');
@@ -158,16 +159,15 @@ let password = document.querySelector('.pass');
  * Show or hide password
  */
 togPassword.addEventListener('click', function () {
-    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    let type =
+        password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     if (type === 'password') {
         togPassword.setAttribute('src', '../Images/show-pass.png');
-    }
-    else {
+    } else {
         togPassword.setAttribute('src', '../Images/hide-pass.png');
     }
 });
-
 
 /**
  * Modify login page from login mode to signup mode
@@ -188,10 +188,12 @@ function setSignUp() {
     //     passwordField.nextSibling
     // );
 
-    document.getElementById("passConfirm").style.display = 'flex';
-    document.getElementById("passReq").style.display = 'flex';
-    document.getElementById('sign-in-email-text').innerText = 'or sign up with email';
-    document.getElementById('google-button').innerHTML = '<img src="../Images/google.png">Sign up with Google';
+    document.getElementById('passConfirm').style.display = 'flex';
+    document.getElementById('passReq').style.display = 'flex';
+    document.getElementById('sign-in-email-text').innerText =
+        'or sign up with email';
+    document.getElementById('google-button').innerHTML =
+        '<img src="../Images/google.png">Sign up with Google';
     document.getElementById('sign-up-text').innerText =
         'Already have an account?';
 
@@ -201,13 +203,15 @@ function setSignUp() {
 
 function setLogin() {
     document.getElementById('title').innerText = 'Login to your Account';
-    document.getElementById('google-button').innerHTML = '<img src="../Images/google.png">Sign in with Google';
-    document.getElementById('sign-in-email-text').innerText = 'or sign in with email';
+    document.getElementById('google-button').innerHTML =
+        '<img src="../Images/google.png">Sign in with Google';
+    document.getElementById('sign-in-email-text').innerText =
+        'or sign in with email';
     document.getElementById('sign-up-text').innerText =
         // eslint-disable-next-line
         "Don't have an account?";
-    document.getElementById("passConfirm").style.display = "none";
-    document.getElementById("passReq").style.display = "none";
+    document.getElementById('passConfirm').style.display = 'none';
+    document.getElementById('passReq').style.display = 'none';
     // let passConf = document.getElementById('passConf');
     // if (passConf) {
     //     document.getElementById('login-center').removeChild(passConf);
