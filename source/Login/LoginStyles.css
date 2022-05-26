@@ -70,12 +70,25 @@ body {
 
 input {
     background-color: white;
-    border-radius: 0.5vw;
+    
     flex-grow: 1;
     font-size: 3vw;
     margin: 1%;
     height: 10%;
+
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
 }
+
+button[id=login-button] {
+    background-color: #46da46;
+    color: rgb(234, 240, 234);
+  }
 
 #switch-screen {
     font-size: medium;
@@ -84,4 +97,40 @@ input {
     width: parent;
     background: none;
     border: none;
+}
+
+.container {
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  #message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
 }

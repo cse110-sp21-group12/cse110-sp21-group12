@@ -108,7 +108,7 @@ function handleSignup(newUsername, newPassword) {
  * handle reset password functionaliy of the associated
  */
 function handleResetPassword() {
-    loginButton.innerHTML = 'Confirm';
+    loginButton.setAttribute = ('value', 'Confirm');
     loginButton.removeEventListener('click', handleLoginButton);
     loginButton.addEventListener('click', () => {
         if (loginState == 'returning') {
@@ -140,37 +140,105 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
+var myInput = document.getElementById("pin");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+var flag = 0;
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+
+// When the user starts to type something inside the password field
+myInput.onkeyup = function() {
+  // Validate lowercase letters
+  var lowerCaseLetters = /[a-z]/g;
+  if(myInput.value.match(lowerCaseLetters)) {
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+    flag = flag+1;
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+}
+
+  // Validate capital letters
+  var upperCaseLetters = /[A-Z]/g;
+  if(myInput.value.match(upperCaseLetters)) {
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+    flag = flag+1;
+  } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+  }
+
+  // Validate numbers
+  var numbers = /[0-9]/g;
+  if(myInput.value.match(numbers)) {
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+    flag = flag+1;
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+
+  // Validate length
+  if(myInput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+    flag = flag+1;
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+}
+
+  if(flag == 4){
+      return true;
+  }
+  else{
+      return false;
+  }
     //prohibit empty username
-    if (newUsername == '') {
-        alert('Please provide a username');
-        return false;
-    }
+    // if (newUsername == '') {
+    //     alert('Please provide a username');
+    //     return false;
+    // }
     //prohibit short names
-    else if (newUsername.length < MIN_NAME_LENGTH) {
-        alert('Username must be at least 2 characters long');
-        return false;
-    }
+    // else if (newUsername.length < MIN_NAME_LENGTH) {
+    //     alert('Username must be at least 2 characters long');
+    //     return false;
+    // }
     //prohibit invalid characters in username
-    else if (name_regex.test(newUsername)) {
-        alert('Username must not contain special characters');
-        return false;
-    }
+    // else if (name_regex.test(newUsername)) {
+    //     alert('Username must not contain special characters');
+    //     return false;
+    // }
 
     //prohibit short passwords
-    else if (newPassword.length < MIN_PIN_LENGTH) {
-        alert('PIN must be at least 4 digits long');
-        return false;
-    }
+    // else if (newPassword.length < MIN_PIN_LENGTH) {
+    //     alert('PIN must be at least 4 digits long');
+    //     return false;
+    // }
     //prohibit non-numeric PIN
-    else if (pin_regex.test(newPassword)) {
-        alert('PIN must contain numbers only');
-        return false;
-    }
+    // else if (pin_regex.test(newPassword)) {
+    //     alert('PIN must contain numbers only');
+    //     return false;
+    // }
 
     //allow otherwise
-    else {
-        return true;
-    }
+    // else {
+    //     return true;
+    // }
 }
 
 /**
