@@ -49,7 +49,7 @@ function signIn() {
             .then((userCredential) => {
                 // TODO:
                 alert('Successfully signed in!');
-                window.location.replace('./TEMP-REMOVE/test.html');
+                window.location.replace('../Index/Index.html');
             })
             .catch((error) => {
                 alert('Login Failed: ' + error.message);
