@@ -1,0 +1,23 @@
+{
+  "hosting": [
+    {
+      "target":"stegosource-9lives",
+      "public": "source",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target":"testing-stegosource-9lives",
+      "public": "source",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+
+}
