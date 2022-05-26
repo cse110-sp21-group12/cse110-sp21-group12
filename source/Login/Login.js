@@ -1,9 +1,12 @@
-import { db, auth } from '../Backend/FirebaseInit.js';
+import { db, auth, googleProvider } from '../Backend/FirebaseInit.js';
 import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
     signOut,
     createUserWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    getAdditionalUserInfo,
 } from '../Backend/firebase-src/firebase-auth.min.js';
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
@@ -26,6 +29,12 @@ window.onload = () => {
         } else {
             setSignUp();
         }
+    };
+
+    // login event with Google authentication
+    const googleLoginBtn = document.getElementById('login-google-button');
+    googleLoginBtn.onclick = () => {
+        googleSignIn();
     };
 };
 
@@ -98,6 +107,56 @@ function signUp() {
             })
             .catch((error) => {
                 alert(error.message);
+            });
+    });
+}
+
+/**
+ * Sign in with the Google.
+ * Authentication persistence is Session based.
+ */
+function googleSignIn() {
+    // set session persistence so status unchanged after refreshing
+    auth.setPersistence(browserSessionPersistence).then(() => {
+        signInWithPopup(auth, googleProvider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(
+                    result
+                );
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                const isNewUser = getAdditionalUserInfo(result).isNewUser;
+
+                console.log(`User ${user.email} signed in. Token: ${token}`);
+
+                // add default data for new users
+                if (isNewUser) {
+                    let data = {
+                        email: user.email,
+                        theme: '#d4ffd4',
+                    };
+                    // eslint-disable-next-line no-undef
+                    set(ref(db, `${user.uid}`), data).then(() => {
+                        alert('Successfully signed in!');
+                        console.log('Successfully added default user data!');
+                        window.location.replace('../Index/Index.html');
+                    });
+                } else {
+                    alert('Successfully signed in!');
+                    window.location.replace('../Index/Index.html');
+                }
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // The email of the user's account used.
+                // const email = error.customData.email;
+                // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+                alert('Login Failed: ' + error.message);
             });
     });
 }
