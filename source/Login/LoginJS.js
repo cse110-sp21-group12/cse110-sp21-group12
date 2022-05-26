@@ -140,7 +140,7 @@ function handleResetPassword() {
  */
 function verifyValidInputs(newUsername, newPassword) {
     //prohibit empty username
-    if (newUsername == '') {
+    if (newUsername.length == 0) {
         alert('Please provide a username');
         return false;
     }
