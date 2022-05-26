@@ -6,6 +6,7 @@
 import { initializeApp } from './firebase-src/firebase-app.min.js';
 import { getDatabase } from './firebase-src/firebase-database.min.js';
 import { getAuth } from './firebase-src/firebase-auth.min.js';
+import { GoogleAuthProvider } from './firebase-src/firebase-auth.min.js';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -21,9 +22,10 @@ const firebaseConfig = {
 };
 
 // // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider(app);
 
 /**
  * get current user's id
