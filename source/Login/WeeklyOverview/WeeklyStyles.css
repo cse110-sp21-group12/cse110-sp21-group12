@@ -1,11 +1,11 @@
-body{
+body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', Montserrat;
 }
-.wrapper{
+.wrapper {
     background: black;
-    display:grid;
+    display: grid;
     margin: 0px;
     padding: 0px;
     grid-template-rows: 1fr 3fr;
@@ -16,13 +16,13 @@ body{
     height: 100vh;
     width: 100vw;
 }
-.header{
-    background-image: url("../Images/weekly_header.jpg");
+.header {
+    background-image: url('../Images/weekly_header.jpg');
     display: flex;
     flex-direction: column;
     min-height: 0;
 }
-#header_date{
+#header_date {
     position: relative;
     width: 30%;
     font-family: 'Inter';
@@ -32,35 +32,34 @@ body{
     padding-left: 7%;
     padding-top: 2%;
 }
-#header_button_container{
+#header_button_container {
     position: relative;
     width: 8vw;
     margin-left: 85%;
     margin-top: -3%;
     display: inline;
 }
-#header_calendar{
-
+#header_calendar {
 }
 
-.content{
-    display:grid;
+.content {
+    display: grid;
     grid-template-columns: 4fr 3fr 3fr;
 }
-.weekly_column{
-    background: #C2F7B5;
+.weekly_column {
+    background: #c2f7b5;
 }
-.monthly_column{
-    background: #C2F7B5;
+.monthly_column {
+    background: #c2f7b5;
     display: grid;
     grid-template-rows: 4fr 6fr;
 }
 
 /* Photo Album Block */
-.photo_column{
-    background: #C2F7B5;
+.photo_column {
+    background: #c2f7b5;
 }
-.photo_wrapper{
+.photo_wrapper {
     background: white;
     margin: 1vw;
     padding: 1vw 2vw 2vw 1vw;
@@ -73,15 +72,14 @@ body{
     grid-template-rows: 1fr 9fr;
     height: 75vh;
 }
-.photo_header{
-    display:grid;
+.photo_header {
+    display: grid;
     grid-template-columns: 9fr 1fr;
     text-align: left;
 }
-/* temp */ 
+/* temp */
 #photo_album {
     overflow-y: scroll;
-
 }
 
 ul.stage {
@@ -99,7 +97,6 @@ li.image-wrapper {
     left: 5%;
     width: 90%;
     padding: 5px;
-
 }
 
 img {
