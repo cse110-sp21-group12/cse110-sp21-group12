@@ -6,6 +6,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithPopup,
     GoogleAuthProvider,
+    getAdditionalUserInfo,
 } from '../Backend/firebase-src/firebase-auth.min.js';
 import { set, ref } from '../Backend/firebase-src/firebase-database.min.js';
 
@@ -126,10 +127,26 @@ function googleSignIn() {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                // switch to homepage
-                // TODO
-                alert('Successfully signed in!' + user + token);
-                window.location.replace('../Index/Index.html');
+                const isNewUser = getAdditionalUserInfo(result).isNewUser;
+
+                console.log(`User ${user.email} signed in. Token: ${token}`);
+
+                // add default data for new users
+                if (isNewUser) {
+                    let data = {
+                        email: user.email,
+                        theme: '#d4ffd4',
+                    };
+                    // eslint-disable-next-line no-undef
+                    set(ref(db, `${user.uid}`), data).then(() => {
+                        alert('Successfully signed in!');
+                        console.log('Successfully added default user data!');
+                        window.location.replace('../Index/Index.html');
+                    });
+                } else {
+                    alert('Successfully signed in!');
+                    window.location.replace('../Index/Index.html');
+                }
             })
             .catch((error) => {
                 // Handle Errors here.
