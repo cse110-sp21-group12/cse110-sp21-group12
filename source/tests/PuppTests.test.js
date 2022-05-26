@@ -82,9 +82,7 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         page.on('dialog', async (dialog) => {
-
             expect(dialog.message()).toEqual('Incorrect password!');
-
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('Username must not contain special characters');
@@ -100,7 +98,7 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         page.on('dialog', async (dialog) => {
-        expect(dialog.message()).toEqual('Incorrect password!');
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('PIN must be at least 4 digits long');
@@ -117,7 +115,7 @@ describe('basic navigation for BJ', () => {
 
         let msg = null;
         page.on('dialog', async (dialog) => {
-        expect(dialog.message()).toEqual('Incorrect password!');
+            expect(dialog.message()).toEqual('Incorrect password!');
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('PIN must contain numbers only');
