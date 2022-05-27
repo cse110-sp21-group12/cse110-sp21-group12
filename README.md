@@ -1,6 +1,6 @@
 # Group 12 - Stegosource
 
-[Bullet Journal](https://cse110-sp21-group12.github.io/cse110-sp21-group12/)
+[Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/)
 
 
 [Team Page](admin/team.md)
