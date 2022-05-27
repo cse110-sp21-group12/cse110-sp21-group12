@@ -44,13 +44,6 @@
     "jsdoc": "^3.6.7",
     "lint-staged": "^12.4.1",
     "prettier": "2.2.1",
-<<<<<<< HEAD
-    "puppeteer": "^9.1.1",
-    "lint-staged": "^12.4.1"
-  },
-  "dependencies": {}
-=======
     "puppeteer": "^9.1.1"
   }
->>>>>>> development
 }
