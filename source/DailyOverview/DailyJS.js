@@ -17,10 +17,6 @@ if (currentDateStr == 'html') {
 }
 console.log(currentDateStr);
 
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
-
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
@@ -28,6 +24,21 @@ const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
+const LENGTH_OF_YEAR_NUMBER = -4;
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
 
 // store current day data to update when user leaves page
 let currentDay;
@@ -60,7 +71,35 @@ window.addEventListener('load', () => {
         };
         document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
     }
+
+    setMonthlyOverviewLink();
 });
+
+/**
+ * Sets the MonthlyOverview link to say '<month> <year> Overview' so that users
+ * clearly know what MonthOverview they are going to from DailyOverview page
+ * @returns void
+ */
+function setMonthlyOverviewLink() {
+    // get MonthlyOverview link in top left corner of DailyOverview screen
+    let monthlyOverviewLink = document.querySelector(
+        '#monthView > a:first-child'
+    );
+    // set the link to be to the month of the current DailyOverview
+    monthlyOverviewLink.href +=
+        '#' +
+        currentDateStr.substring(0, 2) +
+        '/' +
+        currentDateStr.substring(6);
+    /* set link text */
+    const monthString = currentDateStr.substring(
+        0,
+        currentDateStr.indexOf('/')
+    );
+    const month = monthNames[parseInt(monthString) - 1];
+    const year = currentDateStr.slice(LENGTH_OF_YEAR_NUMBER);
+    monthlyOverviewLink.textContent = `${month} ${year} Overview`;
+}
 
 /**
  * Gets the current day object (and creates one if one doesn't exist)

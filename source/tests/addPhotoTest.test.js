@@ -1,3 +1,4 @@
+/* eslint-disable no-undef*/
 const puppeteer = require('puppeteer');
 // please read through some of the comments with NOTE: if this test fails
 // This test is more for local testing since I am not sure what would happen to the test if it is run on github
@@ -11,7 +12,7 @@ describe('basic navigation for BJ', () => {
         });
         const page = await browser.newPage();
         // this lets us see console.logs in this format : await page.evaluate(() => console.log());
-        page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
+        // page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
         // NOTE: use this link for when our changes are pushed to the master branch
         // await page.goto(

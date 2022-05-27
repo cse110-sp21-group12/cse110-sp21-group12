@@ -7,7 +7,6 @@ describe('Google', () => {
     beforeAll(async () => {
         await page.goto('https://google.com');
     });
-
     it('should display "google" text on page', async () => {
         await expect(page).toMatch('google');
     });
@@ -60,13 +59,11 @@ describe('basic navigation for BJ', () => {
         let msg = null;
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
-            console.log(dialog.message());
             msg = dialog.message();
             // we set up the alert dialog box dismiss handle here so this line only needs to be here once
             await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
-        console.log(msg);
         expect(msg).toMatch('Please provide a username');
     });
 
@@ -153,11 +150,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
 
-        page.on('dialog', async () => {
-            await page.waitForTimeout(1000);
-            // await dialog.dismiss();
-        });
-
         await page.$eval('#login-button', (button) => {
             button.click();
         });
@@ -190,7 +182,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '123';
         });
 
-        console.log('here2');
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
             msg = dialog.message();
@@ -206,7 +197,6 @@ describe('basic navigation for BJ', () => {
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
         await page.waitForTimeout(300);
-        // console.log("here3")
         const currentDayHigh = await page.$eval('.today', (day) => {
             return day.innerHTML;
         });
@@ -605,6 +595,14 @@ describe('basic navigation for BJ', () => {
         expect(bulletText).toMatch('line-through');
     });
 
+    it('Test30: mark not done monthly goals', async () => {
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#done').innerText;
+        });
+
+        expect(bulletText).toMatch('Mark Not Done');
+    });
+
     it('Test30: check monthly goals marked done in daily overview', async () => {
         await page.waitForTimeout('300');
 
@@ -941,6 +939,62 @@ describe('basic navigation for BJ', () => {
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
 
+    it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets .today and passes it to callback function to click today calendar btn
+        await page.$eval('.today', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current month name */
+        const currentDate = new Date();
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        const expected = `${
+            monthNames[currentDate.getMonth()]
+        } ${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const monthlyOverviewLink = await page.$('#monthView > a:first-child');
+        const linkText = await (
+            await monthlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
+    it('Test52: Check YearlyOverview link text is correct on MonthlyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets MonthlyOverview link and passes it to callback function to click MonthlyOverview btn
+        await page.$eval('#monthView > a:first-child', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current year */
+        const currentDate = new Date();
+        const expected = `${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const yearlyOverviewLink = await page.$('#back');
+        const linkText = await (
+            await yearlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
     it('close browser', async () => {
         browser.close();
     });

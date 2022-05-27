@@ -10,7 +10,6 @@
 * {
     font-family: 'Courier', monospace;
     font-weight: bold;
-    color: #585858;
 }
 body {
     background-color: var(--bg-color);
@@ -62,16 +61,21 @@ Structure
     border-width: 0.2vw;
     border-radius: 3vw;
     padding: 2vw;
-    background-color: white;
+    background-color: #eee;
 }
 
 #content {
     overflow: hidden;
     overflow-y: scroll;
-    min-height: 50vh;
+    height: 50vh;
     max-height: 100vh;
     width: auto;
     margin: 1vw 2vw;
+}
+
+#content > div {
+    width: max-content;
+    margin-inline: auto;
 }
 
 #content::-webkit-scrollbar {
@@ -103,8 +107,6 @@ Structure
 
 #today-button {
     background-color: var(--bg-color);
-    border: none;
-    color: #585858;
     text-align: center;
     text-decoration: none;
     font-size: 1.5vw;
@@ -118,7 +120,6 @@ Structure
 button {
     background-color: var(--bg-color);
     border: none;
-    color: #585858;
     /*to make the [>] / [v] look consistent */
     font-family: sans-serif;
     font-size: 1.5vw;
@@ -132,19 +133,23 @@ button:hover {
 
 .coll_yr_button {
     margin-right: 1rem;
-    border: 1px solid transparent;
+    background-color: transparent;
 }
 .coll_yr_button:hover {
-    border: 1px solid black;
+    color: var(--bg-color);
 }
 
 #content .yearlink:hover {
+    -color: var(--bg-color);
     text-decoration: underline;
+    text-decoration-color: var(--bg-color);
+    text-decoration-thickness: 3px;
 }
 
 #content a {
     text-decoration: none;
     font-size: 1.25em;
+    color: black;
 }
 
 #content > * {
@@ -237,13 +242,17 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
+    border-radius: 0.5vw;
+    font-weight: lighter;
 }
 
 .day:hover {
     cursor: pointer;
+    background-color: var(--clr-bg-hover);
 }
 
-.blank_day {
+.blank_day,
+.blank_day:hover {
     background: none;
 }
 
@@ -251,9 +260,13 @@ ul {
     Highlight the "current" day 
     We can change the color to be based on the theme color
 */
-.today {
+.today,
+.today:hover {
     background: var(--bg-color);
-    border-radius: 0.5vw;
+}
+
+.today {
+    font-weight: bold;
 }
 
 #cal-week-wrapper {
