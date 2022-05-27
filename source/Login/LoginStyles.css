@@ -10,6 +10,15 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
+=======
+}
+#dino-align {
+    /* margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch; */
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
 }
 
 #content {
@@ -21,7 +30,14 @@ body {
     background-color: white;
     right: 0px;
     position: absolute;
+<<<<<<< HEAD
     top: 20%;
+=======
+    top: 30%;
+}
+#content > * {
+    box-shadow: 0;
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
 }
 
 #content > h3 {
@@ -59,7 +75,10 @@ body {
     height: 60%;
     width: 50%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
 #button-center {
     position: absolute;
     top: 50%;
@@ -135,7 +154,11 @@ body {
 }
 
 #login-button {
+<<<<<<< HEAD
     /* position: absolute; */
+=======
+    position: absolute;
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
     background-color: #38b593;
     color: white;
     border-color: transparent;
@@ -158,10 +181,15 @@ body {
     font-size: 1.5vh;
     height: 5vh;
     width: 100%;
+<<<<<<< HEAD
+=======
+    top: 100%;
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
 }
 
 input {
     background-color: #f4f4f4;
+<<<<<<< HEAD
     /* border-radius: 0.5vw; */
     border-color: transparent;
     width: 100%;
@@ -206,6 +234,30 @@ input[type='email']:focus {
     background-color: white;
     color: #38b593;
     border-color: white;
+=======
+    border-radius: 0.5vw;
+    border-color: transparent;
+    /* flex-grow: 1; */
+    font-size: 3vh;
+    width: 100%;
+}
+input[type='text']:focus {
+    border: 1px solid #555;
+}
+​ #sign-up-text {
+    position: absolute;
+    font-size: 1vw;
+    top: 50%;
+    left: 35%;
+    text-align: center;
+}
+#signup-button {
+    position: absolute;
+    background-color: white;
+    color: #38b593;
+    border-color: #38b593;
+    border-radius: 5vw;
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
     flex-grow: 1;
     font-size: 1.5vh;
 }
@@ -259,4 +311,10 @@ input[type='email']:focus {
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
+<<<<<<< HEAD
+=======
+    width: parent;
+    background: none;
+    border: none;
+>>>>>>> 1f3aa0db9693365f0d84244dfdcbf37bf8d9adb1
 }
