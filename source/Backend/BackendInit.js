@@ -8,6 +8,22 @@ import {
     set,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
+// see getMonthName()
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+
 /**
  * add a base64 encoded photo in the database
  * @param {String} date string of the form "mm/dd/yyyy"
@@ -79,7 +95,7 @@ async function createMonthlyGoals(monthObj) {
 
     const [month, year] = monthObj.month.split('/');
     const dbPath = `${currentUserID}/${year}/${month}`;
-    // see line 57 for update justification
+    // see bottom of createDay() for update justification
     updateObjAtDBPath(dbPath, monthObj);
 }
 
@@ -101,7 +117,7 @@ async function createYearlyGoals(yearObj) {
         });
 
     const dbPath = `${currentUserID}/${yearObj.year}`;
-    // see line 57 for update justification
+    // see bottom of createDay() for update justification
     updateObjAtDBPath(dbPath, yearObj);
 }
 
@@ -306,6 +322,16 @@ async function getDay(dateStr) {
     const [month, day, year] = dateStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     return getDataAtDBPath(dbPath);
+}
+
+/**
+ * get the name associated with a month's number (eg '05' => 'May')
+ * @param {String} monthNumber - a month number in the form of '0x' (eg 05) or
+ * '1x' (eg 12)
+ * @returns name of the corresponding month
+ */
+function getMonthName(monthNumber) {
+    return monthNames[parseInt(monthNumber) - 1];
 }
 
 /**
@@ -539,6 +565,7 @@ export {
     getCurrentDate,
     getCurrentWeek,
     getDay,
+    getMonthName,
     getMonthlyGoals,
     getYearlyGoals,
     updateDay,
