@@ -32,7 +32,7 @@ window.onload = () => {
     };
 
     // login event with Google authentication
-    const googleLoginBtn = document.getElementById('login-google-button');
+    const googleLoginBtn = document.getElementById('google-button');
     googleLoginBtn.onclick = () => {
         googleSignIn();
     };
