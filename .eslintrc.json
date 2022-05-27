@@ -19,7 +19,7 @@
     ],
     "overrides": [
       {
-        "files": [
+        "files": [ 
             "*.js"
         ],
         "parserOptions": {

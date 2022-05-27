@@ -1,8 +1,3 @@
-// Import the functions you need from the SDKs you need
-// const { initializeApp } = require("https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js");
-// // import { } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-// const { getDatabase, get, query, ref, remove, update } = require("https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js");
-
 import { initializeApp } from './firebase-src/firebase-app.min.js';
 import { getDatabase } from './firebase-src/firebase-database.min.js';
 import { getAuth } from './firebase-src/firebase-auth.min.js';

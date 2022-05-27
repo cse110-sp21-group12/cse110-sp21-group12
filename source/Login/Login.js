@@ -54,7 +54,7 @@ function signIn() {
         signInWithEmailAndPassword(auth, userEmail, password)
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
-                // TODO
+                // TODO:
                 customAlert('Successfully signed in!');
                 window.location.replace('./WeeklyOverview/WeeklyOverview.html');
             })
@@ -98,7 +98,9 @@ function signUp() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         customAlert('Successful Sign Up');
-                        window.location.replace('../Index/Index.html');
+                        window.location.replace(
+                            './WeeklyOverview/WeeklyOverview.html'
+                        );
                     });
                 }
             })
