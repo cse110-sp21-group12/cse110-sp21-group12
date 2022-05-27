@@ -76,3 +76,7 @@ function loadNotes() {
 //call setup functions
 window.addEventListener('load', loadWeek);
 window.addEventListener('load', loadNotes);
+
+
+document.getElementById("header_settings_button").onclick = function(){document.getElementById("settings").style.display = "block";}
+document.getElementById("close-button").onclick = function(){document.getElementById("settings").style.display = "none";}
