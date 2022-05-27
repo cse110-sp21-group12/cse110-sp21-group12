@@ -1,7 +1,7 @@
 //alert("extra script loaded");
-const target_section = document.getElementById('content');
-const yr_start = 2018;
-const yr_end = 2025;
+const targetSection = document.getElementById('content');
+const yrStart = 2018;
+const yrEnd = 2025;
 const months = [
     'January',
     'February',
@@ -19,9 +19,9 @@ const months = [
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const day_OV_link = '../DailyOverview/DailyOverview.html';
-const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
-const year_OV_link = '../YearlyOverview/YearlyOverview.html';
+const dayOverviewLink = '../DailyOverview/DailyOverview.html';
+const monthOverviewLink = '../MonthlyOverview/MonthlyOverview.html';
+const yearOverviewLink = '../YearlyOverview/YearlyOverview.html';
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
@@ -36,57 +36,58 @@ window.addEventListener('load', () => {
  * Dynamically setup page content.
  */
 function setupContent() {
-    for (let yr = yr_start; yr <= yr_end; yr++) {
+    for (let yr = yrStart; yr <= yrEnd; yr++) {
         //
         //wrapper
-        let year_wrapper = document.createElement('div');
-        year_wrapper.id = yr;
+        let yearWrapper = document.createElement('div');
+        yearWrapper.id = yr;
         //
         //button group
-        let year_nav = document.createElement('div');
-        year_nav.classList.add('year');
-        year_nav.classList.add('collapsible');
-        year_nav.classList.add('horiz');
+        let yearNav = document.createElement('div');
+        yearNav.classList.add('year');
+        yearNav.classList.add('collapsible');
+        yearNav.classList.add('horiz');
         //collapse button
-        let coll_button = document.createElement('button');
-        coll_button.id = yr + '_button';
-        coll_button.classList.add('coll_yr_button');
-        coll_button.innerText = '>';
+        let collButton = document.createElement('button');
+        collButton.id = yr + '_button';
+        collButton.classList.add('coll_yr_button');
+        collButton.innerText = '>';
         //year link
         let yearlink = document.createElement('a');
         yearlink.classList.add('yearlink');
         yearlink.id = yr + '_link';
-        yearlink.href = year_OV_link + '#' + yr;
+        yearlink.href = yearOverviewLink + '#' + yr;
         yearlink.innerText = yr + ' Yearly Overview';
         //add parts to button group
-        year_nav.appendChild(coll_button);
-        year_nav.appendChild(yearlink);
+        yearNav.appendChild(collButton);
+        yearNav.appendChild(yearlink);
         //add button group to wrapper
-        year_wrapper.appendChild(year_nav);
+        yearWrapper.appendChild(yearNav);
         //
         //collapsible child
-        let months_div = document.createElement('div');
-        months_div.id = yr + '_months';
-        months_div.classList.add('collapsible_child');
+        let monthsDiv = document.createElement('div');
+        monthsDiv.id = yr + '_months';
+        monthsDiv.classList.add('collapsible_child');
         //add months
         for (let m = 0; m < months.length; m++) {
             //setup month link
-            let month_name_lc = months[m].toLowerCase();
-            let month_link = document.createElement('a');
-            month_link.class = 'monthlink ' + month_name_lc;
-            month_link.id = yr + '_' + month_name_lc;
-            month_link.href = month_OV_link + '#' + monthNumber(m) + '/' + yr;
-            month_link.innerText = months[m];
+            let monthNameLc = months[m].toLowerCase();
+            let monthLink = document.createElement('a');
+            monthLink.class = 'monthlink ' + monthNameLc;
+            monthLink.id = yr + '_' + monthNameLc;
+            monthLink.href =
+                monthOverviewLink + '#' + monthNumber(m) + '/' + yr;
+            monthLink.innerText = months[m];
             //add this month to list of months
-            months_div.appendChild(month_link);
+            monthsDiv.appendChild(monthLink);
         }
 
-        months_div.style.display = 'none';
+        monthsDiv.style.display = 'none';
         //add collapsible child to wrapper
-        year_wrapper.appendChild(months_div);
+        yearWrapper.appendChild(monthsDiv);
 
         //add this year to list of years
-        target_section.appendChild(year_wrapper);
+        targetSection.appendChild(yearWrapper);
 
         var today = new Date();
         var currDay = today.getDate();
@@ -96,7 +97,7 @@ function setupContent() {
         let todayButton = document.getElementById('today-button');
         todayButton.addEventListener('click', () => {
             window.location.href =
-                day_OV_link +
+                dayOverviewLink +
                 '#' +
                 monthNumber(currMonth) +
                 '/' +
@@ -116,7 +117,7 @@ function setupCalendar() {
     //get today code stolen from stackoverflow
     var today = new Date();
     console.log(today);
-    var curr_day_number = today.getDate();
+    var currDayNumber = today.getDate();
     var currMonthNumber = today.getMonth();
     var currYearNumber = today.getFullYear();
 
@@ -124,39 +125,39 @@ function setupCalendar() {
 
     //month title on top
     //wrapper
-    let month_header = document.createElement('div');
-    month_header.classList.add('month_header');
+    let monthHeader = document.createElement('div');
+    monthHeader.classList.add('monthHeader');
     //text
-    let month_label = document.createElement('p');
-    month_label.classList.add('month_label');
-    month_label.innerText = months[currMonthNumber];
-    month_header.appendChild(month_label);
-    calTarget.appendChild(month_header);
+    let monthLabel = document.createElement('p');
+    monthLabel.classList.add('monthLabel');
+    monthLabel.innerText = months[currMonthNumber];
+    monthHeader.appendChild(monthLabel);
+    calTarget.appendChild(monthHeader);
 
     //top bar of weekday names
-    let weekdays_label = document.createElement('ul');
-    weekdays_label.classList.add('weekdays_label');
+    let weekdaysLabel = document.createElement('ul');
+    weekdaysLabel.classList.add('weekdaysLabel');
     for (let i = 0; i < weekdays.length; i++) {
         let weekday = document.createElement('li');
         weekday.innerText = weekdays[i];
         weekday.classList.add('weekday');
-        weekdays_label.appendChild(weekday);
+        weekdaysLabel.appendChild(weekday);
     }
-    calTarget.appendChild(weekdays_label);
+    calTarget.appendChild(weekdaysLabel);
 
     //all the little days
-    let days_field = document.createElement('ul');
-    days_field.classList.add('days_field');
+    let daysField = document.createElement('ul');
+    daysField.classList.add('daysField');
     let endDay = daysInMonth(currMonthNumber, currYearNumber);
     console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
     for (let i = 0; i < monthFirstDow; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
-        blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
+        let blankDay = document.createElement('li');
+        blankDay.classList.add('day');
+        blankDay.classList.add('blankDay');
+        blankDay.innerText = '';
+        daysField.appendChild(blankDay);
     }
 
     //real days
@@ -166,16 +167,16 @@ function setupCalendar() {
         day.innerText = i;
 
         //check if today (so we can highlight it)
-        if (i == curr_day_number) {
+        if (i == currDayNumber) {
             day.classList.add('today');
         }
 
-        days_field.appendChild(day);
+        daysField.appendChild(day);
 
         //link to daily overview
         day.addEventListener('click', () => {
             window.location.href =
-                day_OV_link +
+                dayOverviewLink +
                 '#' +
                 monthNumber(currMonthNumber) +
                 '/' +
@@ -189,14 +190,14 @@ function setupCalendar() {
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
     for (let i = monthLastDow; i < 7; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
-        blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
+        let blankDay = document.createElement('li');
+        blankDay.classList.add('day');
+        blankDay.classList.add('blankDay');
+        blankDay.innerText = '';
+        daysField.appendChild(blankDay);
     }
 
-    calTarget.append(days_field);
+    calTarget.append(daysField);
 }
 
 //call setup functions

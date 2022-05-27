@@ -69,5 +69,10 @@ function loadWeek() {
     }
 }
 
+function loadNotes() {
+    let newNote = document.createElement('note-box');
+    document.querySelector('#notes').appendChild(newNote);
+}
 //call setup functions
 window.addEventListener('load', loadWeek);
+window.addEventListener('load', loadNotes);
