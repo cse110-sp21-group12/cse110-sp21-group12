@@ -1,10 +1,10 @@
 import { db, auth } from '../Backend/FirebaseInit.js';
 import {
-    // set,
     ref,
     get,
     update,
     remove,
+    push,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 let currentUserID;
@@ -12,7 +12,19 @@ getUserID().then((user) => {
     currentUserID = user.uid;
 });
 
-// Create Day
+/**
+ * add a base64 encoded photo in the database
+ * @param {String} date string of the form "mm/dd/yyyy"
+ * @param {File} photo as file-type that will be converted to base64
+ * @returns void
+ */
+async function addPhoto(dayStr, photoFile) {
+    const [month, day, year] = dayStr.split('/');
+    const base64Str = await getBase64(photoFile);
+    const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+    pushObjToDBPath(dbPath, base64Str);
+}
+
 /**
  * create db object for day
  * @param {Object} dayObj - Custom day object
@@ -26,13 +38,6 @@ getUserID().then((user) => {
 function createDay(dayObj) {
     const [month, day, year] = dayObj.date.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
-    if (dayObj.bullets.length === 0) {
-        dayObj.bullets.push('');
-    }
-    if (dayObj.photos.length === 0) {
-        dayObj.photos.push('');
-    }
-
     updateObjAtDBPath(dbPath, dayObj);
 }
 
@@ -76,6 +81,24 @@ function deleteDay(dayStr) {
 /**
  * delete db object for month
  * @param {String} monthStr - string of the form "xx/xxxx" eg: "02/2022"
+ * @param {string} base64 an encoding of an image from getBase64()
+ * @returns void
+ */
+async function deletePhoto(dayStr, base64) {
+    const [month, day, year] = dayStr.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+    const dayPhotos = await getDataAtDBPath(dbPath);
+    for (const [base64UUID, storedBase64] of Object.entries(dayPhotos)) {
+        if (storedBase64.length == base64.length && storedBase64 == base64) {
+            deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
+            break;
+        }
+    }
+}
+
+/**
+ * deletes monthly goal object associated with the given month string
+ * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
  * @returns void
  */
 function deleteMonthlyGoals(monthStr) {
@@ -91,7 +114,13 @@ function deleteMonthlyGoals(monthStr) {
  * @returns void
  */
 function deleteObjAtDBPath(path) {
-    remove(ref(db, path));
+    remove(ref(db, path))
+        .then(() => {
+            console.log(`Data deleted successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not deleted successfully: ${error}`);
+        });
 }
 
 /**
@@ -102,6 +131,24 @@ function deleteObjAtDBPath(path) {
 function deleteYearlyGoals(yearStr) {
     const dbPath = `${currentUserID}/${yearStr}/goals`;
     deleteObjAtDBPath(dbPath);
+}
+
+/**
+ * compute base64 encoding for file (file must be an image)
+ * @param {File} file - a file that contains an image which must be encoded
+ *                      into base64 format
+ * @returns Promise that resolves to the images base64 encoding
+ */
+function getBase64(file) {
+    let reader = new FileReader();
+    // eslint-disable-next-line no-unused-vars
+    let promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+            resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+    });
+    return promise;
 }
 
 /**
@@ -171,9 +218,15 @@ function getYearlyGoals(yearStr) {
     return getDataAtDBPath(dbPath);
 }
 
-// function pushToDBPath(path, obj) {
-//     push(ref(db, path), obj);
-// }
+function pushObjToDBPath(path, obj) {
+    push(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data pushed successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not pushed successfully: ${error}`);
+        });
+}
 
 // function setObjAtDBPath(path, obj) {
 //     set(ref(db, path), obj);
@@ -187,7 +240,13 @@ function getYearlyGoals(yearStr) {
  * @returns void
  */
 function updateObjAtDBPath(path, obj) {
-    update(ref(db, path), obj);
+    update(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data updated successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not updated successfully: ${error}`);
+        });
 }
 
 /**
@@ -300,16 +359,19 @@ function updateYearsGoals(yearObj) {
 // }
 
 export {
-    getDay,
+    addPhoto,
     createDay,
-    updateDay,
-    deleteDay,
-    getYearlyGoals,
-    createYearlyGoals,
-    updateYearsGoals,
-    deleteYearlyGoals,
-    getMonthlyGoals,
     createMonthlyGoals,
-    updateMonthlyGoals,
+    createYearlyGoals,
+    deleteDay,
     deleteMonthlyGoals,
+    deletePhoto,
+    deleteYearlyGoals,
+    getBase64,
+    getDay,
+    getMonthlyGoals,
+    getYearlyGoals,
+    updateDay,
+    updateMonthlyGoals,
+    updateYearsGoals,
 };
