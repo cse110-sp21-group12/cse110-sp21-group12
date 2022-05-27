@@ -37,11 +37,11 @@ async function loadWeek(currWeekList) {
 
         // load in the day's todos
         bulletParser(currentDay.bullets, todoList);
-    }
 
-    // adding separator
-    const line = document.createElement('hr');
-    todoList.append(line);
+        // adding separator
+        const line = document.createElement('hr');
+        todoList.append(line);
+    }
 }
 
 /**
