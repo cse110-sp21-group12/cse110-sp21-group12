@@ -1,0 +1,131 @@
+* {
+    font-family: 'Montserrat', Montserrat;
+    font-weight: bold;
+    color: #585858;
+    font-size: larger;
+}
+body {
+    background-color: white; 
+    width:100%; 
+    height:100%; 
+    margin:0; 
+    padding:0; 
+}
+#dino-align {
+    /* margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch; */
+}
+/* TODO:  */
+#content {
+    /* margin-left: 7.5vw; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+    height: 60%;
+    background-color: white;
+    right: 0px;
+    /* border-style: solid;
+    border-color: #585858;
+    border-width: 0.3vw;
+    border-radius: 1.5vw; */
+    position: absolute;
+    top: 30%;
+    
+}
+#content > * {
+    box-shadow: 0;
+}
+#content > h3 {
+    flex-grow: 1;
+    font-size: 2vw;
+    margin: 1% 1vw 0.5%;
+    height: 10%;
+    text-align: center;
+}
+#big-logo {
+    /*background-repeat: no-repeat;*/
+    width: 60%;
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+#login-container {
+    position: relative;
+    height:100%;
+}
+  
+#login-center {
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    height: 60%;
+}
+#button-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 40%;
+}
+#login-button {
+    position: absolute;
+    background-color: #38B593;
+    color: white;
+    border-color:transparent;
+    border-radius: 5vw;
+    flex-grow: 1;
+    font-size: 2.5vh;
+    width: 100%;
+    top: 100%;
+    
+}
+input {
+    background-color: #f4f4f4;
+    border-radius: 0.5vw;
+    border-color:transparent;
+    /* flex-grow: 1; */
+    font-size: 3vh;
+    width:100%;
+}
+input[type=text]:focus {
+    border: 1px solid #555;
+}
+​
+#sign-up-text {
+    position: absolute;
+    font-size: 1vw;
+    top: 50%;
+    left: 35%;
+    text-align: center;
+}
+#signup-button{
+    position: absolute;
+    background-color: white;
+    color: #38B593;
+    border-color:#38B593;
+    border-radius: 5vw;
+    flex-grow: 1;
+    font-size: 2.5vh;
+    margin: 15%;
+    width: 50%;
+    top: 0%;
+    left: 10%;
+}
+#switch-screen {
+    font-size: medium;
+    text-align: left;
+    color: black;
+    width: parent;
+    background: none;
+    border: none;
+}
