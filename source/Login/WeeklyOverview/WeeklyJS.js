@@ -1,9 +1,8 @@
 import {
-    createDay,
+    getCurrentDate,
     getCurrentWeek,
     getDay,
 } from '../../Backend/BackendInit.js';
-import mockJson from '../../Backend/updatedMockData.js';
 
 /**
  * Loads the next 7 days worth of data into the weekly preview
@@ -66,19 +65,18 @@ function bulletParser(bullets, list) {
     }
 }
 
-function loadNotes() {
+async function loadNotes() {
     let newNote = document.createElement('note-box');
-    document.querySelector('#notes').appendChild(newNote);
+    const currDateObj = getCurrentDate();
+    const dateStr = `${currDateObj.month}/${currDateObj.day}/${currDateObj.year}`;
+    const currDayObj = await getDay(dateStr);
+    const todaysNotes = currDayObj.notes;
+    document.querySelector('#notes').append(newNote);
+    newNote.shadowRoot.querySelector('.noteContent').innerHTML = todaysNotes;
 }
 
 // call setup functions
 window.onload = () => {
     loadWeek(getCurrentWeek());
     loadNotes();
-
-    const addDay = document.getElementById('add-day');
-
-    addDay.addEventListener('click', () =>
-        createDay(mockJson['days object store'])
-    );
 };
