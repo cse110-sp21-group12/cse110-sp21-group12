@@ -4,6 +4,7 @@ import {
     get,
     update,
     remove,
+    set,
     push,
     set,
 } from '../Backend/firebase-src/firebase-database.min.js';
@@ -449,7 +450,6 @@ async function updateNote(year, month, day, notes) {
             console.log(err);
             return;
         });
-
     let dbPath = `${currentUserID}/${year}/${month}/${day}/notes`;
     setObjAtDBPath(dbPath, notes);
 }
