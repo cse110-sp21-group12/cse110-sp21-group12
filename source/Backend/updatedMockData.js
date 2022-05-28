@@ -3,7 +3,7 @@ export default {
         message: 'this file only exists for documentation/record purposes',
     },
     'days object store': {
-        date: '05/29/2022',
+        date: '05/27/2022',
         bullets: [
             {
                 text: 'O, Wonder!',
@@ -63,7 +63,7 @@ export default {
         notes: 'This is an empty day...only notes',
     },
     'monthlyGoals Object store': {
-        month: '12/2021',
+        month: '05/2022',
         goals: [
             {
                 text: 'Train for and run a marathon!',
@@ -80,7 +80,7 @@ export default {
         ],
     },
     'yearlyGoals Object store': {
-        year: '2021',
+        year: '2022',
         goals: [
             {
                 text: 'Learn how to speak fluent Spanish',
