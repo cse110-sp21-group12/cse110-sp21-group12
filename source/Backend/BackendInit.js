@@ -29,6 +29,11 @@ const monthNames = [
  * @param {String} date string of the form "mm/dd/yyyy"
  * @param {File} photo as file-type that will be converted to base64
  * @returns void
+ * Here is a comment for the purposes of "adding a small change"
+ * to the repo
+ *
+ * Want to first check if database exists, and if not, set it up
+ * a constant name to our database
  */
 async function addPhoto(dayStr, photoFile) {
     const currentUserID = await getUserID()
@@ -188,7 +193,6 @@ async function deleteMonthlyGoals(monthStr) {
             console.log(err);
             return;
         });
-
     const [month, year] = monthStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/goals`;
     deleteObjAtDBPath(dbPath);
