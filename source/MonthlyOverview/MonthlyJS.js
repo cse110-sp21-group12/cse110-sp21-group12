@@ -15,11 +15,11 @@ let currentMonthRes;
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
-    let session = window.sessionStorage;
-    console.log('here is storage session', session);
-    if (session.getItem('loggedIn') !== 'true') {
-        window.location.href = '../Login/Login.html';
-    }
+    // let session = window.sessionStorage;
+    // console.log('here is storage session', session);
+    // if (session.getItem('loggedIn') !== 'true') {
+    //     window.location.href = '../Login/Login.html';
+    // }
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
         console.log('database connected');
