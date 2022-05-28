@@ -139,11 +139,15 @@ function googleSignIn() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         customAlert('Successfully signed in!');
-                        window.location.replace('./WeeklyOverview/WeeklyOverview.html');
+                        window.location.replace(
+                            './WeeklyOverview/WeeklyOverview.html'
+                        );
                     });
                 } else {
                     customAlert('Successfully signed in!');
-                    window.location.replace('./WeeklyOverview/WeeklyOverview.html');
+                    window.location.replace(
+                        './WeeklyOverview/WeeklyOverview.html'
+                    );
                 }
             })
             .catch((error) => {
