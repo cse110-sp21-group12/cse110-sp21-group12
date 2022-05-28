@@ -10,7 +10,9 @@
                 <div id="header_date">may 14 2022</div>
                 <div id="header_button_container">
                     <button id="header_calendar_button">calendar</button>
-                    <button id="header_settings_button">settings</button>
+                    <button id="header_settings_button" onclick="openSetting">
+                        settings
+                    </button>
                 </div>
                 <!-- TODO: make "header_date" a button and style appropriately -->
             </div>
@@ -56,6 +58,50 @@
                                 </li> -->
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div class="container" id="settings">
+                    <h2 class="title">Settings</h2>
+                    <span class="close" id="close-button" onclick="closeSetting"
+                        >&times;</span
+                    >
+                    <div class="passwordForm">
+                        <h3 class="subti">Reset Password</h3>
+                        <form action="#" method="#">
+                            <div class="passField">
+                                <img
+                                    src="../../Images/password-icon.png"
+                                    alt=""
+                                    class="pwd-icon"
+                                />
+                                <input
+                                    type="password"
+                                    class="pwd-pass"
+                                    placeholder="Password"
+                                    value=""
+                                />
+                            </div>
+                            <input
+                                type="button"
+                                class="pwd-btn"
+                                value="Reset"
+                            />
+                        </form>
+                    </div>
+                    <div class="dropBoxes">
+                        <select id="themes">
+                            <option value="#d4ffd4">Green</option>
+                            <option value="#ECC7C7">Pink</option>
+                            <option value="#c0e7e9">Blue</option>
+                            <option value="#e1bceb">Purple</option>
+                            <option value="#eeddc4">Yellow</option>
+                            <option value="#e78e8e">Red</option>
+                            <option value="#e7c3b0">Orange</option>
+                        </select>
+                    </div>
+                    <div class="bannerImage">
+                        Banner Image:
+                        <button class="banner-btn">Choose File</button>
                     </div>
                 </div>
             </div>

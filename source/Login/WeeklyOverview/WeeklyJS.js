@@ -180,6 +180,24 @@ function populateGoalList(goalDivId, goalsObj) {
     goalDiv.append(list);
 }
 
+// Open and close Setting container
+document.getElementById('header_settings_button').onclick = function () {
+    document.getElementById('settings').style.display = 'block';
+};
+document.getElementById('close-button').onclick = function () {
+    document.getElementById('settings').style.display = 'none';
+};
+
+// Change background color on select
+document.getElementById('themes').addEventListener('change', function (e) {
+    document.getElementsByClassName('weekly_column')[0].style.background =
+        e.target.value;
+    document.getElementsByClassName('monthly_column')[0].style.background =
+        e.target.value;
+    document.getElementsByClassName('photo_column')[0].style.background =
+        e.target.value;
+});
+
 // call setup functions
 window.onload = () => {
     // make the date header of the page reflect the current date
