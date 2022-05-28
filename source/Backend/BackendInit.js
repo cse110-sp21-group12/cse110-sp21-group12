@@ -6,6 +6,7 @@ import {
     remove,
     set,
     push,
+    set,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 /**
@@ -27,6 +28,8 @@ async function addPhoto(dayStr, photoFile) {
     const [month, day, year] = dayStr.split('/');
     const base64Str = await getBase64(photoFile);
     const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+    // creates a new key for the new photo and stores it as
+    // 'firebaseUUID: base64String'
     pushObjToDBPath(dbPath, base64Str);
 }
 
@@ -52,6 +55,8 @@ async function createDay(dayObj) {
 
     const [month, day, year] = dayObj.date.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
+    // we update instead of create because updateDay() calls createDay().
+    // this is simpler, but computationally costs more
     updateObjAtDBPath(dbPath, dayObj);
 }
 
@@ -75,6 +80,7 @@ async function createMonthlyGoals(monthObj) {
 
     const [month, year] = monthObj.month.split('/');
     const dbPath = `${currentUserID}/${year}/${month}`;
+    // see line 57 for update justification
     updateObjAtDBPath(dbPath, monthObj);
 }
 
@@ -96,6 +102,7 @@ async function createYearlyGoals(yearObj) {
         });
 
     const dbPath = `${currentUserID}/${yearObj.year}`;
+    // see line 57 for update justification
     updateObjAtDBPath(dbPath, yearObj);
 }
 
@@ -137,6 +144,12 @@ async function deletePhoto(dayStr, base64) {
 
     const [month, day, year] = dayStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
+
+    // TODO: find more efficient way to store image keys (eg generate
+    // pseudorandom uuid based on base64String)
+    // we need to grab our existing photos, and iterate through to delete the
+    // photo because photos are stored as randomUUID:base64String. firebase
+    // does not support hash tables or arrays
     const dayPhotos = await getDataAtDBPath(dbPath);
     for (const [base64UUID, storedBase64] of Object.entries(dayPhotos)) {
         if (storedBase64.length == base64.length && storedBase64 == base64) {
@@ -216,12 +229,19 @@ function getCurrentDate() {
     return dateObj;
 }
 
+/**
+ * compute current week strings based on current day. first day of the week
+ * will be Sunday and last day of the week will be Saturday
+ * @returns Array of string keys in the format of 'mm/dd/yyyy'
+ */
 function getCurrentWeek() {
     const currDayObj = getCurrentDate();
+    // source: https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off
     const curr = new Date(
         `${currDayObj.year}/${currDayObj.month}/${currDayObj.day}`
     );
     const week = [];
+    // source: https://medium.com/@quynh.totuan/how-to-get-the-current-week-in-javascript-9e64d45a9a08
     for (let i = 0; i < 7; i++) {
         const first = curr.getDate() - curr.getDay() + i;
         const date = new Date(curr.setDate(first)).toISOString().slice(0, 10);
@@ -317,6 +337,7 @@ async function getMonthlyGoals(monthStr) {
  * user is not signed in (i.e bypassing the authentication).
  */
 function getUserID() {
+    // source: https://github.com/firebase/firebase-js-sdk/issues/462#:~:text=you%20can%20easily%20implement%20that%20on%20your%20own%20with%20a%20couple%20of%20lines%3A
     return new Promise((resolve, reject) => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             unsubscribe();
@@ -420,7 +441,15 @@ function updateYearsGoals(yearObj) {
  * @param {String} day day of notes to update
  * @param {String} notes notes to update
  */
-function updateNote(year, month, day, notes) {
+async function updateNote(year, month, day, notes) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
     let dbPath = `${currentUserID}/${year}/${month}/${day}/notes`;
     setObjAtDBPath(dbPath, notes);
 }
@@ -506,9 +535,9 @@ export {
     deleteMonthlyGoals,
     deletePhoto,
     deleteYearlyGoals,
+    getBase64,
     getCurrentDate,
     getCurrentWeek,
-    getBase64,
     getDay,
     getMonthlyGoals,
     getYearlyGoals,
