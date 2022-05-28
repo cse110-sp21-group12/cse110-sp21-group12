@@ -8,11 +8,6 @@ import {
     push,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
-let currentUserID;
-getUserID().then((user) => {
-    currentUserID = user.uid;
-});
-
 /**
  * add a base64 encoded photo in the database
  * @param {String} date string of the form "mm/dd/yyyy"
@@ -20,6 +15,15 @@ getUserID().then((user) => {
  * @returns void
  */
 async function addPhoto(dayStr, photoFile) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, day, year] = dayStr.split('/');
     const base64Str = await getBase64(photoFile);
     const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
@@ -36,7 +40,16 @@ async function addPhoto(dayStr, photoFile) {
  * @param {String} dayObj.notes - a string representing the notes
  * @returns void
  */
-function createDay(dayObj) {
+async function createDay(dayObj) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, day, year] = dayObj.date.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     updateObjAtDBPath(dbPath, dayObj);
@@ -50,7 +63,16 @@ function createDay(dayObj) {
  * @param {Object} monthObj.goals - an array of custom goal objects
  * @returns void
  */
-function createMonthlyGoals(monthObj) {
+async function createMonthlyGoals(monthObj) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, year] = monthObj.month.split('/');
     const dbPath = `${currentUserID}/${year}/${month}`;
     updateObjAtDBPath(dbPath, monthObj);
@@ -63,7 +85,16 @@ function createMonthlyGoals(monthObj) {
  * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
-function createYearlyGoals(yearObj) {
+async function createYearlyGoals(yearObj) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const dbPath = `${currentUserID}/${yearObj.year}`;
     updateObjAtDBPath(dbPath, yearObj);
 }
@@ -73,7 +104,16 @@ function createYearlyGoals(yearObj) {
  * @param {String} - date string of the form "mm/dd/yyyy"
  * @returns void
  */
-function deleteDay(dayStr) {
+async function deleteDay(dayStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, day, year] = dayStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     deleteObjAtDBPath(dbPath);
@@ -86,6 +126,15 @@ function deleteDay(dayStr) {
  * @returns void
  */
 async function deletePhoto(dayStr, base64) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, day, year] = dayStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}/photos`;
     const dayPhotos = await getDataAtDBPath(dbPath);
@@ -102,7 +151,16 @@ async function deletePhoto(dayStr, base64) {
  * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
  * @returns void
  */
-function deleteMonthlyGoals(monthStr) {
+async function deleteMonthlyGoals(monthStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, year] = monthStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/goals`;
     deleteObjAtDBPath(dbPath);
@@ -129,9 +187,50 @@ function deleteObjAtDBPath(path) {
  * @param {String} yearStr - year string of the form 'xxxx' (eg: "2021")
  * @returns void
  */
-function deleteYearlyGoals(yearStr) {
+async function deleteYearlyGoals(yearStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const dbPath = `${currentUserID}/${yearStr}/goals`;
     deleteObjAtDBPath(dbPath);
+}
+
+/**
+ * get current date in the form of an object
+ * @returns Object with string keys day, month, and year
+ */
+function getCurrentDate() {
+    var today = new Date();
+    const dateObj = {
+        day: String(today.getDate()).padStart(2, '0'),
+        month: String(today.getMonth() + 1).padStart(2, '0'), // January is 0
+        year: String(today.getFullYear()),
+    };
+
+    return dateObj;
+}
+
+function getCurrentWeek() {
+    const currDayObj = getCurrentDate();
+    const curr = new Date(
+        `${currDayObj.year}/${currDayObj.month}/${currDayObj.day}`
+    );
+    const week = [];
+    for (let i = 0; i < 7; i++) {
+        const first = curr.getDate() - curr.getDay() + i;
+        const date = new Date(curr.setDate(first)).toISOString().slice(0, 10);
+        const [year, month, day] = date.split('-');
+        const formattedString = `${month}/${day}/${year}`;
+        week.push(formattedString);
+    }
+
+    return week;
 }
 
 /**
@@ -172,10 +271,19 @@ async function getDataAtDBPath(path) {
 /**
  * get db object from day
  * @param {String} dateStr - of form "mm/dd/yyyy" eg: "02/12/2020"
- * @returns A request for a date, if no day with the given dateStr exists,
- *  returns undefined
+ * @returns Object A request for a date, if no day with the given dateStr exists,
+ *  returns undefined.
  */
-function getDay(dateStr) {
+async function getDay(dateStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, day, year] = dateStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/${day}`;
     return getDataAtDBPath(dbPath);
@@ -188,7 +296,16 @@ function getDay(dateStr) {
  * @returns a request for a monthlyGoals object if none with the monthStr
  *  exist, returns undefined
  */
-function getMonthlyGoals(monthStr) {
+async function getMonthlyGoals(monthStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const [month, year] = monthStr.split('/');
     const dbPath = `${currentUserID}/${year}/${month}/goals`;
     return getDataAtDBPath(dbPath);
@@ -214,7 +331,16 @@ function getUserID() {
  * @returns A request for the year object, if none exist with the yearStr,
  *  returns undefined
  */
-function getYearlyGoals(yearStr) {
+async function getYearlyGoals(yearStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
     const dbPath = `${currentUserID}/${yearStr}/goals`;
     return getDataAtDBPath(dbPath);
 }
@@ -380,6 +506,8 @@ export {
     deleteMonthlyGoals,
     deletePhoto,
     deleteYearlyGoals,
+    getCurrentDate,
+    getCurrentWeek,
     getBase64,
     getDay,
     getMonthlyGoals,

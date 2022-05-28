@@ -33,9 +33,7 @@ window.onload = () => {
 
     // login event with Google authentication
     const googleLoginBtn = document.getElementById('google-button');
-    googleLoginBtn.onclick = () => {
-        googleSignIn();
-    };
+    googleLoginBtn.addEventListener('click', () => googleSignIn());
 };
 
 /**
@@ -57,11 +55,11 @@ function signIn() {
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
                 // TODO
-                custAlert('Successfully signed in!');
-                window.location.replace('../Index/Index.html');
+                customAlert('Successfully signed in!');
+                window.location.replace('./WeeklyOverview/WeeklyOverview.html');
             })
             .catch((error) => {
-                custAlert('Login Failed: ' + error.message);
+                customAlert('Login Failed: ' + error.message);
             });
     });
 }
@@ -82,7 +80,7 @@ function signUp() {
 
     // ensure password is the same as confirmed password
     if (password !== passConfirm) {
-        custAlert('Password and re-typed password are different!');
+        customAlert('Password and re-typed password are different!');
         return;
     }
 
@@ -99,14 +97,13 @@ function signUp() {
                     // add user data to db
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
-                        console.log('Successfully added!');
-                        custAlert('Successful Sign Up');
+                        customAlert('Successful Sign Up');
                         window.location.replace('../Index/Index.html');
                     });
                 }
             })
             .catch((error) => {
-                custAlert(error.message);
+                customAlert(error.message);
             });
     });
 }
@@ -140,7 +137,6 @@ function googleSignIn() {
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
                         alert('Successfully signed in!');
-                        console.log('Successfully added default user data!');
                         window.location.replace('../Index/Index.html');
                     });
                 } else {
@@ -182,7 +178,7 @@ export function logout() {
  */
 function isValidEmail(userEmail) {
     if (userEmail.indexOf('@') === -1) {
-        custAlert('Invalid email!');
+        customAlert('Invalid email!');
         return false;
     }
     return true;
@@ -195,7 +191,7 @@ function isValidEmail(userEmail) {
  */
 function isValidPassword(password) {
     if (password.length < 6) {
-        custAlert('Password length must be at least six!');
+        customAlert('Password length must be at least six!');
         return false;
     }
     return true;
@@ -205,7 +201,7 @@ function isValidPassword(password) {
  * Make pop up alert with custom css and text that is passed in
  * @param {String} text
  */
-function custAlert(text) {
+function customAlert(text) {
     document.querySelector('.alert').style.display = 'block';
     document.querySelector('.alert').innerHTML =
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>' +

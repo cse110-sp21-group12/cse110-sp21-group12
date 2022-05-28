@@ -1,71 +1,68 @@
-/**
- * Gets the current day object (and creates one if one doesn't exist)
- * and sets the "currentDay" variable
- * Also renders the days notes and bullets if there are any
- * @returns void
- */
-// function requestDay () {
-//     let req = getDay(currentDateStr);
-//     req.onsuccess = function (e) {
-//         console.log('got day');
-//         console.log(e.target.result);
-//         currentDay = e.target.result;
-//         if (currentDay === undefined) {
-//             currentDay = initDay(currentDateStr);
-//             createDay(currentDay);
-//             let newNote = document.createElement('note-box');
-//             document.querySelector('#notes').appendChild(newNote);
-//         } else {
-//             //Load in bullets
-//             let bullets = currentDay.bullets;
-//             renderBullets(bullets);
-//             // Load in notes
-//             let newNote = document.createElement('note-box');
-//             newNote.entry = currentDay.notes;
-//             document.querySelector('#notes').appendChild(newNote);
+import {
+    createDay,
+    getCurrentWeek,
+    getDay,
+} from '../../Backend/BackendInit.js';
+import mockJson from '../../Backend/updatedMockData.js';
 
-//             // Load photos
-//             let photos = currentDay.photos;
-//             renderPhotos(photos);
-//         }
-//     };
-// }
 /**
  * Loads the next 7 days worth of data into the weekly preview
  * @returns void
  */
-function loadWeek() {
-    var weekData = {
-        monday: ['task 1', 'task 2', 'task 3', 'task 4'],
-        tuesday: ['task 1', 'task 2', 'task 3', 'task 4'],
-        wednesday: ['task 1', 'task 2', 'task 3', 'task 4'],
-        thursday: ['task 1', 'task 2', 'task 3', 'task 4'],
-        friday: ['task 1', 'task 2', 'task 3', 'task 4'],
+async function loadWeek(currWeekList) {
+    const weekData = {
+        Sunday: await getDay(currWeekList[0]),
+        Monday: await getDay(currWeekList[1]),
+        Tuesday: await getDay(currWeekList[2]),
+        Wednesday: await getDay(currWeekList[3]),
+        Thursday: await getDay(currWeekList[4]),
+        Friday: await getDay(currWeekList[5]),
+        Saturday: await getDay(currWeekList[6]),
     };
 
-    // expects weekData in the form { 'day_of_week' : ['task 1', 'task 2', ...] }
-    var todoList = document.getElementById('weekly_list');
-    var days = Object.keys(weekData);
+    const todoList = document.getElementById('weekly_list');
+    const days = Object.keys(weekData);
 
     // iterates through each day and creates list of tasks
-    for (var i = 0; i < days.length; i++) {
-        var currentDay = weekData[days[i]];
+    for (let i = 0; i < days.length; i++) {
+        const currentDay = weekData[days[i]];
+        if (currentDay === undefined) {
+            continue;
+        }
 
         // create the day header
-        var header = document.createElement('h2');
-        header.textContent = days[i];
+        const header = document.createElement('h2');
+        header.textContent = `${days[i]}, ${currentDay.date}`;
         todoList.append(header);
 
         // load in the day's todos
-        for (var j = 0; j < currentDay.length; j++) {
-            var todoBullet = document.createElement('li');
-            todoBullet.textContent = currentDay[j];
-            todoList.append(todoBullet);
+        bulletParser(currentDay.bullets, todoList);
+    }
+
+    // adding separator
+    const line = document.createElement('hr');
+    todoList.append(line);
+}
+
+function bulletParser(bullets, list) {
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, bullet] of Object.entries(bullets)) {
+        const todoBullet = document.createElement('li');
+        todoBullet.textContent = bullet.text;
+
+        if (bullet.done == true) {
+            const strikeThrough = document.createElement('s');
+            strikeThrough.appendChild(todoBullet);
+            list.append(strikeThrough);
+        } else {
+            list.append(todoBullet);
         }
 
-        // adding separator
-        var line = document.createElement('hr');
-        todoList.append(line);
+        if ('childList' in bullet) {
+            const subList = document.createElement('ul');
+            bulletParser(bullet['childList'], subList);
+            list.append(subList);
+        }
     }
 }
 
@@ -73,6 +70,15 @@ function loadNotes() {
     let newNote = document.createElement('note-box');
     document.querySelector('#notes').appendChild(newNote);
 }
-//call setup functions
-window.addEventListener('load', loadWeek);
-window.addEventListener('load', loadNotes);
+
+// call setup functions
+window.onload = () => {
+    loadWeek(getCurrentWeek());
+    loadNotes();
+
+    const addDay = document.getElementById('add-day');
+
+    addDay.addEventListener('click', () =>
+        createDay(mockJson['days object store'])
+    );
+};
