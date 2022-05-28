@@ -6,6 +6,8 @@ import {
     getMonthlyGoals,
     getYearlyGoals,
 } from '../../Backend/BackendInit.js';
+import {auth} from '../../Backend/FirebaseInit.js';
+import {signOut} from '../../Backend/firebase-src/firebase-auth.min.js';
 
 /**
  * add a bullet to a specified unordered list
@@ -212,3 +214,29 @@ window.onload = () => {
     loadNotes(currDateObj);
     loadGoalReminders(currDateObj);
 };
+
+/**
+ * Handle user logout event and redirection to login page.
+ */
+
+// document.getElementById('logout-btn').onclick = logout();
+
+window.logout = function logout() {
+    signOut(auth)
+        .then(() => {
+            // TODO
+            window.location.replace('../Login.html');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+};
+
+window.resetPwd = function(){
+    let old_pwd = document.getElementById('old').value;
+    let new_pwd = document.getElementById('new').value;
+    let retype_pwd = document.getElementById('retype').value;
+    if(new_pwd !== retype_pwd){
+        alert("Passwords did not match");  
+    }
+}

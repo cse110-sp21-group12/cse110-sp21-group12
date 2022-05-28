@@ -10,7 +10,7 @@
                 <div id="header_date">may 14 2022</div>
                 <div id="header_button_container">
                     <button id="header_calendar_button">calendar</button>
-                    <button id="header_settings_button" onclick="openSetting">
+                    <button id="header_settings_button">
                         settings
                     </button>
                 </div>
@@ -62,12 +62,12 @@
                 </div>
                 <div class="container" id="settings">
                     <h2 class="title">Settings</h2>
-                    <span class="close" id="close-button" onclick="closeSetting"
+                    <span class="close" id="close-button"
                         >&times;</span
                     >
                     <div class="passwordForm">
                         <h3 class="subti">Reset Password</h3>
-                        <form action="#" method="#">
+                        <form action="#" method="#" onsubmit="resetPwd()">
                             <div class="passField">
                                 <img
                                     src="../../Images/password-icon.png"
@@ -77,6 +77,7 @@
                                 <input
                                     type="password"
                                     class="pwd-pass"
+                                    id="old"
                                     placeholder="Old Password"
                                     value=""
                                 />
@@ -88,6 +89,7 @@
                                 <input
                                     type="password"
                                     class="pwd-pass"
+                                    id="new"
                                     placeholder="New Password"
                                     value=""
                                 />
@@ -99,14 +101,15 @@
                                 <input
                                     type="password"
                                     class="pwd-pass"
+                                    id="retype"
                                     placeholder="Retype New Password"
                                     value=""
                                 />
                             </div>
                             <input
-                                type="button"
+                                type="submit"
                                 class="pwd-btn"
-                                value="Reset"
+                                value="Submit"
                             />
                         </form>
                     </div>
@@ -124,6 +127,9 @@
                     <div class="bannerImage">
                         <span class="banner-text">Banner Image:</span>
                         <input type="file" class="banner-btn" accept="image/png, image/jpeg"></input>
+                    </div>
+                    <div class="logout">
+                        <button id="logout-btn" onclick="logout()">Log out</button>
                     </div>
                 </div>
             </div>

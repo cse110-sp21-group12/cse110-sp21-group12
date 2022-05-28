@@ -160,20 +160,6 @@ function googleSignIn() {
 }
 
 /**
- * Handle user logout event and redirection to login page.
- */
-export function logout() {
-    signOut(auth)
-        .then(() => {
-            // TODO
-            window.location.replace('./Login.html');
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
-}
-
-/**
  * Check if input string is an email
  * @param {String} userEmail
  * @returns true if email is valid
