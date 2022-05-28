@@ -213,7 +213,8 @@ img.pwd-icon {
     position: absolute;
     width: 12px;
     opacity: 0.2;
-    margin: 8px;
+    margin-top: 11.25px;
+    margin-left: 10px;
     z-index: 999;
 }
 input.pwd-pass {
@@ -226,6 +227,8 @@ input.pwd-pass {
     font-size: 12px;
     color: #9a9a9a;
     background-color: #f4f8f5;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
 }
 
 input.pwd-btn {
