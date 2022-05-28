@@ -1,0 +1,195 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', Montserrat;
+}
+.wrapper {
+    background: black;
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-rows: 1fr 3fr;
+    /* grid-column-gap: 1em;
+    grid-row-gap: 1em; */
+    justify-items: stretch;
+    align-items: stretch;
+    height: 100vh;
+    width: 100vw;
+}
+.header {
+    background-image: url('../Images/weekly_header.jpg');
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#header_date {
+    position: relative;
+    width: 30%;
+    font-family: 'Inter';
+    font-style: normal;
+    color: white;
+    font-size: 7vh;
+    padding-left: 7%;
+    padding-top: 2%;
+}
+#header_button_container {
+    position: relative;
+    width: 8vw;
+    margin-left: 85%;
+    margin-top: -3%;
+    display: inline;
+}
+#header_calendar {
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 4fr 3fr 3fr;
+}
+.weekly_column {
+    background: #c2f7b5;
+}
+.monthly_column {
+    background: #c2f7b5;
+    display: grid;
+    grid-template-rows: 4fr 6fr;
+}
+
+/* Photo Album Block */
+.photo_column {
+    background: #c2f7b5;
+}
+.photo_wrapper {
+    background: white;
+    margin: 1vw;
+    padding: 1vw 2vw 2vw 1vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+    height: 75vh;
+}
+.photo_header {
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    text-align: left;
+}
+/* temp */
+#photo_album {
+    overflow-y: scroll;
+}
+
+ul.stage {
+    height: 100%;
+    padding-left: 0;
+    white-space: nowrap;
+}
+#photo_album::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+li.image-wrapper {
+    display: block;
+    position: relative;
+    left: 5%;
+    width: 90%;
+    padding: 5px;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+span {
+    display: block;
+}
+/* Todo Block */
+
+#todo {
+    grid-area: todo;
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw 3vw 1vw 2vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    height: 77vh;
+    width: 80%;
+    overflow: auto;
+
+    min-height: 35vw;
+}
+
+#todo::-webkit-scrollbar {
+    display: none; /* color of the tracking area */
+}
+
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+/* Goal Reminder Block */
+
+#goalReminder {
+    background-color: white;
+    margin: 0.7vw;
+    padding: 0.5vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+
+    display: grid;
+    grid-template-rows: [title] 15% [month] 40% [year] 40%;
+}
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#monthGoal {
+    grid-row-start: month;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#monthGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+#yearGoal {
+    grid-row-start: year;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#yearGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+/* Note Block */
+
+#notes {
+    background-color: white;
+    margin: 1vw;
+    padding: 1vw;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    position: relative;
+}

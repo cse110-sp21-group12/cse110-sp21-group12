@@ -130,6 +130,8 @@ function goHome() {
  */
 function setLogin() {
     loginPage = true;
+    document.getElementById('google-button').textContent =
+        'Sign in with Google';
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Login to your Account';
     document.getElementById('sign-up-text').innerText =
@@ -146,6 +148,8 @@ function setLogin() {
  */
 function setSignUp() {
     loginPage = false;
+    document.getElementById('google-button').textContent =
+        'Sign up with Google';
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Make your Account';
     document.getElementById('sign-up-text').innerText =

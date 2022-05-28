@@ -1,6 +1,7 @@
 import { initializeApp } from './firebase-src/firebase-app.min.js';
 import { getDatabase } from './firebase-src/firebase-database.min.js';
 import { getAuth } from './firebase-src/firebase-auth.min.js';
+import { GoogleAuthProvider } from './firebase-src/firebase-auth.min.js';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -19,3 +20,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider(app);
+
+/**
+ * get current user's id
+ * @returns user id. null if no user is signed in or the
+ * user is not signed in (i.e bypassing the authentication).
+ */
+export function getUserID() {
+    let user_id = null;
+    auth.onAuthStateChanged((u) => {
+        if (u) {
+            user_id = u.uid;
+        } else {
+            // no user signed in or not signed in
+        }
+    });
+    return user_id;
+}
