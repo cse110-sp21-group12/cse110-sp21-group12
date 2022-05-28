@@ -23,6 +23,7 @@ async function loadWeek() {
         Saturday: await getDay(currWeekList[6]),
     };
 
+    const photoList = document.querySelector('.stage');
     const todoList = document.getElementById('weekly_list');
     const days = Object.keys(weekData);
 
@@ -30,21 +31,41 @@ async function loadWeek() {
     for (let i = 0; i < days.length; i++) {
         const currentDay = weekData[days[i]];
         // if there is no data for the current day in the database
-        if (currentDay === undefined || currentDay.bullets !== undefined) {
+        if (currentDay === undefined) {
             continue;
         }
 
-        // create the day header
-        const header = document.createElement('h2');
-        header.textContent = `${days[i]}, ${currentDay.date}`;
-        todoList.append(header);
+        // parse and render bullets only if they exist
+        if (currentDay.bullets !== undefined) {
+            // create the day header
+            const header = document.createElement('h2');
+            header.textContent = `${days[i]}, ${currentDay.date}`;
+            todoList.append(header);
 
-        // load in the day's todos
-        bulletParser(currentDay.bullets, todoList);
+            // load in the day's todos
+            bulletParser(currentDay.bullets, todoList);
 
-        // adding separator
-        const line = document.createElement('hr');
-        todoList.append(line);
+            // adding separator
+            const line = document.createElement('hr');
+            todoList.append(line);
+        }
+
+        // parse and render photos only if they exist
+        if (currentDay.photos !== undefined) {
+            // add photos to photo panel
+            const photoListEntry = document.createElement('li');
+            const photoListEntryCaption = document.createElement('span');
+            photoListEntryCaption.innerText = `From ${currentDay.date}`;
+            photoListEntry.classList.add('image-wrapper');
+            photoListEntry.append(photoListEntryCaption);
+            // eslint-disable-next-line no-unused-vars
+            for (const [_, base64String] of Object.entries(currentDay.photos)) {
+                const photoListEntrySrc = document.createElement('img');
+                photoListEntrySrc.src = base64String;
+                photoListEntry.append(photoListEntrySrc);
+            }
+            photoList.append(photoListEntry);
+        }
     }
 }
 
