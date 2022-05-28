@@ -6,7 +6,6 @@ import {
     remove,
     set,
     push,
-    set,
 } from '../Backend/firebase-src/firebase-database.min.js';
 
 // see getMonthName()
