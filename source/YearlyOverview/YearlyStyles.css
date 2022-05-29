@@ -20,6 +20,7 @@ body {
 #monthHeader {
     text-align: center;
     font-size: 3.5vh;
+    color: black;
 }
 #header {
     grid-area: head;
@@ -107,6 +108,11 @@ body {
     border-radius: 0.5vh;
 }
 
+#entry,
+#entry-button {
+    color: black;
+}
+
 #monthView {
     padding: 0 4% 4%;
     margin-left: 2vw;
@@ -118,11 +124,11 @@ body {
     max-width: 40%;
 }
 
-#months > h2 {
+#months > h3 {
     font-size: 2.5vh;
 }
 
-#months > h2 > a {
+#months > h3 > a {
     text-decoration: none;
 }
 
@@ -137,7 +143,6 @@ body {
 
 /* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
 ::-webkit-scrollbar {
-    /* width: 0px; */
     display: none;
 }
 #January,
