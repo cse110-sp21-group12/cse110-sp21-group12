@@ -75,11 +75,17 @@ Structure
 
 #content > div {
     width: max-content;
-    margin-inline: auto;
+    margin: 1rem auto;
 }
 
 #content::-webkit-scrollbar {
     display: none;
+}
+
+#content h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.25em;
 }
 
 .horiz {
@@ -140,7 +146,6 @@ button:hover {
 }
 
 #content .yearlink:hover {
-    -color: var(--bg-color);
     text-decoration: underline;
     text-decoration-color: var(--bg-color);
     text-decoration-thickness: 3px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="IndexStyles.css" />
@@ -10,7 +10,7 @@
         <!-- topbar is hidden from screen readers because it is a decorational element -->
         <div id="topbar" aria-hidden="true"></div>
         <main id="body-wrapper">
-            <section id="left-bar" role="region">
+            <section id="left-bar">
                 <select id="themes">
                     <option value="#BBFEBB" style="background-color: #bbfebb">
                         Green
@@ -35,20 +35,23 @@
                     </option>
                 </select>
                 <h1>Index</h1>
-                <section id="calendar"></section>
+                <section id="calendar" aria-label="calendar"></section>
             </section>
-            <section id="right-bar" role="region">
+            <section id="right-bar">
                 <h1>Content</h1>
                 <div id="right-bar-inner">
                     <button id="today-button">Go to current day</button>
-                    <section id="content"></section>
+                    <section
+                        id="content"
+                        aria-label="yearly overviews"
+                    ></section>
                 </div>
             </section>
         </main>
 
         <!--The javascript file-->
-        <script src="Calendar.js" type="module" defer></script>
-        <script src="IndexJS.js" type="module" defer></script>
-        <script src="../Backend/BackendInit.js" type="text/javascript"></script>
+        <script src="Calendar.js" type="module"></script>
+        <script src="IndexJS.js" type="module"></script>
+        <script src="../Backend/BackendInit.js"></script>
     </body>
 </html>
