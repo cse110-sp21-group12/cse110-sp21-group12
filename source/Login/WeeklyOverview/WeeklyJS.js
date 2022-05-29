@@ -22,12 +22,9 @@ function appendBulletToList(bullet, list) {
     // if a bullet is marked as completed, add a strikethrough. otherwise,
     // render it normally
     if (bullet.done == true) {
-        const strikeThrough = document.createElement('s');
-        strikeThrough.appendChild(newBullet);
-        list.append(strikeThrough);
-    } else {
-        list.append(newBullet);
+        newBullet.style.textDecoration = 'line-through';
     }
+    list.append(newBullet);
 
     // if there is a childList containing more bullets, begin rendering
     // the childList and append those bullets to a new unordered-list
@@ -64,10 +61,9 @@ function bulletParser(bullets, list) {
  * @returns void
  */
 async function loadGoalReminders(currDateObj) {
-    const dbMonthlyGoals = await getMonthlyGoals(
-        `${currDateObj.month}/${currDateObj.year}`
-    );
-    const dbYearlyGoals = await getYearlyGoals(`${currDateObj.year}`);
+    const { month, year } = currDateObj;
+    const dbMonthlyGoals = await getMonthlyGoals(`${month}/${year}`);
+    const dbYearlyGoals = await getYearlyGoals(`${year}`);
 
     // if there are existing goals for the current month
     if (dbMonthlyGoals !== undefined) {
@@ -86,8 +82,9 @@ async function loadGoalReminders(currDateObj) {
  * @returns void
  */
 async function loadNotes(currDateObj) {
+    const { day, month, year } = currDateObj;
     let newNote = document.createElement('note-box');
-    const dateStr = `${currDateObj.month}/${currDateObj.day}/${currDateObj.year}`;
+    const dateStr = `${month}/${day}/${year}`;
     const currDayObj = await getDay(dateStr);
 
     // if the current day is not stored in the db or if there are no stored
@@ -198,15 +195,18 @@ document.getElementById('themes').addEventListener('change', function (e) {
         e.target.value;
 });
 
+// make the date header of the page reflect the current date
+const headerDate = document.getElementById('header_date');
+const currDateObj = getCurrentDate();
+const { day, month, year } = currDateObj;
+headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
+// clicking main date header on weekly overview will navigate to daily overview
+headerDate.addEventListener('click', () => {
+    window.location.replace('../../DailyOverview/DailyOverview.html');
+});
+
 // call setup functions
 window.onload = () => {
-    // make the date header of the page reflect the current date
-    const headerDate = document.getElementById('header_date');
-    const currDateObj = getCurrentDate();
-    headerDate.innerHTML = `${getMonthName(currDateObj.month)} ${
-        currDateObj.day
-    }, ${currDateObj.year}`;
-
     // load panels
     loadWeek();
     loadNotes(currDateObj);

@@ -24,13 +24,17 @@ body {
 }
 #header_date {
     position: relative;
-    width: 30%;
+    width: fit-content;
     font-family: 'Inter';
     font-style: normal;
     color: white;
     font-size: 7vh;
-    padding-left: 7%;
-    padding-top: 2%;
+    margin-left: 7%;
+    margin-top: 2%;
+    padding: 5px;
+}
+#header_date:hover {
+    cursor: pointer;
 }
 #header_button_container {
     position: relative;

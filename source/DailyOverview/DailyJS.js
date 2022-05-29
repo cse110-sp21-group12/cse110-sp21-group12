@@ -1,25 +1,21 @@
-/* eslint-disable no-undef */
-//since all backend API calls are unknown to eslint, just disabeling no-undef
+/* eslint-disable */
+import { getCurrentDate, getDay } from '../Backend/BackendInit.js';
+
 window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
 
-//get the desired mm/dd/yyyy string
-let myLocation = window.location.href;
-let currentDateStr = myLocation.substring(
-    myLocation.length - 10,
-    myLocation.length
-);
-//default case
-if (currentDateStr == 'html') {
-    currentDateStr = '05/25/2020';
-}
-console.log(currentDateStr);
+// set the header date to the current date
+const { day, month, year } = getCurrentDate();
+const currDateString = `${month}/${day}/${year}`;
+// the space in the template literal below is needed for proper rendering
+document.getElementById('date').innerHTML += ` ${currDateString}`;
 
 //set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
+document.getElementById('monthView').addEventListener('click', () => {
+    window.location.replace('../Login/WeeklyOverview/WeeklyOverview.html');
+});
 
 let relative = 0;
 // Buttons
@@ -31,37 +27,12 @@ const left = document.getElementById('left');
 // store current day data to update when user leaves page
 let currentDay;
 
-window.addEventListener('load', () => {
-    //gets the session, if the user isn't logged in, sends them to login page
-    // let session = window.sessionStorage;
-    // console.log('here is storage session', session);
-    // if (session.getItem('loggedIn') !== 'true') {
-    //     window.location.href = '../Login/Login.html';
-    //     //might need this to create uness entires?
-    //     return;
-    // } else {
-    let dbPromise = initDB();
-    dbPromise.onsuccess = function (e) {
-        console.log('database connected');
-        setDB(e.target.result);
-        // get the day and also the monthly and yearly goals
-        requestDay();
-        fetchMonthGoals();
-        fetchYearGoals();
-        let req = getSettings();
-        req.onsuccess = function (e) {
-            // gets the user settings, and in particular theme to set the style/background to the theme of user
-            let settingObj = e.target.result;
-            console.log('setting theme');
-            document.documentElement.style.setProperty(
-                '--bg-color',
-                settingObj.theme
-            );
-        };
-    };
-    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
-    // }
-});
+window.onload = () => {
+    // get the day and also the monthly and yearly goals
+    requestDay();
+    fetchMonthGoals();
+    fetchYearGoals();
+};
 
 /**
  * Gets the current day object (and creates one if one doesn't exist)
@@ -69,32 +40,27 @@ window.addEventListener('load', () => {
  * Also renders the days notes and bullets if there are any
  * @returns void
  */
-function requestDay() {
-    let req = getDay(currentDateStr);
-    req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
-        currentDay = e.target.result;
-        if (currentDay === undefined) {
-            // if current day isn't in database, then we create a day from the date and create a new day bullet/area
-            currentDay = initDay(currentDateStr);
-            createDay(currentDay);
-            let newNote = document.createElement('note-box');
-            document.querySelector('#notes').appendChild(newNote);
-        } else {
-            //Load in bullets
-            let bullets = currentDay.bullets;
-            renderBullets(bullets);
-            // Load in notes
-            let newNote = document.createElement('note-box');
-            newNote.entry = currentDay.notes;
-            document.querySelector('#notes').appendChild(newNote);
+async function requestDay() {
+    let req = await getDay(currDateString);
+    if (currentDay === undefined) {
+        // if current day isn't in database, then we create a day from the date and create a new day bullet/area
+        currentDay = initDay(currDateString);
+        createDay(currentDay);
+        let newNote = document.createElement('note-box');
+        document.querySelector('#notes').appendChild(newNote);
+    } else {
+        //Load in bullets
+        let bullets = currentDay.bullets;
+        renderBullets(bullets);
+        // Load in notes
+        let newNote = document.createElement('note-box');
+        newNote.entry = currentDay.notes;
+        document.querySelector('#notes').appendChild(newNote);
 
-            // Load photos
-            let photos = currentDay.photos;
-            renderPhotos(photos);
-        }
-    };
+        // Load photos
+        let photos = currentDay.photos;
+        renderPhotos(photos);
+    }
 }
 
 /**
@@ -105,8 +71,8 @@ function requestDay() {
 function fetchMonthGoals() {
     // should we comment out these console logs? Bad coding standards to leave them in prod
     console.log('fetching month');
-    console.log(currentDateStr.substring(6));
-    let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
+    console.log(currDateString.substring(6));
+    let monthStr = currDateString.substring(0, 3) + currDateString.substring(6);
     let req = getMonthlyGoals(monthStr);
     req.onsuccess = function (e) {
         console.log('got month');
@@ -144,10 +110,10 @@ function fetchMonthGoals() {
  * also renders the yearly goals
  * @returns void
  */
-function fetchYearGoals() {
+async function fetchYearGoals() {
     console.log('fetching year');
-    let yearStr = currentDateStr.substring(6);
-    let req = getYearlyGoals(yearStr);
+    let yearStr = currDateString.substring(6);
+    let req = await getYearlyGoals(yearStr);
     req.onsuccess = function (e) {
         console.log('got year');
         let yearObj = e.target.result;
@@ -175,12 +141,6 @@ function fetchYearGoals() {
         }
     };
 }
-
-// update notes and days when we lose focus of notes? Not really sure how that works/looks in practice
-document.querySelector('#notes').addEventListener('focusout', () => {
-    updateNotes();
-    updateDay(currentDay);
-});
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
@@ -398,7 +358,7 @@ function editBullet() {
 function updateNotes() {
     let newNote = document.querySelector('note-box').entry;
 
-    let date = currentDateStr.split('/'); // [month, day, year]
+    let date = currDateString.split('/'); // [month, day, year]
     let year = date[2];
     let month = stripZeroInDate(date[0]);
     let day = stripZeroInDate(date[1]);
