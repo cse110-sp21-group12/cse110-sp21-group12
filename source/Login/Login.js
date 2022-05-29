@@ -2,7 +2,6 @@ import { db, auth, googleProvider } from '../Backend/FirebaseInit.js';
 import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
-    signOut,
     createUserWithEmailAndPassword,
     signInWithPopup,
     GoogleAuthProvider,

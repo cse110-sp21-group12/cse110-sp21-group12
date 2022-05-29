@@ -5,9 +5,16 @@ import {
     getMonthName,
     getMonthlyGoals,
     getYearlyGoals,
+    updateTheme,
+    getTheme,
 } from '../../Backend/BackendInit.js';
-import {auth} from '../../Backend/FirebaseInit.js';
-import {signOut} from '../../Backend/firebase-src/firebase-auth.min.js';
+import { auth } from '../../Backend/FirebaseInit.js';
+import {
+    signOut,
+    updatePassword,
+    reauthenticateWithCredential,
+    EmailAuthProvider,
+} from '../../Backend/firebase-src/firebase-auth.min.js';
 
 /**
  * add a bullet to a specified unordered list
@@ -169,7 +176,7 @@ async function loadWeek() {
  * populate a newly created unordered list by iterating through goals object.
  * This is list is then stored under the HTML element with id goalDivId
  * @param {String} goalDivId - the HTML div id of the goals section
- * @param {} goalsObj - the object we need to parse through and append to a
+ * @param {Object} goalsObj - the object we need to parse through and append to a
  *                      newly created unordered list
  * @returns void
  */
@@ -180,6 +187,22 @@ function populateGoalList(goalDivId, goalsObj) {
     bulletParser(goalsObj, list);
 
     goalDiv.append(list);
+}
+
+/**
+ * Set user theme with their preference
+ */
+async function loadTheme() {
+    let theme = await getTheme();
+    console.log(theme);
+    document.getElementsByClassName(
+        'weekly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName(
+        'monthly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName('photo_column')[0].style.background = theme;
+    document.getElementById('themes').value = theme;
 }
 
 // Open and close Setting container
@@ -198,6 +221,9 @@ document.getElementById('themes').addEventListener('change', function (e) {
         e.target.value;
     document.getElementsByClassName('photo_column')[0].style.background =
         e.target.value;
+
+    // update theme preference in DB
+    updateTheme(e.target.value);
 });
 
 // call setup functions
@@ -213,6 +239,7 @@ window.onload = () => {
     loadWeek();
     loadNotes(currDateObj);
     loadGoalReminders(currDateObj);
+    loadTheme();
 };
 
 /**
@@ -224,7 +251,6 @@ window.onload = () => {
 window.logout = function logout() {
     signOut(auth)
         .then(() => {
-            // TODO
             window.location.replace('../Login.html');
         })
         .catch((error) => {
@@ -232,11 +258,33 @@ window.logout = function logout() {
         });
 };
 
-window.resetPwd = function(){
+window.resetPwd = function () {
     let old_pwd = document.getElementById('old').value;
     let new_pwd = document.getElementById('new').value;
     let retype_pwd = document.getElementById('retype').value;
-    if(new_pwd !== retype_pwd){
-        alert("Passwords did not match");  
+    if (new_pwd !== retype_pwd) {
+        alert('Passwords did not match');
+    } else {
+        let cred = EmailAuthProvider.credential(
+            auth.currentUser.email,
+            old_pwd
+        );
+        reauthenticateWithCredential(auth.currentUser, cred)
+            .then(() => {
+                // sendPasswordResetEmail(auth, auth.currentUser.email).then(
+                //     () => {
+                //         alert('Password reset email sent!');
+                //     }
+                // );
+                updatePassword(auth.currentUser, new_pwd).then(() => {
+                    alert('Password updated!');
+                    document.getElementById('old').value = '';
+                    document.getElementById('new').value = '';
+                    document.getElementById('retype').value = '';
+                });
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
     }
-}
+};
