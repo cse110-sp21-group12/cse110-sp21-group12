@@ -9,8 +9,6 @@ body{
     margin: 0px;
     padding: 0px;
     grid-template-rows: 1fr 3fr;
-    /* grid-column-gap: 1em;
-    grid-row-gap: 1em; */
     justify-items: stretch;
     align-items: stretch;
     height: 100vh;
@@ -18,19 +16,22 @@ body{
 }
 .calendar-wrapper{
     background: #C2F7B5;
-    /* display:grid; */
     margin: 0px;
     padding: 0px;
-    /* grid-template-rows: 1fr 3fr; */
-    /* grid-column-gap: 1em;
-    grid-row-gap: 1em; */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     justify-items: stretch;
-    align-items: stretch;
-    height: 100vh;
+    align-items: center;
     width: 100vw;
 }
+
+.calendar-bg{
+    width: 100vw;
+    height: 100vh;
+    background: #C2F7B5;
+    display: inline-block;
+}
+
 .header{
     background-image: url("../Images/weekly_header.jpg");
     display: flex;
@@ -107,27 +108,19 @@ body{
 
 /* TODO: fix calendar sizes */
 .calendar-div {
-    /* position: relative; */
-    width: 80vw;
-    /* height: 60vh; */
+    width: 75vw;
     right: 15px;
     top: 10px;
-    /* height: 10vh; */
-    /* padding: 5vh .5vw .5vw; */
-    padding-top: 5vh;
+    padding-top: 2vh;
 }
 
 /* Month header */
 .calMonthHeader {
-    height: 10vh;
-    /* width: 50vw; */
-    padding: 2vw 25px;
+    height: 6vmax;
+    padding-top: 2vmax;
+    padding-left: 1vw;
     background: #585858;
     color: white;
-    /* display: flex; */
-    /* text-align: center; */
-    /* justify-content: center; */
-    /* align-items: center; */
     border-radius: 2vw 2vw 0 0;
 }
 
@@ -136,7 +129,7 @@ body{
     background-color: #585858;
     font-size: 2.5vw;
     text-transform: uppercase;
-    letter-spacing: 0.7vw;
+    letter-spacing: 0.3vw;
     float: left;
     margin: auto;
 }
@@ -148,6 +141,8 @@ body{
     font-size: 2.5vw;
     color: white;
     background: #585858;
+    border: none;
+    outline: none;
 }
 
 .calDropBtn:hover {
@@ -168,13 +163,21 @@ body{
     z-index: 1;
   }
 
+.month-link:hover {
+    cursor: pointer;
+    color: #C2F7B5;
+    text-decoration: underline;
+}
+
+.day-notes {
+    text-align: center;
+}
+
 /* Weekdays (Sun-Sat) */
 .calWeekdaysLabel {
     margin: 0;
-    /* padding: 0.8vw 0 0; */
     background-color: white;
     display: flex;
-    /* justify-content: space-between; */
 }
 
 .calWeekday {
@@ -191,24 +194,24 @@ body{
     background: white;
     margin: 0;
     display: flex;
-    /* justify-content: space-between; */
     flex-wrap: wrap;
     border-radius: 0 0 2vw 2vw;
 }
 
 .calDay {
     list-style-type: none;
-    /* display: inline-block; */
     width: 13.6%;
-    height: 10vh;
+    height: 6vmax;
     text-align: start;
     font-size: 1.25vmax;
     color: black;
     background: none;
-    padding: 0.8vw 0;
+    padding-top: 2px;
+    padding-left: 2px;
     border-color: black;
     border-width: 0.5px;
     border-style: solid;
+    text-decoration: none;
 }
 
 .calDay:hover {
@@ -226,9 +229,53 @@ body{
 */
 .calToday {
     background: #C2F7B5;
-    /* border-radius: 0.5vw; */
 }
 
-.calendar-div>ul {
+ul {
     list-style-type: none;
+}
+
+#goalReminder {
+    background-color: white;
+    border-radius: 2vw;
+    border-style: solid;
+    border-width: 1mm;
+    border-color: black;
+    margin-top: 2vh;
+    width: 75vw;
+
+    display: grid;
+    grid-template-columns: [month] 50% [year] 50%;
+}
+
+#goalReminder + h1 {
+    grid-row-start: title;
+}
+
+#monthGoal {
+    grid-row-start: month;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#monthGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
+}
+
+#yearGoal {
+    grid-row-start: year;
+    height: 8.5vh;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+#yearGoal > h2 {
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1px;
 }

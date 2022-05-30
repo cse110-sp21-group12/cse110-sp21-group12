@@ -117,26 +117,27 @@ function setupContent() {
 /**
  * Dynamically generate calendar for current month
  */
-function setupCalendar() {
+function setupCalendar(date) {
     const calTarget = document.querySelector('.calendar-div');
 
     //get today code stolen from stackoverflow
-    var today = new Date();
+    var today = date;
     console.log(today);
-    var currDayNumber = today.getDate();
+    // var currDayNumber = today.getDate();
     var currMonthNumber = today.getMonth();
     var currYearNumber = today.getFullYear();
 
     var monthFirstDow = firstDow(currMonthNumber, currYearNumber);
 
     //month title on top
-    //wrapper
+    //the black background for the header
     let monthHeader = document.createElement('div');
     monthHeader.classList.add('calMonthHeader');
-    //text
+    //the text in the header
     let monthLabel = document.createElement('p');
     monthLabel.classList.add('calMonthLabel');
     monthLabel.innerText = months[currMonthNumber] + ' ' + currYearNumber;
+    //dropdown arrow
     let dropBtn = document.createElement('button');
     dropBtn.classList.add('calDropBtn');
     let dropIcon = document.createElement('i');
@@ -153,13 +154,16 @@ function setupCalendar() {
     dropdown.id = 'dropdown';
     let monthSelect = document.createElement('ul');
     for (let m = 0; m < months.length; m++) {
-        //setup month link
+        //setup names of months in dropdown
         let monthLink = document.createElement('li');
-        // monthLink.class = 'monthlink ' + monthNameLc;
-        // monthLink.id = yr + '_' + monthNameLc;
-        // // eslint-disable-next-line
-        // monthLink.href = monthOVLink + '#' + monthNumber(m) + '/' + yr;
         monthLink.innerText = months[m];
+        monthLink.classList.add('month-link');
+        monthLink.onclick = function () {
+            monthHeader.remove();
+            weekdaysLabel.remove();
+            daysField.remove();
+            setupCalendar(new Date(2022, m));
+        };
         //add this month to list of months
         monthSelect.appendChild(monthLink);
     }
@@ -195,16 +199,23 @@ function setupCalendar() {
         daysField.appendChild(blankDay);
     }
 
+    let current = new Date();
     //real days
     for (let i = 1; i <= endDay; i++) {
-        let day = document.createElement('li');
+        let day = document.createElement('a');
         day.classList.add('calDay');
         day.innerText = i;
+        day.href = '../../DailyOverview/DailyOverview.html';
 
         //check if today (so we can highlight it)
-        if (i == currDayNumber) {
+        if (i == current.getDate() && current.getMonth() == currMonthNumber) {
             day.classList.add('calToday');
         }
+
+        let dayNotes = document.createElement('div');
+        dayNotes.classList.add('day-notes');
+        dayNotes.innerText = '3 Notes';
+        day.appendChild(dayNotes);
 
         daysField.appendChild(day);
 
@@ -226,7 +237,8 @@ function setupCalendar() {
 
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
-    for (let i = monthLastDow; i < 6; i++) {
+    console.log(monthLastDow);
+    for (let i = monthLastDow; i < 6 && i >= 0; i++) {
         let blankDay = document.createElement('li');
         blankDay.classList.add('calDay');
         blankDay.classList.add('calBlankDay');
@@ -238,13 +250,15 @@ function setupCalendar() {
 }
 
 window.addEventListener('load', setupContent);
-window.addEventListener('load', setupCalendar);
+window.addEventListener('load', setupCalendar(new Date()));
 
 window.onclick = function (e) {
-    if (!e.target.matches('.calDropBtn')) {
+    if (!e.target.matches('.fa-caret-down')) {
+        console.log(e.target);
         var myDropdown = document.getElementById('dropdown');
-        if (myDropdown.classList.contains('show')) {
-            myDropdown.classList.remove('show');
+        if (myDropdown.classList.contains('dropdown-content')) {
+            myDropdown.classList.remove('dropdown-content');
+            myDropdown.classList.add('show-content');
         }
     }
 };
@@ -300,18 +314,5 @@ function monthNumber(month) {
         return '0' + (month + 1);
     }
 }
-
-/**
- * Formats the day number
- * @param {*} day one-indexed day integer
- * @returns a day number string like "22" for 22nd day of month
- */
-// function dayNumber (day) {
-//     if (day > 9) {
-//         return '' + day;
-//     } else {
-//         return '0' + day;
-//     }
-// }
 
 sleep(100);
