@@ -85,12 +85,13 @@ function signUp() {
 
     auth.setPersistence(browserSessionPersistence).then(() => {
         createUserWithEmailAndPassword(auth, userEmail, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 const user = userCredential.user;
                 if (user) {
                     let data = {
                         email: userEmail,
                         theme: '#d4ffd4',
+                        bannerImage: 'default',
                     };
 
                     // add user data to db

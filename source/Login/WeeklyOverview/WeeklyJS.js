@@ -7,6 +7,9 @@ import {
     getYearlyGoals,
     updateTheme,
     getTheme,
+    getBase64,
+    updateBannerImage,
+    getBannerImage,
 } from '../../Backend/BackendInit.js';
 import { auth } from '../../Backend/FirebaseInit.js';
 import {
@@ -205,6 +208,20 @@ async function loadTheme() {
     document.getElementById('themes').value = theme;
 }
 
+/**
+ * Load user customized banner image
+ */
+async function loadBannerImage() {
+    let banImg = await getBannerImage();
+
+    // only change if user does upload their image
+    if (banImg !== 'default') {
+        document.querySelector(
+            'div.header'
+        ).style.backgroundImage = `url(${banImg})`;
+    }
+}
+
 // Open and close Setting container
 document.getElementById('header_settings_button').onclick = function () {
     document.getElementById('settings').style.display = 'block';
@@ -226,6 +243,54 @@ document.getElementById('themes').addEventListener('change', function (e) {
     updateTheme(e.target.value);
 });
 
+// update banner image
+document.getElementById('banImg-upload').addEventListener('click', async () => {
+    let banImg = document.getElementById('banImg').files[0];
+    let banImgURL = await getBase64(banImg);
+    updateBannerImage(banImgURL);
+});
+
+// user logout handler
+document.getElementById('logout-btn').addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            window.location.replace('../Login.html');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
+document.getElementById('submitBtn').addEventListener('click', (e) => {
+    e.preventDefault(); // prevent refreshing due to form submission
+    let old_pwd = document.getElementById('old').value;
+    let new_pwd = document.getElementById('new').value;
+    let retype_pwd = document.getElementById('retype').value;
+
+    if (new_pwd !== retype_pwd) {
+        alert('Passwords did not match');
+    } else {
+        let cred = EmailAuthProvider.credential(
+            auth.currentUser.email,
+            old_pwd
+        );
+        // security check
+        reauthenticateWithCredential(auth.currentUser, cred)
+            .then(() => {
+                updatePassword(auth.currentUser, new_pwd).then(() => {
+                    alert('Password updated!');
+                    // clear form fields
+                    document.getElementById('old').value = '';
+                    document.getElementById('new').value = '';
+                    document.getElementById('retype').value = '';
+                });
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }
+});
+
 // call setup functions
 window.onload = () => {
     // make the date header of the page reflect the current date
@@ -236,55 +301,9 @@ window.onload = () => {
     }, ${currDateObj.year}`;
 
     // load panels
+    loadTheme();
+    loadBannerImage();
     loadWeek();
     loadNotes(currDateObj);
     loadGoalReminders(currDateObj);
-    loadTheme();
-};
-
-/**
- * Handle user logout event and redirection to login page.
- */
-
-// document.getElementById('logout-btn').onclick = logout();
-
-window.logout = function logout() {
-    signOut(auth)
-        .then(() => {
-            window.location.replace('../Login.html');
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
-};
-
-window.resetPwd = function () {
-    let old_pwd = document.getElementById('old').value;
-    let new_pwd = document.getElementById('new').value;
-    let retype_pwd = document.getElementById('retype').value;
-    if (new_pwd !== retype_pwd) {
-        alert('Passwords did not match');
-    } else {
-        let cred = EmailAuthProvider.credential(
-            auth.currentUser.email,
-            old_pwd
-        );
-        reauthenticateWithCredential(auth.currentUser, cred)
-            .then(() => {
-                // sendPasswordResetEmail(auth, auth.currentUser.email).then(
-                //     () => {
-                //         alert('Password reset email sent!');
-                //     }
-                // );
-                updatePassword(auth.currentUser, new_pwd).then(() => {
-                    alert('Password updated!');
-                    document.getElementById('old').value = '';
-                    document.getElementById('new').value = '';
-                    document.getElementById('retype').value = '';
-                });
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    }
 };

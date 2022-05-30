@@ -67,7 +67,7 @@
                     >
                     <div class="passwordForm">
                         <h3 class="subti">Change Password</h3>
-                        <form action="#" method="#" onsubmit="resetPwd()">
+                        <form action="#" method="#">
                             <div class="passField">
                                 <img
                                     src="../../Images/password-icon.png"
@@ -107,6 +107,7 @@
                                 />
                             </div>
                             <input
+                                id="submitBtn"
                                 type="submit"
                                 class="pwd-btn"
                                 value="Submit"
@@ -126,10 +127,12 @@
                     </div>
                     <div class="bannerImage">
                         <span class="banner-text">Banner Image:</span>
-                        <input type="file" class="banner-btn" accept="image/png, image/jpeg">
+                        <input id="banImg" type="file" class="banner-btn" accept="image/png, image/jpeg, image/jpg">
+                        <button id="banImg-upload">Upload</button>
                     </div>
+                    <br>
                     <div class="logout">
-                        <button id="logout-btn" onclick="logout()">Log out</button>
+                        <button id="logout-btn">Log out</button>
                     </div>
                 </div>
             </div>
