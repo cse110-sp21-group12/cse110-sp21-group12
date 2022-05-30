@@ -283,7 +283,7 @@ button#right {
     background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .entry-form-button:hover {
