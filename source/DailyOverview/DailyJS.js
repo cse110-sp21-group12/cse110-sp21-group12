@@ -19,6 +19,7 @@ const input = document.getElementById('image-input');
 const left = document.getElementById('left');
 const right = document.getElementById('right');
 const save = document.getElementById('save');
+const remove = document.getElementById('delete');
 
 const { day, month, year } = getCurrentDate();
 const currDateString = `${month}/${day}/${year}`;
@@ -213,6 +214,7 @@ function processBullet(bullet, i) {
  * @returns void
  */
 function processCurrentImage() {
+    canv.clearRect(0, 0, canvas.width, canvas.height);
     const imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -235,6 +237,10 @@ function processCurrentImage() {
  * @returns void
  */
 function renderBullets(bullets) {
+    if (bullets === undefined || bullets === []) {
+        return;
+    }
+
     let iNum = 0;
     bullets.forEach((bullet) => {
         let i = [iNum];
@@ -251,17 +257,11 @@ function renderBullets(bullets) {
  */
 // eslint-disable-next-line no-unused-vars
 function renderPhotos(photos) {
-    if (photos === undefined) {
-        return;
-    }
-
-    console.log(photos);
     for (let i = 0; i < photos.length; i++) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
-
-        processCurrentImage();
     }
+    processCurrentImage();
 }
 
 /**
@@ -271,23 +271,30 @@ function renderPhotos(photos) {
  * @returns void
  */
 async function requestDay() {
-    const currDay = await getDay(currDateString);
-    currentDay = currDay;
-    if (currDay === undefined) {
-        return;
-    }
+    await getDay(currDateString).then((currDay) => {
+        if (currDay === undefined) {
+            currDay = {
+                bullets: [],
+                date: currDateString,
+                notes: '',
+                photos: [],
+            };
+        }
+        currentDay = currDay;
 
-    //Load in bullets
-    renderBullets(currDay.bullets);
+        //Load in bullets
+        renderBullets(currentDay.bullets ? currentDay.bullets : undefined);
 
-    // Load in notes
-    const newNote = document.createElement('note-box');
-    newNote.entry = currDay.notes.content;
-    document.querySelector('#notes').appendChild(newNote);
+        // Load in notes
+        const newNote = document.createElement('note-box');
+        newNote.entry = currentDay.notes.content
+            ? currentDay.notes.content
+            : '';
+        document.querySelector('#notes').appendChild(newNote);
 
-    // Load photos
-    const photos = currDay.photos;
-    renderPhotos(photos);
+        // Load photos
+        renderPhotos(currDay.photos !== undefined ? currDay.photos : []);
+    });
 }
 
 /**
@@ -424,7 +431,15 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     const bText = document.querySelector('.entry-form-text').value;
+    if (bText === undefined || bText === '') {
+        return;
+    }
+
     document.querySelector('.entry-form-text').value = '';
+
+    if (!('bullets' in currentDay)) {
+        currentDay.bullets = [];
+    }
     // get the text in form on a submit, then push an object representing the
     // bullet into our current day
     currentDay.bullets.push({
@@ -437,46 +452,72 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     bulletChangeResolution();
 });
 
-input.addEventListener('change', async (e) => {
-    window.img[relative] = new Image();
-
-    // This allows you to store blob -> base64
-    window.img[relative].src = await getBase64(e.target.files[0]);
-});
+// ~~~~~~~~~~~~~~~ Image Event Listeners ~~~~~~~~~~~~~~~
 
 left.addEventListener('click', () => {
-    relative -= 1;
-    if (relative == -1) {
-        relative = window.img.length - 1;
+    if (window.img.length === 0) {
+        return;
     }
+
+    relative = (relative - 1) % window.img.length;
 
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         processCurrentImage();
     }
+
+    console.log(relative, window.img);
 });
 
 right.addEventListener('click', () => {
-    relative += 1;
-    if (relative == window.img.length) {
-        relative = 0;
+    if (window.img.length === 0) {
+        return;
     }
+
+    relative = (relative + 1) % window.img.length;
 
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         processCurrentImage();
     }
+
+    console.log(relative, window.img);
 });
 
-// Save image and will hide everything else
-// REQUIRED TO PRESS SAVE AFTER UPLOAD
-save.addEventListener('click', () => {
-    processCurrentImage();
+// save image that was chosen in file selector to db and display it
+// on image canvas
+save.addEventListener('click', async () => {
+    if (input.files === undefined) {
+        return;
+    }
 
-    // Add Item and update whenever save
+    // This allows you to store blob -> base64
+    const base64 = await getBase64(input.files[0]);
+
     if (!('photos' in currentDay)) {
         currentDay.photos = [];
     }
-    currentDay.photos.push(window.img[relative].src);
+
+    currentDay.photos.push(base64);
+
+    relative = window.img.length;
+    renderPhotos(currentDay.photos !== undefined ? currentDay.photos : []);
+
+    input.value = null;
+    updateDay(currentDay);
+});
+
+remove.addEventListener('click', async () => {
+    if (window.img[relative] === undefined) {
+        return;
+    }
+
+    const dbPhotoIdx = currentDay.photos.indexOf(window.img[relative].src);
+    currentDay.photos.splice(dbPhotoIdx, 1);
+    window.img.splice(relative, 1);
+
+    relative = 0;
+    renderPhotos(currentDay.photos !== undefined ? currentDay.photos : []);
+
     updateDay(currentDay);
 });

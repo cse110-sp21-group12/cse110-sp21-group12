@@ -173,7 +173,7 @@ async function deletePhoto(dayStr, base64) {
     const dayPhotos = await getDataAtDBPath(dbPath);
     for (const [base64UUID, storedBase64] of Object.entries(dayPhotos)) {
         if (storedBase64.length == base64.length && storedBase64 == base64) {
-            deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
+            await deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
             break;
         }
     }
@@ -204,8 +204,8 @@ async function deleteMonthlyGoals(monthStr) {
  *                        "${currentUserID}/2022/02/05"
  * @returns void
  */
-function deleteObjAtDBPath(path) {
-    remove(ref(db, path))
+async function deleteObjAtDBPath(path) {
+    await remove(ref(db, path))
         .then(() => {
             console.log(`Data deleted successfully at ${path}`);
         })
