@@ -33,34 +33,34 @@ let currentDay;
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
-    let session = window.sessionStorage;
-    console.log('here is storage session', session);
-    if (session.getItem('loggedIn') !== 'true') {
-        window.location.href = '../Login/Login.html';
-        //might need this to create uness entires?
-        return;
-    } else {
-        let dbPromise = initDB();
-        dbPromise.onsuccess = function (e) {
-            console.log('database connected');
-            setDB(e.target.result);
-            // get the day and also the monthly and yearly goals
-            requestDay();
-            fetchMonthGoals();
-            fetchYearGoals();
-            let req = getSettings();
-            req.onsuccess = function (e) {
-                // gets the user settings, and in particular theme to set the style/background to the theme of user
-                let settingObj = e.target.result;
-                console.log('setting theme');
-                document.documentElement.style.setProperty(
-                    '--bg-color',
-                    settingObj.theme
-                );
-            };
+    // let session = window.sessionStorage;
+    // console.log('here is storage session', session);
+    // if (session.getItem('loggedIn') !== 'true') {
+    //     window.location.href = '../Login/Login.html';
+    //     //might need this to create uness entires?
+    //     return;
+    // } else {
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        setDB(e.target.result);
+        // get the day and also the monthly and yearly goals
+        requestDay();
+        fetchMonthGoals();
+        fetchYearGoals();
+        let req = getSettings();
+        req.onsuccess = function (e) {
+            // gets the user settings, and in particular theme to set the style/background to the theme of user
+            let settingObj = e.target.result;
+            console.log('setting theme');
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
         };
-        document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
-    }
+    };
+    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
+    // }
 });
 
 /**
@@ -178,7 +178,7 @@ function fetchYearGoals() {
 
 // update notes and days when we lose focus of notes? Not really sure how that works/looks in practice
 document.querySelector('#notes').addEventListener('focusout', () => {
-    updateNote();
+    updateNotes();
     updateDay(currentDay);
 });
 
@@ -395,11 +395,30 @@ function editBullet() {
 /**
  * Function that updates the notes
  */
-function updateNote() {
-    let currNote = document
-        .querySelector('note-box')
-        .shadowRoot.querySelector('.noteContent').value;
-    currentDay.notes = currNote;
+function updateNotes() {
+    let newNote = document.querySelector('note-box').entry;
+
+    let date = currentDateStr.split('/'); // [month, day, year]
+    let year = date[2];
+    let month = stripZeroInDate(date[0]);
+    let day = stripZeroInDate(date[1]);
+    updateNote(year, month, day, newNote);
+}
+
+/**
+ * Strip out the prepending zero if the given string has.
+ * @param {String} string month or day to check if having prepending zero
+ * @returns the original string or the string without prepending zero
+ */
+function stripZeroInDate(string) {
+    if (string.length > 0) {
+        let prefix = string.charAt(0);
+
+        if (prefix === '0') {
+            return string.charAt(1);
+        }
+        return string;
+    }
 }
 
 input.addEventListener('change', (event) => {

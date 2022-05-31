@@ -102,6 +102,7 @@ li.image-wrapper {
 img {
     display: block;
     width: 100%;
+    margin-top: 10px;
 }
 span {
     display: block;
@@ -192,4 +193,89 @@ span {
     border-width: 1mm;
     border-color: black;
     position: relative;
+}
+
+/* css for settings */
+#settings {
+    background-color: #ffffff;
+    width: 242px;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    border-radius: 3px;
+    padding: 25px;
+    border: 1px solid black;
+    z-index: 1;
+    position: absolute;
+    display: none;
+}
+img.pwd-icon {
+    position: absolute;
+    width: 12px;
+    opacity: 0.2;
+    margin: 8px;
+    z-index: 999;
+}
+input.pwd-pass {
+    width: 180px;
+    padding: 5px 30px;
+    padding-left: 26px;
+    padding-bottom: 5px;
+    font-family: verdana, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    color: #9a9a9a;
+    background-color: #f4f8f5;
+}
+
+input.pwd-btn {
+    width: 40%;
+    padding: 7px;
+    top: 50%;
+    margin: 18.72px 30%;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 12px;
+    color: #ffffff;
+    background: #39b594;
+    border: 0px;
+    border-radius: 30px;
+}
+input.pwd-btn:hover {
+    background: #7eb8a8;
+    cursor: pointer;
+}
+h2.title {
+    display: inline;
+    margin-right: 45%;
+}
+span.close {
+    display: inline;
+    vertical-align: baseline;
+    font-size: 30px;
+    text-align: right;
+    margin-left: 10%;
+}
+span.close:hover {
+    cursor: pointer;
+}
+select {
+    font-size: 16px;
+    border: 1px solid #39b594;
+    border-radius: 30px;
+    width: 120px;
+    height: 32px;
+    padding-left: 12px;
+    display: block;
+    margin-top: 2px;
+}
+.bannerImage {
+    margin-top: 25px;
+}
+button.banner-btn {
+    font-size: 14px;
+    color: black;
+    background-color: #ffffff;
+    border: 2px solid #39b594;
+    border-radius: 30px;
 }
