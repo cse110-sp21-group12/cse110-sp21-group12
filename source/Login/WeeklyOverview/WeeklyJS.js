@@ -108,7 +108,7 @@ async function loadNotes(currDateObj) {
         return;
     }
 
-    const todaysNotes = currDayObj.notes;
+    const todaysNotes = currDayObj.notes.content;
     document.querySelector('#notes').append(newNote);
     newNote.shadowRoot.querySelector('.noteContent').innerHTML = todaysNotes;
 }
@@ -247,7 +247,7 @@ document.getElementById('themes').addEventListener('change', function (e) {
 document.getElementById('banImg-upload').addEventListener('click', async () => {
     let banImg = document.getElementById('banImg').files[0];
     let banImgURL = await getBase64(banImg);
-    updateBannerImage(banImgURL);
+    updateBannerImage(banImgURL).then(() => loadBannerImage());
 });
 
 // user logout handler
