@@ -46,6 +46,7 @@ window.onload = async () => {
  * @returns void
  */
 function bulletChangeResolution() {
+    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -304,7 +305,7 @@ async function requestDay() {
  * @returns void
  */
 function setBulletFeature(obj, newFeature) {
-    obj.feature = newFeature;
+    obj.features = newFeature;
 }
 
 /**
