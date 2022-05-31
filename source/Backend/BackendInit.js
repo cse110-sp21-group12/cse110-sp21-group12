@@ -54,7 +54,8 @@ async function addPhoto(dayStr, photoFile) {
 }
 
 /**
- * create db object for day
+ * Create Day
+ * given a day object, will create an entry in the database
  * @param {Object} dayObj - Custom day object
  * @param {String} dayObj.date -  date of the form "mm/dd/yyyy/"
  *  (ie: "02/28/2021")
