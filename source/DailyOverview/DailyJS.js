@@ -373,6 +373,8 @@ input.addEventListener('change', (event) => {
         var base64data = reader.result;
         window.img[relative].src = base64data;
     };
+    // console.log(relative);
+    // console.log(window.img[relative]);
 });
 
 // Save image and will hide everything else
@@ -393,7 +395,11 @@ save.addEventListener('click', () => {
     );
 
     // Add Item and update whenever save
+    if (!('photos' in currentDay)) {
+        currentDay.photos = [];
+    }
     currentDay.photos.push(window.img[relative].src);
+    updateDay(currentDay);
 });
 
 left.addEventListener('click', () => {
@@ -401,6 +407,7 @@ left.addEventListener('click', () => {
     if (relative == -1) {
         relative = window.img.length - 1;
     }
+
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -424,6 +431,7 @@ right.addEventListener('click', () => {
     if (relative == window.img.length) {
         relative = 0;
     }
+
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
         var imgDimension = getDimensions(
@@ -493,8 +501,24 @@ function renderPhotos(photos) {
         return;
     }
 
+    console.log(photos);
     for (let i = 0; i < photos.length; i++) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
+
+        var imgDimension = getDimensions(
+            canvas.width,
+            canvas.height,
+            window.img[relative].width,
+            window.img[relative].height
+        );
+        canv.drawImage(
+            window.img[relative],
+            imgDimension['startX'],
+            imgDimension['startY'],
+            imgDimension['width'],
+            imgDimension['height']
+        );
+        // console.log(window.img[i]);
     }
 }

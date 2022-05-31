@@ -152,6 +152,7 @@ h2 {
 #notes-save {
     height: fit-content;
     margin-right: 1.2vw;
+    cursor: pointer;
 }
 
 #notesDino {
@@ -241,6 +242,10 @@ button#right {
     background-color: transparent;
     border: none;
     font-size: 2vh;
+}
+
+#save, #left, #right {
+    cursor: pointer;
 }
 
 /* Misc */
