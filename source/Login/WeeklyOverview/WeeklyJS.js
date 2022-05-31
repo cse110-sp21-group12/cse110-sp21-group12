@@ -215,10 +215,13 @@ async function loadBannerImage() {
     let banImg = await getBannerImage();
 
     // only change if user does upload their image
-    if (banImg !== 'default') {
+    if (banImg !== 'default' && banImg !== undefined) {
         document.querySelector(
             'div.header'
         ).style.backgroundImage = `url(${banImg})`;
+    } else {
+        document.querySelector('div.header').style.backgroundImage =
+            '../Images/weekly_header.jpg';
     }
 }
 
@@ -248,6 +251,7 @@ document.getElementById('banImg-upload').addEventListener('click', async () => {
     let banImg = document.getElementById('banImg').files[0];
     let banImgURL = await getBase64(banImg);
     updateBannerImage(banImgURL);
+    loadBannerImage();
 });
 
 // user logout handler
