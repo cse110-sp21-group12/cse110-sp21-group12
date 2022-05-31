@@ -279,7 +279,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test13: photo album should be empty', async () => {
-        const photoLength = await page.$eval('#myCanvas', () => {
+        const photoLength = await page.$eval('#photoCanvas', () => {
             console.log(window.Image.length);
             return window.Image.length;
         });
