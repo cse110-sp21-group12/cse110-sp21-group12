@@ -164,7 +164,7 @@ class BulletEntry extends HTMLElement {
                 childList: [],
                 time: null,
             };
-            let childLength = newJson.childList.length;
+            let childLength = newJson.childList ? newJson.childList.length : 0;
 
             // if user cancels
             if (newEntry == null) {
@@ -192,6 +192,10 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector('.child').appendChild(newChild);
 
             // update bulletJson of parent bullet
+            if (!('childList' in newJson)) {
+                newJson.childList = [];
+            }
+
             newJson.childList.push(childJson);
             this.setAttribute('bulletJson', JSON.stringify(newJson));
 

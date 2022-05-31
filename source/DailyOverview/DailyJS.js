@@ -1,5 +1,6 @@
 import {
     getCurrentDate,
+    getBase64,
     getDay,
     getMonthlyGoals,
     getYearlyGoals,
@@ -37,12 +38,15 @@ const left = document.getElementById('left');
 // store current day data to update when user leaves page
 let currentDay;
 
-window.onload = () => {
+window.onload = async () => {
     // get the day and also the monthly and yearly goals
     requestDay();
-    fetchMonthGoals();
-    fetchYearGoals();
-    setTimeout(() => console.log(currentDay), 500);
+    fetchGoals(
+        await getMonthlyGoals(`${month}/${year}`),
+        '#monthGoal',
+        'month-goal'
+    );
+    fetchGoals(await getYearlyGoals(`${year}`), '#yearGoal', 'year-goal');
 };
 
 /**
@@ -72,21 +76,22 @@ async function requestDay() {
 }
 
 /**
- * Gets the current month object (and creates one if one doesn't exist)
- * also renders the monthly goals
+ * load either monthly or yearly goals into respective list depending on input
+ * @param {Object} goalsObj - the object containing monthly/yearly goals
+ * @param {String} listId - the id of the list to append the goals to
+ * @param {String} newClass - the class that the goal will identify with
+ *                            (monthly or yearly class)
  * @returns void
  */
-async function fetchMonthGoals() {
-    // should we comment out these console logs? Bad coding standards to leave them in prod
-    let monthObj = await getMonthlyGoals(`${month}/${year}`);
-    if (monthObj === undefined) {
+async function fetchGoals(goalsObj, listId, newClass) {
+    if (goalsObj === undefined) {
         return;
     }
 
     //load in bullets
     // eslint-disable-next-line no-unused-vars
-    for (const [_, goal] of Object.entries(monthObj)) {
-        let goalElem = document.createElement('p');
+    for (const [_, goal] of Object.entries(goalsObj)) {
+        const goalElem = document.createElement('p');
         goalElem.innerHTML = goal.text;
         goalElem.style.wordBreak = 'break-all';
         goalElem.style.overflowX = 'hidden';
@@ -96,40 +101,29 @@ async function fetchMonthGoals() {
         if (goal.done == true) {
             goalElem.style.textDecoration = 'line-through';
         }
-        goalElem.classList.add('month-goal');
-        document.querySelector('#monthGoal').appendChild(goalElem);
+        goalElem.classList.add(newClass);
+        document.querySelector(listId).appendChild(goalElem);
     }
 }
 
-// code for fetchMonth and fetchYear are exactly the same except one does month other does year
-
-/**
- * Gets the current year object (and creates one if one doesn't exist)
- * also renders the yearly goals
- * @returns void
- */
-async function fetchYearGoals() {
-    let yearObj = await getYearlyGoals(`${year}`);
-    if (yearObj === undefined) {
-        return;
-    }
-
-    //load in bullets
-    // eslint-disable-next-line no-unused-vars
-    for (const [_, goal] of Object.entries(yearObj)) {
-        let goalElem = document.createElement('p');
-        goalElem.innerHTML = goal.text;
-        goalElem.style.wordBreak = 'break-all';
-        goalElem.style.overflowX = 'hidden';
-        goalElem.style.marginTop = '0';
-        goalElem.style.paddingRight = '1vh';
-        goalElem.style.fontSize = '1.25vh';
-        if (goal.done == true) {
-            goalElem.style.textDecoration = 'line-through';
+function generalBulletListener(e, callback) {
+    console.log(e.composedPath());
+    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
+    let firstIndex = index[0];
+    if (index.length > 1) {
+        let secondIndex = index[1];
+        if (index.length > 2) {
+            let thirdIndex = index[2];
+            callback(firstIndex, secondIndex, thirdIndex);
+        } else {
+            callback(firstIndex, secondIndex);
         }
-        goalElem.classList.add('year-goal');
-        document.querySelector('#yearGoal').appendChild(goalElem);
+    } else {
+        callback(firstIndex);
     }
+
+    bulletChangeResolution();
 }
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
@@ -144,9 +138,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         features: 'normal',
     });
 
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
+    bulletChangeResolution();
 });
 
 // lets bullet component listen to when a bullet child is added
@@ -162,113 +154,95 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
     } else {
         currentDay.bullets[index[0]] = newJson;
     }
+
+    bulletChangeResolution();
+});
+
+function bulletChangeResolution() {
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
-});
+}
+
+function generalOp(list, op, ...opArgs) {
+    op.call(list, ...opArgs);
+}
+
+function grabBulletList() {
+    if (arguments.length == 1) {
+        return currentDay.bullets;
+    } else {
+        let bulletList = currentDay.bullets[arguments[0]];
+        for (let i = 1; i < arguments.length - 1; i++) {
+            bulletList = bulletList.childList[arguments[i]];
+        }
+
+        return bulletList.childList;
+    }
+}
+
+function setBulletText(list, newText) {
+    list.text = newText;
+}
+
+function setBulletFeature(list, newFeature) {
+    list.feature = newFeature;
+}
+
+function toggleBulletStatus(list) {
+    list.done ^= true;
+}
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log(e.composedPath());
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].childList.splice(thirdIndex, 1);
+    const callback = (...indexes) => {
+        const list = grabBulletList(...indexes);
+        if (indexes.length == 1) {
+            generalOp(list, Array.prototype.splice, indexes[0], 1);
+        } else if (indexes.length == 2) {
+            generalOp(list, Array.prototype.splice, indexes[1], 1);
         } else {
-            currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+            generalOp(list, Array.prototype.splice, indexes[2], 1);
         }
-    } else {
-        currentDay.bullets.splice(firstIndex, 1);
-    }
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
+    };
+
+    generalBulletListener(e, callback);
 });
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // very similar weird code to 'deleted' directly above
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].text = newText;
-        } else {
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].text = newText;
-        }
-    } else {
-        currentDay.bullets[firstIndex].text = newText;
-    }
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
+
+    const callback = (...indexes) => {
+        const list = grabBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, setBulletText, list, newText);
+    };
+
+    generalBulletListener(e, callback);
 });
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log(e.composedPath()[0]);
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // same logic as 'deleted' and 'edited' lots of similar code, but is there a way to condense it?
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].done ^= true;
-        } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
-        }
-    } else {
-        currentDay.bullets[firstIndex].done ^= true;
-    }
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
+    const callback = (...indexes) => {
+        const list = grabBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, toggleBulletStatus, list);
+    };
+
+    generalBulletListener(e, callback);
 });
 
 // lets bullet component listen to when a bullet is clicked category
 document.querySelector('#bullets').addEventListener('features', function (e) {
-    console.log(e.composedPath()[0]);
-    // same logic as before except this time allows a new feature to be added to each index
     let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .features;
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].features = newFeature;
-        } else {
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].features = newFeature;
-        }
-    } else {
-        currentDay.bullets[firstIndex].features = newFeature;
-    }
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
+
+    const callback = (...indexes) => {
+        const list = grabBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, setBulletFeature, list, newFeature);
+    };
+
+    generalBulletListener(e, callback);
 });
 
 /**
@@ -280,43 +254,11 @@ function renderBullets(bullets) {
     let iNum = 0;
     bullets.forEach((bullet) => {
         let i = [iNum];
-        let newPost = document.createElement('bullet-entry');
-        newPost.setAttribute('bulletJson', JSON.stringify(bullet));
-        newPost.setAttribute('index', JSON.stringify(i));
-        newPost.entry = bullet;
-        newPost.index = i;
-        if ('childList' in bullet && bullet.childList.length != 0) {
-            i.push(0);
-            bullet.childList.forEach((child) => {
-                let newChild = renderChild(child, i);
-                newPost.child = newChild;
-                i[i.length - 1]++;
-            });
-            i.pop();
-        }
+        let newPost = processBullet(bullet, i);
         document.querySelector('#bullets').appendChild(newPost);
         iNum++;
     });
-    setTimeout(() => console.log(currentDay), 500);
 }
-
-// function processBullet(bullet, i) {
-//     let newPost = document.createElement('bullet-entry');
-//     newPost.setAttribute('bulletJson', JSON.stringify(bullet));
-//     newPost.setAttribute('index', JSON.stringify(i));
-//     newPost.entry = bullet;
-//     newPost.index = i;
-//     if (bullet.childList.length != 0) {
-//         i.push(0);
-//         bullet.childList.forEach((child) => {
-//             let newChild = renderChild(child, i);
-//             newPost.child = newChild;
-//             i[i.length - 1]++;
-//         });
-//         i.pop();
-//     }
-//     return newPost;
-// }
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
@@ -324,35 +266,22 @@ function renderBullets(bullets) {
  * @param {Number} i -  array of integers of index of bullets
  * @return {Object} new child created
  */
-function renderChild(bullet, i) {
-    let newChild = document.createElement('bullet-entry');
-    newChild.setAttribute('bulletJson', JSON.stringify(bullet));
-    newChild.setAttribute('index', JSON.stringify(i));
-    newChild.entry = bullet;
-    newChild.index = i;
+function processBullet(bullet, i) {
+    let newPost = document.createElement('bullet-entry');
+    newPost.setAttribute('bulletJson', JSON.stringify(bullet));
+    newPost.setAttribute('index', JSON.stringify(i));
+    newPost.entry = bullet;
+    newPost.index = i;
     if ('childList' in bullet && bullet.childList.length != 0) {
         i.push(0);
         bullet.childList.forEach((child) => {
-            let newNewChild = renderChild(child, i);
-            newChild.child = newNewChild;
+            let newChild = processBullet(child, i);
+            newPost.child = newChild;
             i[i.length - 1]++;
         });
         i.pop();
     }
-    return newChild;
-}
-
-// eslint-disable-next-line no-unused-vars
-function editBullet() {
-    let editedEntry = prompt(
-        'Edit Bullet',
-        this.shadowRoot.querySelector('.bullet-content').innerText
-    );
-    if (editedEntry != null && editedEntry != '') {
-        this.shadowRoot.querySelector(
-            '.bullet-content'
-        ).innerText = editedEntry;
-    }
+    return newPost;
 }
 
 /**
@@ -363,23 +292,7 @@ function updateNotes() {
     updateNote(currDateString, newNote);
 }
 
-input.addEventListener('change', (event) => {
-    window.img[relative] = new Image();
-
-    // This allows you to store blob -> base64
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onloadend = function () {
-        var base64data = reader.result;
-        window.img[relative].src = base64data;
-    };
-    // console.log(relative);
-    // console.log(window.img[relative]);
-});
-
-// Save image and will hide everything else
-// REQUIRED TO PRESS SAVE AFTER UPLOAD
-save.addEventListener('click', () => {
+function processCurrentImage() {
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -393,6 +306,19 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
+}
+
+input.addEventListener('change', async (e) => {
+    window.img[relative] = new Image();
+
+    // This allows you to store blob -> base64
+    window.img[relative].src = await getBase64(e.target.files[0]);
+});
+
+// Save image and will hide everything else
+// REQUIRED TO PRESS SAVE AFTER UPLOAD
+save.addEventListener('click', () => {
+    processCurrentImage();
 
     // Add Item and update whenever save
     if (!('photos' in currentDay)) {
@@ -410,19 +336,7 @@ left.addEventListener('click', () => {
 
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
-        var imgDimension = getDimensions(
-            canvas.width,
-            canvas.height,
-            window.img[relative].width,
-            window.img[relative].height
-        );
-        canv.drawImage(
-            window.img[relative],
-            imgDimension['startX'],
-            imgDimension['startY'],
-            imgDimension['width'],
-            imgDimension['height']
-        );
+        processCurrentImage();
     }
 });
 
@@ -434,19 +348,7 @@ right.addEventListener('click', () => {
 
     canv.clearRect(0, 0, canvas.width, canvas.height);
     if (window.img[relative]) {
-        var imgDimension = getDimensions(
-            canvas.width,
-            canvas.height,
-            window.img[relative].width,
-            window.img[relative].height
-        );
-        canv.drawImage(
-            window.img[relative],
-            imgDimension['startX'],
-            imgDimension['startY'],
-            imgDimension['width'],
-            imgDimension['height']
-        );
+        processCurrentImage();
     }
 });
 
@@ -506,19 +408,6 @@ function renderPhotos(photos) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
 
-        var imgDimension = getDimensions(
-            canvas.width,
-            canvas.height,
-            window.img[relative].width,
-            window.img[relative].height
-        );
-        canv.drawImage(
-            window.img[relative],
-            imgDimension['startX'],
-            imgDimension['startY'],
-            imgDimension['width'],
-            imgDimension['height']
-        );
-        // console.log(window.img[i]);
+        processCurrentImage();
     }
 }

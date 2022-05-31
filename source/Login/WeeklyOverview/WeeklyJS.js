@@ -66,15 +66,8 @@ async function loadGoalReminders(currDateObj) {
     const dbMonthlyGoals = await getMonthlyGoals(`${month}/${year}`);
     const dbYearlyGoals = await getYearlyGoals(`${year}`);
 
-    // if there are existing goals for the current month
-    if (dbMonthlyGoals !== undefined) {
-        populateGoalList('monthGoal', dbMonthlyGoals);
-    }
-
-    // if there are existing goals for the current year
-    if (dbYearlyGoals !== undefined) {
-        populateGoalList('yearGoal', dbYearlyGoals);
-    }
+    populateGoalList('monthGoal', dbMonthlyGoals);
+    populateGoalList('yearGoal', dbYearlyGoals);
 }
 
 /**
@@ -169,6 +162,10 @@ async function loadWeek() {
  * @returns void
  */
 function populateGoalList(goalDivId, goalsObj) {
+    if (goalsObj === undefined) {
+        return;
+    }
+
     const goalDiv = document.getElementById(goalDivId);
     const list = document.createElement('ul');
 
