@@ -1,15 +1,6 @@
 //setup hasher
 //let sha1 = require('sha1');
 
-/**
- * gets the current session storage,
- * lasts as long as the tab or the browser is open
- * survives between reloads
- * -new tabs or closing it will refresh the session
- */
-let storageSession = window.sessionStorage;
-console.log('here is the storage session: ', storageSession);
-
 //store current page state
 let loginState;
 
@@ -52,14 +43,11 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            console.log('got settings');
-            console.log(e.target.result);
             settingObj = e.target.result;
             // if (settingObj === undefined) {
             //     loginState = 'new';
@@ -87,7 +75,6 @@ function handleSignup(newUsername, newPassword) {
     //update settings
     // eslint-disable-next-line no-undef
     updateSettings(userObject);
-    console.log('frontend: updating settings...');
     //make them log in
     //toggleView();
     alert('Account created! Please log in');
@@ -104,9 +91,6 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
-    console.log(
-        'Input: ' + password + ' | Correct password: ' + correctPassword
-    );
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef

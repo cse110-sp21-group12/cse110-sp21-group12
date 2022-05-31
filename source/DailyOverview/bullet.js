@@ -152,7 +152,6 @@ class BulletEntry extends HTMLElement {
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            console.log('adding a new bullet');
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
@@ -215,8 +214,6 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit');
-                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);

@@ -88,7 +88,6 @@ async function fetchGoals(goalsObj, listId, newClass) {
  * @returns void
  */
 function generalBulletListener(e, callback) {
-    console.log(e.composedPath());
     const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
     const firstIndex = index[0];
@@ -346,7 +345,6 @@ noteSave.addEventListener('click', () => updateNotes());
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log(e.composedPath());
     // gets the index and json object of the current bullet we want to look at
     const newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
@@ -365,6 +363,10 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
     const callback = (...indexes) => {
         const list = getBulletList(...indexes);
+
+        // if there is only one index, we are deleting a top-level bullet. if
+        // there is a second index, we are deleting an intermediate-level bullet.
+        // if there is a third index, we are deleting a bottom-level bullet.
         if (indexes.length == 1) {
             generalOp(list, Array.prototype.splice, indexes[0], 1);
         } else if (indexes.length == 2) {
@@ -380,6 +382,8 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
     const callback = (...indexes) => {
+        // we need to access the last index after getting the bullet list here
+        // because we are trying to access an object to edit its properties
         const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
         generalOp(list, toggleBulletStatus, list);
     };
@@ -393,6 +397,7 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
         .text;
 
     const callback = (...indexes) => {
+        // see callback explanation for 'done' event listener above
         const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
         generalOp(list, setBulletText, list, newText);
     };
@@ -406,6 +411,7 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
     const newFeature = JSON.parse(path.getAttribute('bulletJson')).features;
 
     const callback = (...indexes) => {
+        // see callback explanation for 'done' event listener above
         const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
         generalOp(list, setBulletFeature, list, newFeature);
     };
@@ -417,7 +423,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
     const bText = document.querySelector('.entry-form-text').value;
     document.querySelector('.entry-form-text').value = '';
-    // get the text in form on a submit, then push an object representing the bullet into our current day
+    // get the text in form on a submit, then push an object representing the
+    // bullet into our current day
     currentDay.bullets.push({
         text: bText,
         done: false,
