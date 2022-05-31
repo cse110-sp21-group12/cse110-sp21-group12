@@ -145,7 +145,7 @@ button:hover {
 #content .yearlink:hover {
     -color: var(--bg-color);
     text-decoration: underline;
-    text-decoration-color: var(--bg-color);
+    text-decoration-color: black;
     text-decoration-thickness: 3px;
 }
 
