@@ -129,6 +129,16 @@ input {
     font-size: 20px;
   }
 
+#error{
+    font-family: "Times New Roman";
+    font-size: 15px;
+    position:center;
+    color:red;
+    margin-left: 30%;
+    display:"none";
+
+
+}
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;

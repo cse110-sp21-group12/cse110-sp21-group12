@@ -3,7 +3,7 @@ const MIN_NAME_LENGTH = 2;
 const MIN_PIN_LENGTH = 4;
 
 //PIN restriction regex (identify bad PINs)
-const pin_regex = /\D/;
+//const pin_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 //Username restriction regex (identify bad Usernames)
 const name_regex = /[^\w-]/;
 
@@ -34,7 +34,7 @@ loginButton.addEventListener('click', handleLoginButton);
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
-    verifyValidInputs(settingObj.username, passwordField.value);
+    validFormat();
     handleResetPassword();
 });
 
@@ -114,7 +114,7 @@ function handleResetPassword() {
     resetPasswordButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            // if (verifyValidInputs(settingObj.username, passwordField.value)) {
+             if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
                     username: settingObj.username,
                     password: passwordField.value,
@@ -127,7 +127,7 @@ function handleResetPassword() {
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
-       // }
+       }
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
@@ -141,6 +141,49 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
+
+    var error = document.getElementById("error");
+    //prohibit empty username
+    if (newUsername == '') {
+        error.textContent = "Username must not be empty"
+        error.style.display = "block";
+        return false;
+    }
+    //prohibit short names
+    else if (newUsername.length < MIN_NAME_LENGTH) {
+        error.textContent = "Username must be at least 2 characters long";
+        error.style.display = "block";
+        return false;
+    }
+    //prohibit invalid characters in username
+    else if (name_regex.test(newUsername)) {
+        error.textContent = "Username must not contain special characters"
+        error.style.display = "block";
+        return false;
+    }
+
+    //prohibit short passwords
+    else if (newPassword.length < MIN_PIN_LENGTH) {
+        error.textContent = "PIN must be at least 4 digits long";
+        error.style.display = "block";
+        return false;
+    }
+    //prohibit non-numeric PIN
+    else if (!(newPassword.match(".*\\d.*")) || !(newPassword.match(".*[a-z].*")) || !(newPassword.match(".*[A-Z].*")) ){
+        //alert('PIN must contain numbers only');
+        error.textContent = "PIN must Satisfy requirment below"
+        error.style.display = "block";
+        return false;
+    }
+
+    
+    //allow otherwise
+    else {
+        return true;
+    }
+}
+
+function validFormat(){
 var myInput = document.getElementById("pin");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
@@ -155,6 +198,8 @@ myInput.onfocus = function() {
 // When the user clicks outside of the password field, hide the message box
 myInput.onblur = function() {
   document.getElementById("message").style.display = "none";
+  error.style.display = "none";
+
 }
 
 // When the user starts to type something inside the password field
@@ -199,42 +244,8 @@ myInput.onkeyup = function() {
   } else {
     length.classList.remove("valid");
     length.classList.add("invalid");
-   // return false;
   }
 }
-
- return true;
-    //prohibit empty username
-    // if (newUsername == '') {
-    //     alert('Please provide a username');
-    //     return false;
-    // }
-    //prohibit short names
-    // else if (newUsername.length < MIN_NAME_LENGTH) {
-    //     alert('Username must be at least 2 characters long');
-    //     return false;
-    // }
-    //prohibit invalid characters in username
-    // else if (name_regex.test(newUsername)) {
-    //     alert('Username must not contain special characters');
-    //     return false;
-    // }
-
-    //prohibit short passwords
-    // else if (newPassword.length < MIN_PIN_LENGTH) {
-    //     alert('PIN must be at least 4 digits long');
-    //     return false;
-    // }
-    //prohibit non-numeric PIN
-    // else if (pin_regex.test(newPassword)) {
-    //     alert('PIN must contain numbers only');
-    //     return false;
-    // }
-
-    //allow otherwise
-    // else {
-    //     return true;
-    // }
 }
 
 /**
