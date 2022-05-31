@@ -23,6 +23,7 @@ const dayOVLink = '../DailyOverview/DailyOverview.html';
 const monthOVLink = '../MonthlyOverview/MonthlyOverview.html';
 const yearOVLink = '../YearlyOverview/YearlyOverview.html';
 */
+const dayOVLink = '../../DailyOverview/DailyOverview.html';
 
 // TODO: login check(?) considering OOP, it doesn't make sense for
 //       calendar to check this
@@ -205,22 +206,7 @@ function setupCalendar(date) {
         let day = document.createElement('a');
         day.classList.add('calDay');
         day.innerText = i;
-        day.href = '../../DailyOverview/DailyOverview.html';
-
-        //check if today (so we can highlight it)
-        if (i == current.getDate() && current.getMonth() == currMonthNumber) {
-            day.classList.add('calToday');
-        }
-
-        let dayNotes = document.createElement('div');
-        dayNotes.classList.add('day-notes');
-        dayNotes.innerText = '3 Notes';
-        day.appendChild(dayNotes);
-
-        daysField.appendChild(day);
-
         //link to daily overview
-        /* TODO: clickable link needs to lead to dailyOverview (see above)
         day.addEventListener('click', () => {
             window.location.href =
                 dayOVLink +
@@ -232,7 +218,17 @@ function setupCalendar(date) {
                 '/' +
                 currYearNumber;
         });
-        */
+        //check if today (so we can highlight it)
+        if (i == current.getDate() && current.getMonth() == currMonthNumber) {
+            day.classList.add('calToday');
+        }
+
+        let dayNotes = document.createElement('div');
+        dayNotes.classList.add('day-notes');
+        dayNotes.innerText = '3 Notes';
+        day.appendChild(dayNotes);
+
+        daysField.appendChild(day);
     }
 
     //pad with more fake days at the end
@@ -312,6 +308,19 @@ function monthNumber(month) {
         return '' + (month + 1);
     } else {
         return '0' + (month + 1);
+    }
+}
+
+/**
+ * Formats the day number
+ * @param {*} day one-indexed day integer
+ * @returns a day number string like "22" for 22nd day of month
+ */
+function dayNumber(day) {
+    if (day > 9) {
+        return '' + day;
+    } else {
+        return '0' + day;
     }
 }
 

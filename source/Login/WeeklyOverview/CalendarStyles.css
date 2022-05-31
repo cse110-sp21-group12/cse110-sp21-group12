@@ -238,9 +238,9 @@ ul {
 #goalReminder {
     background-color: white;
     border-radius: 2vw;
-    border-style: solid;
+    /* border-style: solid; */
     border-width: 1mm;
-    border-color: black;
+    /* border-color: black; */
     margin-top: 2vh;
     width: 75vw;
 
@@ -254,8 +254,9 @@ ul {
 
 #monthGoal {
     grid-row-start: month;
-    height: 8.5vh;
-    max-height: 10vh;
+    /* padding-left: 10px; */
+    height: 8.5vmin;
+    max-height: 10vmin;
     overflow: auto;
 }
 
@@ -268,8 +269,8 @@ ul {
 
 #yearGoal {
     grid-row-start: year;
-    height: 8.5vh;
-    max-height: 10vh;
+    height: 8.5vmin;
+    max-height: 10vmin;
     overflow: auto;
 }
 
