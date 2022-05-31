@@ -3,15 +3,30 @@
     <head>
         <title>Weekly Overview</title>
         <link rel="stylesheet" href="WeeklyStyles.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/svg" href="../Images/GreenDino.svg" />
+        <title>Weekly Overview</title>
     </head>
     <body>
         <div class="wrapper">
             <div class="header">
                 <div id="header_date"></div>
                 <div id="header_button_container">
-                    <button id="header_calendar_button">calendar</button>
-                    <button id="header_settings_button" onclick="openSetting">
-                        settings
+                    <button
+                        id="header_calendar_button"
+                        title="Monthly Calendar"
+                    >
+                        <img src="../Images/calendar-icon.png" />
+                    </button>
+                    <button
+                        id="header_settings_button"
+                        title="User Settings"
+                        onclick="openSetting"
+                    >
+                        <img src="../Images/settings-icon.png" />
                     </button>
                 </div>
             </div>
@@ -22,6 +37,7 @@
                         <hr style="width: 100%" , size="5" , color="black" />
                         <ul id="weekly_list"></ul>
                     </div>
+                    <img src="../Images/GreenDino.svg" id="notesDino" />
                 </div>
                 <div class="monthly_column">
                     <div id="notes">

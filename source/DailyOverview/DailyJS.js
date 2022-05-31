@@ -465,8 +465,6 @@ left.addEventListener('click', () => {
     if (window.img[relative]) {
         processCurrentImage();
     }
-
-    console.log(relative, window.img);
 });
 
 right.addEventListener('click', () => {
@@ -480,8 +478,6 @@ right.addEventListener('click', () => {
     if (window.img[relative]) {
         processCurrentImage();
     }
-
-    console.log(relative, window.img);
 });
 
 // save image that was chosen in file selector to db and display it
