@@ -34,6 +34,7 @@ loginButton.addEventListener('click', handleLoginButton);
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
+    verifyValidInputs(settingObj.username, passwordField.value);
     handleResetPassword();
 });
 
@@ -108,12 +109,12 @@ function handleSignup(newUsername, newPassword) {
  * handle reset password functionaliy of the associated
  */
 function handleResetPassword() {
-    loginButton.setAttribute = ('value', 'Confirm');
-    loginButton.removeEventListener('click', handleLoginButton);
-    loginButton.addEventListener('click', () => {
+    resetPasswordButton.innerHTML = "Comfirm"
+        //loginButton.removeEventListener('click', handleLoginButton);
+    resetPasswordButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-            if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            // if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
                     username: settingObj.username,
                     password: passwordField.value,
@@ -126,7 +127,7 @@ function handleResetPassword() {
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
-            }
+       // }
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
@@ -163,10 +164,10 @@ myInput.onkeyup = function() {
   if(myInput.value.match(lowerCaseLetters)) {
     letter.classList.remove("invalid");
     letter.classList.add("valid");
-    flag = flag+1;
   } else {
     letter.classList.remove("valid");
     letter.classList.add("invalid");
+   // return false;
 }
 
   // Validate capital letters
@@ -174,10 +175,10 @@ myInput.onkeyup = function() {
   if(myInput.value.match(upperCaseLetters)) {
     capital.classList.remove("invalid");
     capital.classList.add("valid");
-    flag = flag+1;
   } else {
     capital.classList.remove("valid");
     capital.classList.add("invalid");
+   // return false;
   }
 
   // Validate numbers
@@ -185,29 +186,24 @@ myInput.onkeyup = function() {
   if(myInput.value.match(numbers)) {
     number.classList.remove("invalid");
     number.classList.add("valid");
-    flag = flag+1;
   } else {
     number.classList.remove("valid");
     number.classList.add("invalid");
+   // return false;
   }
 
   // Validate length
-  if(myInput.value.length >= 8) {
+  if(myInput.value.length >= 4) {
     length.classList.remove("invalid");
     length.classList.add("valid");
-    flag = flag+1;
   } else {
     length.classList.remove("valid");
     length.classList.add("invalid");
+   // return false;
   }
 }
 
-  if(flag == 4){
-      return true;
-  }
-  else{
-      return false;
-  }
+ return true;
     //prohibit empty username
     // if (newUsername == '') {
     //     alert('Please provide a username');

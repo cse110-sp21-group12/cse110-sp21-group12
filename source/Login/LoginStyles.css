@@ -1,7 +1,7 @@
 * {
     font-family: 'Courier', monospace;
-    font-weight: bold;
     color: #585858;
+    font-weight: bold;
     font-size: larger;
 }
 
@@ -23,13 +23,13 @@ body {
     flex-direction: column;
     justify-content: center;
     width: 40vw;
-    height: 50vh;
+    height: 40vh;
     background-color: white;
     border-style: solid;
     border-color: #585858;
     border-width: 0.3vw;
     border-radius: 1.5vw;
-    position: relative;
+    padding: 50px;
 }
 
 #content > * {
@@ -48,25 +48,25 @@ body {
     margin-left: 7.5vw;
 }
 
-#login-button {
+
+
+.UP{
+    display: inline-block;
     background-color: #1e942d;
-    color: black;
+    font-weight: normal;
+    font-family: "Times New Roman";
+    color: rgb(214, 184, 184);
     border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
+    font-size: 2.5vh;
+    height: 80%;
+    width: 25%;
+    margin-left: 18%
+
+}
+input:invalid {
+    border: 3px solid red;
 }
 
-#reset-password-button {
-    background-color: #1e942d;
-    color: black;
-    border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
-}
 
 input {
     background-color: white;
@@ -74,10 +74,10 @@ input {
     flex-grow: 1;
     font-size: 3vw;
     margin: 1%;
-    height: 10%;
+    height: 5%;
 
     width: 100%;
-    padding: 12px;
+    padding: 1px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -85,10 +85,7 @@ input {
     margin-bottom: 16px;
 }
 
-button[id=login-button] {
-    background-color: #46da46;
-    color: rgb(234, 240, 234);
-  }
+
 
 #switch-screen {
     font-size: medium;
@@ -101,16 +98,35 @@ button[id=login-button] {
 
 .container {
     background-color: #f1f1f1;
-    padding: 20px;
+    padding: 30px;
   }
   
   #message {
+    text-align: left;
+    width: 43vw;
+    height: 40vh;
+    margin-left: 7.5vw;
     display:none;
-    background: #f1f1f1;
+    background: #eceace;
     color: #000;
+    left: 80%;
+    padding: 3%;
+    margin-top: 1%;
+    position: center;
+    font-size: 20px;
+    border: 1%;
     position: relative;
-    padding: 20px;
-    margin-top: 10px;
+    left: 560px;
+  }
+
+  #message h3 {
+    font-family: "Times New Roman";
+    font-size: 20px;
+  }
+  #message p {
+    font-family: "Times New Roman";
+    padding: 2px 20px;
+    font-size: 20px;
   }
 
 /* Add a green text color and a checkmark when the requirements are right */

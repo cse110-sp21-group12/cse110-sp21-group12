@@ -11,27 +11,28 @@
             <img src="../Images/Logo.svg" id="big-logo" />
             <div id="content" class = "container">
                 <h3 id="title">Welcome back!</h3>
-                <form action = "index.php" method = "post">
+            
                 <input
                     type="text"
                     placeholder="Username"
                     id="username"
                 />
                 <label for="'pin"> Password </label>
-                <input type="password" id="pin" placeholder="PIN" name = 'pin' pattern ="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
-                <input type="submit" id = "login-button" value = "Sign in">
-                <button type ="submit" id="reset-password-button">Reset Password</button>
-            </form>
+                <input type="password" id="pin" placeholder="PIN" name = 'pin' pattern="[a-z]{4,8}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
+                <div id = "button">
+                <button class = "UP" id = "login-button">Sign in</button>
+                <button class = "UP" id="reset-password-button">Reset</button>
+                </div>
             </div>
         </div>
 
         <div id="message">
             <h3>Password must contain the following:</h3>
-            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum <b>4 characters</b></p>
-          </div>
+            <p id="letter" class="invalid">A lowercase letter</p>
+            <p id="capital" class="invalid">A capital(uppercase) letter</p>
+            <p id="number" class="invalid">A number</p>
+            <p id="length" class="invalid">Minimum 4 characters</p>
+        </div>
                   
         <script
             src="../Backend/BackendInit.js"
