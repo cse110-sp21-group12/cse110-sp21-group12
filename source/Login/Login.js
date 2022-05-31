@@ -54,7 +54,6 @@ function signIn() {
         signInWithEmailAndPassword(auth, userEmail, password)
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
-                // TODO:
                 customAlert('Successfully signed in!');
                 window.location.replace('./WeeklyOverview/WeeklyOverview.html');
             })

@@ -8,6 +8,8 @@ import {
     updateNote,
 } from '../Backend/BackendInit.js';
 
+// TODO: Fix improper photo rendering with relative index
+
 window.img = new Array(); // used to load image from <input> and draw to canvas
 const canvas = document.getElementById('myCanvas');
 const canv = canvas.getContext('2d');

@@ -35,8 +35,6 @@ function appendBulletToList(bullet, list) {
         bulletParser(bullet['childList'], subList);
         list.append(subList);
     }
-
-    // TODO: Check for features property?
 }
 
 /**
