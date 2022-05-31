@@ -406,7 +406,13 @@ function pushObjToDBPath(path, obj) {
 }
 
 function setObjAtDBPath(path, obj) {
-    set(ref(db, path), obj).catch((err) => console.log(err));
+    set(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data set successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not set successfully: ${error}`);
+        });
 }
 
 /**
@@ -465,12 +471,10 @@ function updateYearsGoals(yearObj) {
 
 /**
  * Update the notes of year/month/day
- * @param {String} year year of notes to update
- * @param {String} month month of notes to update
- * @param {String} day day of notes to update
+ * @param {String} dateStr - of form "mm/dd/yyyy" eg: "02/12/2020"
  * @param {String} notes notes to update
  */
-async function updateNote(year, month, day, notes) {
+async function updateNote(dateStr, notes) {
     const currentUserID = await getUserID()
         .then((user) => {
             return user.uid;
@@ -479,6 +483,8 @@ async function updateNote(year, month, day, notes) {
             console.log(err);
             return;
         });
+
+    const [month, day, year] = dateStr.split('/');
     let dbPath = `${currentUserID}/${year}/${month}/${day}/notes`;
     setObjAtDBPath(dbPath, notes);
 }

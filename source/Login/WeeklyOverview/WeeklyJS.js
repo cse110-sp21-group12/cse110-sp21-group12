@@ -5,6 +5,7 @@ import {
     getMonthName,
     getMonthlyGoals,
     getYearlyGoals,
+    updateNote,
 } from '../../Backend/BackendInit.js';
 
 /**
@@ -83,7 +84,7 @@ async function loadGoalReminders(currDateObj) {
  */
 async function loadNotes(currDateObj) {
     const { day, month, year } = currDateObj;
-    let newNote = document.createElement('note-box');
+    const newNote = document.createElement('note-box');
     const dateStr = `${month}/${day}/${year}`;
     const currDayObj = await getDay(dateStr);
 
@@ -93,9 +94,8 @@ async function loadNotes(currDateObj) {
         return;
     }
 
-    const todaysNotes = currDayObj.notes;
     document.querySelector('#notes').append(newNote);
-    newNote.shadowRoot.querySelector('.noteContent').innerHTML = todaysNotes;
+    newNote.entry = currDayObj.notes.content;
 }
 
 /**
@@ -177,6 +177,14 @@ function populateGoalList(goalDivId, goalsObj) {
     goalDiv.append(list);
 }
 
+/**
+ * Function that updates the notes
+ */
+function updateNotes(currDateString) {
+    const newNote = document.querySelector('note-box').entry;
+    updateNote(currDateString, newNote);
+}
+
 // Open and close Setting container
 document.getElementById('header_settings_button').onclick = function () {
     document.getElementById('settings').style.display = 'block';
@@ -204,6 +212,12 @@ headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
 headerDate.addEventListener('click', () => {
     window.location.replace('../../DailyOverview/DailyOverview.html');
 });
+
+// add listener for saving notes
+const noteSave = document.getElementById('notes-save');
+noteSave.addEventListener('click', () =>
+    updateNotes(`${month}/${day}/${year}`)
+);
 
 // call setup functions
 window.onload = () => {

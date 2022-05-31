@@ -1,5 +1,11 @@
-/* eslint-disable */
-import { getCurrentDate, getDay } from '../Backend/BackendInit.js';
+import {
+    getCurrentDate,
+    getDay,
+    getMonthlyGoals,
+    getYearlyGoals,
+    updateDay,
+    updateNote,
+} from '../Backend/BackendInit.js';
 
 window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
@@ -12,14 +18,18 @@ const currDateString = `${month}/${day}/${year}`;
 // the space in the template literal below is needed for proper rendering
 document.getElementById('date').innerHTML += ` ${currDateString}`;
 
-//set back button
-document.getElementById('monthView').addEventListener('click', () => {
+// set back button
+document.getElementById('home').addEventListener('click', () => {
+    updateDay(currentDay);
     window.location.replace('../Login/WeeklyOverview/WeeklyOverview.html');
 });
 
+// add listener for saving notes
+const noteSave = document.getElementById('notes-save');
+noteSave.addEventListener('click', () => updateNotes());
+
 let relative = 0;
 // Buttons
-const add = document.getElementById('addPhoto');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
@@ -32,6 +42,7 @@ window.onload = () => {
     requestDay();
     fetchMonthGoals();
     fetchYearGoals();
+    setTimeout(() => console.log(currentDay), 500);
 };
 
 /**
@@ -41,26 +52,23 @@ window.onload = () => {
  * @returns void
  */
 async function requestDay() {
-    let req = await getDay(currDateString);
-    if (currentDay === undefined) {
-        // if current day isn't in database, then we create a day from the date and create a new day bullet/area
-        currentDay = initDay(currDateString);
-        createDay(currentDay);
-        let newNote = document.createElement('note-box');
-        document.querySelector('#notes').appendChild(newNote);
-    } else {
-        //Load in bullets
-        let bullets = currentDay.bullets;
-        renderBullets(bullets);
-        // Load in notes
-        let newNote = document.createElement('note-box');
-        newNote.entry = currentDay.notes;
-        document.querySelector('#notes').appendChild(newNote);
-
-        // Load photos
-        let photos = currentDay.photos;
-        renderPhotos(photos);
+    let currDay = await getDay(currDateString);
+    currentDay = currDay;
+    if (currDay === undefined) {
+        return;
     }
+
+    //Load in bullets
+    renderBullets(currDay.bullets);
+
+    // Load in notes
+    let newNote = document.createElement('note-box');
+    newNote.entry = currDay.notes.content;
+    document.querySelector('#notes').appendChild(newNote);
+
+    // Load photos
+    let photos = currDay.photos;
+    renderPhotos(photos);
 }
 
 /**
@@ -68,39 +76,29 @@ async function requestDay() {
  * also renders the monthly goals
  * @returns void
  */
-function fetchMonthGoals() {
+async function fetchMonthGoals() {
     // should we comment out these console logs? Bad coding standards to leave them in prod
-    console.log('fetching month');
-    console.log(currDateString.substring(6));
-    let monthStr = currDateString.substring(0, 3) + currDateString.substring(6);
-    let req = getMonthlyGoals(monthStr);
-    req.onsuccess = function (e) {
-        console.log('got month');
-        let monthObj = e.target.result;
-        console.log(monthObj);
-        if (monthObj === undefined) {
-            // create a new monthly goals if the month we get currently doesn't exist
-            createMonthlyGoals(initMonth(monthStr));
-        } else {
-            //load in bullets
-            monthObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
-                let goalElem = document.createElement('p');
-                goalElem.innerHTML = goal.text;
-                goalElem.style.wordBreak = 'break-all';
-                goalElem.style.overflowX = 'hidden';
-                goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
-                if (goal.done == true) {
-                    goalElem.style.textDecoration = 'line-through';
-                }
-                goalElem.classList.add('month-goal');
-                console.log(goalElem);
-                document.querySelector('#monthGoal').appendChild(goalElem);
-            });
+    let monthObj = await getMonthlyGoals(`${month}/${year}`);
+    if (monthObj === undefined) {
+        return;
+    }
+
+    //load in bullets
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, goal] of Object.entries(monthObj)) {
+        let goalElem = document.createElement('p');
+        goalElem.innerHTML = goal.text;
+        goalElem.style.wordBreak = 'break-all';
+        goalElem.style.overflowX = 'hidden';
+        goalElem.style.marginTop = '0';
+        goalElem.style.paddingRight = '1vh';
+        goalElem.style.fontSize = '1.25vh';
+        if (goal.done == true) {
+            goalElem.style.textDecoration = 'line-through';
         }
-    };
+        goalElem.classList.add('month-goal');
+        document.querySelector('#monthGoal').appendChild(goalElem);
+    }
 }
 
 // code for fetchMonth and fetchYear are exactly the same except one does month other does year
@@ -111,35 +109,27 @@ function fetchMonthGoals() {
  * @returns void
  */
 async function fetchYearGoals() {
-    console.log('fetching year');
-    let yearStr = currDateString.substring(6);
-    let req = await getYearlyGoals(yearStr);
-    req.onsuccess = function (e) {
-        console.log('got year');
-        let yearObj = e.target.result;
-        console.log(yearObj);
-        if (yearObj === undefined) {
-            createYearlyGoals(initYear(yearStr));
-        } else {
-            //load in bullets
-            yearObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
-                let goalElem = document.createElement('p');
-                goalElem.innerHTML = goal.text;
-                goalElem.style.wordBreak = 'break-all';
-                goalElem.style.overflowX = 'hidden';
-                goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
-                if (goal.done == true) {
-                    goalElem.style.textDecoration = 'line-through';
-                }
-                goalElem.classList.add('year-goal');
-                console.log(goalElem);
-                document.querySelector('#yearGoal').appendChild(goalElem);
-            });
+    let yearObj = await getYearlyGoals(`${year}`);
+    if (yearObj === undefined) {
+        return;
+    }
+
+    //load in bullets
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, goal] of Object.entries(yearObj)) {
+        let goalElem = document.createElement('p');
+        goalElem.innerHTML = goal.text;
+        goalElem.style.wordBreak = 'break-all';
+        goalElem.style.overflowX = 'hidden';
+        goalElem.style.marginTop = '0';
+        goalElem.style.paddingRight = '1vh';
+        goalElem.style.fontSize = '1.25vh';
+        if (goal.done == true) {
+            goalElem.style.textDecoration = 'line-through';
         }
-    };
+        goalElem.classList.add('year-goal');
+        document.querySelector('#yearGoal').appendChild(goalElem);
+    }
 }
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
@@ -153,7 +143,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         childList: [],
         features: 'normal',
     });
-    console.log(currentDay);
+
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -161,13 +151,11 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got add event');
     console.log(e.composedPath());
     // gets the index and json object of the current bullet we want to look at
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // console.log('newJson ' + JSON.stringify(newJson));
-    // console.log('index ' + JSON.stringify(index));
+
     // if 3rd layer of nesting, add it to our children
     if (e.composedPath().length > 7) {
         currentDay.bullets[index[0]].childList[index[1]] = newJson;
@@ -181,7 +169,6 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got deleted event');
     console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
@@ -199,14 +186,13 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
     } else {
         currentDay.bullets.splice(firstIndex, 1);
     }
-    updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
+    updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got edited event');
     console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
@@ -228,14 +214,13 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
     } else {
         currentDay.bullets[firstIndex].text = newText;
     }
-    updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
+    updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
     console.log(e.composedPath()[0]);
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     // same logic as 'deleted' and 'edited' lots of similar code, but is there a way to condense it?
@@ -253,14 +238,13 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
     } else {
         currentDay.bullets[firstIndex].done ^= true;
     }
-    updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
+    updateDay(currentDay);
 });
 
 // lets bullet component listen to when a bullet is clicked category
 document.querySelector('#bullets').addEventListener('features', function (e) {
-    console.log('CHANGED CATEGORY');
     console.log(e.composedPath()[0]);
     // same logic as before except this time allows a new feature to be added to each index
     let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
@@ -282,9 +266,9 @@ document.querySelector('#bullets').addEventListener('features', function (e) {
     } else {
         currentDay.bullets[firstIndex].features = newFeature;
     }
-    updateDay(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
+    updateDay(currentDay);
 });
 
 /**
@@ -301,7 +285,7 @@ function renderBullets(bullets) {
         newPost.setAttribute('index', JSON.stringify(i));
         newPost.entry = bullet;
         newPost.index = i;
-        if (bullet.childList.length != 0) {
+        if ('childList' in bullet && bullet.childList.length != 0) {
             i.push(0);
             bullet.childList.forEach((child) => {
                 let newChild = renderChild(child, i);
@@ -313,7 +297,26 @@ function renderBullets(bullets) {
         document.querySelector('#bullets').appendChild(newPost);
         iNum++;
     });
+    setTimeout(() => console.log(currentDay), 500);
 }
+
+// function processBullet(bullet, i) {
+//     let newPost = document.createElement('bullet-entry');
+//     newPost.setAttribute('bulletJson', JSON.stringify(bullet));
+//     newPost.setAttribute('index', JSON.stringify(i));
+//     newPost.entry = bullet;
+//     newPost.index = i;
+//     if (bullet.childList.length != 0) {
+//         i.push(0);
+//         bullet.childList.forEach((child) => {
+//             let newChild = renderChild(child, i);
+//             newPost.child = newChild;
+//             i[i.length - 1]++;
+//         });
+//         i.pop();
+//     }
+//     return newPost;
+// }
 
 /**
  * Function that recursively renders the nested bullets of a given bullet
@@ -327,7 +330,7 @@ function renderChild(bullet, i) {
     newChild.setAttribute('index', JSON.stringify(i));
     newChild.entry = bullet;
     newChild.index = i;
-    if (bullet.childList.length != 0) {
+    if ('childList' in bullet && bullet.childList.length != 0) {
         i.push(0);
         bullet.childList.forEach((child) => {
             let newNewChild = renderChild(child, i);
@@ -357,28 +360,7 @@ function editBullet() {
  */
 function updateNotes() {
     let newNote = document.querySelector('note-box').entry;
-
-    let date = currDateString.split('/'); // [month, day, year]
-    let year = date[2];
-    let month = stripZeroInDate(date[0]);
-    let day = stripZeroInDate(date[1]);
-    updateNote(year, month, day, newNote);
-}
-
-/**
- * Strip out the prepending zero if the given string has.
- * @param {String} string month or day to check if having prepending zero
- * @returns the original string or the string without prepending zero
- */
-function stripZeroInDate(string) {
-    if (string.length > 0) {
-        let prefix = string.charAt(0);
-
-        if (prefix === '0') {
-            return string.charAt(1);
-        }
-        return string;
-    }
+    updateNote(currDateString, newNote);
 }
 
 input.addEventListener('change', (event) => {
@@ -392,19 +374,10 @@ input.addEventListener('change', (event) => {
         window.img[relative].src = base64data;
     };
 });
-// Add an image to the canvas
-add.addEventListener('click', () => {
-    input.type = 'file';
-    save.style.display = 'inline';
-    canv.clearRect(0, 0, canvas.width, canvas.height);
-    relative = window.img.length;
-});
+
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
-    input.type = 'hidden';
-    save.style.display = 'none';
-
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -421,8 +394,8 @@ save.addEventListener('click', () => {
 
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
-    updateDay(currentDay);
 });
+
 left.addEventListener('click', () => {
     relative -= 1;
     if (relative == -1) {
@@ -445,6 +418,7 @@ left.addEventListener('click', () => {
         );
     }
 });
+
 right.addEventListener('click', () => {
     relative += 1;
     if (relative == window.img.length) {
@@ -485,7 +459,7 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
     // Get the aspect ratio, used so the picture always fits inside the canvas
     aspectRatio = imageWidth / imageHeight;
 
-    // If the apsect ratio is less than 1 it's a verical image
+    // If the aspect ratio is less than 1 it's a vertical image
     if (aspectRatio < 1) {
         // Height is the max possible given the canvas
         height = canvasHeight;
@@ -515,6 +489,10 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
  */
 // eslint-disable-next-line no-unused-vars
 function renderPhotos(photos) {
+    if (photos === undefined) {
+        return;
+    }
+
     for (let i = 0; i < photos.length; i++) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];

@@ -199,6 +199,17 @@ span {
     position: relative;
 }
 
+#notes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#notes-save {
+    height: fit-content;
+    margin-right: 1.2vw;
+}
+
 /* css for settings */
 #settings {
     background-color: #ffffff;
