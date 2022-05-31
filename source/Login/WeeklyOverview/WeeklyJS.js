@@ -254,6 +254,18 @@ document.getElementById('banImg-upload').addEventListener('click', async () => {
     loadBannerImage();
 });
 
+// update banner image buttons after upload
+document.getElementById('banImg').addEventListener('input', () => {
+    let file = document.getElementById('banImg').files[0];
+    if (file !== undefined) {
+        document.getElementById('banImg-label').innerHTML = file.name;
+        document.getElementById('banImg-upload').style.display = 'block';
+    } else {
+        document.getElementById('banImg-label').innerHTML = 'Choose File';
+        document.getElementById('banImg-upload').style.display = 'none';
+    }
+});
+
 // user logout handler
 document.getElementById('logout-btn').addEventListener('click', () => {
     signOut(auth)
