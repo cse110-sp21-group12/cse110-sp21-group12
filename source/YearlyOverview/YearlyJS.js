@@ -17,12 +17,12 @@ console.log(currentYear);
 let currentYearRes;
 
 // add the current year to the page so the user can tell what yearly overview they are on
-let currentYearTag = document.createElement("h2")
-console.log(currentYearTag)
-currentYearTag.innerHTML = currentYear
-currentYearTag.id = "currentYear"
-let houseIcon = document.getElementById("house")
-document.getElementById("header").insertBefore(currentYearTag, houseIcon)
+let currentYearTag = document.createElement('h2');
+console.log(currentYearTag);
+currentYearTag.innerHTML = currentYear;
+currentYearTag.id = 'currentYear';
+let houseIcon = document.getElementById('house');
+document.getElementById('header').insertBefore(currentYearTag, houseIcon);
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
