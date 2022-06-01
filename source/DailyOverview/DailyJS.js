@@ -448,7 +448,6 @@ add.addEventListener('click', () => {
     relative = window.img.length;
     console.log(currentDay.photos);
 });
-
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
     //add.style.display = 'inline';
