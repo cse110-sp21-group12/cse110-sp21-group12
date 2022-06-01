@@ -20,7 +20,6 @@ console.log(currentDateStr);
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
-const del = document.getElementById('deletePhoto');
 const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
@@ -449,14 +448,7 @@ add.addEventListener('click', () => {
     relative = window.img.length;
     console.log(currentDay.photos);
 });
-del.addEventListener('click', () => {
-    if(currentDay.photos.length > 0){
-        let idx = currentDay.photos.indexOf(window.img[relative].src);
-        currentDay.photos.splice(idx, 1);
-        canv.clearRect(0, 0, canvas.width, canvas.height);
-        updateDay(currentDay);
-    }
-})
+
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
     //add.style.display = 'inline';
