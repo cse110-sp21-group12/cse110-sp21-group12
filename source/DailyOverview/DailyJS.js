@@ -450,13 +450,13 @@ add.addEventListener('click', () => {
     console.log(currentDay.photos);
 });
 del.addEventListener('click', () => {
-    if(currentDay.photos.length > 0){
+    if (currentDay.photos.length > 0) {
         let idx = currentDay.photos.indexOf(window.img[relative].src);
         currentDay.photos.splice(idx, 1);
         canv.clearRect(0, 0, canvas.width, canvas.height);
         updateDay(currentDay);
     }
-})
+});
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
     //add.style.display = 'inline';
