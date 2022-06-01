@@ -15,7 +15,7 @@
             <div class="header">
                 <div id="header_date" title="Go to Current Day">
                     <h3>may 14 2022</h3>
-                </div>
+                </div>                
                 <div id="header_button_container">
                     <button
                         id="header_calendar_button"
@@ -30,6 +30,7 @@
                     >
                         <img src="../Images/settings-icon.png" />
                     </button>
+                
                 </div>
                 <!-- TODO: make "header_date" a button and style appropriately -->
             </div>
@@ -40,7 +41,6 @@
                         <hr style="width: 100%" , size="5" , color="black" />
                         <ul id="weekly_list"></ul>
                     </div>
-                    <img src="../Images/GreenDino.svg" id="notesDino" />
                 </div>
                 <div class="monthly_column">
                     <div id="notes">
@@ -56,6 +56,9 @@
                             <h2>Yearly:</h2>
                             <div id="yearGoal"></div>
                         </div>
+
+                        <img id="notesDino" src="../Images/GreenDino.svg"/>
+                    
                     </div>
                 </div>
                 <div class="photo_column">
@@ -65,15 +68,6 @@
                         </div>
                         <div id="photo_album">
                             <ul class="stage">
-                                <!-- <li class="image-wrapper">
-                                    <span>Caption 1</span>
-                                    <img src="../Images/dino2.jpg" />
-                                </li>
-
-                                <li class="image-wrapper">
-                                    <span>Caption 2</span>
-                                    <img src="../Images/dino2.jpg" />
-                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -127,5 +121,5 @@
     </body>
 
     <script src="WeeklyJS.js" type="module"></script>
-    <script src="./note.js" type="module"></script>
+    <script src="note.js" type="module"></script>
 </html>

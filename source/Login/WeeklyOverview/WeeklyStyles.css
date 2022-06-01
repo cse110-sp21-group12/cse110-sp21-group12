@@ -89,7 +89,7 @@ body {
     position: relative;
     display: grid;
     grid-template-rows: 1fr 9fr;
-    height: 75vh;
+    height: 74.9vh;
 }
 .photo_header {
     display: grid;
@@ -160,6 +160,7 @@ span {
     background-color: white;
     margin: 0.7vw;
     padding: 0.5vw;
+    height: 45.25vh;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
@@ -301,7 +302,11 @@ button.banner-btn {
 #notesDino {
     height: 13vh;
     width: 10vw;
-    position: absolute;
-    bottom: -3vh;
+    position: relative;
+    top: -9vh;
+    right: 14vh;
+    /* position: absolute;
+    bottom: -1vh;
     right: 55vh;
+    background-color:black; */
 }
