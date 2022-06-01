@@ -412,6 +412,24 @@ async function getBannerImage() {
 }
 
 /**
+ * Get user profile image
+ * @returns default OR base64 URL of profile image if user uploads one
+ */
+async function getProfileImage() {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
+    const dbPath = `${currentUserID}/profileImage`;
+    return getDataAtDBPath(dbPath);
+}
+
+/**
  * get db object for year
  * @param {String} yearStr - the year in the form "yyyy" (eg: "2021")
  * @returns A request for the year object, if none exist with the yearStr,
@@ -554,6 +572,23 @@ async function updateBannerImage(imgStr) {
 }
 
 /**
+ * Update user's new profile image in DB
+ * @param {String} imgStr Image URL of the profile image
+ */
+async function updateProfileImage(imgStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+    let dbPath = `${currentUserID}/profileImage`;
+    setObjAtDBPath(dbPath, imgStr);
+}
+
+/**
  * gets the current settings for the user
  * NOTE: Since there is only 1 user, there is only 1 setting object
  * @returns a request for a settings object
@@ -643,10 +678,12 @@ export {
     getYearlyGoals,
     getTheme,
     getBannerImage,
+    getProfileImage,
     updateDay,
     updateMonthlyGoals,
     updateNote,
     updateYearsGoals,
     updateTheme,
     updateBannerImage,
+    updateProfileImage,
 };

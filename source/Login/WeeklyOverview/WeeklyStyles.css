@@ -217,7 +217,7 @@ span {
 /* css for settings */
 #settings {
     background-color: #ffffff;
-    width: 242px;
+    width: 280px;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -10%);
@@ -269,14 +269,18 @@ input.pwd-btn:hover {
 }
 h2.title {
     display: inline;
-    margin-right: 45%;
+    margin-right: 15%;
+    margin-left: 2%;
+}
+#pass-subti{
+    padding-top: 2.5vh;
 }
 span.close {
     display: inline;
     vertical-align: baseline;
-    font-size: 30px;
+    font-size: 40px;
     text-align: right;
-    margin-left: 5%;
+    margin-left: 0;
 }
 span.close:hover {
     cursor: pointer;
@@ -352,4 +356,31 @@ select {
     position: absolute;
     bottom: -3vh;
     right: 55vh;
+}
+#proImg-label{
+    display: inline-block;
+    width: 12vh;
+    height: 12vh;
+    position: relative;
+    border-radius: 50%;
+    margin-bottom: -4.5vh;
+    margin-right: 3px;
+    overflow: hidden;
+}
+#proImg-label-pic{
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    color: white;
+}
+#proImg-label-pic:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+#proImg{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    display: none;
 }

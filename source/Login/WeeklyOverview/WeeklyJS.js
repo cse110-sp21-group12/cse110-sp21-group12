@@ -10,6 +10,8 @@ import {
     getBase64,
     updateBannerImage,
     getBannerImage,
+    updateProfileImage,
+    getProfileImage,
 } from '../../Backend/BackendInit.js';
 import { auth } from '../../Backend/FirebaseInit.js';
 import {
@@ -225,6 +227,21 @@ async function loadBannerImage() {
     }
 }
 
+/**
+ * Load user customized profile picture
+ */
+async function loadProfileImage() {
+    let proImg = await getProfileImage();
+
+    // only change if user does upload their image
+    if (proImg !== 'default' && proImg !== undefined) {
+        document.getElementById('proImg-label-pic').src = `${proImg}`;
+    } else {
+        document.getElementById('proImg-label-pic').src =
+            '../Images/settings-icon.png';
+    }
+}
+
 // Open and close Setting container
 document.getElementById('header_settings_button').onclick = function () {
     document.getElementById('settings').style.display = 'block';
@@ -262,6 +279,15 @@ document.getElementById('banImg').addEventListener('input', () => {
     } else {
         document.getElementById('banImg-label').innerHTML = 'Choose File';
         document.getElementById('banImg-upload').style.display = 'none';
+    }
+});
+
+// update profile image
+document.getElementById('proImg').addEventListener('input', async () => {
+    let proImg = document.getElementById('proImg').files[0];
+    if (proImg !== undefined) {
+        let proImgURL = await getBase64(proImg);
+        updateProfileImage(proImgURL).then(() => loadProfileImage());
     }
 });
 
@@ -318,6 +344,7 @@ window.onload = () => {
     // load panels
     loadTheme();
     loadBannerImage();
+    loadProfileImage();
     loadWeek();
     loadNotes(currDateObj);
     loadGoalReminders(currDateObj);
