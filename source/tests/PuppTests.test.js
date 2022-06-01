@@ -993,7 +993,7 @@ describe('basic navigation for BJ', () => {
 
         expect(expected).toMatch(linkText); // compare expected month to real month
     });
-    
+
     it('close browser', async () => {
         browser.close();
     });

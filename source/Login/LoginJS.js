@@ -30,14 +30,15 @@ let passwordField = document.getElementById('pin');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 
-loginButton.addEventListener("click", () => {determineUserState(loginState);})
-window.addEventListener("keydown", (e) => {
-    if(e.key == "Enter") {
+loginButton.addEventListener('click', () => {
+    determineUserState(loginState);
+});
+window.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
         loginButton.click();
         determineUserState(loginState);
     }
-})
-
+});
 
 //make the toggle button change the page state
 //let switchButton = document.getElementById('switch-screen');
@@ -45,7 +46,7 @@ window.addEventListener("keydown", (e) => {
 
 window.onload = getLoginState();
 
-function determineUserState(state){
+function determineUserState(state) {
     if (state == 'returning') {
         handleLogin(passwordField.value);
     } else if (state == 'new') {
