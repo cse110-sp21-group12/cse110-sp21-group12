@@ -14,6 +14,22 @@ describe('Google', () => {
 //npm test source/tests/sampleP.test.js
 // need this line for the browser
 const puppeteer = require('puppeteer');
+let date = new Date();
+const MONTH_NAMES = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+let currentMonth = MONTH_NAMES[date.getMonth()];
 
 describe('basic navigation for BJ', () => {
     var browser = null;
@@ -694,7 +710,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth + ' > a', (button) => {
             button.click();
         });
 
@@ -749,7 +765,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth + ' > a', (button) => {
             button.click();
         });
 
@@ -785,7 +801,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth + ' > a', (button) => {
             button.click();
         });
 
@@ -822,7 +838,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth + ' > a', (button) => {
             button.click();
         });
 
@@ -949,22 +965,9 @@ describe('basic navigation for BJ', () => {
 
         /* gets current month name */
         const currentDate = new Date();
-        const monthNames = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ];
+
         const expected = `${
-            monthNames[currentDate.getMonth()]
+            MONTH_NAMES[currentDate.getMonth()]
         } ${currentDate.getFullYear()} Overview`;
 
         /* gets MonthlyOverview link text */
