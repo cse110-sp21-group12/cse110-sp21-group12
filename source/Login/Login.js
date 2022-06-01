@@ -85,7 +85,7 @@ function signUp() {
 
     auth.setPersistence(browserSessionPersistence).then(() => {
         createUserWithEmailAndPassword(auth, userEmail, password)
-            .then(async (userCredential) => {
+            .then((userCredential) => {
                 const user = userCredential.user;
                 if (user) {
                     let data = {
