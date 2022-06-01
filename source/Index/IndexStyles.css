@@ -275,7 +275,7 @@ ul {
 }
 
 #themes {
-    position: relative;
+    /* position: relative; */
     right: 3vw;
     top: 1vw;
     border-radius: 0.8vw;
