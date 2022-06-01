@@ -298,11 +298,11 @@ select {
 .bannerImage {
     margin-top: 25px;
 }
-.banner-text{
+.banner-text {
     display: inline;
     width: 20%;
 }
-#banImg-label{
+#banImg-label {
     width: 80%;
     padding: 1% 4%;
     cursor: pointer;
@@ -318,7 +318,7 @@ select {
     position: absolute;
     z-index: -1;
 }
-#banImg-upload{
+#banImg-upload {
     width: 80%;
     padding: 1.5% 1%;
     cursor: pointer;
@@ -333,7 +333,7 @@ select {
     border-radius: 30px;
     display: none;
 }
-#logout-btn{
+#logout-btn {
     width: 40%;
     padding: 7px;
     top: 50%;
