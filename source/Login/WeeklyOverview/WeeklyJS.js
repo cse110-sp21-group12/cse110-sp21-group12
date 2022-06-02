@@ -306,6 +306,11 @@ document.getElementById('logout-btn').addEventListener('click', () => {
         });
 });
 
+const calendarButton = document.getElementById('header_calendar_button');
+calendarButton.addEventListener('click', () => {
+    window.location.replace('./Calendar.html');
+});
+
 document.getElementById('submitBtn').addEventListener('click', (e) => {
     e.preventDefault(); // prevent refreshing due to form submission
     let old_pwd = document.getElementById('old').value;

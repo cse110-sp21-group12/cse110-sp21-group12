@@ -1,6 +1,6 @@
 import {
-    getCurrentDate,
     getBase64,
+    getCurrentDate,
     getDay,
     getMonthlyGoals,
     getYearlyGoals,
@@ -215,6 +215,10 @@ function processBullet(bullet, i) {
  * @returns void
  */
 function processCurrentImage() {
+    if (window.img.length <= relative) {
+        return;
+    }
+
     canv.clearRect(0, 0, canvas.width, canvas.height);
     const imgDimension = getDimensions(
         canvas.width,
