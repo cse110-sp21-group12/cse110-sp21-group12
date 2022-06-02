@@ -57,7 +57,7 @@ body {
     border-radius: 50%;
     border: 1.5px solid #ffffff;
 }
-#header_settings_button > img{
+#header_settings_button > img {
     margin: 0 auto;
     width: 80px;
     height: 80px;
@@ -78,7 +78,7 @@ body {
     border: 1.5px solid #ffffff;
     background-color: black;
 }
-#header_calendar_button > img{
+#header_calendar_button > img {
     margin: 0 auto;
     width: 80px;
     height: 80px;
