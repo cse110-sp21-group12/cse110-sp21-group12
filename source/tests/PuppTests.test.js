@@ -1,6 +1,5 @@
 /* eslint-disable no-undef*/
 
-
 //const { loadPartialConfigAsync } = require('@babel/core');
 
 /*//sample puppeteer test
