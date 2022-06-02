@@ -2,7 +2,6 @@ import { db, auth, googleProvider } from '../Backend/FirebaseInit.js';
 import {
     browserSessionPersistence,
     signInWithEmailAndPassword,
-    signOut,
     createUserWithEmailAndPassword,
     signInWithPopup,
     GoogleAuthProvider,
@@ -92,6 +91,7 @@ function signUp() {
                     let data = {
                         email: userEmail,
                         theme: '#d4ffd4',
+                        bannerImage: 'default',
                     };
 
                     // add user data to db
@@ -138,12 +138,16 @@ function googleSignIn() {
                     };
                     // eslint-disable-next-line no-undef
                     set(ref(db, `${user.uid}`), data).then(() => {
-                        alert('Successfully signed in!');
-                        window.location.replace('../Index/Index.html');
+                        customAlert('Successfully signed in!');
+                        window.location.replace(
+                            './WeeklyOverview/WeeklyOverview.html'
+                        );
                     });
                 } else {
-                    alert('Successfully signed in!');
-                    window.location.replace('../Index/Index.html');
+                    customAlert('Successfully signed in!');
+                    window.location.replace(
+                        './WeeklyOverview/WeeklyOverview.html'
+                    );
                 }
             })
             .catch((error) => {
@@ -154,23 +158,9 @@ function googleSignIn() {
                 // const email = error.customData.email;
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
-                alert('Login Failed: ' + error.message);
+                customAlert(error.message);
             });
     });
-}
-
-/**
- * Handle user logout event and redirection to login page.
- */
-export function logout() {
-    signOut(auth)
-        .then(() => {
-            // TODO
-            window.location.replace('./Login.html');
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
 }
 
 /**

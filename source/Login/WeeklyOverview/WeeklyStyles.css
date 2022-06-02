@@ -36,8 +36,8 @@ body {
     border-radius: 10px;
 }
 #header_date:hover {
-    border: 1px solid #888;
     background-color: #ddd;
+    color: #888;
 }
 
 #header_button_container {
@@ -47,18 +47,46 @@ body {
     margin-top: -5%;
     display: flex;
 }
-#header_button_container > button {
-    background-color: rgba(217, 217, 217, 0.7);
-    border-radius: 1vh;
-    display: flex;
-    vertical-align: middle;
-    padding: 4%;
+#header_settings_button {
+    position: absolute;
+    top: 0.5vh;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
 }
-#header_button_container > button:hover {
-    border: 1px solid #888;
-    background-color: #ddd;
+#header_settings_button > img {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    background-color: white;
 }
-#header_calendar {
+#header_settings_button > img:hover {
+    filter: brightness(50%);
+    cursor: pointer;
+}
+#header_calendar_button {
+    position: absolute;
+    top: 0.5vh;
+    right: 12.5vh;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    background-color: black;
+}
+#header_calendar_button > img {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    filter: invert();
+}
+#header_calendar_button :hover {
+    filter: invert() brightness(50%);
+    cursor: pointer;
 }
 
 .content {
@@ -217,7 +245,7 @@ span {
 /* css for settings */
 #settings {
     background-color: #ffffff;
-    width: 242px;
+    width: 280px;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -10%);
@@ -232,7 +260,8 @@ img.pwd-icon {
     position: absolute;
     width: 12px;
     opacity: 0.2;
-    margin: 8px;
+    margin-top: 11.25px;
+    margin-left: 10px;
     z-index: 999;
 }
 input.pwd-pass {
@@ -245,6 +274,8 @@ input.pwd-pass {
     font-size: 12px;
     color: #9a9a9a;
     background-color: #f4f8f5;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
 }
 
 input.pwd-btn {
@@ -266,14 +297,18 @@ input.pwd-btn:hover {
 }
 h2.title {
     display: inline;
-    margin-right: 45%;
+    margin-right: 15%;
+    margin-left: 2%;
+}
+#pass-subti {
+    padding-top: 2.5vh;
 }
 span.close {
     display: inline;
     vertical-align: baseline;
-    font-size: 30px;
+    font-size: 40px;
     text-align: right;
-    margin-left: 10%;
+    margin-left: 0;
 }
 span.close:hover {
     cursor: pointer;
@@ -291,12 +326,57 @@ select {
 .bannerImage {
     margin-top: 25px;
 }
-button.banner-btn {
+.banner-text {
+    display: inline;
+    width: 20%;
+}
+#banImg-label {
+    width: 80%;
+    padding: 1% 4%;
+    cursor: pointer;
     font-size: 14px;
     color: black;
     background-color: #ffffff;
     border: 2px solid #39b594;
     border-radius: 30px;
+    display: inline;
+}
+#banImg {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+#banImg-upload {
+    width: 80%;
+    padding: 1.5% 1%;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: -7px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    color: white;
+    background-color: #39b594;
+    border: 2px solid #ffffff;
+    border-radius: 30px;
+    display: none;
+}
+#logout-btn {
+    width: 40%;
+    padding: 7px;
+    top: 50%;
+    margin: 5% 30%;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ffffff;
+    background: #39b594;
+    border: 0px;
+    border-radius: 30px;
+}
+#logout-btn:hover {
+    background: #7eb8a8;
+    cursor: pointer;
 }
 #notesDino {
     height: 13vh;
@@ -304,4 +384,31 @@ button.banner-btn {
     position: absolute;
     bottom: -3vh;
     right: 55vh;
+}
+#proImg-label {
+    display: inline-block;
+    width: 12vh;
+    height: 12vh;
+    position: relative;
+    border-radius: 50%;
+    margin-bottom: -4.5vh;
+    margin-right: 3px;
+    overflow: hidden;
+}
+#proImg-label-pic {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    color: white;
+}
+#proImg-label-pic:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+#proImg {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    display: none;
 }
