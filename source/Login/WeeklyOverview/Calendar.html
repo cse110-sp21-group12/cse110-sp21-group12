@@ -15,12 +15,52 @@
                 <a href="./WeeklyOverview.html"><div class="fa fa-home" style="position: absolute; left: 90vw; top: 2vh; font-size: 5vmax; color:#585858;"></div></a>
                 <div id="goalReminder">
                     <div>
-                        <h2>Monthly Goals:</h2>
-                        <div id="monthGoal"></div>
+                        <div id = "goalContainer">
+                            <h2>Monthly Goals:</h2>
+                            <h2 id="plus-month">+</h2>
+                        </div>
+                        <div id="monthGoal">
+                            <ul>
+                                <li>Task 1</li>
+                                <li>Task 2</li>
+                            </ul>
+                            <form class="entry-form-hide" id="month-form">
+                                <input
+                                    type="text"
+                                    placeholder="New Bullet Text"
+                                    class="entry-form-text"
+                                    id="entry"
+                                />
+                                <input
+                                    type="submit"
+                                    value="Post"
+                                    class="entry-form-button"
+                                    id="entry-button"
+                                />
+                            </form>
+                        </div>
                     </div>
                     <div>
-                        <h2>Yearly Goals:</h2>
-                        <div id="yearGoal"></div>
+                        <div id = "goalContainer">
+                            <h2>Yearly Goals:</h2>
+                            <h2 id="plus-year">+</h2>
+                        </div>
+                        <div id="yearGoal">
+                            <form class="entry-form-hide" id="year-form">
+                                <input
+                                    type="text"
+                                    placeholder="New Bullet Text"
+                                    class="entry-form-text"
+                                    id="entry"
+                                />
+                                <input
+                                    type="submit"
+                                    value="Post"
+                                    class="entry-form-button"
+                                    id="entry-button"
+                                />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
