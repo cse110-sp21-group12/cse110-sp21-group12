@@ -118,7 +118,7 @@ async function loadNotes(currDateObj) {
     }
 
     document.querySelector('#notes').append(newNote);
-    newNote.entry = currDayObj.notes.content;
+    newNote.entry = currDayObj.notes.content || currDayObj.notes;
 }
 
 /**
