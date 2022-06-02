@@ -47,16 +47,16 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#login-button', (button) => {
             button.click();
         });
-        
-        let currYearString = currentYear.toString()
-        await page.$eval("#year_" + currYearString + "_link", (anchor) => {
-            anchor.click()
-        })
 
-        const year = await page.$eval("#currentYear", (header) => {
-            return header.innerHTML
-        })
-        expect(year).toBe(currentYear + " Yearly Overview")
+        let currYearString = currentYear.toString();
+        await page.$eval('#year_' + currYearString + '_link', (anchor) => {
+            anchor.click();
+        });
+
+        const year = await page.$eval('#currentYear', (header) => {
+            return header.innerHTML;
+        });
+        expect(year).toBe(currentYear + ' Yearly Overview');
         done();
         await page.waitForTimeout(3000);
         browser.close();
