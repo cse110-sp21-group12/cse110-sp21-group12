@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 // This test is more for local testing since I am not sure what would happen to the test if it is run on github
 
 describe('basic navigation for BJ', () => {
-    it('Test1: Login, go to specified day, then add 2 photos and view both ', async (done) => {
+    it('Test1: Login, go to specified day, then add 2 photos, view both, delete one ', async (done) => {
         jest.setTimeout(90000);
         const browser = await puppeteer.launch({
             headless: false,
@@ -92,6 +92,9 @@ describe('basic navigation for BJ', () => {
         await page.click('#right', { clickCount: 1 });
         await page.waitForTimeout(1000);
 
+        await page.click('#deletePhoto', {clickCount : 1});
+        await page.waitForTimeout(1000);
+
         // This code below doesn't actually test how many images are stored
         // Why? this test is from a user's perspective and to know how many images are stored would require getting a
         // variable from the DailyJS.js such as currentDay.photos since you clear the canvas every time you
@@ -106,4 +109,6 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(3000);
         browser.close();
     });
+
+
 });

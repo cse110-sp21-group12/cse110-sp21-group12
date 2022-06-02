@@ -13,8 +13,6 @@ const name_regex = /[^\w-]/;
  * survives between reloads
  * -new tabs or closing it will refresh the session
  */
-let storageSession = window.sessionStorage;
-console.log('here is the storage session: ', storageSession);
 
 //store current page state
 let loginState;

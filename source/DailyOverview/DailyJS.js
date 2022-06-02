@@ -15,11 +15,11 @@ let currentDateStr = myLocation.substring(
 if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
-console.log(currentDateStr);
 
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
+const del = document.getElementById('deletePhoto');
 const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
@@ -140,20 +140,15 @@ function requestDay() {
  * @returns void
  */
 function fetchMonthGoals() {
-    console.log('fetching month');
-    console.log(currentDateStr.substring(6));
     let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
     let req = getMonthlyGoals(monthStr);
     req.onsuccess = function (e) {
-        console.log('got month');
         let monthObj = e.target.result;
-        console.log(monthObj);
         if (monthObj === undefined) {
             createMonthlyGoals(initMonth(monthStr));
         } else {
             //load in bullets
             monthObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -165,7 +160,6 @@ function fetchMonthGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('month-goal');
-                console.log(goalElem);
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
         }
@@ -178,19 +172,15 @@ function fetchMonthGoals() {
  * @returns void
  */
 function fetchYearGoals() {
-    console.log('fetching year');
     let yearStr = currentDateStr.substring(6);
     let req = getYearlyGoals(yearStr);
     req.onsuccess = function (e) {
-        console.log('got year');
         let yearObj = e.target.result;
-        console.log(yearObj);
         if (yearObj === undefined) {
             createYearlyGoals(initYear(yearStr));
         } else {
             //load in bullets
             yearObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -201,8 +191,7 @@ function fetchYearGoals() {
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
-                goalElem.classList.add('year-goal');
-                console.log(goalElem);
+                goalElem.classList.add('year-goal'); 
                 document.querySelector('#yearGoal').appendChild(goalElem);
             });
         }
@@ -224,7 +213,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         childList: [],
         features: 'normal',
     });
-    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -430,7 +418,6 @@ function updateNote() {
 
 input.addEventListener('change', (event) => {
     window.img[relative] = new Image();
-
     // This allows you to store blob -> base64
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
@@ -439,6 +426,7 @@ input.addEventListener('change', (event) => {
         window.img[relative].src = base64data;
     };
 });
+
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
@@ -448,6 +436,16 @@ add.addEventListener('click', () => {
     relative = window.img.length;
     console.log(currentDay.photos);
 });
+
+del.addEventListener('click', () => {
+    let idx = currentDay.photos.indexOf(window.img[relative].src);
+    currentDay.photos.splice(idx, 1);
+    window.img.splice(relative, 1);
+    updateDay(currentDay);
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+
+})
+
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
     //add.style.display = 'inline';
@@ -462,7 +460,6 @@ save.addEventListener('click', () => {
     //add.style.display = 'inline';
     save.style.display = 'none';
     cancel.style.display = 'none';
-
     // clear image space before displaying new image
     canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
@@ -478,7 +475,6 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
-
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
     // console.log(currentDay.photos)
@@ -486,6 +482,7 @@ save.addEventListener('click', () => {
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {
+    console.log(relative);
     relative -= 1;
     if (relative == -1) {
         relative = window.img.length - 1;
