@@ -3,16 +3,33 @@
     <head>
         <title>Weekly Overview</title>
         <link rel="stylesheet" href="WeeklyStyles.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/svg" href="../Images/GreenDino.svg" />
+        <title>Weekly Overview</title>
     </head>
     <body>
         <div class="wrapper">
             <div class="header">
-                <div id="header_date">may 14 2022</div>
+                <div id="header_date" title="Go to Current Day">
+                    <h3>may 14 2022</h3>
+                </div>
                 <div id="header_button_container">
-                    <button id="header_calendar_button">calendar</button>
-                    <button id="header_settings_button" onclick="openSetting">
-                        settings
-                    </button>
+                    <div id="header_calendar_button" title="Monthly Calendar">
+                        <img src="../Images/calendar-icon.png" />
+                    </div>
+                    <div
+                        id="header_settings_button"
+                        title="User Settings"
+                        onclick="openSetting"
+                    >
+                        <img
+                            id="profile-btn-img"
+                            src="../Images/settings-icon.png"
+                        />
+                    </div>
                 </div>
                 <!-- TODO: make "header_date" a button and style appropriately -->
             </div>
@@ -23,6 +40,7 @@
                         <hr style="width: 100%" , size="5" , color="black" />
                         <ul id="weekly_list"></ul>
                     </div>
+                    <img src="../Images/GreenDino.svg" id="notesDino" />
                 </div>
                 <div class="monthly_column">
                     <div id="notes">
@@ -61,12 +79,21 @@
                     </div>
                 </div>
                 <div class="container" id="settings">
+                    <label id="proImg-label" for="proImg">
+                        <img
+                            id="proImg-label-pic"
+                            src="../Images/settings-icon.png"
+                        />
+                    </label>
+                    <input
+                        id="proImg"
+                        type="file"
+                        accept="image/png, image/jpeg, image/jpg"
+                    />
                     <h2 class="title">Settings</h2>
-                    <span class="close" id="close-button" onclick="closeSetting"
-                        >&times;</span
-                    >
+                    <span class="close" id="close-button">&times;</span>
                     <div class="passwordForm">
-                        <h3 class="subti">Reset Password</h3>
+                        <h3 class="subti" id="pass-subti">Change Password</h3>
                         <form action="#" method="#">
                             <div class="passField">
                                 <img
@@ -77,14 +104,40 @@
                                 <input
                                     type="password"
                                     class="pwd-pass"
-                                    placeholder="Password"
+                                    id="old"
+                                    placeholder="Old Password"
+                                    value=""
+                                />
+                                <img
+                                    src="../../Images/password-icon.png"
+                                    alt=""
+                                    class="pwd-icon"
+                                />
+                                <input
+                                    type="password"
+                                    class="pwd-pass"
+                                    id="new"
+                                    placeholder="New Password"
+                                    value=""
+                                />
+                                <img
+                                    src="../../Images/password-icon.png"
+                                    alt=""
+                                    class="pwd-icon"
+                                />
+                                <input
+                                    type="password"
+                                    class="pwd-pass"
+                                    id="retype"
+                                    placeholder="Retype New Password"
                                     value=""
                                 />
                             </div>
                             <input
-                                type="button"
+                                id="submitBtn"
+                                type="submit"
                                 class="pwd-btn"
-                                value="Reset"
+                                value="Submit"
                             />
                         </form>
                     </div>
@@ -100,14 +153,28 @@
                         </select>
                     </div>
                     <div class="bannerImage">
-                        Banner Image:
-                        <button class="banner-btn">Choose File</button>
+                        <span class="banner-text">Banner Image:</span>
+                        <label id="banImg-label" for="banImg"
+                            >Choose File</label
+                        >
+                        <input
+                            id="banImg"
+                            type="file"
+                            class="banner-btn"
+                            accept="image/png, image/jpeg, image/jpg"
+                        />
+                        <button id="banImg-upload">Upload</button>
+                    </div>
+                    <br />
+                    <div class="logout">
+                        <button id="logout-btn">Log out</button>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="../../Backend/BackendInit.js" type="module"></script>
+        <script src="../../Backend/FirebaseInit.js" type="module"></script>
+        <script src="../WeeklyOverview/note.js" type="module"></script>
+        <script src="../WeeklyOverview/WeeklyJS.js" type="module"></script>
     </body>
-
-    <script src="WeeklyJS.js" type="module"></script>
-    <script src="./note.js" type="module"></script>
 </html>

@@ -1,23 +1,28 @@
 {
     "README": {
-        "message": "this file only exists for documentation/record purposes"
-   },
+        "message": "this file only exists for documentation/record purposes",
+        "sample emtpy day": {
+            "date": "05/21/2021",
+            "bullets": [],
+            "photos": [],
+            "notes": "This is an empty day...only notes"
+        }
+    },
 
-	"days object store":
-    {
+    "days object store": {
         "date": "05/20/2021",
         "bullets": [
             {
                 "text": "O, Wonder!",
                 "features": "normal",
                 "done": true,
-                "childList": [],
+                "childList": []
             },
             {
                 "text": "How many goodly creatures are there here! ",
                 "features": "important",
                 "done": false,
-                "childList": [],
+                "childList": []
             },
             {
                 "text": "How beauteous mankind is! ",
@@ -40,31 +45,24 @@
                                 "text": "extra child test",
                                 "features": "household",
                                 "done": false,
-                                "childList": [],
+                                "childList": []
                             }
-                        ],
+                        ]
                     },
                     {
                         "text": "child test2",
                         "features": "event",
                         "done": false,
-                        "childList": [],
+                        "childList": []
                     }
-                ],
+                ]
             }
         ],
-        "photos": [ ],
+        "photos": [],
         "notes": "Here is some notes sample test \n this is a note possibly \n here could be another"
     },
-    {
-        "date": "05/21/2021",
-        "bullets": [],
-        "photos": [],
-        "notes": "This is an empty day...only notes"
-    },
 
-	"monthlyGoals Object store":
-    {
+    "monthlyGoals Object store": {
         "month": "12/2021",
         "goals": [
             {
@@ -82,8 +80,7 @@
         ]
     },
 
-    "yearlyGoals Object store": 
-	{
+    "yearlyGoals Object store": {
         "year": "2020",
         "goals": [
             {
