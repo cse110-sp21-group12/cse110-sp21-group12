@@ -210,7 +210,7 @@ function setupCalendar(date) {
         day.addEventListener('click', () => {
             window.location.href =
                 dayOVLink +
-                '#' +
+                '?date=' +
                 monthNumber(currMonthNumber) +
                 '/' +
                 //convert day number into a string
@@ -225,7 +225,7 @@ function setupCalendar(date) {
 
         let dayNotes = document.createElement('div');
         dayNotes.classList.add('day-notes');
-        dayNotes.innerText = '3 Notes';
+        dayNotes.innerText = '3 Tasks';
         day.appendChild(dayNotes);
 
         daysField.appendChild(day);
@@ -243,6 +243,27 @@ function setupCalendar(date) {
     }
 
     calTarget.append(daysField);
+
+    let plusMonth = document.getElementById('plus-month');
+    let plusYear = document.getElementById('plus-year');
+    // plusMonth.onclick = function () {
+    //     document
+    //         .getElementById('month-form')
+    //         .classList.toggle('entry-form-hide');
+    //     document.getElementById('month-form').classList.toggle('entry-form');
+    // };
+    // plusYear.onclick = function () {
+    //     document
+    //         .getElementById('year-form')
+    //         .classList.toggle('entry-form-hide');
+    //     document.getElementById('year-form').classList.toggle('entry-form');
+    // };
+    plusMonth.onclick = function () {
+        window.prompt('Enter new note');
+    };
+    plusYear.onclick = function () {
+        window.prompt('Enter new note');
+    };
 }
 
 window.addEventListener('load', setupContent);
