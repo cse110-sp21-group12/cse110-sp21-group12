@@ -227,11 +227,20 @@ h1 > a:first-child:hover {
     border-width: 1mm;
     border-color: black;
 }
-
+/* added border and made it very visible and when the cursor is on it, the cursor turns to a pointer */
 #addPhoto {
     background-color: transparent;
-    border: none;
-    font-size: 2.75vh;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 2vh;
+    margin-bottom: 10px;
+    color: #565252;
+    cursor: pointer;
+}
+
+/* when user hovers their cursor over the button, it fills in with grey */
+#addPhoto:hover {
+    background-color: #d0c6c6;
 }
 
 #myCanvas {
@@ -239,12 +248,29 @@ h1 > a:first-child:hover {
     width: 100%;
     height: 70%;
 }
+/* made the save and cancel buttons look similar to the add photo button */
+button#save,
+button#cancel {
+    position: relative;
+    left: 4.5vw;
+    background-color: transparent;
+    border: 3px solid black;
+    border-radius: 5px;
+    color: #565252;
+    cursor: pointer;
+}
+/* same as add photo button on hover */
+button#save:hover,
+button#cancel:hover {
+    background-color: #d0c6c6;
+}
 
 button#left,
 button#right {
     background-color: transparent;
     border: none;
     font-size: 2vh;
+    cursor: pointer;
 }
 
 /* Misc */
@@ -266,4 +292,5 @@ button#right {
     background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
+    cursor: pointer;
 }

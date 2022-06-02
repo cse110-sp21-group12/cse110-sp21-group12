@@ -20,6 +20,7 @@ console.log(currentDateStr);
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
+const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
@@ -441,16 +442,29 @@ input.addEventListener('change', (event) => {
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
+    //add.style.display = 'none';
+    cancel.style.display = 'inline';
     save.style.display = 'inline';
-    canv.clearRect(0, 0, canvas.width, canvas.height);
     relative = window.img.length;
+    console.log(currentDay.photos);
+});
+cancel.addEventListener('click', () => {
+    input.type = 'hidden';
+    //add.style.display = 'inline';
+    save.style.display = 'none';
+    cancel.style.display = 'none';
+    relative = 0;
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
+    //add.style.display = 'inline';
     save.style.display = 'none';
+    cancel.style.display = 'none';
 
+    // clear image space before displaying new image
+    canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -467,6 +481,8 @@ save.addEventListener('click', () => {
 
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
+    // console.log(currentDay.photos)
+    // console.log(window.img[relative].src)
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {

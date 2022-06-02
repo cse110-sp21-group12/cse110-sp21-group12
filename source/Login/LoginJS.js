@@ -13,8 +13,6 @@ const name_regex = /[^\w-]/;
  * survives between reloads
  * -new tabs or closing it will refresh the session
  */
-let storageSession = window.sessionStorage;
-console.log('here is the storage session: ', storageSession);
 
 //store current page state
 let loginState;
@@ -33,11 +31,29 @@ let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', handleLoginButton);
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
+
+loginButton.addEventListener('click', () => {
+    determineUserState(loginState);
+});
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
+window.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        loginButton.click();
+        determineUserState(loginState);
+    }
+});
 
 window.onload = getLoginState();
+
+function determineUserState(state) {
+    if (state == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (state == 'new') {
+        handleSignup(usernameField.value.trim(), passwordField.value.trim());
+    }
+}
 
 /**
  * Connects to the database, and sees if
@@ -181,9 +197,6 @@ function verifyValidInputs(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
-    console.log(
-        'Input: ' + password + ' | Correct password: ' + correctPassword
-    );
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef

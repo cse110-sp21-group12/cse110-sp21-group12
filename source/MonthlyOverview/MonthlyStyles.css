@@ -111,6 +111,7 @@ body {
     background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
+    cursor: pointer;
 }
 
 #goals::-webkit-scrollbar {

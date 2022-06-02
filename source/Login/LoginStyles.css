@@ -56,6 +56,11 @@ body {
     font-size: 5vh;
     margin: 0.5% 1vw;
     height: 20%;
+    cursor: pointer;
+    text-decoration: none;
+}
+#login-button:hover {
+    text-decoration: underline;
 }
 
 #reset-password-button {

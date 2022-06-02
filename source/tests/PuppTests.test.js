@@ -1,5 +1,37 @@
 /* eslint-disable no-undef*/
 
+
+//const { loadPartialConfigAsync } = require('@babel/core');
+
+/*//sample puppeteer test
+describe('Google', () => {
+    beforeAll(async () => {
+        await page.goto('https://google.com');
+    });
+    it('should display "google" text on page', async () => {
+        await expect(page).toMatch('google');
+    });
+});*/
+//npm test source/tests/sampleP.test.js
+// need this line for the browser
+const puppeteer = require('puppeteer');
+let date = new Date();
+const MONTH_NAMES = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+let currentMonth = MONTH_NAMES[date.getMonth()];
+
 describe('basic navigation for BJ', () => {
     var browser = null;
     var page = null;
@@ -44,13 +76,11 @@ describe('basic navigation for BJ', () => {
         let msg = null;
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
-            console.log(dialog.message());
             msg = dialog.message();
             // we set up the alert dialog box dismiss handle here so this line only needs to be here once
             await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
-        console.log(msg);
         expect(msg).toMatch('Please provide a username');
     });
 
@@ -131,9 +161,7 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
 
-        await page.$eval('#login-button', (button) => {
-            button.click();
-        });
+        await page.keyboard.press('Enter'); // to check for the enter key functionality
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
@@ -163,7 +191,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '123';
         });
 
-        console.log('here2');
         page.on('dialog', async (dialog) => {
             await page.waitForTimeout(1000);
             msg = dialog.message();
@@ -179,7 +206,6 @@ describe('basic navigation for BJ', () => {
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
         await page.waitForTimeout(300);
-        // console.log("here3")
         const currentDayHigh = await page.$eval('.today', (day) => {
             return day.innerHTML;
         });
@@ -677,7 +703,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test36: navigating through the months should work', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth, (button) => {
             button.click();
         });
 
@@ -732,7 +758,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test39: check yearly goals edited in yearly overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth, (button) => {
             button.click();
         });
 
@@ -768,7 +794,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test41: check yearly goals marked done in daily overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth, (button) => {
             button.click();
         });
 
@@ -805,7 +831,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test43: check yearly goals removed in daily overview', async () => {
-        await page.$eval('#May > a', (button) => {
+        await page.$eval('#' + currentMonth, (button) => {
             button.click();
         });
 
@@ -921,6 +947,7 @@ describe('basic navigation for BJ', () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
+
     it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
         // Testing solution to Issue #27
 
@@ -931,22 +958,9 @@ describe('basic navigation for BJ', () => {
 
         /* gets current month name */
         const currentDate = new Date();
-        const monthNames = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ];
+
         const expected = `${
-            monthNames[currentDate.getMonth()]
+            MONTH_NAMES[currentDate.getMonth()]
         } ${currentDate.getFullYear()} Overview`;
 
         /* gets MonthlyOverview link text */
@@ -977,6 +991,7 @@ describe('basic navigation for BJ', () => {
 
         expect(expected).toMatch(linkText); // compare expected month to real month
     });
+
     it('close browser', async () => {
         browser.close();
     });
