@@ -92,7 +92,7 @@ describe('basic navigation for BJ', () => {
         await page.click('#right', { clickCount: 1 });
         await page.waitForTimeout(1000);
 
-        await page.click('#deletePhoto', {clickCount : 1});
+        await page.click('#deletePhoto', { clickCount: 1 });
         await page.waitForTimeout(1000);
 
         // This code below doesn't actually test how many images are stored
@@ -109,6 +109,4 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(3000);
         browser.close();
     });
-
-
 });

@@ -191,7 +191,7 @@ function fetchYearGoals() {
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
-                goalElem.classList.add('year-goal'); 
+                goalElem.classList.add('year-goal');
                 document.querySelector('#yearGoal').appendChild(goalElem);
             });
         }
@@ -443,8 +443,7 @@ del.addEventListener('click', () => {
     window.img.splice(relative, 1);
     updateDay(currentDay);
     canv.clearRect(0, 0, canvas.width, canvas.height);
-
-})
+});
 
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
