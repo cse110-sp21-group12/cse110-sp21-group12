@@ -116,6 +116,9 @@ Structure
     display: block;
     width: 70%;
 }
+#today-button:hover {
+    text-decoration: underline;
+}
 
 button {
     background-color: var(--bg-color);
@@ -142,7 +145,7 @@ button:hover {
 #content .yearlink:hover {
     -color: var(--bg-color);
     text-decoration: underline;
-    text-decoration-color: var(--bg-color);
+    text-decoration-color: black;
     text-decoration-thickness: 3px;
 }
 
@@ -281,4 +284,5 @@ ul {
     border-radius: 0.8vw;
     font-size: 1vw;
     padding: 0.3vh;
+    cursor: pointer;
 }
