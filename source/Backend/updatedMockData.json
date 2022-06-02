@@ -7,10 +7,9 @@
             "photos": [],
             "notes": "This is an empty day...only notes"
         }
-   },
+    },
 
-	"days object store":
-    {
+    "days object store": {
         "date": "05/20/2021",
         "bullets": [
             {
@@ -59,12 +58,11 @@
                 ]
             }
         ],
-        "photos": [ ],
+        "photos": [],
         "notes": "Here is some notes sample test \n this is a note possibly \n here could be another"
     },
 
-	"monthlyGoals Object store":
-    {
+    "monthlyGoals Object store": {
         "month": "12/2021",
         "goals": [
             {
@@ -82,8 +80,7 @@
         ]
     },
 
-    "yearlyGoals Object store": 
-	{
+    "yearlyGoals Object store": {
         "year": "2020",
         "goals": [
             {
