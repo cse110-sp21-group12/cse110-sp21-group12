@@ -6,90 +6,7 @@ class BulletEntry extends HTMLElement {
         const template = document.createElement('template');
 
         template.innerHTML = `
-            <style>
-                .bullet{
-                    word-break: break-all;
-                    max-width: 100%;
-                    font-size: 2.3vh;
-                }
-                .child{
-                    padding-left: 2vw;
-                }
-                .bullet-container{
-                    display: inline-block; !important
-                }
-                li > span {
-                    position: relative;
-                    left: -5px;
-                }
-                ul {
-                    padding: 0px 0px 0px 15px;
-                    margin: 0;
-                }
-                li {
-                    padding: 5px;
-                }
-                .dropdownContainer {
-                    position: relative;
-                    display: inline-block;
-                }
-                .clicked {
-                    background-color: #858585;
-                }
-                .dropdown {
-                    display: none;
-                    position: absolute;
-                    background-color: #e4e4e4;
-                    min-width: 11vh;
-                    z-index: 1;
-                    transform: translateY(-0.1vh);
-                }
-                .dropdown p {
-                    color: black;
-                    font-size: 1.7vh;
-                    padding: 0.5vh 0.5vh 0.5vh 0.5vh;
-                    display: block;
-                    margin: 0;
-                    background-color: #e4e4e4;
-                }
-                .dropdown p:hover {
-                    background-color: #cecece;
-                    cursor: pointer
-                }
-                .dropdownContainer:hover .dropdown {
-                    display: block;
-                }
-                .dropdownButton {
-                    font-size: 1.5vh;
-                    width: 2vh;
-                    height: 2vh;
-                    transform: translateY(-0.1vh);
-                    padding: 0;
-                    background-color: #e4e4e4;
-                    border: none;
-                    border-radius: 0.5vh;
-                    cursor: pointer;
-                }
-                #features {
-                    width: 100%;
-                    background: transparent;
-                    border: none;
-                    cursor: pointer;
-                    padding: 0.5vh;
-                    background-color: #e4e4e4;
-                    font-family: 'Courier', monospace;
-                    font-weight: bold;
-                    font-size: 1.3vh;
-                }
-                img {
-                    width: 100%;
-                }
-                .row {
-                    display: flex;
-                    flex-direction: row;
-                }
-
-            </style>
+            <link rel="stylesheet" href="bullet.css" />
             <article class="bullet">
                 <div id="container">
                     <ul>
@@ -99,10 +16,10 @@ class BulletEntry extends HTMLElement {
                             <button id="dropdownHover" class="dropdownButton">v</button>
                             <div class="dropdown">
                                 <div class="row">
-                                    <p id="edit"><img src="images/Edit.svg" alt="Edit"></p>
-                                    <p id="delete"><img src="images/Delete.svg" alt="Delete"></p>
-                                    <p id="add"><img src="images/Add.svg" alt="Add"></p>
-                                    <p id="done"><img src="images/Done.svg" alt="Done"></p>
+                                    <p id="edit"><img src="images/Edit.svg" alt="Edit">Edit</p>
+                                    <p id="delete"><img src="images/Delete.svg" alt="Delete">Delete</p>
+                                    <p id="add"><img src="images/Add.svg" alt="Add">Add Subtask</p>
+                                    <p id="done"><img src="images/Done.svg" alt="Done">Mark Done</p>
                                 </div>
                                 <div class="featuresContainer">
                                     <select id="features"> 
