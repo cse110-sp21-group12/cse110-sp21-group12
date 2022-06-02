@@ -41,7 +41,7 @@ class BulletEntry extends HTMLElement {
                     position: absolute;
                     background-color: #e4e4e4;
                     z-index: 1;
-                    transform: translateX(-25%);
+                    transform: translateX(-25%) translateY(-5px);
                 }
                 .dropdown p {
                     position: relative;
@@ -90,7 +90,7 @@ class BulletEntry extends HTMLElement {
                     font-family: 'Courier', monospace;
                     font-weight: bold;
                     padding-top: .5rem;
-                    paddin-bottom: .5rem;
+                    padding-bottom: .5rem;
                 }
                 img {
                     width: 100%;
