@@ -1,11 +1,11 @@
-body{
+body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', Montserrat;
 }
-.wrapper{
+.wrapper {
     background: black;
-    display:grid;
+    display: grid;
     margin: 0px;
     padding: 0px;
     grid-template-rows: 1fr 3fr;
@@ -14,8 +14,8 @@ body{
     height: 100vh;
     width: 100vw;
 }
-.calendar-wrapper{
-    background: #C2F7B5;
+.calendar-wrapper {
+    background: #c2f7b5;
     margin: 0px;
     padding: 0px;
     display: flex;
@@ -25,20 +25,20 @@ body{
     width: 100vw;
 }
 
-.calendar-bg{
+.calendar-bg {
     width: 100vw;
     height: 100vh;
-    background: #C2F7B5;
+    background: #c2f7b5;
     display: inline-block;
 }
 
-.header{
-    background-image: url("../Images/weekly_header.jpg");
+.header {
+    background-image: url('../Images/weekly_header.jpg');
     display: flex;
     flex-direction: column;
     min-height: 0;
 }
-#header_date{
+#header_date {
     position: relative;
     font-family: 'Inter';
     font-style: normal;
@@ -48,30 +48,29 @@ body{
     padding-top: 2%;
 }
 
-.content{
-    display:grid;
+.content {
+    display: grid;
     grid-template-columns: 4fr 3fr 3fr;
 }
-.weekly_preview{
-    background: #C2F7B5;
+.weekly_preview {
+    background: #c2f7b5;
 }
-.monthly_preview{
-    background: #C2F7B5;
+.monthly_preview {
+    background: #c2f7b5;
     display: grid;
     /* grid-template-rows: 2fr 8fr; */
 }
-.photo_album{
+.photo_album {
     background: pink;
     display: grid;
     grid-template-rows: 1fr 9fr;
 }
-.photo_header{
-    display:grid;
+.photo_header {
+    display: grid;
     grid-template-columns: 8fr 2fr;
     text-align: left;
 }
-#photo_title{
-
+#photo_title {
 }
 
 /* Todo Block */
@@ -101,8 +100,6 @@ body{
     border: none;
     font-size: 3vh;
 }
-
-
 
 /* Calendar Block */
 
@@ -137,7 +134,7 @@ body{
 .calDropBtn {
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     font-size: 2.5vw;
     color: white;
     background: #585858;
@@ -146,7 +143,7 @@ body{
 }
 
 .calDropBtn:hover {
-    color:#C2F7B5;
+    color: #c2f7b5;
 }
 
 .show-content {
@@ -159,13 +156,13 @@ body{
     background-color: #f9f9f9;
     color: black;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
+}
 
 .month-link:hover {
     cursor: pointer;
-    color: #C2F7B5;
+    color: #c2f7b5;
     text-decoration: underline;
 }
 
@@ -216,7 +213,7 @@ body{
 
 .calDay:hover {
     cursor: pointer;
-    outline: 2px solid #C2F7B5;
+    outline: 2px solid #c2f7b5;
 }
 
 .calBlankDay {
@@ -228,7 +225,7 @@ body{
     We can change the color to be based on the theme color
 */
 .calToday {
-    background: #C2F7B5;
+    background: #c2f7b5;
 }
 
 ul {
