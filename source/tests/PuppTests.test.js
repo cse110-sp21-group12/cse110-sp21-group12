@@ -221,17 +221,17 @@ describe('basic navigation for BJ', () => {
         expect(currentDayHigh).toMatch(date.toString());
     });
 
-    it ('Home Page test1 : Check that the index.html page have Home and Timeline as their titles', async () => {
+    it('Home Page test1 : Check that the index.html page have Home and Timeline as their titles', async () => {
         await page.waitForTimeout(300);
         const hometitle = await page.$eval('#left-bar', (leftBarDiv) => {
-            return leftBarDiv.querySelector("h1").innerHTML
+            return leftBarDiv.querySelector('h1').innerHTML;
         });
-        expect(hometitle).toMatch("Home")
+        expect(hometitle).toMatch('Home');
         const timeline = await page.$eval('#right-bar', (rightBarDiv) => {
-            return rightBarDiv.querySelector("h1").innerHTML
+            return rightBarDiv.querySelector('h1').innerHTML;
         });
-        expect(timeline).toMatch("Timeline")
-    })
+        expect(timeline).toMatch('Timeline');
+    });
 
     it('Test7: click on "Go to current day", should go to day with correct date heading', async () => {
         await page.$eval('#today-button', (btn) => {
