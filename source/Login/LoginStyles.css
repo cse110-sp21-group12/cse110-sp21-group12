@@ -230,7 +230,7 @@ input[type='email']:focus {
     box-shadow: none;
     right: 1.5vh;
 }
-#signup-button:hover{
+#signup-button:hover {
     text-decoration: underline;
 }
 
