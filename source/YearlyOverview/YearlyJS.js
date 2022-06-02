@@ -33,12 +33,9 @@ window.addEventListener('load', () => {
     }
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         setDB(e.target.result);
         let req = getYearlyGoals(currentYear);
         req.onsuccess = function (e) {
-            console.log('got year');
-            console.log(e.target.result);
             currentYearRes = e.target.result;
             if (currentYearRes === undefined) {
                 currentYearRes = initYear(currentYear);
@@ -52,7 +49,6 @@ window.addEventListener('load', () => {
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
-            console.log('setting initial theme');
             document.documentElement.style.setProperty(
                 '--bg-color',
                 settingObj.theme

@@ -24,8 +24,7 @@ describe('basic navigation for BJ', () => {
         });
         const page = await browser.newPage();
         // this lets us see console.logs in this format : await page.evaluate(() => console.log());
-        page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
-        console.log(typeof(currentYear))
+        // page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
         // NOTE: use this link for when our changes are pushed to the master branch
         // await page.goto(
         //     'https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html'
@@ -58,21 +57,16 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#login-button', (button) => {
             button.click();
         });
-        /**
-         * for some reason, the css selectors don't like underscores or ids beginning with numbers
-         * have to manually traverse through the children to find the correct year
-         * namning mistake
-         * Just going to use 2021 as an example
-         */
-        await page.$eval(`${currentYear}`, (currentYearDiv ) => {
-            
-            console.log(currentYearDiv)
+        
+        let currYearString = currentYear.toString()
+        await page.$eval("#year_" + currYearString + "_link", (anchor) => {
+            anchor.click()
         })
 
         const year = await page.$eval("#currentYear", (header) => {
             return header.innerHTML
         })
-        expect(year).toBe(currentYear + "yearly overview")
+        expect(year).toBe(currentYear + " Yearly Overview")
         done();
         await page.waitForTimeout(3000);
         browser.close();
