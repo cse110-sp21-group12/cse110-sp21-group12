@@ -6,7 +6,96 @@ class BulletEntry extends HTMLElement {
         const template = document.createElement('template');
 
         template.innerHTML = `
-            <link rel="stylesheet" href="bullet.css" />
+            <style>
+                .bullet{
+                    -word-break: break-all;
+                    max-width: 100%;
+                    font-size: 1rem;
+                }
+                .child{
+                    padding-left: 2vw;
+                }
+                .bullet-container{
+                    display: inline-block;
+                }
+                li > span {
+                    position: relative;
+                    left: -5px;
+                }
+                ul {
+                    padding: 0px 0px 0px 15px;
+                    margin: 0;
+                }
+                li {
+                    padding: 5px;
+                }
+                .dropdownContainer {
+                    position: relative;
+                    display: inline-block;
+                }
+                .clicked {
+                    background-color: #858585;
+                }
+                .dropdown {
+                    display: none;
+                    position: absolute;
+                    background-color: #e4e4e4;
+                    z-index: 1;
+                    transform: translateX(-25%);
+                }
+                .dropdown p {
+                    position: relative;
+                    color: black;
+                    font-size: .85rem;
+                    padding: .25rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+                    text-align: center;
+                    justify-content: space-evenly;
+                    margin: 0;
+                    background-color: #e4e4e4;
+                    width: min-content;
+                }
+                .dropdown p > img {
+                    height: 25px;
+                }
+                .dropdown p:hover {
+                    background-color: #cecece;
+                    cursor: pointer
+                }
+                .dropdownContainer:hover .dropdown {
+                    display: block;
+                }
+                .dropdownButton {
+                    font-size: 1.5vh;
+                    width: 2vh;
+                    height: 2vh;
+                    transform: translateY(-0.1vh);
+                    padding: 0;
+                    background-color: #e4e4e4;
+                    border: none;
+                    border-radius: 0.5vh;
+                    cursor: pointer;
+                }
+                #features {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    background-color: #e4e4e4;
+                    font-family: 'Courier', monospace;
+                    font-weight: bold;
+                }
+                img {
+                    width: 100%;
+                }
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+            </style>
             <article class="bullet">
                 <div id="container">
                     <ul>
@@ -18,10 +107,9 @@ class BulletEntry extends HTMLElement {
                                 <div class="row">
                                     <p id="edit"><img src="images/Edit.svg" alt="Edit">Edit</p>
                                     <p id="delete"><img src="images/Delete.svg" alt="Delete">Delete</p>
-                                    <p id="add"><img src="images/Add.svg" alt="Add">Add Subtask</p>
-                                    <p id="done"><img src="images/Done.svg" alt="Done">Mark Done</p>
+                                    <p id="add"><img src="images/Add.svg" alt="Add">Subtask</p>
+                                    <p id="done"><img src="images/Done.svg" alt="Done">Done</p>
                                 </div>
-                                <div class="featuresContainer">
                                     <select id="features"> 
                                         <option id="normal" value="normal">Normal</option> 
                                         <option id="important" value="important">Important</option>
@@ -31,7 +119,6 @@ class BulletEntry extends HTMLElement {
                                         <option id="event" value="event">Event</option>
                                         <option id="other" value="other">Other</option>
                                     </select>
-                                </div>
                             </div>
                         </div>
                         <div class="child"></div>
@@ -129,8 +216,6 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit');
-                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -189,9 +274,6 @@ class BulletEntry extends HTMLElement {
             console.log('testing');
         }
 
-        console.log('features');
-        console.log(entry.features);
-        console.log(this.shadowRoot.getElementById(entry.features));
         this.shadowRoot
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
