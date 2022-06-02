@@ -236,8 +236,11 @@ async function loadProfileImage() {
     // only change if user does upload their image
     if (proImg !== 'default' && proImg !== undefined) {
         document.getElementById('proImg-label-pic').src = `${proImg}`;
+        document.getElementById('profile-btn-img').src = `${proImg}`;
     } else {
         document.getElementById('proImg-label-pic').src =
+            '../Images/settings-icon.png';
+        document.getElementById('profile-btn-img').src =
             '../Images/settings-icon.png';
     }
 }
