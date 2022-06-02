@@ -17,7 +17,7 @@ const months = [
     'December',
 ];
 
-const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+//const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const day_OV_link = '../DailyOverview/DailyOverview.html';
 const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';

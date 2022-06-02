@@ -276,6 +276,10 @@ ul {
     background: var(--bg-color);
 }
 
+.today:hover {
+    text-decoration: underline;
+}
+
 .today {
     font-weight: bold;
 }
