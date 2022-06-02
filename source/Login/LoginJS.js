@@ -38,7 +38,6 @@ resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
 
-
 window.onload = getLoginState();
 
 /**
@@ -109,12 +108,12 @@ function handleSignup(newUsername, newPassword) {
  * handle reset password functionaliy of the associated
  */
 function handleResetPassword() {
-    resetPasswordButton.innerHTML = "Comfirm"
-        //loginButton.removeEventListener('click', handleLoginButton);
+    resetPasswordButton.innerHTML = 'Comfirm';
+    //loginButton.removeEventListener('click', handleLoginButton);
     resetPasswordButton.addEventListener('click', () => {
         if (loginState == 'returning') {
             // update settings
-             if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
                     username: settingObj.username,
                     password: passwordField.value,
@@ -127,7 +126,7 @@ function handleResetPassword() {
                 // log the user in
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
-       }
+            }
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
@@ -141,111 +140,112 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
-
-    var error = document.getElementById("error");
+    var error = document.getElementById('error');
     //prohibit empty username
     if (newUsername == '') {
-        error.textContent = "Username must not be empty"
-        error.style.display = "block";
+        error.textContent = 'Username must not be empty';
+        error.style.display = 'block';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
-        error.textContent = "Username must be at least 2 characters long";
-        error.style.display = "block";
+        error.textContent = 'Username must be at least 2 characters long';
+        error.style.display = 'block';
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
-        error.textContent = "Username must not contain special characters"
-        error.style.display = "block";
+        error.textContent = 'Username must not contain special characters';
+        error.style.display = 'block';
         return false;
     }
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        error.textContent = "PIN must be at least 4 digits long";
-        error.style.display = "block";
+        error.textContent = 'PIN must be at least 4 digits long';
+        error.style.display = 'block';
         return false;
     }
     //prohibit non-numeric PIN
-    else if (!(newPassword.match(".*\\d.*")) || !(newPassword.match(".*[a-z].*")) || !(newPassword.match(".*[A-Z].*")) ){
+    else if (
+        !newPassword.match('.*\\d.*') ||
+        !newPassword.match('.*[a-z].*') ||
+        !newPassword.match('.*[A-Z].*')
+    ) {
         //alert('PIN must contain numbers only');
-        error.textContent = "PIN must Satisfy requirment below"
-        error.style.display = "block";
+        error.textContent = 'PIN must Satisfy requirment below';
+        error.style.display = 'block';
         return false;
     }
 
-    
     //allow otherwise
     else {
         return true;
     }
 }
 
-function validFormat(){
-var myInput = document.getElementById("pin");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
-var flag = 0;
-// When the user clicks on the password field, show the message box
-myInput.onfocus = function() {
-  document.getElementById("message").style.display = "block";
-}
+function validFormat() {
+    var myInput = document.getElementById('pin');
+    var letter = document.getElementById('letter');
+    var capital = document.getElementById('capital');
+    var number = document.getElementById('number');
+    var length = document.getElementById('length');
+    var flag = 0;
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function () {
+        document.getElementById('message').style.display = 'block';
+    };
 
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
-  document.getElementById("message").style.display = "none";
-  error.style.display = "none";
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function () {
+        document.getElementById('message').style.display = 'none';
+        error.style.display = 'none';
+    };
 
-}
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove('invalid');
+            letter.classList.add('valid');
+        } else {
+            letter.classList.remove('valid');
+            letter.classList.add('invalid');
+            // return false;
+        }
 
-// When the user starts to type something inside the password field
-myInput.onkeyup = function() {
-  // Validate lowercase letters
-  var lowerCaseLetters = /[a-z]/g;
-  if(myInput.value.match(lowerCaseLetters)) {
-    letter.classList.remove("invalid");
-    letter.classList.add("valid");
-  } else {
-    letter.classList.remove("valid");
-    letter.classList.add("invalid");
-   // return false;
-}
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove('invalid');
+            capital.classList.add('valid');
+        } else {
+            capital.classList.remove('valid');
+            capital.classList.add('invalid');
+            // return false;
+        }
 
-  // Validate capital letters
-  var upperCaseLetters = /[A-Z]/g;
-  if(myInput.value.match(upperCaseLetters)) {
-    capital.classList.remove("invalid");
-    capital.classList.add("valid");
-  } else {
-    capital.classList.remove("valid");
-    capital.classList.add("invalid");
-   // return false;
-  }
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+            number.classList.remove('invalid');
+            number.classList.add('valid');
+        } else {
+            number.classList.remove('valid');
+            number.classList.add('invalid');
+            // return false;
+        }
 
-  // Validate numbers
-  var numbers = /[0-9]/g;
-  if(myInput.value.match(numbers)) {
-    number.classList.remove("invalid");
-    number.classList.add("valid");
-  } else {
-    number.classList.remove("valid");
-    number.classList.add("invalid");
-   // return false;
-  }
-
-  // Validate length
-  if(myInput.value.length >= 4) {
-    length.classList.remove("invalid");
-    length.classList.add("valid");
-  } else {
-    length.classList.remove("valid");
-    length.classList.add("invalid");
-  }
-}
+        // Validate length
+        if (myInput.value.length >= 4) {
+            length.classList.remove('invalid');
+            length.classList.add('valid');
+        } else {
+            length.classList.remove('valid');
+            length.classList.add('invalid');
+        }
+    };
 }
 
 /**
