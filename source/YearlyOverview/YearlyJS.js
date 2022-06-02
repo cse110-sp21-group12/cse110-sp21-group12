@@ -11,17 +11,17 @@ let currentYear = myLocation.substring(
 if (currentYear == 'html') {
     currentYear = 2021;
 }
-console.log(currentYear);
 // currentYear = '2020';
 // contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
 // add the current year to the page so the user can tell what yearly overview they are on
 let currentYearTag = document.createElement('h2');
-console.log(currentYearTag);
-currentYearTag.innerHTML = currentYear;
+currentYearTag.innerHTML = `${currentYear} Yearly Overview`;
 currentYearTag.id = 'currentYear';
 let houseIcon = document.getElementById('house');
+// this line gets the element header which is the parent of the houseIcon and then puts
+// the current year before the houseIcon in the html
 document.getElementById('header').insertBefore(currentYearTag, houseIcon);
 
 window.addEventListener('load', () => {

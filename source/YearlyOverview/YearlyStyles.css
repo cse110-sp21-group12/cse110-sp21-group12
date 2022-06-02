@@ -71,6 +71,7 @@ body {
     justify-self: center;
     grid-area: currentYear;
     font-size: 5vh;
+    color: rgb(41, 38, 38);
 }
 
 #goalSection {
