@@ -15,6 +15,13 @@ body {
     align-items: stretch;
     height: 100vh;
     width: 100vw;
+
+    /* 
+     * will only apply to those with a specified height
+     * hides whatever is overflowed, which is fine
+     * since we specified the high to be 100% 
+     */
+    overflow-y: hidden;
 }
 .header {
     background-image: url('../Images/weekly_header.jpg');
