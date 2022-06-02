@@ -143,8 +143,10 @@ function setupCalendar() {
     calTarget.appendChild(weekdays_label);
 
     //all the little days
-    let days_field = document.createElement('ul');
-    days_field.classList.add('days_field');
+    //let days_field = document.createElement('ul');
+    // days_field.classList.add('days_field');
+
+    let days_field = document.getElementById('days_field');
     let endDay = daysInMonth(currMonthNumber, currYearNumber);
     console.log('Current month has ' + endDay + ' days');
     //fake days for padding
@@ -194,7 +196,7 @@ function setupCalendar() {
         days_field.appendChild(blank_day);
     }
 
-    calTarget.append(days_field);
+    //calTarget.append(days_field);
 }
 
 //call setup functions
