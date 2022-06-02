@@ -20,7 +20,6 @@ class BulletEntry extends HTMLElement {
                 }
                 li > span {
                     position: relative;
-                    left: -5px;
                 }
                 ul {
                     padding: 0px 0px 0px 15px;
@@ -32,6 +31,7 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer {
                     position: relative;
                     display: inline-block;
+                    top: 5px;
                 }
                 .clicked {
                     background-color: #858585;
@@ -78,6 +78,9 @@ class BulletEntry extends HTMLElement {
                     border-radius: 0.5vh;
                     cursor: pointer;
                 }
+                .dropdownButton > img {
+                    display: block;
+                }
                 #features {
                     width: 100%;
                     background: transparent;
@@ -86,6 +89,8 @@ class BulletEntry extends HTMLElement {
                     background-color: #e4e4e4;
                     font-family: 'Courier', monospace;
                     font-weight: bold;
+                    padding-top: .5rem;
+                    paddin-bottom: .5rem;
                 }
                 img {
                     width: 100%;
@@ -102,7 +107,9 @@ class BulletEntry extends HTMLElement {
                         <li>
                             <span class="bullet-content">Setting text</span>
                         <div class="dropdownContainer">
-                            <button id="dropdownHover" class="dropdownButton">v</button>
+                            <button id="dropdownHover" class="dropdownButton">
+                                <img src="../Images/dropdown-icon.svg" alt="dropdown"/>
+                            </button>
                             <div class="dropdown">
                                 <div class="row">
                                     <p id="edit"><img src="images/Edit.svg" alt="Edit">Edit</p>
