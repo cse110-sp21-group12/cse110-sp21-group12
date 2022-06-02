@@ -1,26 +1,27 @@
 import {
+    EmailAuthProvider,
+    reauthenticateWithCredential,
+    signOut,
+    updatePassword,
+} from '../../Backend/firebase-src/firebase-auth.min.js';
+import {
+    getBannerImage,
     getBase64,
     getCurrentDate,
     getCurrentWeek,
     getDay,
     getMonthName,
     getMonthlyGoals,
+    getProfileImage,
     getTheme,
     getYearlyGoals,
     updateBannerImage,
     updateNote,
-    updateTheme,
-    getBannerImage,
     updateProfileImage,
-    getProfileImage,
+    updateTheme,
 } from '../../Backend/BackendInit.js';
+
 import { auth } from '../../Backend/FirebaseInit.js';
-import {
-    signOut,
-    updatePassword,
-    reauthenticateWithCredential,
-    EmailAuthProvider,
-} from '../../Backend/firebase-src/firebase-auth.min.js';
 
 /**
  * add a bullet to a specified unordered list
@@ -68,6 +69,23 @@ function bulletParser(bullets, list) {
 }
 
 /**
+ * Load user customized banner image
+ */
+async function loadBannerImage() {
+    let banImg = await getBannerImage();
+
+    // only change if user does upload their image
+    if (banImg !== 'default' && banImg !== undefined) {
+        document.querySelector(
+            'div.header'
+        ).style.backgroundImage = `url(${banImg})`;
+    } else {
+        document.querySelector('div.header').style.backgroundImage =
+            '../Images/weekly_header.jpg';
+    }
+}
+
+/**
  * load monthly and yearly goals for current month and yearly from db into goal
  * reminder panel
  * @param {Object} currDateObj - Object with string keys day, month, and year
@@ -101,6 +119,40 @@ async function loadNotes(currDateObj) {
 
     document.querySelector('#notes').append(newNote);
     newNote.entry = currDayObj.notes.content;
+}
+
+/**
+ * Load user customized profile picture
+ */
+async function loadProfileImage() {
+    let proImg = await getProfileImage();
+
+    // only change if user does upload their image
+    if (proImg !== 'default' && proImg !== undefined) {
+        document.getElementById('proImg-label-pic').src = `${proImg}`;
+        document.getElementById('profile-btn-img').src = `${proImg}`;
+    } else {
+        document.getElementById('proImg-label-pic').src =
+            '../Images/settings-icon.png';
+        document.getElementById('profile-btn-img').src =
+            '../Images/settings-icon.png';
+    }
+}
+
+/**
+ * Set user theme with their preference
+ */
+async function loadTheme() {
+    let theme = await getTheme();
+    console.log(theme);
+    document.getElementsByClassName(
+        'weekly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName(
+        'monthly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName('photo_column')[0].style.background = theme;
+    document.getElementById('themes').value = theme;
 }
 
 /**
@@ -184,57 +236,6 @@ function populateGoalList(goalDivId, goalsObj) {
     bulletParser(goalsObj, list);
 
     goalDiv.append(list);
-}
-
-/**
- * Set user theme with their preference
- */
-async function loadTheme() {
-    let theme = await getTheme();
-    console.log(theme);
-    document.getElementsByClassName(
-        'weekly_column'
-    )[0].style.background = theme;
-    document.getElementsByClassName(
-        'monthly_column'
-    )[0].style.background = theme;
-    document.getElementsByClassName('photo_column')[0].style.background = theme;
-    document.getElementById('themes').value = theme;
-}
-
-/**
- * Load user customized banner image
- */
-async function loadBannerImage() {
-    let banImg = await getBannerImage();
-
-    // only change if user does upload their image
-    if (banImg !== 'default' && banImg !== undefined) {
-        document.querySelector(
-            'div.header'
-        ).style.backgroundImage = `url(${banImg})`;
-    } else {
-        document.querySelector('div.header').style.backgroundImage =
-            '../Images/weekly_header.jpg';
-    }
-}
-
-/**
- * Load user customized profile picture
- */
-async function loadProfileImage() {
-    let proImg = await getProfileImage();
-
-    // only change if user does upload their image
-    if (proImg !== 'default' && proImg !== undefined) {
-        document.getElementById('proImg-label-pic').src = `${proImg}`;
-        document.getElementById('profile-btn-img').src = `${proImg}`;
-    } else {
-        document.getElementById('proImg-label-pic').src =
-            '../Images/settings-icon.png';
-        document.getElementById('profile-btn-img').src =
-            '../Images/settings-icon.png';
-    }
 }
 
 /**
