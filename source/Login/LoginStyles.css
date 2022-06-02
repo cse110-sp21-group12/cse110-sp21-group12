@@ -224,8 +224,14 @@ input[type='email']:focus {
     background-color: white;
     color: #38b593;
     border-color: white;
+    border-style: solid;
     flex-grow: 1;
     font-size: 1.5vh;
+    box-shadow: none;
+    right: 1.5vh;
+}
+#signup-button:hover{
+    text-decoration: underline;
 }
 
 #passConfirm {
