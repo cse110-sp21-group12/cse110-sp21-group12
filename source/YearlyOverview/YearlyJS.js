@@ -127,28 +127,28 @@ function renderGoals(goals) {
 }
 
 /**kk */
-//link the months
-document.getElementById('January').children[0].href =
+//link the months; the 'a' tag is the parent now so you can just search by the ids
+document.getElementById('January').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#01/' + currentYear;
-document.getElementById('February').children[0].href =
+document.getElementById('February').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#02/' + currentYear;
-document.getElementById('March').children[0].href =
+document.getElementById('March').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#03/' + currentYear;
-document.getElementById('April').children[0].href =
+document.getElementById('April').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#04/' + currentYear;
-document.getElementById('May').children[0].href =
+document.getElementById('May').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#05/' + currentYear;
-document.getElementById('June').children[0].href =
+document.getElementById('June').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#06/' + currentYear;
-document.getElementById('July').children[0].href =
+document.getElementById('July').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#07/' + currentYear;
-document.getElementById('August').children[0].href =
+document.getElementById('August').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#08/' + currentYear;
-document.getElementById('September').children[0].href =
+document.getElementById('September').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#09/' + currentYear;
-document.getElementById('October').children[0].href =
+document.getElementById('October').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#10/' + currentYear;
-document.getElementById('November').children[0].href =
+document.getElementById('November').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#11/' + currentYear;
-document.getElementById('December').children[0].href =
+document.getElementById('December').href =
     '../MonthlyOverview/MonthlyOverview.html' + '#12/' + currentYear;

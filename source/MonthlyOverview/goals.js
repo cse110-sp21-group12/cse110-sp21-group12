@@ -66,6 +66,7 @@ class GoalsEntry extends HTMLElement {
                     background-color: #e4e4e4;
                     border: none;
                     border-radius: 0.5vh;
+                    cursor:pointer;
                 }
             </style>
             <article class="bullet">
