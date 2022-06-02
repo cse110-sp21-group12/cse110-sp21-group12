@@ -438,14 +438,13 @@ add.addEventListener('click', () => {
 });
 
 del.addEventListener('click', () => {
-    if(window.img.length > 0) {
+    if (window.img.length > 0) {
         let idx = currentDay.photos.indexOf(window.img[relative].src);
         currentDay.photos.splice(idx, 1);
         window.img.splice(relative, 1);
         updateDay(currentDay);
         canv.clearRect(0, 0, canvas.width, canvas.height);
     }
-
 });
 
 cancel.addEventListener('click', () => {
