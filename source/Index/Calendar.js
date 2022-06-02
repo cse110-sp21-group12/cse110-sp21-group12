@@ -148,26 +148,32 @@ function setupCalendar() {
     console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
-    for (let i = 0; i < monthFirstDow; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
+    let i = 0;
+    for (i; i < monthFirstDow; i++) {
+        let blank_day = days_field.children[i];
         blank_day.classList.add('blank_day');
         blank_day.innerText = '';
-        days_field.appendChild(blank_day);
     }
+    console.log(i);
+    console.log(monthFirstDow);
+
+    //i += 1;
 
     //real days
-    for (let i = 1; i <= endDay; i++) {
-        let day = document.createElement('li');
-        day.classList.add('day');
-        day.innerText = i;
+    for (i; i <= monthFirstDow + endDay - 1; i++) {
+        console.log(i);
+        let date = i - monthFirstDow + 1;
+        let day = days_field.children[i];
+        day.innerText = date;
+        console.log(days_field.children[i].tagName);
+        console.log(day.innerText);
 
         //check if today (so we can highlight it)
-        if (i == curr_day_number) {
+        if (date == curr_day_number) {
             day.classList.add('today');
         }
 
-        days_field.appendChild(day);
+        //days_field.appendChild(day);
 
         //link to daily overview
         day.addEventListener('click', () => {
@@ -177,7 +183,7 @@ function setupCalendar() {
                 monthNumber(currMonthNumber) +
                 '/' +
                 //convert day number into a string
-                dayNumber(i) +
+                dayNumber(date) +
                 '/' +
                 currYearNumber;
         });
@@ -185,12 +191,11 @@ function setupCalendar() {
 
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
-    for (let i = monthLastDow; i < 7; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
+    for (i; i < monthFirstDow + endDay + (6 - monthLastDow); i++) {
+        let blank_day = days_field.children[i];
         blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
+        //blank_day.innerText = '';
+        //days_field.appendChild(blank_day);
     }
 
     //calTarget.append(days_field);

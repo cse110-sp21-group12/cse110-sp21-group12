@@ -1,17 +1,10 @@
 class CalendarSquare extends HTMLElement {
     constructor() {
         super();
+        this.classList.add('day');
     }
 }
-window.customElements.define('day-item', CalendarSquare, { extends: 'li' });
-
-class MonthLabel extends HTMLParagraphElement {
-    constructor() {
-        super();
-        this.id = 'month_label';
-    }
-}
-window.customElements.define('month-label', MonthLabel, { extends: 'p' });
+window.customElements.define('day-item', CalendarSquare);
 
 class MonthHeader extends HTMLDivElement {
     constructor() {
