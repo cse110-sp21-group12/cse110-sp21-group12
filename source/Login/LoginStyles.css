@@ -5,11 +5,10 @@
     font-size: larger;
 }
 
-#big-logo{
-    position:relative;
-    width:1%;
-    height:1%;
-
+#big-logo {
+    position: relative;
+    width: 1%;
+    height: 1%;
 }
 
 body {
@@ -22,27 +21,21 @@ body {
     flex-direction: column;
     justify-content: stretch;
     margin-left: 25%;
-    width:50%;
+    width: 50%;
     margin-left: 25%;
-
 }
 
-
-
-#error{
+#error {
     flex-direction: column;
-    font-family: "Times New Roman";
+    font-family: 'Times New Roman';
     font-size: 25px;
-    position:center;
-    color:rgb(175, 73, 73);
+    position: center;
+    color: rgb(175, 73, 73);
     margin-left: 11%;
-    display:"none";
+    display: 'none';
     background-color: #e6ab94;
     margin-bottom: 1%;
-    padding:10px
-
-
-
+    padding: 10px;
 }
 /* TODO:  */
 #content {
@@ -76,29 +69,25 @@ body {
     margin-left: 7.5vw;
 }
 
-
-
-.UP{
+.UP {
     display: inline-block;
     background-color: #1e942d;
     font-weight: normal;
-    font-family: "Times New Roman";
+    font-family: 'Times New Roman';
     color: rgb(214, 184, 184);
     border-radius: 0.5vw;
     font-size: 2.5vh;
     height: 80%;
     width: 25%;
-    margin-left: 18%
-
+    margin-left: 18%;
 }
 input:invalid {
     border: 3px solid red;
 }
 
-
 input {
     background-color: white;
-    
+
     flex-grow: 1;
     font-size: 3vw;
     margin: 1%;
@@ -113,8 +102,6 @@ input {
     margin-bottom: 16px;
 }
 
-
-
 #switch-screen {
     font-size: medium;
     text-align: left;
@@ -127,15 +114,15 @@ input {
 .container {
     background-color: #f1f1f1;
     padding: 30px;
-  }
-  
-  #message {
+}
+
+#message {
     position: relative;
     text-align: left;
     width: 43vw;
     height: 40vh;
     margin-left: 7.5vw;
-    display:none;
+    display: none;
     background: #eceace;
     color: #000;
     left: 80%;
@@ -146,37 +133,36 @@ input {
     border: 1%;
     position: relative;
     left: 560px;
-  }
+}
 
-  #message h3 {
-    font-family: "Times New Roman";
+#message h3 {
+    font-family: 'Times New Roman';
     font-size: 20px;
-  }
-  #message p {
-    font-family: "Times New Roman";
+}
+#message p {
+    font-family: 'Times New Roman';
     padding: 2px 20px;
     font-size: 20px;
-  }
-
+}
 
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;
-  }
-  
-  .valid:before {
+}
+
+.valid:before {
     position: relative;
     left: -35px;
-    content: "✔";
-  }
-  
-  /* Add a red text color and an "x" when the requirements are wrong */
-  .invalid {
+    content: '✔';
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
     color: red;
-  }
-  
-  .invalid:before {
+}
+
+.invalid:before {
     position: relative;
     left: -35px;
-    content: "✖";
+    content: '✖';
 }
