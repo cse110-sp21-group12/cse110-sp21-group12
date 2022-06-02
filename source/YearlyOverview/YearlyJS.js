@@ -27,7 +27,6 @@ document.getElementById('header').insertBefore(currentYearTag, houseIcon);
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
     }
@@ -74,8 +73,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got event');
-    console.log(e.composedPath());
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals.splice(index, 1);
     updateYearsGoals(currentYearRes);
@@ -85,8 +82,6 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
-    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].text = newText;
@@ -97,8 +92,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
-    console.log(e.composedPath()[0]);
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].done ^= true;
     updateYearsGoals(currentYearRes);
@@ -116,7 +109,6 @@ function renderGoals(goals) {
         newPost.setAttribute('goalJson', JSON.stringify(goal));
         newPost.setAttribute('index', i);
         newPost.entry = goal;
-        console.log(newPost);
         document.querySelector('#bullets').appendChild(newPost);
         i++;
     });
