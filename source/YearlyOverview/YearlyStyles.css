@@ -105,6 +105,7 @@ body {
     background-color: var(--bg-color);
     border: none;
     border-radius: 0.5vh;
+    cursor: pointer;
 }
 
 #monthView {
@@ -118,11 +119,14 @@ body {
     max-width: 40%;
 }
 
-#months > h2 {
+#months > a {
     font-size: 2.5vh;
 }
+#months > a :hover {
+    text-decoration: underline;
+}
 
-#months > h2 > a {
+#months > a {
     text-decoration: none;
 }
 
@@ -140,9 +144,10 @@ body {
     /* width: 0px; */
     display: none;
 }
-#January,
-#February,
-#March {
+/* have to do first child since the anchor tag is the parent and the h2 tag is the child */
+#January :first-child,
+#February :first-child,
+#March :first-child {
     background: #c2e0f5 url(../Images/BlueDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
@@ -152,9 +157,11 @@ body {
     border-width: 1mm;
     height: 10vh;
 }
-#April,
-#May,
-#June {
+/* have to do first child since the anchor tag is the parent and the h2 tag is the child */
+
+#April :first-child,
+#May :first-child,
+#June :first-child {
     background: #aad6a2 url(../Images/GreenDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
@@ -164,9 +171,11 @@ body {
     border-width: 1mm;
     height: 10vh;
 }
-#July,
-#August,
-#September {
+/* have to do first child since the anchor tag is the parent and the h2 tag is the child */
+
+#July :first-child,
+#August :first-child,
+#September :first-child {
     background: #ffdea2 url(../Images/YellowDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
@@ -176,9 +185,11 @@ body {
     border-width: 1mm;
     height: 10vh;
 }
-#October,
-#November,
-#December {
+/* have to do first child since the anchor tag is the parent and the h2 tag is the child */
+
+#October :first-child,
+#November :first-child,
+#December :first-child {
     background: #fecf94 url(../Images/OrangeDino.svg) no-repeat 5% 30%;
     background-size: 140% 140%;
     margin: 1vw;
