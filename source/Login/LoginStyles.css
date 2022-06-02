@@ -43,7 +43,7 @@ body {
     border: none;
 }
 
-#title{
+#title {
     position: relative;
     right: 11vh;
 }
@@ -92,7 +92,7 @@ body {
 }
 /* this code taken from https://codepen.io/seme332/pen/reJOwo */
 #google-button:hover {
-    box-shadow: 0px 15px 20px #DDDDDD;
+    box-shadow: 0px 15px 20px #dddddd;
     transform: translateY(-2px);
 }
 #google-button img {
@@ -162,7 +162,7 @@ body {
 }
 /* this code taken from https://codepen.io/seme332/pen/reJOwo */
 #login-button:hover {
-    background-color: #2EE59D;
+    background-color: #2ee59d;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
     color: #fff;
     transform: translateY(-2px);
