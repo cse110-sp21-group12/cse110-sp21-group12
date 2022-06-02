@@ -109,7 +109,7 @@ function setupContent() {
 
 //dynamically generates calendar for current month
 function setupCalendar() {
-    const calTarget = document.getElementById('calendar');
+    //const calTarget = document.getElementById('calendar');
 
     //get today code stolen from stackoverflow
     var today = new Date();
@@ -122,25 +122,22 @@ function setupCalendar() {
 
     //month title on top
     //wrapper
-    let month_header = document.createElement('div');
-    month_header.classList.add('month_header');
-    //text
-    let month_label = document.createElement('p');
-    month_label.classList.add('month_label');
+    //let month_header = document.getElementById('month_header');
+    let month_label = document.getElementById('month_label');
     month_label.innerText = months[currMonthNumber];
-    month_header.appendChild(month_label);
-    calTarget.appendChild(month_header);
+    // month_header.appendChild(month_label);
+    // calTarget.appendChild(month_header);
 
     //top bar of weekday names
-    let weekdays_label = document.createElement('ul');
-    weekdays_label.classList.add('weekdays_label');
-    for (let i = 0; i < weekdays.length; i++) {
-        let weekday = document.createElement('li');
-        weekday.innerText = weekdays[i];
-        weekday.classList.add('weekday');
-        weekdays_label.appendChild(weekday);
-    }
-    calTarget.appendChild(weekdays_label);
+    // let weekdays_label = document.createElement('ul');
+    // weekdays_label.classList.add('weekdays_label');
+    // for (let i = 0; i < weekdays.length; i++) {
+    //     let weekday = document.createElement('li');
+    //     weekday.innerText = weekdays[i];
+    //     weekday.classList.add('weekday');
+    //     weekdays_label.appendChild(weekday);
+    // }
+    // calTarget.appendChild(weekdays_label);
 
     //all the little days
     //let days_field = document.createElement('ul');
