@@ -1,12 +1,26 @@
 import {
+    getBase64,
     getCurrentDate,
     getCurrentWeek,
     getDay,
     getMonthName,
     getMonthlyGoals,
+    getTheme,
     getYearlyGoals,
+    updateBannerImage,
     updateNote,
+    updateTheme,
+    getBannerImage,
+    updateProfileImage,
+    getProfileImage,
 } from '../../Backend/BackendInit.js';
+import { auth } from '../../Backend/FirebaseInit.js';
+import {
+    signOut,
+    updatePassword,
+    reauthenticateWithCredential,
+    EmailAuthProvider,
+} from '../../Backend/firebase-src/firebase-auth.min.js';
 
 /**
  * add a bullet to a specified unordered list
@@ -155,7 +169,7 @@ async function loadWeek() {
  * populate a newly created unordered list by iterating through goals object.
  * This is list is then stored under the HTML element with id goalDivId
  * @param {String} goalDivId - the HTML div id of the goals section
- * @param {} goalsObj - the object we need to parse through and append to a
+ * @param {Object} goalsObj - the object we need to parse through and append to a
  *                      newly created unordered list
  * @returns void
  */
@@ -170,6 +184,57 @@ function populateGoalList(goalDivId, goalsObj) {
     bulletParser(goalsObj, list);
 
     goalDiv.append(list);
+}
+
+/**
+ * Set user theme with their preference
+ */
+async function loadTheme() {
+    let theme = await getTheme();
+    console.log(theme);
+    document.getElementsByClassName(
+        'weekly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName(
+        'monthly_column'
+    )[0].style.background = theme;
+    document.getElementsByClassName('photo_column')[0].style.background = theme;
+    document.getElementById('themes').value = theme;
+}
+
+/**
+ * Load user customized banner image
+ */
+async function loadBannerImage() {
+    let banImg = await getBannerImage();
+
+    // only change if user does upload their image
+    if (banImg !== 'default' && banImg !== undefined) {
+        document.querySelector(
+            'div.header'
+        ).style.backgroundImage = `url(${banImg})`;
+    } else {
+        document.querySelector('div.header').style.backgroundImage =
+            '../Images/weekly_header.jpg';
+    }
+}
+
+/**
+ * Load user customized profile picture
+ */
+async function loadProfileImage() {
+    let proImg = await getProfileImage();
+
+    // only change if user does upload their image
+    if (proImg !== 'default' && proImg !== undefined) {
+        document.getElementById('proImg-label-pic').src = `${proImg}`;
+        document.getElementById('profile-btn-img').src = `${proImg}`;
+    } else {
+        document.getElementById('proImg-label-pic').src =
+            '../Images/settings-icon.png';
+        document.getElementById('profile-btn-img').src =
+            '../Images/settings-icon.png';
+    }
 }
 
 /**
@@ -196,6 +261,78 @@ document.getElementById('themes').addEventListener('change', function (e) {
         e.target.value;
     document.getElementsByClassName('photo_column')[0].style.background =
         e.target.value;
+
+    // update theme preference in DB
+    updateTheme(e.target.value);
+});
+
+// update banner image
+document.getElementById('banImg-upload').addEventListener('click', async () => {
+    let banImg = document.getElementById('banImg').files[0];
+    let banImgURL = await getBase64(banImg);
+    updateBannerImage(banImgURL).then(() => loadBannerImage());
+});
+
+// update banner image buttons after upload
+document.getElementById('banImg').addEventListener('input', () => {
+    let file = document.getElementById('banImg').files[0];
+    if (file !== undefined) {
+        document.getElementById('banImg-label').innerHTML = file.name;
+        document.getElementById('banImg-upload').style.display = 'block';
+    } else {
+        document.getElementById('banImg-label').innerHTML = 'Choose File';
+        document.getElementById('banImg-upload').style.display = 'none';
+    }
+});
+
+// update profile image
+document.getElementById('proImg').addEventListener('input', async () => {
+    let proImg = document.getElementById('proImg').files[0];
+    if (proImg !== undefined) {
+        let proImgURL = await getBase64(proImg);
+        updateProfileImage(proImgURL).then(() => loadProfileImage());
+    }
+});
+
+// user logout handler
+document.getElementById('logout-btn').addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            window.location.replace('../Login.html');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
+document.getElementById('submitBtn').addEventListener('click', (e) => {
+    e.preventDefault(); // prevent refreshing due to form submission
+    let old_pwd = document.getElementById('old').value;
+    let new_pwd = document.getElementById('new').value;
+    let retype_pwd = document.getElementById('retype').value;
+
+    if (new_pwd !== retype_pwd) {
+        alert('Passwords did not match');
+    } else {
+        let cred = EmailAuthProvider.credential(
+            auth.currentUser.email,
+            old_pwd
+        );
+        // security check
+        reauthenticateWithCredential(auth.currentUser, cred)
+            .then(() => {
+                updatePassword(auth.currentUser, new_pwd).then(() => {
+                    alert('Password updated!');
+                    // clear form fields
+                    document.getElementById('old').value = '';
+                    document.getElementById('new').value = '';
+                    document.getElementById('retype').value = '';
+                });
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }
 });
 
 // make the date header of the page reflect the current date
@@ -217,6 +354,9 @@ noteSave.addEventListener('click', () =>
 // call setup functions
 window.onload = () => {
     // load panels
+    loadTheme();
+    loadBannerImage();
+    loadProfileImage();
     loadWeek();
     loadNotes(currDateObj);
     loadGoalReminders(currDateObj);
