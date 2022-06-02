@@ -166,9 +166,7 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
 
-        await page.$eval('#login-button', (button) => {
-            button.click();
-        });
+        await page.keyboard.press('Enter'); // to check for the enter key functionality
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
@@ -998,6 +996,7 @@ describe('basic navigation for BJ', () => {
 
         expect(expected).toMatch(linkText); // compare expected month to real month
     });
+
     it('close browser', async () => {
         browser.close();
     });
