@@ -26,7 +26,7 @@ body {
     display: grid;
     margin: 1vh;
 
-    grid-template-areas: 'back . . .  . headerHome';
+    grid-template-areas: 'back . currentYear  . headerHome';
 }
 
 #house {
@@ -63,6 +63,15 @@ body {
     flex-direction: row;
     justify-items: stretch;
     justify-content: space-evenly;
+}
+/* this is the current year of the yearly overview so the user can see what year they are on */
+#currentYear {
+    text-align: center;
+    display: flex;
+    justify-self: center;
+    grid-area: currentYear;
+    font-size: 5vh;
+    color: rgb(41, 38, 38);
 }
 
 #goalSection {
