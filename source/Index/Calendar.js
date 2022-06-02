@@ -39,7 +39,7 @@ function setupContent() {
         //wrapper
         let year_wrapper = document.createElement('div');
         // I added year_ because id's shoud start with a letter
-        year_wrapper.id = "year_" + yr;
+        year_wrapper.id = 'year_' + yr;
         //
         //button group
         let year_nav = document.createElement('div');
@@ -55,7 +55,7 @@ function setupContent() {
         let yearlink = document.createElement('a');
         yearlink.classList.add('yearlink');
         // I added year_ because id's shoud start with a letter
-        yearlink.id = "year_" + yr + '_link';
+        yearlink.id = 'year_' + yr + '_link';
         //yearlink.href = '/year/' + yr + '.html';
         yearlink.href = year_OV_link + '#' + yr;
         yearlink.innerText = yr + ' Yearly Overview';
