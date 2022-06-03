@@ -1,3 +1,4 @@
+
 /* eslint-disable no-undef*/
 
 //const { loadPartialConfigAsync } = require('@babel/core');
@@ -54,7 +55,7 @@ describe('basic navigation for BJ', () => {
         await page.waitForTimeout(1000);
     });
 
-    it('Test1: Initial Home Page - Shows create your account ', async () => {
+    it('Test1: Initial Home Page - Shows create your login ', async () => {
         const headerText = await page.$eval('#title', (header) => {
             return header.innerHTML;
         });
@@ -111,7 +112,9 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            // await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('Username must not contain special characters');
@@ -127,7 +130,9 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            // await dialog.dismiss();
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('PIN must be at least 4 digits long');
@@ -144,7 +149,9 @@ describe('basic navigation for BJ', () => {
 
         let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            // await dialog.dismiss();
+            msg = dialog.message();
         });
         await page.click('#login-button', { clickCount: 1 });
         expect(msg).toMatch('PIN must contain numbers only');
@@ -201,6 +208,53 @@ describe('basic navigation for BJ', () => {
         });
         expect(msg).toMatch('Incorrect password!');
     });
+
+
+   // test if reset update in backend
+    it('Test5.1: rest will update the password for that user stored in backend', async () => {
+        // jest.setTimeout(30000);
+        // await page.$eval('#username', (usernameInput) => {
+        //     usernameInput.value = 'SampleUsername';
+        // });
+
+        await page.$eval('#reset-password-button', (button) => {
+            button.click();
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '12345';
+        });
+        await page.$eval('#login-button', (button) => {
+            button.click();
+        });
+
+        // page.on('dialog', async (dialog) => {
+        //     await page.waitForTimeout(1000);
+        //     // await dialog.dismiss()
+        // });
+        await page.goBack();
+        let msg;
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
+
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234';
+        });
+
+        page.on('dialog', async (dialog) => {
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            // await dialog.dismiss()
+        });
+
+        await page.$eval('#login-button', (button) => {
+            button.click();
+        });
+        expect(msg).toMatch('Incorrect password!');
+
+    });
+
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
