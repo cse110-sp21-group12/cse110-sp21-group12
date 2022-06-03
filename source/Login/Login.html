@@ -11,11 +11,15 @@
             <img src="../Images/Logo.svg" id="big-logo" />
             <h3 id="title">Welcome back!</h3>
             <div id="content" class="container">
-                <div id="error" >
-                </div>
-                <label for="'pin" class = "PT" id = "US">Username </label>
-                <input type="text" placeholder="Username" id="username" style="display: flex;">
-                <label for="'pin" class = "PT"> Password </label>
+                <div id="error"></div>
+                <label for="'pin" class="PT" id="US">Username </label>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    id="username"
+                    style="display: flex"
+                />
+                <label for="'pin" class="PT"> Password </label>
                 <input
                     type="password"
                     id="pin"
@@ -23,25 +27,38 @@
                     name="pin"
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 />
-                <div id="button" >
-                    <button class="UP" id="login-button" >Sign in</button>
+                <div id="button">
+                    <button class="UP" id="login-button">Sign in</button>
                     <button class="UP" id="reset-password-button">Reset</button>
                 </div>
             </div>
             <div id="message">
-                <button class="clickable" type="button" aria-label="Dismiss this message">
-                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
-                  <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-              </svg>
-                  </button>
+                <button
+                    class="clickable"
+                    type="button"
+                    aria-label="Dismiss this message"
+                >
+                    <svg
+                        aria-hidden="true"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        version="1.1"
+                        width="16"
+                        data-view-component="true"
+                        class="octicon octicon-x"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"
+                        ></path>
+                    </svg>
+                </button>
                 <p id="letter" class="invalid">A lowercase letter</p>
                 <p id="capital" class="invalid">A capital(uppercase) letter</p>
                 <p id="number" class="invalid">A number</p>
                 <p id="length" class="invalid">Minimum 4 characters</p>
             </div>
         </div>
-
-       
 
         <script
             src="../Backend/BackendInit.js"
