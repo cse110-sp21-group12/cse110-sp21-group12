@@ -54,13 +54,13 @@ function googleSignIn() {
                     set(ref(db, `${user.uid}`), data).then(() => {
                         customAlert('Successfully signed in!');
                         window.location.replace(
-                            './WeeklyOverview/WeeklyOverview.html'
+                            '../WeeklyOverview/WeeklyOverview.html'
                         );
                     });
                 } else {
                     customAlert('Successfully signed in!');
                     window.location.replace(
-                        './WeeklyOverview/WeeklyOverview.html'
+                        '../WeeklyOverview/WeeklyOverview.html'
                     );
                 }
             })
@@ -199,7 +199,9 @@ function signIn() {
             // eslint-disable-next-line no-unused-vars
             .then((userCredential) => {
                 customAlert('Successfully signed in!');
-                window.location.replace('./WeeklyOverview/WeeklyOverview.html');
+                window.location.replace(
+                    '../WeeklyOverview/WeeklyOverview.html'
+                );
             })
             .catch((error) => {
                 customAlert('Login Failed: ' + error.message);
@@ -243,7 +245,7 @@ function signUp() {
                     set(ref(db, `${user.uid}`), data).then(() => {
                         customAlert('Successful Sign Up');
                         window.location.replace(
-                            './WeeklyOverview/WeeklyOverview.html'
+                            '../WeeklyOverview/WeeklyOverview.html'
                         );
                     });
                 }

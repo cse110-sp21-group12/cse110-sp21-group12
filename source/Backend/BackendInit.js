@@ -1,4 +1,4 @@
-import { auth, db } from '../Backend/FirebaseInit.js';
+import { auth, db } from './FirebaseInit.js';
 import {
     get,
     push,
@@ -6,7 +6,7 @@ import {
     remove,
     set,
     update,
-} from '../Backend/firebase-src/firebase-database.min.js';
+} from './firebase-src/firebase-database.min.js';
 
 // see getMonthName()
 const monthNames = [

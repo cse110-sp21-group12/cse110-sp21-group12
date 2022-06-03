@@ -3,7 +3,7 @@ import {
     reauthenticateWithCredential,
     signOut,
     updatePassword,
-} from '../../Backend/firebase-src/firebase-auth.min.js';
+} from '../Backend/firebase-src/firebase-auth.min.js';
 import {
     getBannerImage,
     getBase64,
@@ -19,9 +19,9 @@ import {
     updateNote,
     updateProfileImage,
     updateTheme,
-} from '../../Backend/BackendInit.js';
+} from '../Backend/BackendInit.js';
 
-import { auth } from '../../Backend/FirebaseInit.js';
+import { auth } from '../Backend/FirebaseInit.js';
 
 const currDateObj = getCurrentDate();
 
@@ -136,7 +136,7 @@ function eventListenerSetup() {
 
     const calendarButton = document.getElementById('header_calendar_button');
     calendarButton.addEventListener('click', () => {
-        window.location.replace('./Calendar.html');
+        window.location.replace('../Calendar/Calendar.html');
     });
 
     document.getElementById('submitBtn').addEventListener('click', (e) => {
@@ -175,7 +175,7 @@ function eventListenerSetup() {
     headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
     // clicking main date header on weekly overview will navigate to daily overview
     headerDate.addEventListener('click', () => {
-        window.location.replace('../../DailyOverview/DailyOverview.html');
+        window.location.replace('../DailyOverview/DailyOverview.html');
     });
 
     // add listener for saving notes

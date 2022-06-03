@@ -357,7 +357,7 @@ document.getElementById('date').innerHTML += ` ${currDateString}`;
 // set back button
 document.getElementById('home').addEventListener('click', () => {
     updateDay(currentDay);
-    window.location.replace('../Login/WeeklyOverview/WeeklyOverview.html');
+    window.location.replace('../WeeklyOverview/WeeklyOverview.html');
 });
 
 // add listener for saving notes

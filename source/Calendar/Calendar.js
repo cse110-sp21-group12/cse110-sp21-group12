@@ -5,7 +5,7 @@ import {
     getYearlyGoals,
     updateMonthlyGoals,
     updateYearlyGoals,
-} from '../../Backend/BackendInit.js';
+} from '../Backend/BackendInit.js';
 
 const months = [
     'January',
@@ -23,7 +23,7 @@ const months = [
 ];
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const dayOVLink = '../../DailyOverview/DailyOverview.html';
+const dayOVLink = '../DailyOverview/DailyOverview.html';
 
 let monthObj;
 let yearObj;
@@ -31,6 +31,7 @@ let today, paddedDateStr;
 
 window.onload = async () => {
     await setupCalendar();
+    console.log(monthObj, yearObj);
     eventListenerSetup(monthObj, '#monthGoal', '#plus-month', (obj) =>
         updateMonthlyGoals(obj)
     );
