@@ -38,6 +38,7 @@ loginButton.addEventListener('click', () => {
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
+
 window.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
         loginButton.click();
@@ -123,9 +124,9 @@ function handleSignup(newUsername, newPassword) {
  * handle reset password functionaliy of the associated
  */
 function handleResetPassword() {
-    loginButton.innerHTML = 'Confirm';
-    loginButton.removeEventListener('click', handleLoginButton);
-    loginButton.addEventListener('click', () => {
+    resetPasswordButton.innerHTML = 'Confirm';
+    resetPasswordButton.addEventListener('click', () => {
+        //loginButton.removeEventListener('click', handleLoginButton);
         if (loginState == 'returning') {
             // update settings
             if (verifyValidInputs(settingObj.username, passwordField.value)) {
