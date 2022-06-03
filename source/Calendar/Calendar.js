@@ -101,7 +101,6 @@ function eventListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
             .text;
         let index = getIndexFromEvent(e);
         goalObj.goals[index].text = newText;
-        console.log(goalObj);
         callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
     });

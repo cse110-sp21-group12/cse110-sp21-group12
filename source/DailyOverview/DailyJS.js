@@ -54,7 +54,6 @@ window.onload = async () => {
  * @returns void
  */
 function bulletChangeResolution() {
-    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -101,7 +100,6 @@ async function fetchGoals(goalsObj, listId, newClass) {
  */
 function generalBulletListener(e, callback) {
     const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    console.log(e.composedPath()[0], index);
     // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
     const firstIndex = index[0];
     if (index.length > 1) {
@@ -357,7 +355,6 @@ document.getElementById('date').innerHTML += ` ${currDateString}`;
 
 // set back button
 document.getElementById('home').addEventListener('click', () => {
-    console.log(currentDay);
     updateDay(currentDay);
     window.location.replace('../WeeklyOverview/WeeklyOverview.html');
 });

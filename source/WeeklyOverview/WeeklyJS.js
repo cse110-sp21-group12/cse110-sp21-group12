@@ -262,7 +262,6 @@ async function loadProfileImage() {
  */
 async function loadTheme() {
     let theme = await getTheme();
-    console.log(theme);
     document.getElementsByClassName(
         'weekly_column'
     )[0].style.background = theme;
@@ -344,7 +343,6 @@ async function loadWeek() {
  * @returns void
  */
 function populateGoalList(goalDivId, goalsObj) {
-    console.log(goalsObj);
     if (goalsObj === undefined) {
         return;
     }
