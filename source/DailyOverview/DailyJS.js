@@ -345,7 +345,8 @@ function toggleBulletStatus(obj) {
  * @returns void
  */
 function updateNotes() {
-    const newNote = document.querySelector('note-box').entry;
+    const newNote = document.querySelector('note-box').entry.content;
+    currentDay.notes = newNote;
     updateNote(currDateString, newNote);
 }
 
@@ -356,6 +357,7 @@ document.getElementById('date').innerHTML += ` ${currDateString}`;
 
 // set back button
 document.getElementById('home').addEventListener('click', () => {
+    console.log(currentDay);
     updateDay(currentDay);
     window.location.replace('../WeeklyOverview/WeeklyOverview.html');
 });

@@ -31,7 +31,6 @@ let today, paddedDateStr;
 
 window.onload = async () => {
     await setupCalendar();
-    console.log(monthObj, yearObj);
     eventListenerSetup(monthObj, '#monthGoal', '#plus-month', (obj) =>
         updateMonthlyGoals(obj)
     );
@@ -88,7 +87,12 @@ function eventListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
 
     addHeader.addEventListener('click', function () {
         const newGoalTxt = window.prompt('Enter new goal title');
+        if (!('goals' in goalObj)) {
+            goalObj.goals = [];
+        }
+
         goalObj.goals.push({ text: newGoalTxt, done: false });
+        callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
     });
 

@@ -42,6 +42,7 @@ function appendBulletToList(bullet, list) {
     if (bullet.done == true) {
         newBullet.style.textDecoration = 'line-through';
     }
+
     list.append(newBullet);
 
     // if there is a childList containing more bullets, begin rendering
@@ -343,6 +344,7 @@ async function loadWeek() {
  * @returns void
  */
 function populateGoalList(goalDivId, goalsObj) {
+    console.log(goalsObj);
     if (goalsObj === undefined) {
         return;
     }
@@ -359,7 +361,7 @@ function populateGoalList(goalDivId, goalsObj) {
  * Function that updates the notes
  */
 function updateNotes(currDateString) {
-    const newNote = document.querySelector('note-box').entry;
+    const newNote = document.querySelector('note-box').entry.content;
     updateNote(currDateString, newNote);
 }
 
