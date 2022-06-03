@@ -326,6 +326,18 @@ async function getDataAtDBPath(path) {
     }
 }
 
+// TODO: Refactor getCurrentDay
+function getDateObj(dateStr) {
+    var today = new Date(dateStr);
+    const dateObj = {
+        day: String(today.getDate()).padStart(2, '0'),
+        month: String(today.getMonth() + 1).padStart(2, '0'), // January is 0
+        year: String(today.getFullYear()),
+    };
+
+    return dateObj;
+}
+
 /**
  * get db object from day
  * @param {String} dateStr - of form "mm/dd/yyyy" eg: "02/12/2020"
@@ -358,10 +370,32 @@ function getMonthName(monthNumber) {
 }
 
 /**
- * get db object from month
+ * get db object for an entire month object
  * @param {String} monthStr - month along with year in the form "xx/xxxx"
  *  (eg: "02/2022")
- * @returns a request for a monthlyGoals object if none with the monthStr
+ * @returns a request for a month object. if none with the monthStr
+ *  exist, returns undefined
+ */
+async function getMonthObj(monthStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
+    const [month, year] = monthStr.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}`;
+    return getDataAtDBPath(dbPath);
+}
+
+/**
+ * get db object for a month's goals
+ * @param {String} monthStr - month along with year in the form "xx/xxxx"
+ *  (eg: "02/2022")
+ * @returns a request for a monthlyGoals object. if none with the monthStr
  *  exist, returns undefined
  */
 async function getMonthlyGoals(monthStr) {
@@ -591,7 +625,7 @@ async function updateTheme(newTheme) {
  * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
-function updateYearsGoals(yearObj) {
+function updateYearlyGoals(yearObj) {
     createYearlyGoals(yearObj);
 }
 
@@ -608,8 +642,10 @@ export {
     getBase64,
     getCurrentDate,
     getCurrentWeek,
+    getDateObj,
     getDay,
     getMonthName,
+    getMonthObj,
     getMonthlyGoals,
     getProfileImage,
     getTheme,
@@ -620,5 +656,5 @@ export {
     updateNote,
     updateProfileImage,
     updateTheme,
-    updateYearsGoals,
+    updateYearlyGoals,
 };

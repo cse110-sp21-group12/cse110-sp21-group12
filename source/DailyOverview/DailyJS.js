@@ -1,6 +1,7 @@
 import {
     getBase64,
     getCurrentDate,
+    getDateObj,
     getDay,
     getMonthlyGoals,
     getYearlyGoals,
@@ -21,7 +22,14 @@ const right = document.getElementById('right');
 const save = document.getElementById('save');
 const remove = document.getElementById('delete');
 
-const { day, month, year } = getCurrentDate();
+const params = new URLSearchParams(window.location.search);
+let currDateObj;
+if (params.has('date')) {
+    currDateObj = getDateObj(params.get('date'));
+} else {
+    currDateObj = getCurrentDate();
+}
+const { day, month, year } = currDateObj;
 const currDateString = `${month}/${day}/${year}`;
 
 let relative = 0; // index used for accessing images
@@ -93,6 +101,7 @@ async function fetchGoals(goalsObj, listId, newClass) {
  */
 function generalBulletListener(e, callback) {
     const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    console.log(e.composedPath()[0], index);
     // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
     const firstIndex = index[0];
     if (index.length > 1) {

@@ -23,6 +23,8 @@ import {
 
 import { auth } from '../../Backend/FirebaseInit.js';
 
+const currDateObj = getCurrentDate();
+
 /**
  * add a bullet to a specified unordered list
  * @param {Object} bullet - can either be a goals object (with keys text and
@@ -66,6 +68,121 @@ function bulletParser(bullets, list) {
     for (const [_, bullet] of Object.entries(bullets)) {
         appendBulletToList(bullet, list);
     }
+}
+
+function eventListenerSetup() {
+    // update banner image buttons after upload
+    document.getElementById('banImg').addEventListener('input', () => {
+        let file = document.getElementById('banImg').files[0];
+        if (file !== undefined) {
+            document.getElementById('banImg-label').innerHTML = file.name;
+            document.getElementById('banImg-upload').style.display = 'block';
+        } else {
+            document.getElementById('banImg-label').innerHTML = 'Choose File';
+            document.getElementById('banImg-upload').style.display = 'none';
+        }
+    });
+
+    // update banner image
+    const bannerImageUpload = document.getElementById('banImg-upload');
+    bannerImageUpload.addEventListener('click', async () => {
+        let banImg = document.getElementById('banImg').files[0];
+        let banImgURL = await getBase64(banImg);
+        updateBannerImage(banImgURL).then(() => loadBannerImage());
+    });
+
+    // Open and close Setting container
+    document.getElementById('close-button').onclick = function () {
+        document.getElementById('settings').style.display = 'none';
+    };
+
+    const headerSettingsBtn = document.getElementById('header_settings_button');
+    headerSettingsBtn.addEventListener('click', () => {
+        document.getElementById('settings').style.display = 'block';
+    });
+
+    // Change background color on select
+    document.getElementById('themes').addEventListener('change', function (e) {
+        document.getElementsByClassName('weekly_column')[0].style.background =
+            e.target.value;
+        document.getElementsByClassName('monthly_column')[0].style.background =
+            e.target.value;
+        document.getElementsByClassName('photo_column')[0].style.background =
+            e.target.value;
+
+        // update theme preference in DB
+        updateTheme(e.target.value);
+    });
+
+    // update profile image
+    document.getElementById('proImg').addEventListener('input', async () => {
+        let proImg = document.getElementById('proImg').files[0];
+        if (proImg !== undefined) {
+            let proImgURL = await getBase64(proImg);
+            updateProfileImage(proImgURL).then(() => loadProfileImage());
+        }
+    });
+
+    // user logout handler
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        signOut(auth)
+            .then(() => {
+                window.location.replace('../Login.html');
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    });
+
+    const calendarButton = document.getElementById('header_calendar_button');
+    calendarButton.addEventListener('click', () => {
+        window.location.replace('./Calendar.html');
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', (e) => {
+        e.preventDefault(); // prevent refreshing due to form submission
+        let old_pwd = document.getElementById('old').value;
+        let new_pwd = document.getElementById('new').value;
+        let retype_pwd = document.getElementById('retype').value;
+
+        if (new_pwd !== retype_pwd) {
+            alert('Passwords did not match');
+        } else {
+            let cred = EmailAuthProvider.credential(
+                auth.currentUser.email,
+                old_pwd
+            );
+            // security check
+            reauthenticateWithCredential(auth.currentUser, cred)
+                .then(() => {
+                    updatePassword(auth.currentUser, new_pwd).then(() => {
+                        alert('Password updated!');
+                        // clear form fields
+                        document.getElementById('old').value = '';
+                        document.getElementById('new').value = '';
+                        document.getElementById('retype').value = '';
+                    });
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+    });
+
+    // make the date header of the page reflect the current date
+    const headerDate = document.getElementById('header_date');
+    const { day, month, year } = currDateObj;
+    headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
+    // clicking main date header on weekly overview will navigate to daily overview
+    headerDate.addEventListener('click', () => {
+        window.location.replace('../../DailyOverview/DailyOverview.html');
+    });
+
+    // add listener for saving notes
+    const noteSave = document.getElementById('notes-save');
+    noteSave.addEventListener('click', () =>
+        updateNotes(`${month}/${day}/${year}`)
+    );
 }
 
 /**
@@ -246,119 +363,10 @@ function updateNotes(currDateString) {
     updateNote(currDateString, newNote);
 }
 
-// Open and close Setting container
-document.getElementById('header_settings_button').onclick = function () {
-    document.getElementById('settings').style.display = 'block';
-};
-document.getElementById('close-button').onclick = function () {
-    document.getElementById('settings').style.display = 'none';
-};
-
-// Change background color on select
-document.getElementById('themes').addEventListener('change', function (e) {
-    document.getElementsByClassName('weekly_column')[0].style.background =
-        e.target.value;
-    document.getElementsByClassName('monthly_column')[0].style.background =
-        e.target.value;
-    document.getElementsByClassName('photo_column')[0].style.background =
-        e.target.value;
-
-    // update theme preference in DB
-    updateTheme(e.target.value);
-});
-
-// update banner image
-document.getElementById('banImg-upload').addEventListener('click', async () => {
-    let banImg = document.getElementById('banImg').files[0];
-    let banImgURL = await getBase64(banImg);
-    updateBannerImage(banImgURL).then(() => loadBannerImage());
-});
-
-// update banner image buttons after upload
-document.getElementById('banImg').addEventListener('input', () => {
-    let file = document.getElementById('banImg').files[0];
-    if (file !== undefined) {
-        document.getElementById('banImg-label').innerHTML = file.name;
-        document.getElementById('banImg-upload').style.display = 'block';
-    } else {
-        document.getElementById('banImg-label').innerHTML = 'Choose File';
-        document.getElementById('banImg-upload').style.display = 'none';
-    }
-});
-
-// update profile image
-document.getElementById('proImg').addEventListener('input', async () => {
-    let proImg = document.getElementById('proImg').files[0];
-    if (proImg !== undefined) {
-        let proImgURL = await getBase64(proImg);
-        updateProfileImage(proImgURL).then(() => loadProfileImage());
-    }
-});
-
-// user logout handler
-document.getElementById('logout-btn').addEventListener('click', () => {
-    signOut(auth)
-        .then(() => {
-            window.location.replace('../Login.html');
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
-});
-
-const calendarButton = document.getElementById('header_calendar_button');
-calendarButton.addEventListener('click', () => {
-    window.location.replace('./Calendar.html');
-});
-
-document.getElementById('submitBtn').addEventListener('click', (e) => {
-    e.preventDefault(); // prevent refreshing due to form submission
-    let old_pwd = document.getElementById('old').value;
-    let new_pwd = document.getElementById('new').value;
-    let retype_pwd = document.getElementById('retype').value;
-
-    if (new_pwd !== retype_pwd) {
-        alert('Passwords did not match');
-    } else {
-        let cred = EmailAuthProvider.credential(
-            auth.currentUser.email,
-            old_pwd
-        );
-        // security check
-        reauthenticateWithCredential(auth.currentUser, cred)
-            .then(() => {
-                updatePassword(auth.currentUser, new_pwd).then(() => {
-                    alert('Password updated!');
-                    // clear form fields
-                    document.getElementById('old').value = '';
-                    document.getElementById('new').value = '';
-                    document.getElementById('retype').value = '';
-                });
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    }
-});
-
-// make the date header of the page reflect the current date
-const headerDate = document.getElementById('header_date');
-const currDateObj = getCurrentDate();
-const { day, month, year } = currDateObj;
-headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
-// clicking main date header on weekly overview will navigate to daily overview
-headerDate.addEventListener('click', () => {
-    window.location.replace('../../DailyOverview/DailyOverview.html');
-});
-
-// add listener for saving notes
-const noteSave = document.getElementById('notes-save');
-noteSave.addEventListener('click', () =>
-    updateNotes(`${month}/${day}/${year}`)
-);
-
 // call setup functions
 window.onload = () => {
+    eventListenerSetup();
+
     // load panels
     loadTheme();
     loadBannerImage();

@@ -281,17 +281,13 @@ ul {
     margin-block-end: 0em;
 }
 
-#plus-month {
+#plus-month, #plus-year {
     flex: 2;
     text-align: center;
+    cursor: pointer;
 }
 
-#plus-year {
-    flex: 2;
-    text-align: center;
-}
-
-#goalContainer {
+.goalContainer {
     display: flex;
 }
 

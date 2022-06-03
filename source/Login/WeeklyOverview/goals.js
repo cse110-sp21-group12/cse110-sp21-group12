@@ -6,7 +6,7 @@ class GoalsEntry extends HTMLElement {
 
         template.innerHTML = `
             <style>
-                .bullet{
+                .bullet {
                     word-break: break-all;
                     max-width: 100%;
                     font-size: 2.3vh;
@@ -67,7 +67,7 @@ class GoalsEntry extends HTMLElement {
                 }
             </style>
             <article class="bullet">
-            <div id="container">
+            <div id="container" style="margin-left:10px;">
                 <ul>
                     <li>
                         <span class="bullet-content">Setting text</span>
@@ -76,7 +76,7 @@ class GoalsEntry extends HTMLElement {
                         <div class="dropdown">
                             <p id="edit">Edit</p>
                             <p id="delete">Delete</p>
-                            <p id="done">Mark Done</p>
+                            <p id="done">Toggle Done</p>
                         </div>
                     </div>
                     </li>
@@ -91,6 +91,10 @@ class GoalsEntry extends HTMLElement {
         // edit goal through a prompt
         this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
             let newJson = JSON.parse(this.getAttribute('goalJson'));
+            if (newJson === null || newJson === undefined) {
+                newJson = {};
+            }
+
             let editedEntry = prompt(
                 'Edit Bullet',
                 this.shadowRoot.querySelector('.bullet-content').innerText
