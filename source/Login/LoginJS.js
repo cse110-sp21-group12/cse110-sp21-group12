@@ -27,25 +27,25 @@ let usernameField = document.getElementById('username');
 
 //password box
 let passwordField = document.getElementById('pin');
-if(loginState == 'new'){
-passwordField.onfocus = function(){
-document.getElementById('message').style.display = 'block';
-    passwordField.classList.add('clicking');
-    validFormat();
-}
+if (loginState == 'new') {
+    passwordField.onfocus = function () {
+        document.getElementById('message').style.display = 'block';
+        passwordField.classList.add('clicking');
+        validFormat();
+    };
 }
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-loginButton.addEventListener('click', () =>{
-    message.classList.add("hidden");
+loginButton.addEventListener('click', () => {
+    message.classList.add('hidden');
     handleLoginButton();
 });
 
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
-resetPasswordButton.addEventListener('click', ()=>{
-    message.classList.remove("hidden");
+resetPasswordButton.addEventListener('click', () => {
+    message.classList.remove('hidden');
     validFormat();
     handleResetPassword();
 });
@@ -121,11 +121,11 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
-   
+
     resetPasswordButton.addEventListener('click', () => {
-        loginButton.addEventListener('click', () =>{
+        loginButton.addEventListener('click', () => {
             resetPasswordButton.innerHTML = 'Reset';
-            resetPasswordButton.removeEventListener('click', (validFormat));
+            resetPasswordButton.removeEventListener('click', validFormat);
             handleLoginButton();
         });
         if (loginState == 'returning') {
@@ -194,7 +194,6 @@ function verifyValidInputs(newUsername, newPassword) {
         error.style.display = 'block';
         return false;
     }
-    
 
     //allow otherwise
     else {
@@ -208,17 +207,17 @@ function validFormat() {
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
     var length = document.getElementById('length');
-    var messgae =  document.getElementById('message');
+    var messgae = document.getElementById('message');
     // When the user clicks on the password field, show the message box
-    myInput.onfocus = function(){
-    messgae.style.display = 'block';
-    myInput.classList.add('clicking');
-    }
+    myInput.onfocus = function () {
+        messgae.style.display = 'block';
+        myInput.classList.add('clicking');
+    };
     // When the user clicks outside of the password field, hide the message box
     myInput.onblur = function () {
         messgae.style.display = 'none';
         error.style.display = 'none';
-        myInput.classList.remove('clicking')
+        myInput.classList.remove('clicking');
     };
 
     // When the user starts to type something inside the password field
@@ -287,8 +286,6 @@ function handleLogin(password) {
     } else {
         error.textContent = 'Incorrect password!';
         error.style.display = 'block';
-
-
     }
 }
 
