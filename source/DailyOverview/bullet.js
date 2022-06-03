@@ -152,7 +152,6 @@ class BulletEntry extends HTMLElement {
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            console.log('adding a new bullet');
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
@@ -164,7 +163,7 @@ class BulletEntry extends HTMLElement {
                 childList: [],
                 time: null,
             };
-            let childLength = newJson.childList.length;
+            let childLength = newJson.childList ? newJson.childList.length : 0;
 
             // if user cancels
             if (newEntry == null) {
@@ -192,6 +191,10 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector('.child').appendChild(newChild);
 
             // update bulletJson of parent bullet
+            if (!('childList' in newJson)) {
+                newJson.childList = [];
+            }
+
             newJson.childList.push(childJson);
             this.setAttribute('bulletJson', JSON.stringify(newJson));
 
@@ -211,8 +214,6 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit');
-                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -268,12 +269,8 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
-            console.log('testing');
         }
 
-        console.log('features');
-        console.log(entry.features);
-        console.log(this.shadowRoot.getElementById(entry.features));
         this.shadowRoot
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
@@ -321,8 +318,6 @@ class BulletEntry extends HTMLElement {
     }
 
     set index(index) {
-        console.log('entry index: ' + index);
-        console.log('entry index length: ' + index.length);
         if (index.length > 2) {
             this.shadowRoot.querySelector('#add').remove();
         }

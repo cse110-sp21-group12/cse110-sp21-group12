@@ -13,9 +13,7 @@
     <body>
         <div class="wrapper">
             <div class="header">
-                <div id="header_date" title="Go to Current Day">
-                    <h3>may 14 2022</h3>
-                </div>
+                <div id="header_date"></div>
                 <div id="header_button_container">
                     <div id="header_calendar_button" title="Monthly Calendar">
                         <img src="../Images/calendar-icon.png" />
@@ -31,7 +29,6 @@
                         />
                     </div>
                 </div>
-                <!-- TODO: make "header_date" a button and style appropriately -->
             </div>
             <div class="content">
                 <div class="weekly_column">
@@ -43,7 +40,10 @@
                 </div>
                 <div class="monthly_column">
                     <div id="notes">
-                        <h1 id="notesb">Notes</h1>
+                        <div id="notes-header">
+                            <h1 id="notesb">Notes</h1>
+                            <button id="notes-save">save</button>
+                        </div>
                     </div>
                     <div id="goalReminder">
                         <h1>Goal Reminders</h1>

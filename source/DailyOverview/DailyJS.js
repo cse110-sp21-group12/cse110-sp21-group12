@@ -1,512 +1,149 @@
-/* eslint-disable no-undef */
-//since all backend API calls are unknown to eslint, just disabeling no-undef
+import {
+    getCurrentDate,
+    getBase64,
+    getDay,
+    getMonthlyGoals,
+    getYearlyGoals,
+    updateDay,
+    updateNote,
+} from '../Backend/BackendInit.js';
+
+// TODO: Fix improper photo rendering with relative index
+
 window.img = new Array(); // used to load image from <input> and draw to canvas
-var input = document.getElementById('image-input');
-let canvas = document.getElementById('myCanvas');
-let canv = canvas.getContext('2d');
+const canvas = document.getElementById('myCanvas');
+const canv = canvas.getContext('2d');
+const input = document.getElementById('image-input');
 
-//get the desired mm/dd/yyyy string
-let myLocation = window.location.href;
-let currentDateStr = myLocation.substring(
-    myLocation.length - 10,
-    myLocation.length
-);
-//default case
-if (currentDateStr == 'html') {
-    currentDateStr = '05/25/2020';
-}
-console.log(currentDateStr);
-
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
-
-let relative = 0;
 // Buttons
-const add = document.getElementById('addPhoto');
-const save = document.getElementById('save');
-const right = document.getElementById('right');
 const left = document.getElementById('left');
+const right = document.getElementById('right');
+const save = document.getElementById('save');
+const remove = document.getElementById('delete');
+
+const { day, month, year } = getCurrentDate();
+const currDateString = `${month}/${day}/${year}`;
+
+let relative = 0; // index used for accessing images
 
 // store current day data to update when user leaves page
 let currentDay;
 
-window.addEventListener('load', () => {
-    //gets the session, if the user isn't logged in, sends them to login page
-    // let session = window.sessionStorage;
-    // console.log('here is storage session', session);
-    // if (session.getItem('loggedIn') !== 'true') {
-    //     window.location.href = '../Login/Login.html';
-    //     //might need this to create uness entires?
-    //     return;
-    // } else {
-    let dbPromise = initDB();
-    dbPromise.onsuccess = function (e) {
-        console.log('database connected');
-        setDB(e.target.result);
-        // get the day and also the monthly and yearly goals
-        requestDay();
-        fetchMonthGoals();
-        fetchYearGoals();
-        let req = getSettings();
-        req.onsuccess = function (e) {
-            // gets the user settings, and in particular theme to set the style/background to the theme of user
-            let settingObj = e.target.result;
-            console.log('setting theme');
-            document.documentElement.style.setProperty(
-                '--bg-color',
-                settingObj.theme
-            );
-        };
-    };
-    document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
-    // }
-});
+window.onload = async () => {
+    // get the day and also the monthly and yearly goals
+    requestDay();
+    fetchGoals(
+        await getMonthlyGoals(`${month}/${year}`),
+        '#monthGoal',
+        'month-goal'
+    );
+    fetchGoals(await getYearlyGoals(`${year}`), '#yearGoal', 'year-goal');
+};
 
 /**
- * Gets the current day object (and creates one if one doesn't exist)
- * and sets the "currentDay" variable
- * Also renders the days notes and bullets if there are any
+ * When a bullet is updated in any way, clear the 'New Bullet Text' input field,
+ * re-render all bullets, and update the database
  * @returns void
  */
-function requestDay() {
-    let req = getDay(currentDateStr);
-    req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
-        currentDay = e.target.result;
-        if (currentDay === undefined) {
-            // if current day isn't in database, then we create a day from the date and create a new day bullet/area
-            currentDay = initDay(currentDateStr);
-            createDay(currentDay);
-            let newNote = document.createElement('note-box');
-            document.querySelector('#notes').appendChild(newNote);
-        } else {
-            //Load in bullets
-            let bullets = currentDay.bullets;
-            renderBullets(bullets);
-            // Load in notes
-            let newNote = document.createElement('note-box');
-            newNote.entry = currentDay.notes;
-            document.querySelector('#notes').appendChild(newNote);
-
-            // Load photos
-            let photos = currentDay.photos;
-            renderPhotos(photos);
-        }
-    };
-}
-
-/**
- * Gets the current month object (and creates one if one doesn't exist)
- * also renders the monthly goals
- * @returns void
- */
-function fetchMonthGoals() {
-    // should we comment out these console logs? Bad coding standards to leave them in prod
-    console.log('fetching month');
-    console.log(currentDateStr.substring(6));
-    let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
-    let req = getMonthlyGoals(monthStr);
-    req.onsuccess = function (e) {
-        console.log('got month');
-        let monthObj = e.target.result;
-        console.log(monthObj);
-        if (monthObj === undefined) {
-            // create a new monthly goals if the month we get currently doesn't exist
-            createMonthlyGoals(initMonth(monthStr));
-        } else {
-            //load in bullets
-            monthObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
-                let goalElem = document.createElement('p');
-                goalElem.innerHTML = goal.text;
-                goalElem.style.wordBreak = 'break-all';
-                goalElem.style.overflowX = 'hidden';
-                goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
-                if (goal.done == true) {
-                    goalElem.style.textDecoration = 'line-through';
-                }
-                goalElem.classList.add('month-goal');
-                console.log(goalElem);
-                document.querySelector('#monthGoal').appendChild(goalElem);
-            });
-        }
-    };
-}
-
-// code for fetchMonth and fetchYear are exactly the same except one does month other does year
-
-/**
- * Gets the current year object (and creates one if one doesn't exist)
- * also renders the yearly goals
- * @returns void
- */
-function fetchYearGoals() {
-    console.log('fetching year');
-    let yearStr = currentDateStr.substring(6);
-    let req = getYearlyGoals(yearStr);
-    req.onsuccess = function (e) {
-        console.log('got year');
-        let yearObj = e.target.result;
-        console.log(yearObj);
-        if (yearObj === undefined) {
-            createYearlyGoals(initYear(yearStr));
-        } else {
-            //load in bullets
-            yearObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
-                let goalElem = document.createElement('p');
-                goalElem.innerHTML = goal.text;
-                goalElem.style.wordBreak = 'break-all';
-                goalElem.style.overflowX = 'hidden';
-                goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
-                if (goal.done == true) {
-                    goalElem.style.textDecoration = 'line-through';
-                }
-                goalElem.classList.add('year-goal');
-                console.log(goalElem);
-                document.querySelector('#yearGoal').appendChild(goalElem);
-            });
-        }
-    };
-}
-
-// update notes and days when we lose focus of notes? Not really sure how that works/looks in practice
-document.querySelector('#notes').addEventListener('focusout', () => {
-    updateNotes();
-    updateDay(currentDay);
-});
-
-document.querySelector('.entry-form').addEventListener('submit', (submit) => {
-    submit.preventDefault();
-    let bText = document.querySelector('.entry-form-text').value;
-    document.querySelector('.entry-form-text').value = '';
-    // get the text in form on a submit, then push an object representing the bullet into our current day
-    currentDay.bullets.push({
-        text: bText,
-        done: false,
-        childList: [],
-        features: 'normal',
-    });
+function bulletChangeResolution() {
     console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
-});
+}
 
-// lets bullet component listen to when a bullet child is added
-document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got add event');
-    console.log(e.composedPath());
-    // gets the index and json object of the current bullet we want to look at
-    let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // console.log('newJson ' + JSON.stringify(newJson));
-    // console.log('index ' + JSON.stringify(index));
-    // if 3rd layer of nesting, add it to our children
-    if (e.composedPath().length > 7) {
-        currentDay.bullets[index[0]].childList[index[1]] = newJson;
-    } else {
-        currentDay.bullets[index[0]] = newJson;
+/**
+ * load either monthly or yearly goals into respective list depending on input
+ * @param {Object} goalsObj - the object containing monthly/yearly goals
+ * @param {String} listId - the id of the list to append the goals to
+ * @param {String} newClass - the class that the goal will identify with
+ * (monthly or yearly class)
+ * @returns void
+ */
+async function fetchGoals(goalsObj, listId, newClass) {
+    if (goalsObj === undefined) {
+        return;
     }
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-    updateDay(currentDay);
-});
 
-// lets bullet component listen to when a bullet is deleted
-document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got deleted event');
-    console.log(e.composedPath());
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    //load in bullets
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, goal] of Object.entries(goalsObj)) {
+        const goalElem = document.createElement('p');
+        goalElem.innerHTML = goal.text;
+        goalElem.style.wordBreak = 'break-all';
+        goalElem.style.overflowX = 'hidden';
+        goalElem.style.marginTop = '0';
+        goalElem.style.paddingRight = '1vh';
+        goalElem.style.fontSize = '1.25vh';
+        if (goal.done == true) {
+            goalElem.style.textDecoration = 'line-through';
+        }
+        goalElem.classList.add(newClass);
+        document.querySelector(listId).appendChild(goalElem);
+    }
+}
+
+/**
+ * Generalize bullet event listeners and include a callback to execute when
+ * a bullet is interacted with
+ * @param {event} e - DOM event
+ * @param {Function} callback - function to call on bullet interaction (ie this
+ * callback is dependent on the type of trigger event - delete, submit, etc.)
+ * @returns void
+ */
+function generalBulletListener(e, callback) {
+    const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     // i don't like this code at all really, it seems very hard-coding and limits our children levels to 2?
-    let firstIndex = index[0];
+    const firstIndex = index[0];
     if (index.length > 1) {
-        let secondIndex = index[1];
+        const secondIndex = index[1];
         if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].childList.splice(thirdIndex, 1);
+            const thirdIndex = index[2];
+            callback(firstIndex, secondIndex, thirdIndex);
         } else {
-            currentDay.bullets[firstIndex].childList.splice(secondIndex, 1);
+            callback(firstIndex, secondIndex);
         }
     } else {
-        currentDay.bullets.splice(firstIndex, 1);
+        callback(firstIndex);
     }
-    updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-});
 
-// lets bullet component listen to when a bullet is edited
-document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got edited event');
-    console.log(e.composedPath()[0]);
-    let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
-        .text;
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // very similar weird code to 'deleted' directly above
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].text = newText;
-        } else {
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].text = newText;
-        }
-    } else {
-        currentDay.bullets[firstIndex].text = newText;
-    }
-    updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-});
-
-// lets bullet component listen to when a bullet is marked done
-document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
-    console.log(e.composedPath()[0]);
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // same logic as 'deleted' and 'edited' lots of similar code, but is there a way to condense it?
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].done ^= true;
-        } else {
-            currentDay.bullets[firstIndex].childList[secondIndex].done ^= true;
-        }
-    } else {
-        currentDay.bullets[firstIndex].done ^= true;
-    }
-    updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-});
-
-// lets bullet component listen to when a bullet is clicked category
-document.querySelector('#bullets').addEventListener('features', function (e) {
-    console.log('CHANGED CATEGORY');
-    console.log(e.composedPath()[0]);
-    // same logic as before except this time allows a new feature to be added to each index
-    let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
-        .features;
-    let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    let firstIndex = index[0];
-    if (index.length > 1) {
-        let secondIndex = index[1];
-        if (index.length > 2) {
-            let thirdIndex = index[2];
-            currentDay.bullets[firstIndex].childList[secondIndex].childList[
-                thirdIndex
-            ].features = newFeature;
-        } else {
-            currentDay.bullets[firstIndex].childList[
-                secondIndex
-            ].features = newFeature;
-        }
-    } else {
-        currentDay.bullets[firstIndex].features = newFeature;
-    }
-    updateDay(currentDay);
-    document.querySelector('#bullets').innerHTML = '';
-    renderBullets(currentDay.bullets);
-});
-
-/**
- * Function that renders a list of bullets into the todo area
- * Update currentDay json with updated bullets
- * @param {Object} bullets - a list of bullet objects to render
- */
-function renderBullets(bullets) {
-    let iNum = 0;
-    bullets.forEach((bullet) => {
-        let i = [iNum];
-        let newPost = document.createElement('bullet-entry');
-        newPost.setAttribute('bulletJson', JSON.stringify(bullet));
-        newPost.setAttribute('index', JSON.stringify(i));
-        newPost.entry = bullet;
-        newPost.index = i;
-        if (bullet.childList.length != 0) {
-            i.push(0);
-            bullet.childList.forEach((child) => {
-                let newChild = renderChild(child, i);
-                newPost.child = newChild;
-                i[i.length - 1]++;
-            });
-            i.pop();
-        }
-        document.querySelector('#bullets').appendChild(newPost);
-        iNum++;
-    });
+    bulletChangeResolution();
 }
 
 /**
- * Function that recursively renders the nested bullets of a given bullet
- * @param {Object} bullet - a bullet object of child to create
- * @param {Number} i -  array of integers of index of bullets
- * @return {Object} new child created
+ * Call any arbitrary function on a list with an arbitrary number of
+ * arguments
+ * @param {Array} list - yeah
+ * @param {Function} func - function to call on list with funcArgs
+ * @param  {...any} funcArgs - arguments for func
+ * @returns void
  */
-function renderChild(bullet, i) {
-    let newChild = document.createElement('bullet-entry');
-    newChild.setAttribute('bulletJson', JSON.stringify(bullet));
-    newChild.setAttribute('index', JSON.stringify(i));
-    newChild.entry = bullet;
-    newChild.index = i;
-    if (bullet.childList.length != 0) {
-        i.push(0);
-        bullet.childList.forEach((child) => {
-            let newNewChild = renderChild(child, i);
-            newChild.child = newNewChild;
-            i[i.length - 1]++;
-        });
-        i.pop();
-    }
-    return newChild;
-}
-
-// eslint-disable-next-line no-unused-vars
-function editBullet() {
-    let editedEntry = prompt(
-        'Edit Bullet',
-        this.shadowRoot.querySelector('.bullet-content').innerText
-    );
-    if (editedEntry != null && editedEntry != '') {
-        this.shadowRoot.querySelector(
-            '.bullet-content'
-        ).innerText = editedEntry;
-    }
+function generalOp(list, func, ...funcArgs) {
+    func.call(list, ...funcArgs);
 }
 
 /**
- * Function that updates the notes
+ * return a bullet list or a child list of a bullet list depending on how many
+ * arguments are passed in.
+ *
+ * NOTE: arguments must be numbers representing the indexes of which list you
+ * would like to access at each level (eg passing in 0,0,0 will grab the first
+ * bullets list, then the first bullet in its child list, then will return the
+ * childList of the childList's first bullet)
+ * @returns array
  */
-function updateNotes() {
-    let newNote = document.querySelector('note-box').entry;
-
-    let date = currentDateStr.split('/'); // [month, day, year]
-    let year = date[2];
-    let month = stripZeroInDate(date[0]);
-    let day = stripZeroInDate(date[1]);
-    updateNote(year, month, day, newNote);
-}
-
-/**
- * Strip out the prepending zero if the given string has.
- * @param {String} string month or day to check if having prepending zero
- * @returns the original string or the string without prepending zero
- */
-function stripZeroInDate(string) {
-    if (string.length > 0) {
-        let prefix = string.charAt(0);
-
-        if (prefix === '0') {
-            return string.charAt(1);
+function getBulletList() {
+    if (arguments.length == 1) {
+        return currentDay.bullets;
+    } else {
+        let bulletList = currentDay.bullets[arguments[0]];
+        for (let i = 1; i < arguments.length - 1; i++) {
+            bulletList = bulletList.childList[arguments[i]];
         }
-        return string;
+
+        return bulletList.childList;
     }
 }
-
-input.addEventListener('change', (event) => {
-    window.img[relative] = new Image();
-
-    // This allows you to store blob -> base64
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onloadend = function () {
-        var base64data = reader.result;
-        window.img[relative].src = base64data;
-    };
-});
-// Add an image to the canvas
-add.addEventListener('click', () => {
-    input.type = 'file';
-    save.style.display = 'inline';
-    canv.clearRect(0, 0, canvas.width, canvas.height);
-    relative = window.img.length;
-});
-// Save image and will hide everything else
-// REQUIRED TO PRESS SAVE AFTER UPLOAD
-save.addEventListener('click', () => {
-    input.type = 'hidden';
-    save.style.display = 'none';
-
-    let imgDimension = getDimensions(
-        canvas.width,
-        canvas.height,
-        window.img[relative].width,
-        window.img[relative].height
-    );
-    canv.drawImage(
-        window.img[relative],
-        imgDimension['startX'],
-        imgDimension['startY'],
-        imgDimension['width'],
-        imgDimension['height']
-    );
-
-    // Add Item and update whenever save
-    currentDay.photos.push(window.img[relative].src);
-    updateDay(currentDay);
-});
-left.addEventListener('click', () => {
-    relative -= 1;
-    if (relative == -1) {
-        relative = window.img.length - 1;
-    }
-    canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (window.img[relative]) {
-        var imgDimension = getDimensions(
-            canvas.width,
-            canvas.height,
-            window.img[relative].width,
-            window.img[relative].height
-        );
-        canv.drawImage(
-            window.img[relative],
-            imgDimension['startX'],
-            imgDimension['startY'],
-            imgDimension['width'],
-            imgDimension['height']
-        );
-    }
-});
-right.addEventListener('click', () => {
-    relative += 1;
-    if (relative == window.img.length) {
-        relative = 0;
-    }
-    canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (window.img[relative]) {
-        var imgDimension = getDimensions(
-            canvas.width,
-            canvas.height,
-            window.img[relative].width,
-            window.img[relative].height
-        );
-        canv.drawImage(
-            window.img[relative],
-            imgDimension['startX'],
-            imgDimension['startY'],
-            imgDimension['width'],
-            imgDimension['height']
-        );
-    }
-});
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
@@ -525,7 +162,7 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
     // Get the aspect ratio, used so the picture always fits inside the canvas
     aspectRatio = imageWidth / imageHeight;
 
-    // If the apsect ratio is less than 1 it's a verical image
+    // If the aspect ratio is less than 1 it's a vertical image
     if (aspectRatio < 1) {
         // Height is the max possible given the canvas
         height = canvasHeight;
@@ -549,6 +186,72 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
 }
 
 /**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} bullet - a bullet object of child to create
+ * @param {Number} i - array of integers of index of bullets
+ * @return {Object} new child created
+ */
+function processBullet(bullet, i) {
+    const newPost = document.createElement('bullet-entry');
+    newPost.setAttribute('bulletJson', JSON.stringify(bullet));
+    newPost.setAttribute('index', JSON.stringify(i));
+    newPost.entry = bullet;
+    newPost.index = i;
+    if ('childList' in bullet && bullet.childList.length != 0) {
+        i.push(0);
+        bullet.childList.forEach((child) => {
+            const newChild = processBullet(child, i);
+            newPost.child = newChild;
+            i[i.length - 1]++;
+        });
+        i.pop();
+    }
+    return newPost;
+}
+
+/**
+ * Render the image at our current relative index and draw it on the canvas
+ * (photo album area)
+ * @returns void
+ */
+function processCurrentImage() {
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+    const imgDimension = getDimensions(
+        canvas.width,
+        canvas.height,
+        window.img[relative].width,
+        window.img[relative].height
+    );
+    canv.drawImage(
+        window.img[relative],
+        imgDimension['startX'],
+        imgDimension['startY'],
+        imgDimension['width'],
+        imgDimension['height']
+    );
+}
+
+/**
+ * Function that renders a list of bullets into the todo area
+ * Update currentDay json with updated bullets
+ * @param {Object} bullets - a list of bullet objects to render
+ * @returns void
+ */
+function renderBullets(bullets) {
+    if (bullets === undefined || bullets === []) {
+        return;
+    }
+
+    let iNum = 0;
+    bullets.forEach((bullet) => {
+        let i = [iNum];
+        const newPost = processBullet(bullet, i);
+        document.querySelector('#bullets').appendChild(newPost);
+        iNum++;
+    });
+}
+
+/**
  * Function that gets photos and renders
  * @param {Object} photos takes in photo object
  * @return nothing
@@ -559,4 +262,259 @@ function renderPhotos(photos) {
         window.img[i] = new Image();
         window.img[i].src = photos[i];
     }
+    processCurrentImage();
 }
+
+/**
+ * Gets the current day object (and creates one if one doesn't exist)
+ * and sets the "currentDay" variable
+ * Also renders the days notes and bullets if there are any
+ * @returns void
+ */
+async function requestDay() {
+    await getDay(currDateString).then((currDay) => {
+        if (currDay === undefined) {
+            currDay = {
+                bullets: [],
+                date: currDateString,
+                notes: '',
+                photos: [],
+            };
+        }
+        currentDay = currDay;
+
+        //Load in bullets
+        renderBullets(currentDay.bullets ? currentDay.bullets : undefined);
+
+        // Load in notes
+        const newNote = document.createElement('note-box');
+        newNote.entry = currentDay.notes.content
+            ? currentDay.notes.content
+            : '';
+        document.querySelector('#notes').appendChild(newNote);
+
+        // Load photos
+        renderPhotos(currDay.photos !== undefined ? currDay.photos : []);
+    });
+}
+
+/**
+ * set feature for bullet
+ * @param {bullet} obj - a bullet object that has a feature field
+ * @param {String} newFeature - new feature to assign to bullet
+ * @returns void
+ */
+function setBulletFeature(obj, newFeature) {
+    obj.features = newFeature;
+}
+
+/**
+ * set text for bullet
+ * @param {bullet} obj - a bullet object that has a text field
+ * @param {String} newText - new text to assign to bullet
+ * @returns void
+ */
+function setBulletText(obj, newText) {
+    obj.text = newText;
+}
+
+/**
+ * toggle bullet done status
+ * @param {bullet} obj - a bullet object that has a done field
+ * @returns void
+ */
+function toggleBulletStatus(obj) {
+    obj.done ^= true;
+}
+
+/**
+ * update the current day's note field in the db
+ * @returns void
+ */
+function updateNotes() {
+    const newNote = document.querySelector('note-box').entry;
+    updateNote(currDateString, newNote);
+}
+
+// ~~~~~~~~~~~~~~~ Event Listeners ~~~~~~~~~~~~~~~
+
+// the space in the template literal below is needed for proper rendering
+document.getElementById('date').innerHTML += ` ${currDateString}`;
+
+// set back button
+document.getElementById('home').addEventListener('click', () => {
+    updateDay(currentDay);
+    window.location.replace('../Login/WeeklyOverview/WeeklyOverview.html');
+});
+
+// add listener for saving notes
+const noteSave = document.getElementById('notes-save');
+noteSave.addEventListener('click', () => updateNotes());
+
+// ~~~~~~~~~~~~~~~ Bullet Event Listeners ~~~~~~~~~~~~~~~
+
+// lets bullet component listen to when a bullet child is added
+document.querySelector('#bullets').addEventListener('added', function (e) {
+    // gets the index and json object of the current bullet we want to look at
+    const newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
+    const index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+
+    // if 3rd layer of nesting, add it to our children
+    if (e.composedPath().length > 7) {
+        currentDay.bullets[index[0]].childList[index[1]] = newJson;
+    } else {
+        currentDay.bullets[index[0]] = newJson;
+    }
+
+    bulletChangeResolution();
+});
+
+// lets bullet component listen to when a bullet is deleted
+document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    const callback = (...indexes) => {
+        const list = getBulletList(...indexes);
+
+        // if there is only one index, we are deleting a top-level bullet. if
+        // there is a second index, we are deleting an intermediate-level bullet.
+        // if there is a third index, we are deleting a bottom-level bullet.
+        if (indexes.length == 1) {
+            generalOp(list, Array.prototype.splice, indexes[0], 1);
+        } else if (indexes.length == 2) {
+            generalOp(list, Array.prototype.splice, indexes[1], 1);
+        } else {
+            generalOp(list, Array.prototype.splice, indexes[2], 1);
+        }
+    };
+
+    generalBulletListener(e, callback);
+});
+
+// lets bullet component listen to when a bullet is marked done
+document.querySelector('#bullets').addEventListener('done', function (e) {
+    const callback = (...indexes) => {
+        // we need to access the last index after getting the bullet list here
+        // because we are trying to access an object to edit its properties
+        const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, toggleBulletStatus, list);
+    };
+
+    generalBulletListener(e, callback);
+});
+
+// lets bullet component listen to when a bullet is edited
+document.querySelector('#bullets').addEventListener('edited', function (e) {
+    const newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
+        .text;
+
+    const callback = (...indexes) => {
+        // see callback explanation for 'done' event listener above
+        const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, setBulletText, list, newText);
+    };
+
+    generalBulletListener(e, callback);
+});
+
+// lets bullet component listen to when a bullet is clicked category
+document.querySelector('#bullets').addEventListener('features', function (e) {
+    const path = e.composedPath()[0];
+    const newFeature = JSON.parse(path.getAttribute('bulletJson')).features;
+
+    const callback = (...indexes) => {
+        // see callback explanation for 'done' event listener above
+        const list = getBulletList(...indexes)[indexes[indexes.length - 1]];
+        generalOp(list, setBulletFeature, list, newFeature);
+    };
+
+    generalBulletListener(e, callback);
+});
+
+document.querySelector('.entry-form').addEventListener('submit', (submit) => {
+    submit.preventDefault();
+    const bText = document.querySelector('.entry-form-text').value;
+    if (bText === undefined || bText === '') {
+        return;
+    }
+
+    document.querySelector('.entry-form-text').value = '';
+
+    if (!('bullets' in currentDay)) {
+        currentDay.bullets = [];
+    }
+    // get the text in form on a submit, then push an object representing the
+    // bullet into our current day
+    currentDay.bullets.push({
+        text: bText,
+        done: false,
+        childList: [],
+        features: 'normal',
+    });
+
+    bulletChangeResolution();
+});
+
+// ~~~~~~~~~~~~~~~ Image Event Listeners ~~~~~~~~~~~~~~~
+
+left.addEventListener('click', () => {
+    if (window.img.length === 0) {
+        return;
+    }
+
+    relative = (relative - 1) % window.img.length;
+
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+    if (window.img[relative]) {
+        processCurrentImage();
+    }
+});
+
+right.addEventListener('click', () => {
+    if (window.img.length === 0) {
+        return;
+    }
+
+    relative = (relative + 1) % window.img.length;
+
+    canv.clearRect(0, 0, canvas.width, canvas.height);
+    if (window.img[relative]) {
+        processCurrentImage();
+    }
+});
+
+// save image that was chosen in file selector to db and display it
+// on image canvas
+save.addEventListener('click', async () => {
+    if (input.files === undefined) {
+        return;
+    }
+
+    // This allows you to store blob -> base64
+    const base64 = await getBase64(input.files[0]);
+
+    if (!('photos' in currentDay)) {
+        currentDay.photos = [];
+    }
+
+    currentDay.photos.push(base64);
+
+    relative = window.img.length;
+    renderPhotos(currentDay.photos !== undefined ? currentDay.photos : []);
+
+    input.value = null;
+    updateDay(currentDay);
+});
+
+remove.addEventListener('click', async () => {
+    if (window.img[relative] === undefined) {
+        return;
+    }
+
+    const dbPhotoIdx = currentDay.photos.indexOf(window.img[relative].src);
+    currentDay.photos.splice(dbPhotoIdx, 1);
+    window.img.splice(relative, 1);
+
+    relative = 0;
+    renderPhotos(currentDay.photos !== undefined ? currentDay.photos : []);
+
+    updateDay(currentDay);
+});

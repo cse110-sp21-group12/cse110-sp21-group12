@@ -3,7 +3,6 @@ let collapsibleYearsList = document.getElementsByClassName('coll_yr_button');
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
     }
@@ -11,14 +10,12 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
             let settingObj = e.target.result;
-            console.log('setting initial theme');
             document.documentElement.style.setProperty(
                 '--bg-color',
                 settingObj.theme
@@ -71,8 +68,6 @@ document.querySelector('#themes').addEventListener('change', () => {
     // eslint-disable-next-line no-undef
     let req = getSettings();
     req.onsuccess = function (e) {
-        console.log('got settings');
-        console.log(e.target.result);
         let settingObj = e.target.result;
         settingObj.theme = document.querySelector('#themes').value;
         document.documentElement.style.setProperty(

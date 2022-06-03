@@ -5,6 +5,7 @@ import {
     getMonthName,
     getMonthlyGoals,
     getYearlyGoals,
+    updateNote,
     updateTheme,
     getTheme,
     getBase64,
@@ -36,12 +37,9 @@ function appendBulletToList(bullet, list) {
     // if a bullet is marked as completed, add a strikethrough. otherwise,
     // render it normally
     if (bullet.done == true) {
-        const strikeThrough = document.createElement('s');
-        strikeThrough.appendChild(newBullet);
-        list.append(strikeThrough);
-    } else {
-        list.append(newBullet);
+        newBullet.style.textDecoration = 'line-through';
     }
+    list.append(newBullet);
 
     // if there is a childList containing more bullets, begin rendering
     // the childList and append those bullets to a new unordered-list
@@ -51,8 +49,6 @@ function appendBulletToList(bullet, list) {
         bulletParser(bullet['childList'], subList);
         list.append(subList);
     }
-
-    // TODO: Check for features property?
 }
 
 /**
@@ -78,20 +74,12 @@ function bulletParser(bullets, list) {
  * @returns void
  */
 async function loadGoalReminders(currDateObj) {
-    const dbMonthlyGoals = await getMonthlyGoals(
-        `${currDateObj.month}/${currDateObj.year}`
-    );
-    const dbYearlyGoals = await getYearlyGoals(`${currDateObj.year}`);
+    const { month, year } = currDateObj;
+    const dbMonthlyGoals = await getMonthlyGoals(`${month}/${year}`);
+    const dbYearlyGoals = await getYearlyGoals(`${year}`);
 
-    // if there are existing goals for the current month
-    if (dbMonthlyGoals !== undefined) {
-        populateGoalList('monthGoal', dbMonthlyGoals);
-    }
-
-    // if there are existing goals for the current year
-    if (dbYearlyGoals !== undefined) {
-        populateGoalList('yearGoal', dbYearlyGoals);
-    }
+    populateGoalList('monthGoal', dbMonthlyGoals);
+    populateGoalList('yearGoal', dbYearlyGoals);
 }
 
 /**
@@ -100,8 +88,9 @@ async function loadGoalReminders(currDateObj) {
  * @returns void
  */
 async function loadNotes(currDateObj) {
-    let newNote = document.createElement('note-box');
-    const dateStr = `${currDateObj.month}/${currDateObj.day}/${currDateObj.year}`;
+    const { day, month, year } = currDateObj;
+    const newNote = document.createElement('note-box');
+    const dateStr = `${month}/${day}/${year}`;
     const currDayObj = await getDay(dateStr);
 
     // if the current day is not stored in the db or if there are no stored
@@ -110,9 +99,10 @@ async function loadNotes(currDateObj) {
         return;
     }
 
-    const todaysNotes = currDayObj.notes.content;
     document.querySelector('#notes').append(newNote);
-    newNote.shadowRoot.querySelector('.noteContent').innerHTML = todaysNotes;
+
+    // current bug here with rendering that is fixed with a later local commit
+    newNote.entry = currDayObj.notes.content;
 }
 
 /**
@@ -186,12 +176,24 @@ async function loadWeek() {
  * @returns void
  */
 function populateGoalList(goalDivId, goalsObj) {
+    if (goalsObj === undefined) {
+        return;
+    }
+
     const goalDiv = document.getElementById(goalDivId);
     const list = document.createElement('ul');
 
     bulletParser(goalsObj, list);
 
     goalDiv.append(list);
+}
+
+/**
+ * Function that updates the notes
+ */
+function updateNotes(currDateString) {
+    const newNote = document.querySelector('note-box').entry;
+    updateNote(currDateString, newNote);
 }
 
 /**
@@ -244,7 +246,6 @@ async function loadProfileImage() {
             '../Images/settings-icon.png';
     }
 }
-
 // Open and close Setting container
 document.getElementById('header_settings_button').onclick = function () {
     document.getElementById('settings').style.display = 'block';
@@ -335,15 +336,24 @@ document.getElementById('submitBtn').addEventListener('click', (e) => {
     }
 });
 
+// make the date header of the page reflect the current date
+const headerDate = document.getElementById('header_date');
+const currDateObj = getCurrentDate();
+const { day, month, year } = currDateObj;
+headerDate.innerHTML = `${getMonthName(month)} ${day}, ${year}`;
+// clicking main date header on weekly overview will navigate to daily overview
+headerDate.addEventListener('click', () => {
+    window.location.replace('../../DailyOverview/DailyOverview.html');
+});
+
+// add listener for saving notes
+const noteSave = document.getElementById('notes-save');
+noteSave.addEventListener('click', () =>
+    updateNotes(`${month}/${day}/${year}`)
+);
+
 // call setup functions
 window.onload = () => {
-    // make the date header of the page reflect the current date
-    const headerDate = document.getElementById('header_date');
-    const currDateObj = getCurrentDate();
-    headerDate.innerHTML = `${getMonthName(currDateObj.month)} ${
-        currDateObj.day
-    }, ${currDateObj.year}`;
-
     // load panels
     loadTheme();
     loadBannerImage();
