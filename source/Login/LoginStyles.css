@@ -260,3 +260,7 @@ input[type='email']:focus {
 .closebtn:hover {
     color: black;
 }
+
+#notes-dino {
+    background-color: black;
+}
