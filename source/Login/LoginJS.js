@@ -27,13 +27,25 @@ let usernameField = document.getElementById('username');
 
 //password box
 let passwordField = document.getElementById('pin');
+if(loginState == 'new'){
+passwordField.onfocus = function(){
+document.getElementById('message').style.display = 'block';
+    passwordField.classList.add('clicking');
+    validFormat();
+}
+}
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-loginButton.addEventListener('click', handleLoginButton);
+loginButton.addEventListener('click', () =>{
+    message.classList.add("hidden");
+    handleLoginButton();
+});
+
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
-resetPasswordButton.addEventListener('click', () => {
+resetPasswordButton.addEventListener('click', ()=>{
+    message.classList.remove("hidden");
     validFormat();
     handleResetPassword();
 });
@@ -109,8 +121,13 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
-    //loginButton.removeEventListener('click', handleLoginButton);
+   
     resetPasswordButton.addEventListener('click', () => {
+        loginButton.addEventListener('click', () =>{
+            resetPasswordButton.innerHTML = 'Reset';
+            resetPasswordButton.removeEventListener('click', (validFormat));
+            handleLoginButton();
+        });
         if (loginState == 'returning') {
             // update settings
             if (verifyValidInputs(settingObj.username, passwordField.value)) {
@@ -162,7 +179,7 @@ function verifyValidInputs(newUsername, newPassword) {
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        error.textContent = 'PIN must be at least 4 digits long';
+        error.innerHTML = 'PIN must be at least 4 digits long';
         error.style.display = 'block';
         return false;
     }
@@ -177,6 +194,7 @@ function verifyValidInputs(newUsername, newPassword) {
         error.style.display = 'block';
         return false;
     }
+    
 
     //allow otherwise
     else {
@@ -190,16 +208,17 @@ function validFormat() {
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
     var length = document.getElementById('length');
-    var flag = 0;
+    var messgae =  document.getElementById('message');
     // When the user clicks on the password field, show the message box
-    myInput.onfocus = function () {
-        document.getElementById('message').style.display = 'block';
-    };
-
+    myInput.onfocus = function(){
+    messgae.style.display = 'block';
+    myInput.classList.add('clicking');
+    }
     // When the user clicks outside of the password field, hide the message box
     myInput.onblur = function () {
-        document.getElementById('message').style.display = 'none';
+        messgae.style.display = 'none';
         error.style.display = 'none';
+        myInput.classList.remove('clicking')
     };
 
     // When the user starts to type something inside the password field
@@ -266,7 +285,10 @@ function handleLogin(password) {
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        alert('Incorrect password!');
+        error.textContent = 'Incorrect password!';
+        error.style.display = 'block';
+
+
     }
 }
 
@@ -292,6 +314,7 @@ function setNewUser() {
  */
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
+    document.getElementById('US').innerHTML = '';
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
