@@ -1,4 +1,3 @@
-
 /* eslint-disable no-undef*/
 
 //const { loadPartialConfigAsync } = require('@babel/core');
@@ -209,8 +208,7 @@ describe('basic navigation for BJ', () => {
         expect(msg).toMatch('Incorrect password!');
     });
 
-
-   // test if reset update in backend
+    // test if reset update in backend
     it('Test5.1: rest will update the password for that user stored in backend', async () => {
         // jest.setTimeout(30000);
         // await page.$eval('#username', (usernameInput) => {
@@ -252,9 +250,7 @@ describe('basic navigation for BJ', () => {
             button.click();
         });
         expect(msg).toMatch('Incorrect password!');
-
     });
-
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
