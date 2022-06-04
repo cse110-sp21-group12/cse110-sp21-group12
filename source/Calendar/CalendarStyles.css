@@ -128,6 +128,22 @@ body {
     float: left;
     margin: auto;
 }
+.calMonthLabel:hover {
+    color: #c2f7b5;
+}
+
+.calYearLabel {
+    background-color: #585858;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.3vw;
+    float: left;
+    margin: auto;
+    padding-left: 1vw;
+}
+.calYearLabel:hover {
+    color: #c2f7b5;
+}
 
 .calDropBtn {
     display: flex;
@@ -151,6 +167,7 @@ body {
 .dropdown-content {
     display: block;
     position: absolute;
+    margin-top: 3vw;
     background-color: #f9f9f9;
     color: black;
     min-width: 160px;

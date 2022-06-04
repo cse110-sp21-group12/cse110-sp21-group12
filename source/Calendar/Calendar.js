@@ -24,25 +24,29 @@ const months = [
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const dayOVLink = '../DailyOverview/DailyOverview.html';
+const yrStart = 2018;
+const yrEnd = 2025;
 
 let monthObj;
 let yearObj;
 let today, paddedDateStr;
 
+let clickFunction, editedFunction, deletedFunction, doneFunction;
+
 window.onload = async () => {
     await setupCalendar();
-    eventListenerSetup(monthObj, '#monthGoal', '#plus-month', (obj) =>
-        updateMonthlyGoals(obj)
-    );
-    eventListenerSetup(yearObj, '#yearGoal', '#plus-year', (obj) =>
-        updateYearlyGoals(obj)
-    );
+    // goalListenerSetup(monthObj, '#monthGoal', '#plus-month', (obj) =>
+    //     updateMonthlyGoals(obj)
+    // );
+    // goalListenerSetup(yearObj, '#yearGoal', '#plus-year', (obj) =>
+    //     updateYearlyGoals(obj)
+    // );
 };
 
 window.onclick = function (e) {
-    if (!e.target.matches('.fa-caret-down')) {
+    if (!e.target.matches('.calMonthLabel')) {
         var myDropdown = document.getElementById('dropdown');
-        if (myDropdown === undefined) {
+        if (myDropdown === undefined || myDropdown == null) {
             return;
         }
 
@@ -51,7 +55,27 @@ window.onclick = function (e) {
             myDropdown.classList.add('show-content');
         }
     }
+    if (!e.target.matches('.calYearLabel')) {
+        var yearDropdown = document.getElementById('year-dropdown');
+        if (yearDropdown === undefined) {
+            return;
+        }
+
+        if (yearDropdown.classList.contains('dropdown-content')) {
+            yearDropdown.classList.remove('dropdown-content');
+            yearDropdown.classList.add('show-content');
+        }
+    }
 };
+
+function addGoalListeners() {
+    goalListenerSetup(monthObj, '#monthGoal', '#plus-month', (obj) =>
+        updateMonthlyGoals(obj)
+    );
+    goalListenerSetup(yearObj, '#yearGoal', '#plus-year', (obj) =>
+        updateYearlyGoals(obj)
+    );
+}
 
 /**
  * Gets the number of days in a specified month - helper function
@@ -76,7 +100,20 @@ function dayNumber(day) {
     }
 }
 
-function eventListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
+function goalListenerRemoval(goalDivId, addHeaderId) {
+    console.log(`removing goal listeners for ${goalDivId} and ${addHeaderId}`);
+    const goals = document.querySelector(goalDivId);
+    const addHeader = document.querySelector(addHeaderId);
+
+    addHeader.removeEventListener('click', clickFunction, true);
+    goals.removeEventListener('edited', editedFunction, true);
+    goals.removeEventListener('deleted', deletedFunction, true);
+    goals.removeEventListener('done', doneFunction, true);
+}
+
+function goalListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
+    console.log(`add goal listeners for ${goalDivId} and ${addHeaderId}`);
+    console.log(goalObj);
     const goals = document.querySelector(goalDivId);
     const addHeader = document.querySelector(addHeaderId);
 
@@ -85,8 +122,13 @@ function eventListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
         return index;
     };
 
-    addHeader.addEventListener('click', function () {
+    clickFunction = function () {
+        console.log(goalDivId, addHeaderId, goalObj);
         const newGoalTxt = window.prompt('Enter new goal title');
+        if (newGoalTxt === null || newGoalTxt === undefined) {
+            return;
+        }
+
         if (!('goals' in goalObj)) {
             goalObj.goals = [];
         }
@@ -94,30 +136,35 @@ function eventListenerSetup(goalObj, goalDivId, addHeaderId, callback) {
         goalObj.goals.push({ text: newGoalTxt, done: false });
         callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
-    });
+    };
 
-    goals.addEventListener('edited', function (e) {
+    editedFunction = function (e) {
         const newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson'))
             .text;
         let index = getIndexFromEvent(e);
         goalObj.goals[index].text = newText;
         callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
-    });
+    };
 
-    goals.addEventListener('deleted', function (e) {
+    deletedFunction = function (e) {
         let index = getIndexFromEvent(e);
         goalObj.goals.splice(index, 1);
         callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
-    });
+    };
 
-    goals.addEventListener('done', function (e) {
+    doneFunction = function (e) {
         let index = getIndexFromEvent(e);
         goalObj.goals[index].done ^= true;
         callback(goalObj);
         renderGoals(goalObj.goals, goalDivId);
-    });
+    };
+
+    addHeader.addEventListener('click', clickFunction);
+    goals.addEventListener('edited', editedFunction);
+    goals.addEventListener('deleted', deletedFunction);
+    goals.addEventListener('done', doneFunction);
 }
 
 /**
@@ -153,10 +200,15 @@ function monthNumber(month) {
     }
 }
 
+function removeGoalListeners() {
+    goalListenerRemoval('#monthGoal', '#plus-month');
+    goalListenerRemoval('#yearGoal', '#plus-year');
+}
+
 function renderGoals(goalsList, goalsDivId) {
+    const htmlGoalsList = document.querySelector(goalsDivId);
+    htmlGoalsList.innerHTML = '';
     if (goalsList !== undefined) {
-        const htmlGoalsList = document.querySelector(goalsDivId);
-        htmlGoalsList.innerHTML = '';
         for (let i = 0; i < goalsList.length; i++) {
             const newGoal = document.createElement('goals-entry');
             newGoal.setAttribute('goalJson', JSON.stringify(goalsList[i]));
@@ -186,9 +238,11 @@ async function setupCalendar(dateStr = undefined) {
     var year = today.year;
     paddedDateStr = `${paddedMonth}/${year}`;
 
-    monthObj = await getMonthObj(paddedDateStr);
+    monthObj = (await getMonthObj(paddedDateStr)) || {};
     monthObj.month = paddedDateStr;
-    yearObj = { year: year, goals: await getYearlyGoals(year) };
+    yearObj = { year: year, goals: (await getYearlyGoals(year)) || [] };
+    console.log(monthObj);
+    addGoalListeners();
     renderGoals(monthObj.goals, '#monthGoal');
     renderGoals(yearObj.goals, '#yearGoal');
 
@@ -199,26 +253,34 @@ async function setupCalendar(dateStr = undefined) {
     let monthHeader = document.createElement('div');
     monthHeader.classList.add('calMonthHeader');
 
-    // the text in the header
+    // the month header that when clicked will open dropdown
     let monthLabel = document.createElement('p');
     monthLabel.classList.add('calMonthLabel');
-    monthLabel.innerText = `${months[month]} ${year}`;
+    //the year header that when clicked will open dropdown
+    monthLabel.innerText = months[month];
 
-    // dropdown arrow
-    let dropBtn = document.createElement('button');
-    dropBtn.classList.add('calDropBtn');
-    let dropIcon = document.createElement('i');
-    dropIcon.classList.add('fa', 'fa-caret-down');
-    dropBtn.appendChild(dropIcon);
-    dropBtn.onclick = function () {
-        const htmlDropdown = document.getElementById('dropdown');
-        htmlDropdown.classList.toggle('show-content');
-        htmlDropdown.classList.toggle('dropdown-content');
+    let yearLabel = document.createElement('p');
+    yearLabel.classList.add('calYearLabel');
+    yearLabel.innerText = ' ' + year;
+    monthLabel.onclick = function () {
+        document.getElementById('dropdown').classList.toggle('show-content');
+        document
+            .getElementById('dropdown')
+            .classList.toggle('dropdown-content');
+    };
+    yearLabel.onclick = function () {
+        document
+            .getElementById('year-dropdown')
+            .classList.toggle('show-content');
+        document
+            .getElementById('year-dropdown')
+            .classList.toggle('dropdown-content');
     };
 
-    let dropdown = document.createElement('div');
-    dropdown.classList.add('show-content');
-    dropdown.id = 'dropdown';
+    // month dropdown
+    let monthDropdown = document.createElement('div');
+    monthDropdown.classList.add('show-content');
+    monthDropdown.id = 'dropdown';
     let monthSelect = document.createElement('ul');
     for (let m = 0; m < months.length; m++) {
         // setup names of months in dropdown
@@ -229,17 +291,41 @@ async function setupCalendar(dateStr = undefined) {
             monthHeader.remove();
             weekdaysLabel.remove();
             daysField.remove();
-            setupCalendar(`2022/${m + 1}`);
+            removeGoalListeners();
+            setupCalendar(`${year}/${m + 1}`);
         };
 
         // add this month to list of months
         monthSelect.appendChild(monthLink);
     }
 
-    dropdown.appendChild(monthSelect);
+    // dropdown.appendChild(monthSelect);
+    monthDropdown.appendChild(monthSelect);
+
+    // year dropdown
+    let yearDropdown = document.createElement('div');
+    yearDropdown.classList.add('show-content');
+    yearDropdown.id = 'year-dropdown';
+    let yearSelect = document.createElement('ul');
+    for (let y = yrStart; y <= yrEnd; y++) {
+        let yearLink = document.createElement('li');
+        yearLink.innerText = y;
+        yearLink.classList.add('month-link');
+        yearLink.onclick = function () {
+            monthHeader.remove();
+            weekdaysLabel.remove();
+            daysField.remove();
+            removeGoalListeners();
+            setupCalendar(`${y}/${month + 1}`);
+        };
+        yearSelect.appendChild(yearLink);
+    }
+    yearDropdown.appendChild(yearSelect);
+
     monthHeader.appendChild(monthLabel);
-    monthHeader.appendChild(dropBtn);
-    monthHeader.appendChild(dropdown);
+    monthHeader.appendChild(yearLabel);
+    monthHeader.appendChild(monthDropdown);
+    monthHeader.appendChild(yearDropdown);
     calTarget.appendChild(monthHeader);
 
     // top bar of weekday names
@@ -284,9 +370,12 @@ async function setupCalendar(dateStr = undefined) {
         day.addEventListener('click', () => {
             window.location.href = href;
         });
-
         // check if today (so we can highlight it)
-        if (i == current.getDate() && current.getMonth() == month) {
+        if (
+            i == current.getDate() &&
+            current.getMonth() == month &&
+            current.getFullYear() == year
+        ) {
             day.classList.add('calToday');
         }
 
