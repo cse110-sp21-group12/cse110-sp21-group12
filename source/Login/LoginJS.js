@@ -13,8 +13,6 @@ const name_regex = /[^\w-]/;
  * survives between reloads
  * -new tabs or closing it will refresh the session
  */
-let storageSession = window.sessionStorage;
-console.log('here is the storage session: ', storageSession);
 
 //store current page state
 let loginState;
@@ -30,11 +28,14 @@ let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
+
 loginButton.addEventListener('click', () => {
-    if (loginState == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (loginState == 'new') {
-        handleSignup(usernameField.value.trim(), passwordField.value.trim());
+    determineUserState(loginState);
+});
+window.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        loginButton.click();
+        determineUserState(loginState);
     }
 });
 
@@ -43,6 +44,14 @@ loginButton.addEventListener('click', () => {
 //switchButton.addEventListener('click', toggleView);
 
 window.onload = getLoginState();
+
+function determineUserState(state) {
+    if (state == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (state == 'new') {
+        handleSignup(usernameField.value.trim(), passwordField.value.trim());
+    }
+}
 
 /**
  * Connects to the database, and sees if
@@ -147,9 +156,6 @@ function verifyValidInputs(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
-    console.log(
-        'Input: ' + password + ' | Correct password: ' + correctPassword
-    );
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
