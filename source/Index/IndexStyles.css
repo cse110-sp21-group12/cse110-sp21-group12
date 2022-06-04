@@ -83,7 +83,8 @@ Structure
 }
 
 .horiz {
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .collapsible_child {
@@ -135,15 +136,29 @@ button:hover {
 }
 
 .coll_yr_button {
+    width: 35px;
+    padding: 0;
+    border: 0;
     margin-right: 1rem;
     background-color: transparent;
 }
 .coll_yr_button:hover {
-    color: var(--bg-color);
+    background-color: var(--bg-color);
+}
+
+.coll_yr_button img {
+    display: block;
+    position: relative;
+    bottom: 1px;
+    width: 100%;
+    transform: rotate(-90deg) scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+.coll_yr_button.active img {
+    transform: rotate(0) scale(1.2);
 }
 
 #content .yearlink:hover {
-    -color: var(--bg-color);
     text-decoration: underline;
     text-decoration-color: black;
     text-decoration-thickness: 3px;

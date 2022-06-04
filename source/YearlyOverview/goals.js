@@ -16,7 +16,6 @@ class GoalsEntry extends HTMLElement {
                 }
                 li > span {
                     position: relative;
-                    left: -5px;
                 }
                 ul {
                     padding: 0px 0px 0px 15px;
@@ -28,6 +27,7 @@ class GoalsEntry extends HTMLElement {
                 .dropdownContainer {
                     position: relative;
                     display: inline-block;
+                    top: 5px;
                 }
                 .clicked {
                     background-color: #858585;
@@ -38,7 +38,7 @@ class GoalsEntry extends HTMLElement {
                     background-color: #e4e4e4;
                     min-width: 10vh;
                     z-index: 1;
-                    transform: translateY(-0.1vh);
+                    transform: translateY(-5px);
                 }
                 .dropdown p {
                     color: black;
@@ -73,7 +73,9 @@ class GoalsEntry extends HTMLElement {
                     <li>
                         <span class="bullet-content">Setting text</span>
                     <div class="dropdownContainer">
-                        <button class="dropdownButton">v</button>
+                        <button class="dropdownButton">
+                            <img src="../Images/dropdown-icon.svg" alt="dropdown"/>
+                        </button>
                         <div class="dropdown">
                             <p id="edit">Edit</p>
                             <p id="delete">Delete</p>
