@@ -327,12 +327,14 @@ h2.title {
 #pass-subti {
     padding-top: 2.5vh;
 }
-span.close {
+#settings > span.close {
     display: inline;
-    vertical-align: baseline;
+    position: relative;
+    float: right;
     font-size: 40px;
     text-align: right;
     margin-left: 0;
+    margin-top: 1px;
 }
 span.close:hover {
     cursor: pointer;
@@ -426,8 +428,8 @@ select {
 #proImg-label-pic {
     display: inline;
     margin: 0 auto;
-    height: 100%;
-    width: auto;
+    height: 80px;
+    width: 80px;
     color: white;
 }
 #proImg-label-pic:hover {
