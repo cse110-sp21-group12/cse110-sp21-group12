@@ -114,6 +114,24 @@ function renderGoals(goals) {
     });
 }
 
+/**
+ * check if the form is empty. If it is, return true. If not, return false.
+ * @returns whether the form is valid or not
+ */
+ function checkForm() {
+    console.log("DEBUG: checkForm()");
+    if (document.querySelector('.entry-form-text').value === "") {
+        console.log("DEBUG: form is empty");
+        alert('Please enter a goal');
+        return false;
+    } else {
+        console.log("DEBUG: form is not empty");
+        return true;
+    }
+}
+
+window.checkForm = checkForm;
+
 /**kk */
 //link the months; the 'a' tag is the parent now so you can just search by the ids
 document.getElementById('January').href =
