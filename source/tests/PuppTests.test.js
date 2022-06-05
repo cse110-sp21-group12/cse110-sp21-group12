@@ -167,6 +167,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.keyboard.press('Enter'); // to check for the enter key functionality
+        await page.waitForTimeout(1000);
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
