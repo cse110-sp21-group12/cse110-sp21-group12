@@ -181,8 +181,8 @@ function isValidEmail(userEmail) {
  * @returns true or false
  */
 function isValidPassword(password) {
-    if (password.length < 6) {
-        customAlert('Password length must be at least six!');
+    if (password.length < 8) {
+        customAlert('Password length must be at least 8!');
         return false;
     }
     return true;
