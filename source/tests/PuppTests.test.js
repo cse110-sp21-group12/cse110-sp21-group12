@@ -964,8 +964,9 @@ describe('basic navigation for BJ', () => {
         /* gets current month name */
         const currentDate = new Date();
 
-        const expected = `${MONTH_NAMES[currentDate.getMonth()]
-            } ${currentDate.getFullYear()} Overview`;
+        const expected = `${
+            MONTH_NAMES[currentDate.getMonth()]
+        } ${currentDate.getFullYear()} Overview`;
 
         /* gets MonthlyOverview link text */
         const monthlyOverviewLink = await page.$('#monthView > a:first-child');
