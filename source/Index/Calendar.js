@@ -42,7 +42,7 @@ function setupContent() {
         year_wrapper.id = 'year_' + yr;
         //
         //button group
-        let year_nav = document.createElement('div');
+        let year_nav = document.createElement('h2');
         year_nav.classList.add('year');
         year_nav.classList.add('collapsible');
         year_nav.classList.add('horiz');

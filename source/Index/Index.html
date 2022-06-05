@@ -1,91 +1,93 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="IndexStyles.css" />
-        <link rel="icon" type="image/png" href="../Images/Icon.png" />
-        <title>Bullet Journal</title>
-    </head>
+<html lang="en">
 
-    <body>
-        <div id="topbar"></div>
-        <div id="body-wrapper">
-            <div id="left-bar">
-                <select id="themes">
-                    <option value="#BBFEBB" style="background-color: #bbfebb">
-                        Green
-                    </option>
-                    <option value="#ECC7C7" style="background-color: #ecc7c7">
-                        Pink
-                    </option>
-                    <option value="#c0e7e9" style="background-color: #c0e7e9">
-                        Blue
-                    </option>
-                    <option value="#e1bceb" style="background-color: #e1bceb">
-                        Purple
-                    </option>
-                    <option value="#eeddc4" style="background-color: #eeddc4">
-                        Yellow
-                    </option>
-                    <option value="#DE9797" style="background-color: #de9797">
-                        Red
-                    </option>
-                    <option value="#e7c3b0" style="background-color: #e7c3b0">
-                        Orange
-                    </option>
-                </select>
-                <h1>Index</h1>
-                <section id="calendar">
-                    <month-header>
-                        <p id="month_label"></p>
-                    </month-header>
-                    <ul id="weekdays_label">
-                        <li class="weekday">Sun</li>
-                        <li class="weekday">Mon</li>
-                        <li class="weekday">Tue</li>
-                        <li class="weekday">Wed</li>
-                        <li class="weekday">Thu</li>
-                        <li class="weekday">Fri</li>
-                        <li class="weekday">Sat</li>
-                    </ul>
-                    <ul id="days_field">
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                        <day-item></day-item>
-                    </ul>
-                </section>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="IndexStyles.css" />
+    <link rel="icon" type="image/png" href="../Images/Icon.png" />
+    <title>Bullet Journal</title>
+</head>
+
+<body>
+    <!-- topbar is hidden from screen readers because it is a decorational element -->
+    <div id="topbar" aria-hidden="true"></div>
+    <main id="body-wrapper">
+        <section id="left-bar">
+            <select id="themes">
+                <option value="#BBFEBB" style="background-color: #bbfebb">
+                    Green
+                </option>
+                <option value="#ECC7C7" style="background-color: #ecc7c7">
+                    Pink
+                </option>
+                <option value="#c0e7e9" style="background-color: #c0e7e9">
+                    Blue
+                </option>
+                <option value="#e1bceb" style="background-color: #e1bceb">
+                    Purple
+                </option>
+                <option value="#eeddc4" style="background-color: #eeddc4">
+                    Yellow
+                </option>
+                <option value="#DE9797" style="background-color: #de9797">
+                    Red
+                </option>
+                <option value="#e7c3b0" style="background-color: #e7c3b0">
+                    Orange
+                </option>
+            </select>
+            <h1>Index</h1>
+            <section id="calendar">
+                <month-header>
+                    <p id="month_label"></p>
+                </month-header>
+                <ul id="weekdays_label">
+                    <li class="weekday">Sun</li>
+                    <li class="weekday">Mon</li>
+                    <li class="weekday">Tue</li>
+                    <li class="weekday">Wed</li>
+                    <li class="weekday">Thu</li>
+                    <li class="weekday">Fri</li>
+                    <li class="weekday">Sat</li>
+                </ul>
+                <ul id="days_field">
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                    <day-item></day-item>
+                </ul>
+            </section>
             </div>
             <div id="right-bar">
                 <h1>Content</h1>
@@ -94,188 +96,93 @@
                     <section id="content">
                         <year-wrapper id="year_2018">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2018_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2018_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2018"
-                                    >2018 Yearly Overview</year-link
-                                >
+                                <coll-button id="2018_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2018_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2018">2018 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2018_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2018_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2019">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2019_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2019_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2019"
-                                    >2019 Yearly Overview</year-link
-                                >
+                                <coll-button id="2019_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2019_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2019">2019 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2019_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2019_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2020">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2020_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2020_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2020"
-                                    >2020 Yearly Overview</year-link
-                                >
+                                <coll-button id="2020_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2020_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2020">2020 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2020_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2020_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2021">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2021_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2021_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2021"
-                                    >2021 Yearly Overview</year-link
-                                >
+                                <coll-button id="2021_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2021_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2021">2021 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2021_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2021_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2022">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2022_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2022_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2022"
-                                    >2022 Yearly Overview</year-link
-                                >
+                                <coll-button id="2022_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2022_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2022">2022 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2022_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2022_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2023">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2023_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2023_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2023"
-                                    >2023 Yearly Overview</year-link
-                                >
+                                <coll-button id="2023_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2023_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2023">2023 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2023_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2023_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2024">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2024_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2024_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2024"
-                                    >2024 Yearly Overview</year-link
-                                >
+                                <coll-button id="2024_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2024_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2024">2024 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2024_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2024_months" class="collapsible_child"></months-div>
                         </year-wrapper>
 
                         <year-wrapper id="year_2025">
                             <year-nav class="year collapsible horiz">
-                                <coll-button
-                                    id="2025_button"
-                                    class="coll_yr_button"
-                                    ><img
-                                        src="../Images/dropdown-icon.svg"
-                                        alt="dropdown"
-                                /></coll-button>
-                                <year-link
-                                    class="yearlink"
-                                    id="year_2025_link"
-                                    href="../YearlyOverview/YearlyOverview.html#2025"
-                                    >2025 Yearly Overview</year-link
-                                >
+                                <coll-button id="2025_button" class="coll_yr_button"><img
+                                        src="../Images/dropdown-icon.svg" alt="dropdown" /></coll-button>
+                                <year-link class="yearlink" id="year_2025_link"
+                                    href="../YearlyOverview/YearlyOverview.html#2025">2025 Yearly Overview</year-link>
                             </year-nav>
-                            <months-div
-                                id="2025_months"
-                                class="collapsible_child"
-                            ></months-div>
+                            <months-div id="2025_months" class="collapsible_child"></months-div>
                         </year-wrapper>
                     </section>
                 </div>
-            </div>
-        </div>
+        </section>
+    </main>
 
-        <!--The javascript file-->
-        <script src="CustomElements.js" type="module" defer></script>
-        <script src="Calendar.js" type="module" defer></script>
-        <script src="IndexJS.js" type="module" defer></script>
-        <script src="../Backend/BackendInit.js" type="text/javascript"></script>
-    </body>
+    <!--The javascript file-->
+    <script src="CustomElements.js" type="module" defer></script>
+    <script src="Calendar.js" type="module" defer></script>
+    <script src="IndexJS.js" type="module" defer></script>
+    <script src="../Backend/BackendInit.js" type="text/javascript"></script>
+</body>
+
 </html>
