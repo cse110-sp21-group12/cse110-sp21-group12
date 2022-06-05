@@ -55,7 +55,6 @@ body {
     color: rgb(175, 73, 73);
     display: 'none';
     transform: translate(0, -10px);
-
 }
 
 #content {
@@ -126,7 +125,6 @@ input {
     margin-bottom: 20px;
 }
 
-
 /*input::placeholder {
     color: transparent;
 }*/
@@ -188,7 +186,7 @@ input {
 
 /* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
-    color:rgb(212, 129, 108);
+    color: rgb(212, 129, 108);
 }
 
 .invalid:before {
