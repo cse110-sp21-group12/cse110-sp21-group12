@@ -46,15 +46,16 @@ body {
 }
 
 #error {
-    margin-top: 10px;
+    margin-left: 5%;
+
+    align-items: left;
 
     flex-direction: column;
-    font-size: 20px;
-    position: center;
+    font-size: 10px;
     color: rgb(175, 73, 73);
-    margin-left: 11%;
     display: 'none';
-    transform: translate(20%, -70px);
+    transform: translate(0, -10px);
+
 }
 
 #content {
@@ -94,10 +95,16 @@ body {
     margin-left: 18%;
     float: left;
 }
-
+#login-button:hover {
+    text-decoration: underline;
+}
 #reset-password-button {
     margin-right: 18%;
     float: right;
+}
+
+#reset-password-button:hover {
+    text-decoration: underline;
 }
 
 input:invalid {
@@ -118,6 +125,8 @@ input {
     margin-top: 16px;
     margin-bottom: 20px;
 }
+
+
 /*input::placeholder {
     color: transparent;
 }*/
@@ -179,7 +188,7 @@ input {
 
 /* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
-    color: rgb(167, 85, 85);
+    color:rgb(212, 129, 108);
 }
 
 .invalid:before {

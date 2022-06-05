@@ -27,17 +27,14 @@ let usernameField = document.getElementById('username');
 
 //password box
 let passwordField = document.getElementById('pin');
-if (loginState == 'new') {
-    passwordField.onfocus = function () {
-        document.getElementById('message').style.display = 'block';
-        passwordField.classList.add('clicking');
-        validFormat();
-    };
-}
+
+//password require message
+var messgae = document.getElementById('message');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
+    messgae.style.display = 'none';
     message.classList.add('hidden');
     handleLoginButton();
 });
@@ -45,6 +42,7 @@ loginButton.addEventListener('click', () => {
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
+    messgae.style.display = 'block';
     message.classList.remove('hidden');
     validFormat();
     handleResetPassword();
@@ -79,6 +77,14 @@ function getLoginState() {
     };
 }
 
+// if (loginState = 'new') {
+//     passwordField.onfocus = function () {
+//     document.getElementById('message').style.display = 'block';
+//     passwordField.classList.add('clicking');
+//     validFormat();
+//     };
+// }
+
 /**
  * handle the login button functionalities
  */
@@ -98,6 +104,7 @@ function handleLoginButton() {
  */
 function handleSignup(newUsername, newPassword) {
     //call helper to check if inputs are valid
+    validFormat();
     if (verifyValidInputs(newUsername, newPassword)) {
         //if so, proceed
         let userObject = {
@@ -194,6 +201,12 @@ function verifyValidInputs(newUsername, newPassword) {
         error.style.display = 'block';
         return false;
     }
+    else if(name_regex.test(newPassword)){
+        error.textContent = 'PIN must not contain special characters';
+        error.style.display = 'block';
+        return false;
+
+    }
 
     //allow otherwise
     else {
@@ -209,16 +222,12 @@ function validFormat() {
     var length = document.getElementById('length');
     var messgae = document.getElementById('message');
     // When the user clicks on the password field, show the message box
-    myInput.onfocus = function () {
-        messgae.style.display = 'block';
-        myInput.classList.add('clicking');
-    };
+    // myInput.onfocus = function () {
+    //     messgae.style.display = 'block';
+    //     myInput.classList.add('clicking');
+    // };
     // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function () {
-        messgae.style.display = 'none';
-        error.style.display = 'none';
-        myInput.classList.remove('clicking');
-    };
+    
 
     // When the user starts to type something inside the password field
     myInput.onkeyup = function () {
@@ -300,6 +309,7 @@ function goHome() {
  * Hide username, update text.
  */
 function setNewUser() {
+    resetPasswordButton.setAttribute("hidden", "hidden");
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
     loginButton.innerText = 'Sign Up';
@@ -310,8 +320,16 @@ function setNewUser() {
  * Show username, update text
  */
 function setReturningUser() {
+    resetPasswordButton.removeAttribute("hidden");
     document.getElementById('username').style.display = 'none';
     document.getElementById('US').innerHTML = '';
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
+}
+
+
+function hide(){
+    //document.getElementById('message').setAttribute("hidden", "hidden");
+    document.getElementById('message').style.display = 'none';
+
 }

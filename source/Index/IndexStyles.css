@@ -9,8 +9,7 @@
 }
 * {
     font-family: 'Courier', monospace;
-    font-weight: bold;
-    color: #585858;
+    color: #3f3d3d;
 }
 body {
     background-color: var(--bg-color);
@@ -25,10 +24,11 @@ body {
 #topbar {
     padding-top: 10px;
     padding-bottom: 4vw;
-    background-image: url(../Images/Logo.svg);
-    background-repeat: repeat-x;
+    background-repeat: repeat-y;
     background-origin: padding-box;
     background-size: 5vw;
+    align-items: center;
+    background-image: url(../Images/Logo.svg);
 }
 
 /**
