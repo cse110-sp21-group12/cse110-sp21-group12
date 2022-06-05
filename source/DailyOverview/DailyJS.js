@@ -41,7 +41,7 @@ let currentDay;
 
 window.addEventListener('load', () => {
     // validate the URL date
-    if (!validateDate()) return;
+    if (!validateURL()) return;
 
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
@@ -78,7 +78,7 @@ window.addEventListener('load', () => {
  * Validates the date in the URL the user is trying to fetch
  * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
  */
-function validateDate() {
+function validateURL() {
     /* confirm date format is DD/MM/YYYY, if not redirect to 404 */
     if (!/^\d{2}\/\d{2}\/\d{4}$/.test(currentDateStr)) {
         window.location.href = PAGE_404;
