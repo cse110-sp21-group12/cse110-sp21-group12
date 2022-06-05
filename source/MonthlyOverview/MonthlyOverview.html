@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="”en”">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="MonthlyStyles.css" />
@@ -8,29 +8,20 @@
     </head>
 
     <body>
-        <div id="header">
+        <header id="header">
             <h1 id="year">
-                <h1 id="index">
-                    <a
-                        href="../YearlyOverview/YearlyOverview.html"
-                        style="text-decoration: none"
-                        id="back"
-                    >
-                        < Year
-                    </a>
-                </h1>
+                <a href="../YearlyOverview/YearlyOverview.html" id="back"> </a>
             </h1>
             <div id="house">
                 <a href="../Index/Index.html">
                     <img src="../Images/home.svg" alt="home" id="homeButton" />
                 </a>
             </div>
-        </div>
+        </header>
 
-        <div id="name">
-            <div id="goalSection">
-                <h1 id="goalsHeader">Monthly Goals</h1>
-                <!-- <img src="../Images/GreenDinoBorder.svg" id="monthlyGoals" /> -->
+        <main id="name">
+            <section id="goalSection">
+                <h2 id="goalsHeader">Monthly Goals</h2>
                 <div id="goals">
                     <div id="container">
                         <form class="entry-form">
@@ -50,15 +41,14 @@
                         <div id="bullets"></div>
                     </div>
                 </div>
-            </div>
-            <div id="empty"></div>
-            <div id="weekView">
-                <h1 id="weekHeader">Calendar</h1>
-                <section id="calendar"></section>
-            </div>
-        </div>
+            </section>
+            <section id="weekView">
+                <h2 id="weekHeader">Calendar</h2>
+                <section id="calendar" aria-label="Calendar"></section>
+            </section>
+        </main>
         <script src="./goals.js" type="module"></script>
         <script src="./MonthlyJS.js" type="module"></script>
-        <script src="../Backend/BackendInit.js" type="text/javascript"></script>
+        <script src="../Backend/BackendInit.js"></script>
     </body>
 </html>

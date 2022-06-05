@@ -336,7 +336,7 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test13: photo album should be empty', async () => {
-        const photoLength = await page.$eval('#myCanvas', () => {
+        const photoLength = await page.$eval('#photoCanvas', () => {
             console.log(window.Image.length);
             return window.Image.length;
         });
@@ -995,7 +995,6 @@ describe('basic navigation for BJ', () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
     });
-
     it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
         // Testing solution to Issue #27
 

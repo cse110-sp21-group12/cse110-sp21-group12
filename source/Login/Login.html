@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="LoginStyles.css" />
@@ -7,8 +7,12 @@
         <title>Bullet Journal</title>
     </head>
     <body>
-        <div id="dino-align">
-            <img src="../Images/Logo.svg" id="big-logo" />
+        <main id="dino-align">
+            <img
+                src="../Images/Logo.svg"
+                id="big-logo"
+                alt="Bullet Journal Logo"
+            />
             <div id="content">
                 <h3 id="title">Welcome back!</h3>
                 <input
@@ -21,12 +25,8 @@
                 <button id="login-button">Sign-In</button>
                 <button id="reset-password-button">Reset Password</button>
             </div>
-        </div>
-        <script
-            src="../Backend/BackendInit.js"
-            type="text/javascript"
-            defer
-        ></script>
-        <script src="LoginJS.js" type="text/javascript" defer></script>
+        </main>
+        <script src="../Backend/BackendInit.js" defer></script>
+        <script src="LoginJS.js" defer></script>
     </body>
 </html>

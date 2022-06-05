@@ -4,7 +4,8 @@
         //These provide predefined global variables, but not sure what they do
         "browser": true,
         "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends":[
         "eslint:recommended",
