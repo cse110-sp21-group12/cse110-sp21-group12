@@ -76,7 +76,7 @@ Structure
     margin: 1vw 2vw;
 }
 
-#content>div {
+#content > div {
     width: max-content;
     margin-inline: auto;
 }
@@ -211,7 +211,7 @@ year-link {
     color: black;
 }
 
-#content>* {
+#content > * {
     margin-bottom: 0.5vw;
 }
 
