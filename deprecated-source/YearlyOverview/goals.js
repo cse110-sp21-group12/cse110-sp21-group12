@@ -76,7 +76,7 @@ class GoalsEntry extends HTMLElement {
                         <div class="dropdown">
                             <p id="edit">Edit</p>
                             <p id="delete">Delete</p>
-                            <p id="done">Mark Done</p>
+                            <p id="done">Toggle Done</p>
                         </div>
                     </div>
                     </li>

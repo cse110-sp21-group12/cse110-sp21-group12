@@ -1,12 +1,12 @@
-import { db, auth } from '../Backend/FirebaseInit.js';
+import { auth, db } from './FirebaseInit.js';
 import {
-    ref,
     get,
-    update,
+    push,
+    ref,
     remove,
     set,
-    push,
-} from '../Backend/firebase-src/firebase-database.min.js';
+    update,
+} from './firebase-src/firebase-database.min.js';
 
 // see getMonthName()
 const monthNames = [
@@ -148,6 +148,25 @@ async function deleteDay(dayStr) {
 }
 
 /**
+ * deletes monthly goal object associated with the given month string
+ * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
+ * @returns void
+ */
+async function deleteMonthlyGoals(monthStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+    const [month, year] = monthStr.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}/goals`;
+    deleteObjAtDBPath(dbPath);
+}
+
+/**
  * delete db object for month
  * @param {String} monthStr - string of the form "xx/xxxx" eg: "02/2022"
  * @param {string} base64 an encoding of an image from getBase64()
@@ -174,29 +193,10 @@ async function deletePhoto(dayStr, base64) {
     const dayPhotos = await getDataAtDBPath(dbPath);
     for (const [base64UUID, storedBase64] of Object.entries(dayPhotos)) {
         if (storedBase64.length == base64.length && storedBase64 == base64) {
-            deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
+            await deleteObjAtDBPath(`${dbPath}/${base64UUID}`);
             break;
         }
     }
-}
-
-/**
- * deletes monthly goal object associated with the given month string
- * @param {String} monthStr -  string of the form "xx/xxxx" eg: "02/2022"
- * @returns void
- */
-async function deleteMonthlyGoals(monthStr) {
-    const currentUserID = await getUserID()
-        .then((user) => {
-            return user.uid;
-        })
-        .catch((err) => {
-            console.log(err);
-            return;
-        });
-    const [month, year] = monthStr.split('/');
-    const dbPath = `${currentUserID}/${year}/${month}/goals`;
-    deleteObjAtDBPath(dbPath);
 }
 
 /**
@@ -205,8 +205,8 @@ async function deleteMonthlyGoals(monthStr) {
  *                        "${currentUserID}/2022/02/05"
  * @returns void
  */
-function deleteObjAtDBPath(path) {
-    remove(ref(db, path))
+async function deleteObjAtDBPath(path) {
+    await remove(ref(db, path))
         .then(() => {
             console.log(`Data deleted successfully at ${path}`);
         })
@@ -232,6 +232,42 @@ async function deleteYearlyGoals(yearStr) {
 
     const dbPath = `${currentUserID}/${yearStr}/goals`;
     deleteObjAtDBPath(dbPath);
+}
+
+/**
+ * Get user banner image
+ * @returns default OR base64 URL of banner image if user uploads one
+ */
+async function getBannerImage() {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
+    const dbPath = `${currentUserID}/bannerImage`;
+    return getDataAtDBPath(dbPath);
+}
+
+/**
+ * compute base64 encoding for file (file must be an image)
+ * @param {File} file - a file that contains an image which must be encoded
+ *                      into base64 format
+ * @returns Promise that resolves to the images base64 encoding
+ */
+function getBase64(file) {
+    let reader = new FileReader();
+    // eslint-disable-next-line no-unused-vars
+    let promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+            resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+    });
+    return promise;
 }
 
 /**
@@ -274,24 +310,6 @@ function getCurrentWeek() {
 }
 
 /**
- * compute base64 encoding for file (file must be an image)
- * @param {File} file - a file that contains an image which must be encoded
- *                      into base64 format
- * @returns Promise that resolves to the images base64 encoding
- */
-function getBase64(file) {
-    let reader = new FileReader();
-    // eslint-disable-next-line no-unused-vars
-    let promise = new Promise((resolve, reject) => {
-        reader.onload = () => {
-            resolve(reader.result);
-        };
-        reader.readAsDataURL(file);
-    });
-    return promise;
-}
-
-/**
  * get data from db
  * @param {String} path - path to key you would like to retrieve eg:
  *                        "${currentUserID}/2022/02/05"
@@ -306,6 +324,18 @@ async function getDataAtDBPath(path) {
     } else {
         return snapshot.val();
     }
+}
+
+// TODO: Refactor getCurrentDay
+function getDateObj(dateStr) {
+    var today = new Date(dateStr);
+    const dateObj = {
+        day: String(today.getDate()).padStart(2, '0'),
+        month: String(today.getMonth() + 1).padStart(2, '0'), // January is 0
+        year: String(today.getFullYear()),
+    };
+
+    return dateObj;
 }
 
 /**
@@ -340,10 +370,32 @@ function getMonthName(monthNumber) {
 }
 
 /**
- * get db object from month
+ * get db object for an entire month object
  * @param {String} monthStr - month along with year in the form "xx/xxxx"
  *  (eg: "02/2022")
- * @returns a request for a monthlyGoals object if none with the monthStr
+ * @returns a request for a month object. if none with the monthStr
+ *  exist, returns undefined
+ */
+async function getMonthObj(monthStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
+    const [month, year] = monthStr.split('/');
+    const dbPath = `${currentUserID}/${year}/${month}`;
+    return getDataAtDBPath(dbPath);
+}
+
+/**
+ * get db object for a month's goals
+ * @param {String} monthStr - month along with year in the form "xx/xxxx"
+ *  (eg: "02/2022")
+ * @returns a request for a monthlyGoals object. if none with the monthStr
  *  exist, returns undefined
  */
 async function getMonthlyGoals(monthStr) {
@@ -362,18 +414,21 @@ async function getMonthlyGoals(monthStr) {
 }
 
 /**
- * get current user's id
- * @returns user id. null if no user is signed in or the
- * user is not signed in (i.e bypassing the authentication).
+ * Get user profile image
+ * @returns default OR base64 URL of profile image if user uploads one
  */
-function getUserID() {
-    // source: https://github.com/firebase/firebase-js-sdk/issues/462#:~:text=you%20can%20easily%20implement%20that%20on%20your%20own%20with%20a%20couple%20of%20lines%3A
-    return new Promise((resolve, reject) => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            unsubscribe();
-            resolve(user);
-        }, reject);
-    });
+async function getProfileImage() {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+
+    const dbPath = `${currentUserID}/profileImage`;
+    return getDataAtDBPath(dbPath);
 }
 
 /**
@@ -395,39 +450,18 @@ async function getTheme() {
 }
 
 /**
- * Get user banner image
- * @returns default OR base64 URL of banner image if user uploads one
+ * get current user's id
+ * @returns user id. null if no user is signed in or the
+ * user is not signed in (i.e bypassing the authentication).
  */
-async function getBannerImage() {
-    const currentUserID = await getUserID()
-        .then((user) => {
-            return user.uid;
-        })
-        .catch((err) => {
-            console.log(err);
-            return;
-        });
-
-    const dbPath = `${currentUserID}/bannerImage`;
-    return getDataAtDBPath(dbPath);
-}
-
-/**
- * Get user profile image
- * @returns default OR base64 URL of profile image if user uploads one
- */
-async function getProfileImage() {
-    const currentUserID = await getUserID()
-        .then((user) => {
-            return user.uid;
-        })
-        .catch((err) => {
-            console.log(err);
-            return;
-        });
-
-    const dbPath = `${currentUserID}/profileImage`;
-    return getDataAtDBPath(dbPath);
+function getUserID() {
+    // source: https://github.com/firebase/firebase-js-sdk/issues/462#:~:text=you%20can%20easily%20implement%20that%20on%20your%20own%20with%20a%20couple%20of%20lines%3A
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            unsubscribe();
+            resolve(user);
+        }, reject);
+    });
 }
 
 /**
@@ -461,24 +495,30 @@ function pushObjToDBPath(path, obj) {
 }
 
 function setObjAtDBPath(path, obj) {
-    set(ref(db, path), obj).catch((err) => console.log(err));
+    set(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data set successfully at ${path}`);
+        })
+        .catch((error) => {
+            console.log(`Data was not set successfully: ${error}`);
+        });
 }
 
 /**
- * update db object at path. if no path exists, create object at path
- * @param {String} path - path to key you would like to update eg:
- *                        "${currentUserID}/2022/02/05"
- * @param {Object} obj - object to set in place of existing object at path in db
- * @returns void
+ * Update user's new banner image in DB
+ * @param {String} imgStr Image URL of the banner image
  */
-function updateObjAtDBPath(path, obj) {
-    update(ref(db, path), obj)
-        .then(() => {
-            console.log(`Data updated successfully at ${path}`);
+async function updateBannerImage(imgStr) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
         })
-        .catch((error) => {
-            console.log(`Data was not updated successfully: ${error}`);
+        .catch((err) => {
+            console.log(err);
+            return;
         });
+    let dbPath = `${currentUserID}/bannerImage`;
+    setObjAtDBPath(dbPath, imgStr);
 }
 
 /**
@@ -508,24 +548,11 @@ function updateMonthlyGoals(monthObj) {
 }
 
 /**
- * update db object for year
- * @param {Object} yearObj - custom year object
- * @param {String} yearObj.year - year in the form "xxxx" (eg: "2020")
- * @param {Object} yearObj.goals - an array of custom goal objects
- * @returns void
- */
-function updateYearsGoals(yearObj) {
-    createYearlyGoals(yearObj);
-}
-
-/**
  * Update the notes of year/month/day
- * @param {String} year year of notes to update
- * @param {String} month month of notes to update
- * @param {String} day day of notes to update
+ * @param {String} dateStr - of form "mm/dd/yyyy" eg: "02/12/2020"
  * @param {String} notes notes to update
  */
-async function updateNote(year, month, day, notes) {
+async function updateNote(dateStr, notes) {
     const currentUserID = await getUserID()
         .then((user) => {
             return user.uid;
@@ -534,42 +561,27 @@ async function updateNote(year, month, day, notes) {
             console.log(err);
             return;
         });
+
+    const [month, day, year] = dateStr.split('/');
     let dbPath = `${currentUserID}/${year}/${month}/${day}/notes`;
     setObjAtDBPath(dbPath, notes);
 }
 
 /**
- * Set new theme for the user
- * @param {String} newTheme Hex value of new theme color
+ * update db object at path. if no path exists, create object at path
+ * @param {String} path - path to key you would like to update eg:
+ *                        "${currentUserID}/2022/02/05"
+ * @param {Object} obj - object to set in place of existing object at path in db
+ * @returns void
  */
-async function updateTheme(newTheme) {
-    const currentUserID = await getUserID()
-        .then((user) => {
-            return user.uid;
+function updateObjAtDBPath(path, obj) {
+    update(ref(db, path), obj)
+        .then(() => {
+            console.log(`Data updated successfully at ${path}`);
         })
-        .catch((err) => {
-            console.log(err);
-            return;
+        .catch((error) => {
+            console.log(`Data was not updated successfully: ${error}`);
         });
-    let dbPath = `${currentUserID}/theme`;
-    setObjAtDBPath(dbPath, newTheme);
-}
-
-/**
- * Update user's new banner image in DB
- * @param {String} imgStr Image URL of the banner image
- */
-async function updateBannerImage(imgStr) {
-    const currentUserID = await getUserID()
-        .then((user) => {
-            return user.uid;
-        })
-        .catch((err) => {
-            console.log(err);
-            return;
-        });
-    let dbPath = `${currentUserID}/bannerImage`;
-    setObjAtDBPath(dbPath, imgStr);
 }
 
 /**
@@ -590,76 +602,32 @@ async function updateProfileImage(imgStr) {
 }
 
 /**
- * gets the current settings for the user
- * NOTE: Since there is only 1 user, there is only 1 setting object
- * @returns a request for a settings object
+ * Set new theme for the user
+ * @param {String} newTheme Hex value of new theme color
  */
-// function getSettings() {
-//     var tx = db.transaction(['setting'], 'readonly');
-//     var store = tx.objectStore('setting');
-//     //Since there is only one setting, we just get the first one
-//     let request = store.get(1);
-//     return request;
-// }
+async function updateTheme(newTheme) {
+    const currentUserID = await getUserID()
+        .then((user) => {
+            return user.uid;
+        })
+        .catch((err) => {
+            console.log(err);
+            return;
+        });
+    let dbPath = `${currentUserID}/theme`;
+    setObjAtDBPath(dbPath, newTheme);
+}
 
 /**
- * stores a setting object in the database
- * @param {Object} setting
- * @param {String} setting.username - name of the user (ie: "Miranda")
- * @param {String} setting.password - password of the user (ie: "password")
- * @param {Number} setting.theme - theme id of the user (ie: 0)
- * @return void
- */
-// function createSettings(setting) {
-//     var tx = db.transaction(['setting'], 'readwrite');
-//     var store = tx.objectStore('setting');
-//     let request = store.add(setting);
-//     request.onerror = function (e) {
-//         console.log('Error', e.target.error.name);
-//         throw 'Error' + e.target.error.name;
-//     };
-//     request.onsuccess = function () {
-//         console.log(`added setting entry for ${setting.username} successful`);
-//     };
-// }
-
-/**
- * updates the custom setting object with new info
- * @param {Object} setting
- * @param {String} setting.username - name of the user (ie: "Miranda")
- * @param {String} setting.password - password of the user (ie: "password")
- * @param {Number} setting.theme - theme id of the user (ie: 0)
+ * update db object for year
+ * @param {Object} yearObj - custom year object
+ * @param {String} yearObj.year - year in the form "xxxx" (eg: "2020")
+ * @param {Object} yearObj.goals - an array of custom goal objects
  * @returns void
  */
-// function updateSettings(setting) {
-//     var tx = db.transaction(['setting'], 'readwrite');
-//     var store = tx.objectStore('setting');
-//     let request = store.put(setting, 1);
-//     request.onerror = function (e) {
-//         console.log('Error', e.target.error.name);
-//         throw 'Error' + e.target.error.name;
-//     };
-//     request.onsuccess = function () {
-//         console.log(`updated setting entry for ${setting.username} successful`);
-//     };
-// }
-
-/**
- * deletes the setting object
- * @returns void
- */
-// function deleteSettings() {
-//     var tx = db.transaction(['setting'], 'readwrite');
-//     var store = tx.objectStore('setting');
-//     let request = store.delete(1);
-//     request.onerror = function (e) {
-//         console.log('Error', e.target.error.name);
-//         throw 'Error' + e.target.error.name;
-//     };
-//     request.onsuccess = function () {
-//         console.log('setting entry deleted successful');
-//     };
-// }
+function updateYearlyGoals(yearObj) {
+    createYearlyGoals(yearObj);
+}
 
 export {
     addPhoto,
@@ -670,21 +638,23 @@ export {
     deleteMonthlyGoals,
     deletePhoto,
     deleteYearlyGoals,
+    getBannerImage,
     getBase64,
     getCurrentDate,
     getCurrentWeek,
+    getDateObj,
     getDay,
     getMonthName,
+    getMonthObj,
     getMonthlyGoals,
-    getYearlyGoals,
-    getTheme,
-    getBannerImage,
     getProfileImage,
+    getTheme,
+    getYearlyGoals,
+    updateBannerImage,
     updateDay,
     updateMonthlyGoals,
     updateNote,
-    updateYearsGoals,
-    updateTheme,
-    updateBannerImage,
     updateProfileImage,
+    updateTheme,
+    updateYearlyGoals,
 };

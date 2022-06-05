@@ -134,25 +134,32 @@ function setupCalendar(date) {
     //the black background for the header
     let monthHeader = document.createElement('div');
     monthHeader.classList.add('calMonthHeader');
-    //the text in the header
+    //the month header that when clicked will open dropdown
     let monthLabel = document.createElement('p');
     monthLabel.classList.add('calMonthLabel');
-    monthLabel.innerText = months[currMonthNumber] + ' ' + currYearNumber;
-    //dropdown arrow
-    let dropBtn = document.createElement('button');
-    dropBtn.classList.add('calDropBtn');
-    let dropIcon = document.createElement('i');
-    dropIcon.classList.add('fa', 'fa-caret-down');
-    dropBtn.appendChild(dropIcon);
-    dropBtn.onclick = function () {
+    //the year header that when clicked will open dropdown
+    monthLabel.innerText = months[currMonthNumber];
+    let yearLabel = document.createElement('p');
+    yearLabel.classList.add('calYearLabel');
+    yearLabel.innerText = ' ' + currYearNumber;
+    monthLabel.onclick = function () {
         document.getElementById('dropdown').classList.toggle('show-content');
         document
             .getElementById('dropdown')
             .classList.toggle('dropdown-content');
     };
-    let dropdown = document.createElement('div');
-    dropdown.classList.add('show-content');
-    dropdown.id = 'dropdown';
+    yearLabel.onclick = function () {
+        document
+            .getElementById('year-dropdown')
+            .classList.toggle('show-content');
+        document
+            .getElementById('year-dropdown')
+            .classList.toggle('dropdown-content');
+    };
+    // month dropdown
+    let monthDropdown = document.createElement('div');
+    monthDropdown.classList.add('show-content');
+    monthDropdown.id = 'dropdown';
     let monthSelect = document.createElement('ul');
     for (let m = 0; m < months.length; m++) {
         //setup names of months in dropdown
@@ -163,15 +170,36 @@ function setupCalendar(date) {
             monthHeader.remove();
             weekdaysLabel.remove();
             daysField.remove();
-            setupCalendar(new Date(2022, m));
+            setupCalendar(new Date(currYearNumber, m));
         };
         //add this month to list of months
         monthSelect.appendChild(monthLink);
     }
-    dropdown.appendChild(monthSelect);
+    monthDropdown.appendChild(monthSelect);
+
+    // year dropdown
+    let yearDropdown = document.createElement('div');
+    yearDropdown.classList.add('show-content');
+    yearDropdown.id = 'year-dropdown';
+    let yearSelect = document.createElement('ul');
+    for (let y = yrStart; y <= yrEnd; y++) {
+        let yearLink = document.createElement('li');
+        yearLink.innerText = y;
+        yearLink.classList.add('month-link');
+        yearLink.onclick = function () {
+            monthHeader.remove();
+            weekdaysLabel.remove();
+            daysField.remove();
+            setupCalendar(new Date(y, currMonthNumber));
+        };
+        yearSelect.appendChild(yearLink);
+    }
+    yearDropdown.appendChild(yearSelect);
+
     monthHeader.appendChild(monthLabel);
-    monthHeader.appendChild(dropBtn);
-    monthHeader.appendChild(dropdown);
+    monthHeader.appendChild(yearLabel);
+    monthHeader.appendChild(monthDropdown);
+    monthHeader.appendChild(yearDropdown);
     calTarget.appendChild(monthHeader);
 
     //top bar of weekday names
@@ -210,7 +238,7 @@ function setupCalendar(date) {
         day.addEventListener('click', () => {
             window.location.href =
                 dayOVLink +
-                '#' +
+                '?date=' +
                 monthNumber(currMonthNumber) +
                 '/' +
                 //convert day number into a string
@@ -219,13 +247,17 @@ function setupCalendar(date) {
                 currYearNumber;
         });
         //check if today (so we can highlight it)
-        if (i == current.getDate() && current.getMonth() == currMonthNumber) {
+        if (
+            i == current.getDate() &&
+            current.getMonth() == currMonthNumber &&
+            current.getFullYear() == currYearNumber
+        ) {
             day.classList.add('calToday');
         }
 
         let dayNotes = document.createElement('div');
         dayNotes.classList.add('day-notes');
-        dayNotes.innerText = '3 Notes';
+        dayNotes.innerText = '3 Tasks';
         day.appendChild(dayNotes);
 
         daysField.appendChild(day);
@@ -243,18 +275,36 @@ function setupCalendar(date) {
     }
 
     calTarget.append(daysField);
+
+    let plusMonth = document.getElementById('plus-month');
+    let plusYear = document.getElementById('plus-year');
+    plusMonth.onclick = function () {
+        window.prompt('Enter new note');
+    };
+    plusYear.onclick = function () {
+        window.prompt('Enter new note');
+    };
 }
 
 window.addEventListener('load', setupContent);
 window.addEventListener('load', setupCalendar(new Date()));
 
+// if dropdown is open and click is placed elsewhere, close the dropdown
 window.onclick = function (e) {
-    if (!e.target.matches('.fa-caret-down')) {
+    if (!e.target.matches('.calMonthLabel')) {
         console.log(e.target);
         var myDropdown = document.getElementById('dropdown');
         if (myDropdown.classList.contains('dropdown-content')) {
             myDropdown.classList.remove('dropdown-content');
             myDropdown.classList.add('show-content');
+        }
+    }
+    if (!e.target.matches('.calYearLabel')) {
+        console.log(e.target);
+        var yearDropdown = document.getElementById('year-dropdown');
+        if (yearDropdown.classList.contains('dropdown-content')) {
+            yearDropdown.classList.remove('dropdown-content');
+            yearDropdown.classList.add('show-content');
         }
     }
 };

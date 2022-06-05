@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Calendar</title>
-        <link rel="stylesheet" href="CalendarStyles.css" />
+        <link rel="stylesheet" href="./CalendarStyles.css" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -12,7 +12,7 @@
         <div class="calendar-bg">
             <div class="calendar-wrapper">
                 <div class="calendar-div"></div>
-                <a href="./WeeklyOverview.html"
+                <a href="../WeeklyOverview/WeeklyOverview.html"
                     ><div
                         class="fa fa-home"
                         style="
@@ -26,11 +26,17 @@
                 ></a>
                 <div id="goalReminder">
                     <div>
-                        <h2>Monthly Goals:</h2>
+                        <div class="goalContainer">
+                            <h2>Monthly Goals:</h2>
+                            <h2 id="plus-month">+</h2>
+                        </div>
                         <div id="monthGoal"></div>
                     </div>
                     <div>
-                        <h2>Yearly Goals:</h2>
+                        <div class="goalContainer">
+                            <h2>Yearly Goals:</h2>
+                            <h2 id="plus-year">+</h2>
+                        </div>
                         <div id="yearGoal"></div>
                     </div>
                 </div>
@@ -38,6 +44,7 @@
         </div>
     </body>
 
-    <script src="WeeklyJS.js" type="module"></script>
-    <script src="Calendar.js" type="module"></script>
+    <script src="../General-JS/goals.js" type="module"></script>
+    <script src="../WeeklyOverview/Weekly.js" type="module"></script>
+    <script src="./Calendar.js" type="module"></script>
 </html>

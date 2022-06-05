@@ -12,12 +12,13 @@ body {
     justify-items: stretch;
     grid-template-columns: 30% 10% 17%;
 
+    /* mess around by removing one column/row of the grid*/
     grid-template-areas:
-        'title title title title title title'
-        'todo todo note note note goal'
-        'todo todo note note note goal'
-        'todo todo note note note album'
-        'todo todo note note note album';
+        'title title title title title'
+        'todo todo note note goal'
+        'todo todo note note goal'
+        'todo todo note note album'
+        'todo todo note note album';
 }
 
 h1 {
@@ -38,7 +39,8 @@ h2 {
     margin: 2vh;
 
     justify-items: stretch;
-    grid-template-areas: 'back one two date three four headerHome';
+    /* removing back button, update grid area */
+    grid-template-areas: 'one two date three four headerHome';
 }
 
 #monthView {
@@ -124,6 +126,10 @@ h2 {
     font-size: 3vh;
 }
 
+#entry-button {
+    cursor: pointer;
+}
+
 /* Note Block */
 
 #notes {
@@ -141,6 +147,18 @@ h2 {
     min-height: 35vw;
 }
 
+#notes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#notes-save {
+    height: fit-content;
+    margin-right: 1.2vw;
+    cursor: pointer;
+}
+
 #notesDino {
     height: 13vh;
     width: 10vw;
@@ -154,7 +172,7 @@ h2 {
 #goalReminder {
     grid-area: goal;
     background-color: white;
-    margin: 0.7vw;
+    margin: 1vw;
     padding: 0.5vw;
     border-radius: 2vw;
     border-style: solid;
@@ -197,23 +215,14 @@ h2 {
     top: 1px;
 }
 
-/*
-#monthGoal::-webkit-scrollbar {
-    display: none; color of the tracking area
-}
-
-#yearGoal::-webkit-scrollbar {
-     display: none; color of the tracking area 
-}
-*/
-
 /* Photo Album Block */
 
 #photo-album {
     grid-area: album;
     background-color: white;
-    margin: 0.5vw;
-    padding: 0.8vw;
+    margin: 1vw;
+    padding-left: 0.8vw;
+    padding-right: 0.8vw;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
@@ -237,6 +246,12 @@ button#right {
     background-color: transparent;
     border: none;
     font-size: 2vh;
+}
+
+#save,
+#left,
+#right {
+    cursor: pointer;
 }
 
 /* Misc */

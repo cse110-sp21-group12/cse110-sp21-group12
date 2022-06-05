@@ -9,7 +9,6 @@ let currentMonth = myLocation.substring(
 if (currentMonth == 'ew.html') {
     currentMonth = '05/2021';
 }
-console.log(currentMonth);
 
 let currentMonthRes;
 
@@ -22,12 +21,9 @@ window.addEventListener('load', () => {
     // }
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         setDB(e.target.result);
         let req = getMonthlyGoals(currentMonth);
         req.onsuccess = function (e) {
-            console.log('got month');
-            console.log(e.target.result);
             currentMonthRes = e.target.result;
             if (currentMonthRes === undefined) {
                 // creates a month object which will be used to create a blank template of monthly goals
@@ -43,7 +39,6 @@ window.addEventListener('load', () => {
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
-            console.log('setting initial theme');
             document.documentElement.style.setProperty(
                 '--bg-color',
                 settingObj.theme
@@ -62,7 +57,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         text: gText,
         done: false,
     });
-    console.log(currentMonthRes);
     document.querySelector('#bullets').innerHTML = '';
     // turns the goals from text into bullets
     renderGoals(currentMonthRes.goals);
@@ -72,9 +66,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    // potentially bad console logs that is used for debugging and should be deleted when finished
-    console.log('got event');
-    console.log(e.composedPath());
+    // potentially bad console logs that is used for debugging and should be
+    // deleted when finished
     let index = e.composedPath()[0].getAttribute('index');
     currentMonthRes.goals.splice(index, 1);
     updateMonthlyGoals(currentMonthRes);
@@ -84,8 +77,6 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
-    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentMonthRes.goals[index].text = newText;
@@ -96,8 +87,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
-    console.log(e.composedPath()[0]);
     let index = e.composedPath()[0].getAttribute('index');
     currentMonthRes.goals[index].done ^= true;
     updateMonthlyGoals(currentMonthRes);
@@ -116,7 +105,6 @@ function renderGoals(goals) {
         newPost.setAttribute('goalJson', JSON.stringify(goal));
         newPost.setAttribute('index', i);
         newPost.entry = goal;
-        console.log(newPost);
         document.querySelector('#bullets').appendChild(newPost);
         i++;
     });
@@ -151,7 +139,7 @@ function daysInMonth(month, year) {
 function setupCalendar() {
     const calTarget = document.getElementById('calendar');
 
-    //get today code stolen from stackoverflow
+    // get today code stolen from stack overflow
     // var today = new Date();
     let thisDate = new Date(
         currentMonth.substring(3) +
@@ -159,9 +147,6 @@ function setupCalendar() {
             currentMonth.substring(0, 2) +
             '-03T00:00:00.000-07:00'
     );
-    //thisDate = new Date('2021-05-23');
-    console.log(currentMonth.substring(0, 2));
-    console.log(thisDate);
 
     //var curr_day_number = today.getDate();
     let currMonthNumber = thisDate.getMonth();
@@ -195,7 +180,6 @@ function setupCalendar() {
     let daysField = document.createElement('ul');
     daysField.classList.add('daysField');
     let endDay = daysInMonth(currMonthNumber + 1, currYearNumber);
-    console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
     for (let i = 0; i < monthFirstDow; i++) {
