@@ -18,6 +18,7 @@ class noteBox extends HTMLElement {
                     height: 15vh;
                     padding: none;
                     border-style: none; 
+                    font-family: 'Montserrat', Montserrat;
                 }
                 .note{
                     //word-break: break-all;
