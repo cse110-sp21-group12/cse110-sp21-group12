@@ -20,18 +20,18 @@ body {
         'todo todo note note note album';
 }
 
-h1 {
+h2 {
     font-size: 3.5vh;
     margin: 1vh;
 }
 
-h2 {
-    font-size: 2vh;
+h3 {
+    font-size: 2.3vh;
 }
 
 /* Header Block */
 
-#header {
+header {
     grid-area: title;
     display: grid;
     height: 9vh;
@@ -63,6 +63,7 @@ h1 > a:first-child:hover {
     grid-area: date;
     justify-self: center;
     font-size: 5vh;
+    margin: 2.5vh;
 }
 
 #logo1 {
@@ -152,9 +153,9 @@ h1 > a:first-child:hover {
 #notesDino {
     height: 13vh;
     width: 10vw;
-    position: absolute;
-    bottom: -3vh;
-    right: 55vh;
+    position: relative;
+    bottom: 18.5vh;
+    left: 34vw;
 }
 
 /* Goal Reminder Block */
@@ -230,10 +231,10 @@ h1 > a:first-child:hover {
 
 /* when user hovers their cursor over the button, it fills in with grey */
 #addPhoto:hover {
-    background-color: #d0c6c6;
+    background-color: lightgray;
 }
 
-#myCanvas {
+#photoCanvas {
     border: 2px solid #000000;
     width: 100%;
     height: 70%;
@@ -242,17 +243,18 @@ h1 > a:first-child:hover {
 button#save,
 button#cancel {
     position: relative;
-    left: 4.5vw;
     background-color: transparent;
     border: 3px solid black;
     border-radius: 5px;
     color: #565252;
+    left: 20%;
     cursor: pointer;
 }
+
 /* same as add photo button on hover */
 button#save:hover,
 button#cancel:hover {
-    background-color: #d0c6c6;
+    background-color: lightgray;
 }
 
 button#left,
@@ -283,4 +285,8 @@ button#right {
     border: none;
     border-radius: 0.5vh;
     cursor: pointer;
+}
+
+.entry-form-button:hover {
+    opacity: 0.7;
 }
