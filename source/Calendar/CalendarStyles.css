@@ -298,17 +298,14 @@ ul {
     margin-block-end: 0em;
 }
 
-#plus-month {
-    flex: 2;
-    text-align: center;
-}
-
+#plus-month,
 #plus-year {
     flex: 2;
     text-align: center;
+    cursor: pointer;
 }
 
-#goalContainer {
+.goalContainer {
     display: flex;
 }
 
