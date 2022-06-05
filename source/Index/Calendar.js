@@ -154,19 +154,19 @@ function setupCalendar() {
         blank_day.classList.add('blank_day');
         blank_day.innerText = '';
     }
-    console.log(i);
-    console.log(monthFirstDow);
+    //console.log(i);
+    //console.log(monthFirstDow);
 
     //i += 1;
 
     //real days
     for (i; i <= monthFirstDow + endDay - 1; i++) {
-        console.log(i);
+        //console.log(i);
         let date = i - monthFirstDow + 1;
         let day = days_field.children[i];
         day.innerText = date;
-        console.log(days_field.children[i].tagName);
-        console.log(day.innerText);
+        //console.log(days_field.children[i].tagName);
+        //console.log(day.innerText);
 
         //check if today (so we can highlight it)
         if (date == curr_day_number) {
@@ -202,7 +202,7 @@ function setupCalendar() {
 }
 
 //call setup functions
-setupContent();
+//setupContent();
 setupCalendar();
 
 //sleep
