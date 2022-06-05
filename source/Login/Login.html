@@ -19,7 +19,6 @@
             >
             This is an alert box.
         </div>
-        <img src="../Images/dino2.jpg" id="big-logo" />
         <div id="content">
             <!-- The text here gets replaced by JS in "LoginJs.js", can think of this as place holder text -->
             <h3 id="title">Login to your Account</h3>
@@ -106,7 +105,9 @@
                         Your password must be at least 8 characters, contain an
                         upper case letter, a number, and a special character.
                     </h3>
-                    <button id="login-button">LOGIN</button>
+                    <div id="login-button-wrapper">
+                        <button id="login-button">LOGIN</button>
+                    </div>
 
                     <div class="flex-box">
                         <p id="sign-up-text">Don't have an account?</p>
@@ -115,6 +116,7 @@
                 </div>
             </div>
         </div>
+        <img src="../Images/dino2.jpg" id="big-logo" />
         <script src="../Backend/FirebaseInit.js" type="module"></script>
         <script src="./Login.js" type="module"></script>
     </body>
