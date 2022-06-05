@@ -28,6 +28,7 @@ window.addEventListener('load', () => {
 });
 
 function setupContent() {
+    //set up the Today button
     var today = new Date();
     var currDay = today.getDate();
     var currMonth = today.getMonth();
@@ -44,6 +45,8 @@ function setupContent() {
             '/' +
             currYear;
     });
+
+    //set up clickability for the year links
 }
 
 //dynamically generates calendar for current month
