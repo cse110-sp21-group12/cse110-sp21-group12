@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
  * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
  */
 function validateURL() {
-    /* confirm date format is DD/MM/YYYY, if not redirect to 404 */
+    /* confirm date format is YYYY, if not redirect to 404 */
     if (!/^\d{4}$/.test(currentYear)) {
         window.location.href = PAGE_404;
         return false;
