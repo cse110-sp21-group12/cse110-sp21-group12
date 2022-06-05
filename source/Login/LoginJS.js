@@ -200,12 +200,10 @@ function verifyValidInputs(newUsername, newPassword) {
         error.textContent = 'PIN must Satisfy requirment below';
         error.style.display = 'block';
         return false;
-    }
-    else if(name_regex.test(newPassword)){
+    } else if (name_regex.test(newPassword)) {
         error.textContent = 'PIN must not contain special characters';
         error.style.display = 'block';
         return false;
-
     }
 
     //allow otherwise
@@ -227,7 +225,6 @@ function validFormat() {
     //     myInput.classList.add('clicking');
     // };
     // When the user clicks outside of the password field, hide the message box
-    
 
     // When the user starts to type something inside the password field
     myInput.onkeyup = function () {
@@ -309,7 +306,7 @@ function goHome() {
  * Hide username, update text.
  */
 function setNewUser() {
-    resetPasswordButton.setAttribute("hidden", "hidden");
+    resetPasswordButton.setAttribute('hidden', 'hidden');
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
     loginButton.innerText = 'Sign Up';
@@ -320,16 +317,14 @@ function setNewUser() {
  * Show username, update text
  */
 function setReturningUser() {
-    resetPasswordButton.removeAttribute("hidden");
+    resetPasswordButton.removeAttribute('hidden');
     document.getElementById('username').style.display = 'none';
     document.getElementById('US').innerHTML = '';
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
 
-
-function hide(){
+function hide() {
     //document.getElementById('message').setAttribute("hidden", "hidden");
     document.getElementById('message').style.display = 'none';
-
 }
