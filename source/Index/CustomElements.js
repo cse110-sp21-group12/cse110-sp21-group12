@@ -44,13 +44,14 @@ class CalendarSquare extends HTMLElement {
 }
 window.customElements.define('day-item', CalendarSquare);
 
-class MonthHeader extends HTMLDivElement {
+class MonthHeader extends HTMLElement {
     constructor() {
         super();
         this.setAttribute('id', 'month_header');
     }
 }
-window.customElements.define('month-header', MonthHeader, { extends: 'div' });
+//window.customElements.define('month-header', MonthHeader, { extends: 'div' });
+window.customElements.define('month-header', MonthHeader);
 
 class MonthLink extends HTMLAnchorElement {
     constructor() {
