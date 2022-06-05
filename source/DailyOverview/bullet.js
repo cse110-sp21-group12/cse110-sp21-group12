@@ -8,19 +8,18 @@ class BulletEntry extends HTMLElement {
         template.innerHTML = `
             <style>
                 .bullet{
-                    word-break: break-all;
+                    -word-break: break-all;
                     max-width: 100%;
-                    font-size: 2.3vh;
+                    font-size: 1rem;
                 }
                 .child{
                     padding-left: 2vw;
                 }
                 .bullet-container{
-                    display: inline-block; !important
+                    display: inline-block;
                 }
                 li > span {
                     position: relative;
-                    left: -5px;
                 }
                 ul {
                     padding: 0px 0px 0px 15px;
@@ -32,6 +31,7 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer {
                     position: relative;
                     display: inline-block;
+                    top: 5px;
                 }
                 .clicked {
                     background-color: #858585;
@@ -40,17 +40,25 @@ class BulletEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #e4e4e4;
-                    min-width: 11vh;
                     z-index: 1;
-                    transform: translateY(-0.1vh);
+                    transform: translateX(-25%) translateY(-5px);
                 }
                 .dropdown p {
+                    position: relative;
                     color: black;
-                    font-size: 1.7vh;
-                    padding: 0.5vh 0.5vh 0.5vh 0.5vh;
-                    display: block;
+                    font-size: .85rem;
+                    padding: .25rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+                    text-align: center;
+                    justify-content: space-evenly;
                     margin: 0;
                     background-color: #e4e4e4;
+                    width: min-content;
+                }
+                .dropdown p > img {
+                    height: 25px;
                 }
                 .dropdown p:hover {
                     background-color: #cecece;
@@ -70,16 +78,19 @@ class BulletEntry extends HTMLElement {
                     border-radius: 0.5vh;
                     cursor: pointer;
                 }
+                .dropdownButton > img {
+                    display: block;
+                }
                 #features {
                     width: 100%;
                     background: transparent;
                     border: none;
                     cursor: pointer;
-                    padding: 0.5vh;
                     background-color: #e4e4e4;
                     font-family: 'Courier', monospace;
                     font-weight: bold;
-                    font-size: 1.3vh;
+                    padding-top: .5rem;
+                    padding-bottom: .5rem;
                 }
                 img {
                     width: 100%;
@@ -96,15 +107,16 @@ class BulletEntry extends HTMLElement {
                         <li>
                             <span class="bullet-content">Setting text</span>
                         <div class="dropdownContainer">
-                            <button id="dropdownHover" class="dropdownButton">v</button>
+                            <button id="dropdownHover" class="dropdownButton">
+                                <img src="../Images/dropdown-icon.svg" alt="dropdown"/>
+                            </button>
                             <div class="dropdown">
                                 <div class="row">
-                                    <p id="edit"><img src="images/Edit.svg" alt="Edit"></p>
-                                    <p id="delete"><img src="images/Delete.svg" alt="Delete"></p>
-                                    <p id="add"><img src="images/Add.svg" alt="Add"></p>
-                                    <p id="done"><img src="images/Done.svg" alt="Done"></p>
+                                    <p id="edit"><img src="images/Edit.svg" alt="Edit">Edit</p>
+                                    <p id="delete"><img src="images/Delete.svg" alt="Delete">Delete</p>
+                                    <p id="add"><img src="images/Add.svg" alt="Add">Subtask</p>
+                                    <p id="done"><img src="images/Done.svg" alt="Done">Done</p>
                                 </div>
-                                <div class="featuresContainer">
                                     <select id="features"> 
                                         <option id="normal" value="normal">Normal</option> 
                                         <option id="important" value="important">Important</option>
@@ -114,7 +126,6 @@ class BulletEntry extends HTMLElement {
                                         <option id="event" value="event">Event</option>
                                         <option id="other" value="other">Other</option>
                                     </select>
-                                </div>
                             </div>
                         </div>
                         <div class="child"></div>
@@ -212,8 +223,6 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit');
-                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -272,9 +281,6 @@ class BulletEntry extends HTMLElement {
             console.log('testing');
         }
 
-        console.log('features');
-        console.log(entry.features);
-        console.log(this.shadowRoot.getElementById(entry.features));
         this.shadowRoot
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
