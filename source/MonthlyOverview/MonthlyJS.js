@@ -48,7 +48,24 @@ window.addEventListener('load', () => {
             );
         };
     };
+
+    setYearlyOverviewLink();
 });
+
+/**
+ * Sets the YearlyOverview link to say '<year> Overview' so that users
+ * clearly know what YearlyOverview they are going to from MonthlyOverview page
+ * @returns void
+ */
+function setYearlyOverviewLink() {
+    // get the YearlyOverview link in the top left corner
+    let yearlyOverviewLink = document.querySelector('#back');
+    // set the link to be to the year of the current MonthlyOverview
+    const year = currentMonth.substring(currentMonth.indexOf('/') + 1);
+    yearlyOverviewLink.href += '#' + year;
+    // set link text
+    yearlyOverviewLink.textContent = `${year} Overview`;
+}
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
@@ -296,7 +313,3 @@ function dayNumber(day) {
         return '0' + day;
     }
 }
-
-//set back button
-document.getElementById('index').children[0].href +=
-    '#' + currentMonth.substring(3);

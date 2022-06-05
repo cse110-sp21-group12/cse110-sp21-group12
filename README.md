@@ -1,12 +1,12 @@
 # Group 12 - Stegosource
 
-[Bullet Journal](https://cse110-sp21-group12.github.io/cse110-sp21-group12/)
+[Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
 
 
 [Team Page](admin/team.md)
 
 ### Documentation Site
-our jsDocs are hosted [here](https://dustinlin.github.io/110Group12JsDocs/index.html)
+our jsDocs are hosted [here](https://cse112-sp22-teamxrefactor.github.io/jsDocs/)
 
 ### Description of Project
 

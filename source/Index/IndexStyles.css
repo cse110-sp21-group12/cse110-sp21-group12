@@ -9,7 +9,7 @@
 }
 * {
     font-family: 'Courier', monospace;
-    color: #3f3d3d;
+    font-weight: bold;
 }
 body {
     background-color: var(--bg-color);
@@ -62,24 +62,36 @@ Structure
     border-width: 0.2vw;
     border-radius: 3vw;
     padding: 2vw;
-    background-color: white;
+    background-color: #eee;
 }
 
 #content {
     overflow: hidden;
     overflow-y: scroll;
-    min-height: 50vh;
+    height: 50vh;
     max-height: 100vh;
     width: auto;
     margin: 1vw 2vw;
+}
+
+#content > div {
+    width: max-content;
+    margin: 1rem auto;
 }
 
 #content::-webkit-scrollbar {
     display: none;
 }
 
+#content h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.25em;
+}
+
 .horiz {
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .collapsible_child {
@@ -103,8 +115,6 @@ Structure
 
 #today-button {
     background-color: var(--bg-color);
-    border: none;
-    color: #585858;
     text-align: center;
     text-decoration: none;
     font-size: 1.5vw;
@@ -114,11 +124,13 @@ Structure
     display: block;
     width: 70%;
 }
+#today-button:hover {
+    text-decoration: underline;
+}
 
 button {
     background-color: var(--bg-color);
     border: none;
-    color: #585858;
     /*to make the [>] / [v] look consistent */
     font-family: sans-serif;
     font-size: 1.5vw;
@@ -131,20 +143,38 @@ button:hover {
 }
 
 .coll_yr_button {
+    width: 35px;
+    padding: 0;
+    border: 0;
     margin-right: 1rem;
-    border: 1px solid transparent;
+    background-color: transparent;
 }
 .coll_yr_button:hover {
-    border: 1px solid black;
+    background-color: var(--bg-color);
+}
+
+.coll_yr_button img {
+    display: block;
+    position: relative;
+    bottom: 1px;
+    width: 100%;
+    transform: rotate(-90deg) scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+.coll_yr_button.active img {
+    transform: rotate(0) scale(1.2);
 }
 
 #content .yearlink:hover {
     text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
 }
 
 #content a {
     text-decoration: none;
     font-size: 1.25em;
+    color: black;
 }
 
 #content > * {
@@ -237,13 +267,17 @@ ul {
     color: black;
     background: none;
     padding: 0.8vw 0;
+    border-radius: 0.5vw;
+    font-weight: lighter;
 }
 
 .day:hover {
     cursor: pointer;
+    background-color: var(--clr-bg-hover);
 }
 
-.blank_day {
+.blank_day,
+.blank_day:hover {
     background: none;
 }
 
@@ -251,9 +285,13 @@ ul {
     Highlight the "current" day 
     We can change the color to be based on the theme color
 */
-.today {
+.today,
+.today:hover {
     background: var(--bg-color);
-    border-radius: 0.5vw;
+}
+
+.today {
+    font-weight: bold;
 }
 
 #cal-week-wrapper {
@@ -268,4 +306,5 @@ ul {
     border-radius: 0.8vw;
     font-size: 1vw;
     padding: 0.3vh;
+    cursor: pointer;
 }

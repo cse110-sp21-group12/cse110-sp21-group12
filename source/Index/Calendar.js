@@ -37,10 +37,11 @@ function setupContent() {
         //
         //wrapper
         let year_wrapper = document.createElement('div');
-        year_wrapper.id = yr;
+        // I added year_ because id's shoud start with a letter
+        year_wrapper.id = 'year_' + yr;
         //
         //button group
-        let year_nav = document.createElement('div');
+        let year_nav = document.createElement('h2');
         year_nav.classList.add('year');
         year_nav.classList.add('collapsible');
         year_nav.classList.add('horiz');
@@ -48,11 +49,15 @@ function setupContent() {
         let coll_button = document.createElement('button');
         coll_button.id = yr + '_button';
         coll_button.classList.add('coll_yr_button');
-        coll_button.innerText = '>';
+        let dropdownIcon = document.createElement('img');
+        dropdownIcon.src = '../Images/dropdown-icon.svg';
+        dropdownIcon.alt = 'dropdown';
+        coll_button.appendChild(dropdownIcon);
         //year link
         let yearlink = document.createElement('a');
         yearlink.classList.add('yearlink');
-        yearlink.id = yr + '_link';
+        // I added year_ because id's shoud start with a letter
+        yearlink.id = 'year_' + yr + '_link';
         //yearlink.href = '/year/' + yr + '.html';
         yearlink.href = year_OV_link + '#' + yr;
         yearlink.innerText = yr + ' Yearly Overview';
