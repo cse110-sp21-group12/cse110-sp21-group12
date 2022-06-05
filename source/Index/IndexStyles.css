@@ -76,7 +76,7 @@ Structure
     margin: 1vw 2vw;
 }
 
-#content>div {
+#content > div {
     width: max-content;
     margin-inline: auto;
 }
@@ -96,13 +96,13 @@ Structure
     padding-left: 2rem;
 }
 
-.collapsible_child>a {
+.collapsible_child > a {
     width: max-content;
     padding: 0.5em;
     border-radius: 0.5em;
 }
 
-.collapsible_child>a:hover {
+.collapsible_child > a:hover {
     background-color: var(--clr-bg-hover);
 }
 
@@ -176,7 +176,7 @@ button:hover {
     color: black;
 }
 
-#content>* {
+#content > * {
     margin-bottom: 0.5vw;
 }
 
