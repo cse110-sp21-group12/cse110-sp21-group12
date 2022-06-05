@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="”en”">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="DailyStyles.css" />
@@ -8,33 +8,25 @@
     </head>
 
     <body>
-        <div id="header">
-            <h1 id="monthView">
+        <header>
+            <h2 id="monthView">
                 <a href="../MonthlyOverview/MonthlyOverview.html" id="words">
                 </a>
-            </h1>
-            <div>
-                <img src="../Images/Logo.svg" id="logo1" />
-            </div>
-            <div>
-                <img src="../Images/Logo.svg" id="logo2" />
-            </div>
-            <h1 id="date">Today 05/01/2021</h1>
-            <div>
-                <img src="../Images/Logo.svg" id="logo3" />
-            </div>
-            <div>
-                <img src="../Images/Logo.svg" id="logo4" />
-            </div>
+            </h2>
+            <img src="../Images/Logo.svg" id="logo1" />
+            <img src="../Images/Logo.svg" id="logo2" />
+            <h2 id="date">Insert Date</h2>
+            <img src="../Images/Logo.svg" id="logo3" />
+            <img src="../Images/Logo.svg" id="logo4" />
             <div id="homeContainer">
                 <a href="../Index/Index.html">
                     <img src="../Images/home.svg" id="home" />
                 </a>
             </div>
-        </div>
+        </header>
 
-        <div id="todo">
-            <h1>To-Do</h1>
+        <section id="todo">
+            <h2>To-Do</h2>
             <form class="entry-form">
                 <input
                     type="text"
@@ -50,42 +42,43 @@
                 />
             </form>
             <div id="bullets"></div>
-        </div>
-        <div id="notes">
-            <h1 id="notesb">Notes</h1>
-            <img src="../Images/GreenDino.svg" id="notesDino" />
-        </div>
-        <div id="goalReminder">
-            <h1>Goal Reminders</h1>
+        </section>
+        <section id="notes">
+            <h2 id="notesb">Notes</h2>
+        </section>
+        <img src="../Images/GreenDino.svg" id="notesDino" />
+        <section id="goalReminder">
+            <h2>Goal Reminders</h2>
             <div>
-                <h2>Monthly:</h2>
+                <h3>Monthly:</h3>
                 <div id="monthGoal"></div>
             </div>
             <div>
-                <h2>Yearly:</h2>
+                <h3>Yearly:</h3>
                 <div id="yearGoal"></div>
             </div>
-        </div>
-        <div id="photo-album">
-            <h1>Photo Album</h1>
-            <button id="addPhoto">Add Photo</button>
+
+        </section>
+        <section id="photo-album">
+            <h2>Photo Album</h2>
+            <button type="button" id="addPhoto">Add Photo</button>
             <button id="deletePhoto">Delete Photo</button>
             <div>
-                <canvas id="myCanvas"></canvas>
+                <canvas id="photoCanvas"></canvas>
             </div>
 
-            <div>
+            <section>
                 <input type="hidden" id="image-input" accept="*.jpg" />
                 <button type="button" id="save" hidden>Save</button>
                 <button type="button" id="cancel" hidden>Cancel</button><br />
                 <button type="button" id="left"><</button>
                 <button type="button" id="right">></button>
-            </div>
-        </div>
-    </body>
+            </section>
+        </section>
 
-    <script src="./bullet.js" type="module"></script>
-    <script src="./DailyJS.js" type="module"></script>
-    <script src="./note.js" type="module"></script>
-    <script src="../Backend/BackendInit.js" type="text/javascript"></script>
+        <script src="./bullet.js" type="module"></script>
+        <script src="./DailyJS.js" type="module"></script>
+        <script src="./note.js" type="module"></script>
+        <script src="../Backend/BackendInit.js" type="text/javascript"></script>
+    </body>
 </html>
