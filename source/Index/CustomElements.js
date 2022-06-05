@@ -53,14 +53,11 @@ class MonthHeader extends HTMLElement {
 //window.customElements.define('month-header', MonthHeader, { extends: 'div' });
 window.customElements.define('month-header', MonthHeader);
 
-
-
 //
 //
 // Content Elements
 //
 //
-
 
 // Hierarchy (copied during i7 refactor from Calendar.js):
 //
@@ -78,7 +75,6 @@ window.customElements.define('month-header', MonthHeader);
 //  -year wrapper
 //      -...
 //  -...
-
 
 /**
  * A Month Link links to a monthly overview page. It is a child of a Months Div.
@@ -103,7 +99,7 @@ class MonthsDiv extends HTMLElement {
         style.setAttribute('href', 'IndexStyles.css');
         this.shadowRoot.append(style);
 
-        this.setAttribute('id', this.parentElement.id.substring(5) + '_months')
+        this.setAttribute('id', this.parentElement.id.substring(5) + '_months');
 
         for (let m = 0; m < 12; m++) {
             let month_child = document.createElement('a');
@@ -125,7 +121,7 @@ class MonthsDiv extends HTMLElement {
 window.customElements.define('months-div', MonthsDiv);
 
 /**
- * Year Link is a link to a yearly overview. It is a child of Year Wrapper. 
+ * Year Link is a link to a yearly overview. It is a child of Year Wrapper.
  */
 class YearLink extends HTMLAnchorElement {
     constructor() {
@@ -138,7 +134,6 @@ class YearLink extends HTMLAnchorElement {
         this.setAttribute('href', year_OV_link + '#' + yr);
         //this.setAttribute('innerText', yr + ' Yearly Overview');
         this.innerText = yr + ' Yearly Overview';
-
     }
 }
 window.customElements.define('year-link', YearLink, { extends: 'a' });
@@ -152,7 +147,10 @@ class CollButton extends HTMLButtonElement {
 
         this.innerText = '';
         this.setAttribute('class', 'coll_yr_button');
-        this.setAttribute('id', this.parentElement.parentElement.id.substring(5) + '_button');
+        this.setAttribute(
+            'id',
+            this.parentElement.parentElement.id.substring(5) + '_button'
+        );
 
         let dropdownIcon = document.createElement('img');
         dropdownIcon.src = '../Images/dropdown-icon.svg';
@@ -177,7 +175,10 @@ class YearNav extends HTMLDivElement {
         //coll_button.setAttribute('is', 'coll-button');
         coll_button.innerText = '';
         coll_button.setAttribute('class', 'coll_yr_button');
-        coll_button.setAttribute('id', this.parentElement.id.substring(5) + '_button');
+        coll_button.setAttribute(
+            'id',
+            this.parentElement.id.substring(5) + '_button'
+        );
 
         let dropdownIcon = document.createElement('img');
         dropdownIcon.src = '../Images/dropdown-icon.svg';
@@ -186,7 +187,6 @@ class YearNav extends HTMLDivElement {
 
         let year_link = document.createElement('a');
         year_link.setAttribute('is', 'year-link');
-
     }
 }
 window.customElements.define('year-nav', YearNav, { extends: 'div' });
@@ -198,9 +198,6 @@ class YearWrapper extends HTMLElement {
     constructor() {
         super();
         //yr = this.id.substring(5);
-
-
-
     }
 }
 window.customElements.define('year-wrapper', YearWrapper);
