@@ -28,11 +28,11 @@ function monthNumber(month) {
 }
 
 const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
-//const year_OV_link = '../YearlyOverview/YearlyOverview.html';
+const year_OV_link = '../YearlyOverview/YearlyOverview.html';
 
 //
 //
-// Actual code
+// Calendar Elements
 //
 //
 
@@ -53,6 +53,36 @@ class MonthHeader extends HTMLElement {
 //window.customElements.define('month-header', MonthHeader, { extends: 'div' });
 window.customElements.define('month-header', MonthHeader);
 
+
+
+//
+//
+// Content Elements
+//
+//
+
+
+// Hierarchy (copied during i7 refactor from Calendar.js):
+//
+//  -year wrapper
+//      -year nav
+//          -collapse button
+//          -year link
+//      -months div
+//          -month link
+//          -month link
+//          -month link
+//          -...
+//  -year wrapper
+//      -...
+//  -year wrapper
+//      -...
+//  -...
+
+
+/**
+ * A Month Link links to a monthly overview page. It is a child of a Months Div.
+ */
 class MonthLink extends HTMLAnchorElement {
     constructor() {
         super();
@@ -60,10 +90,21 @@ class MonthLink extends HTMLAnchorElement {
 }
 window.customElements.define('month-link', MonthLink, { extends: 'a' });
 
+/**
+ * Months Div contains 12 month links. It is a child of Year Wrapper. It is shown or hidden by its nephew Coll Button.
+ */
 class MonthsDiv extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+
+        let style = document.createElement('link');
+        style.setAttribute('rel', 'stylesheet');
+        style.setAttribute('href', 'IndexStyles.css');
+        this.shadowRoot.append(style);
+
+        this.setAttribute('id', this.parentElement.id.substring(5) + '_months')
+
         for (let m = 0; m < 12; m++) {
             let month_child = document.createElement('a');
             month_child.setAttribute('is', 'month-link');
@@ -83,23 +124,83 @@ class MonthsDiv extends HTMLElement {
 }
 window.customElements.define('months-div', MonthsDiv);
 
-//class YearLink
+/**
+ * Year Link is a link to a yearly overview. It is a child of Year Wrapper. 
+ */
+class YearLink extends HTMLAnchorElement {
+    constructor() {
+        super();
+        //get year from grandparent
+        let yr = this.parentElement.parentElement.id.substring(5);
+        //populate attributes
+        this.setAttribute('id', 'year_' + yr + '_link');
+        this.setAttribute('class', 'yearlink');
+        this.setAttribute('href', year_OV_link + '#' + yr);
+        //this.setAttribute('innerText', yr + ' Yearly Overview');
+        this.innerText = yr + ' Yearly Overview';
 
+    }
+}
+window.customElements.define('year-link', YearLink, { extends: 'a' });
+
+/**
+ * Coll Button is a child of Year Nav. Coll Button collapses its uncle Months Div (they have the same year)
+ */
 class CollButton extends HTMLButtonElement {
     constructor() {
         super();
 
-        this.innerText = '>';
-        this.setAttribute('class', 'coll_button');
+        this.innerText = '';
+        this.setAttribute('class', 'coll_yr_button');
+        this.setAttribute('id', this.parentElement.parentElement.id.substring(5) + '_button');
+
+        let dropdownIcon = document.createElement('img');
+        dropdownIcon.src = '../Images/dropdown-icon.svg';
+        dropdownIcon.alt = 'dropdown';
+        this.appendChild(dropdownIcon);
     }
 }
 window.customElements.define('coll-button', CollButton, { extends: 'button' });
 
-//class YearNav
-
-class YearWraper extends HTMLElement {
+/**
+ * YearNav contains a Coll Button and a Year Link. It is a child of Year Wrapper.
+ */
+class YearNav extends HTMLDivElement {
     constructor() {
         super();
+        this.setAttribute('class', 'year collapsible horiz');
+        this.setAttribute('id', this.parentElement.id.substring(5) + '_nav');
+
+        this.attachShadow({ mode: 'open' });
+
+        let coll_button = this.children[0];
+        //coll_button.setAttribute('is', 'coll-button');
+        coll_button.innerText = '';
+        coll_button.setAttribute('class', 'coll_yr_button');
+        coll_button.setAttribute('id', this.parentElement.id.substring(5) + '_button');
+
+        let dropdownIcon = document.createElement('img');
+        dropdownIcon.src = '../Images/dropdown-icon.svg';
+        dropdownIcon.alt = 'dropdown';
+        coll_button.appendChild(dropdownIcon);
+
+        let year_link = document.createElement('a');
+        year_link.setAttribute('is', 'year-link');
+
     }
 }
-window.customElements.define('year-wrapper', YearWraper);
+window.customElements.define('year-nav', YearNav, { extends: 'div' });
+
+/**
+ * Year Wrapper: top-level element. Contains a Year Nav and a Months Div.
+ */
+class YearWrapper extends HTMLElement {
+    constructor() {
+        super();
+        //yr = this.id.substring(5);
+
+
+
+    }
+}
+window.customElements.define('year-wrapper', YearWrapper);
