@@ -314,9 +314,10 @@ ul {
 #plus-year {
     flex: 2;
     text-align: center;
+    cursor: pointer;
 }
 
-#goalContainer {
+.goalContainer {
     display: flex;
 }
 

@@ -12,12 +12,13 @@ class noteBox extends HTMLElement {
                     color: black;
                 }
                 .noteContent{
-                    overflow: auto;
+                    overflow-y: scroll;
                     resize: none;
                     width: 100%;
-                    height: 69vh;
-                    max-height: 40vw;
+                    height: 15vh;
+                    padding: none;
                     border-style: none; 
+                    font-family: 'Montserrat', Montserrat;
                 }
                 .note{
                     //word-break: break-all;

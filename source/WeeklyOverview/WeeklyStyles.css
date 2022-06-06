@@ -44,9 +44,10 @@ body {
     border-radius: 10px;
 }
 #header_date:hover {
-    cursor: pointer;
+    /* border: 1px solid #888; */
     background-color: #ddd;
     color: #888;
+    cursor: pointer;
 }
 
 #header_button_container {
@@ -338,10 +339,12 @@ h2.title {
 }
 span.close {
     display: inline;
-    vertical-align: baseline;
+    position: relative;
+    float: right;
     font-size: 40px;
     text-align: right;
-    margin-left: 0;
+    margin-top: -20px;
+    margin-right: -5px;
 }
 span.close:hover {
     cursor: pointer;
@@ -426,13 +429,17 @@ select {
     border-radius: 50%;
     margin-bottom: -4.5vh;
     margin-right: 3px;
+    max-height: 80px;
+    max-width: 80px;
     overflow: hidden;
 }
 #proImg-label-pic {
     display: inline;
     margin: 0 auto;
-    height: 100%;
-    width: auto;
+    height: 12vh;
+    width: 12vh;
+    max-height: 80px;
+    max-width: 80px;
     color: white;
 }
 #proImg-label-pic:hover {
