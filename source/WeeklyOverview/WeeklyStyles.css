@@ -25,24 +25,21 @@ body {
 }
 .header {
     background-image: url('../Images/weekly_header.jpg');
-    display: flex;
+    display: inline-flexflex;
     flex-direction: column;
     min-height: 0;
 }
 #header_date {
     position: relative;
     width: fit-content;
-    font-family: 'Inter';
     text-align: center;
     font-style: normal;
     padding: 0.5%;
     color: white;
     font-size: 7vh;
-    /* margin-left: 7%;
-    margin-top: 2%; */
-    /* padding: 5px; */
-    left: 7%;
-    top: 7%;
+    margin-left: 7%;
+    margin-top: 2%;
+    padding: 5px;
     background-color: rgba(30, 30, 30, 0.7);
     border-radius: 10px;
 }
@@ -55,25 +52,25 @@ body {
 
 #header_button_container {
     position: relative;
-    width: 8vw;
+    width: 5vw;
     margin-left: 85%;
-    margin-top: -5%;
+    margin-top: -7%;
     display: flex;
 }
 #header_settings_button {
     position: absolute;
     top: 0.5vh;
     right: 0;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
     border-radius: 50%;
     border: 1.5px solid #ffffff;
 }
 #header_settings_button > img {
     margin: 0 auto;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background-color: white;
 }
 #header_settings_button > img:hover {
@@ -84,8 +81,8 @@ body {
     position: absolute;
     top: 0.5vh;
     right: 12.5vh;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
     border-radius: 50%;
     border: 1.5px solid #ffffff;
@@ -93,8 +90,8 @@ body {
 }
 #header_calendar_button > img {
     margin: 0 auto;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     filter: invert();
 }
 #header_calendar_button :hover {
@@ -265,6 +262,18 @@ span {
 #notes-save {
     height: fit-content;
     margin-right: 1.2vw;
+    background-color: white;
+    color: #38b593;
+    border-color: white;
+    font-size: 1.5vh;
+    box-shadow: none;
+    border-color: white;
+    border-style: solid;
+}
+
+#notes-save:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* css for settings */
@@ -411,10 +420,6 @@ select {
     position: relative;
     top: -9vh;
     right: 14vh;
-    /* position: absolute;
-    bottom: -1vh;
-    right: 55vh;
-    background-color:black; */
 }
 #proImg-label {
     display: inline-block;

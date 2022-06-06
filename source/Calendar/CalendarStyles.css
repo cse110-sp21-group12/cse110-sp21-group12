@@ -298,7 +298,19 @@ ul {
     margin-block-end: 0em;
 }
 
-#plus-month,
+#notesDino {
+    height: 13vh;
+    width: 10vw;
+    position: absolute;
+    bottom: 3vh;
+    right: 5vh;
+}
+
+#plus-month {
+    flex: 2;
+    text-align: center;
+}
+
 #plus-year {
     flex: 2;
     text-align: center;

@@ -180,7 +180,6 @@ body {
 
 input {
     background-color: #f4f4f4;
-    /* border-radius: 0.5vw; */
     border-color: transparent;
     width: 100%;
 }
@@ -198,9 +197,6 @@ input[type='email']:focus {
     flex-grow: 1;
     vertical-align: middle;
     opacity: 50%;
-    /* padding: 10px; */
-    /* min-width: 50px;
-    text-align: center; */
 }
 
 .right-icons {
@@ -262,8 +258,7 @@ input[type='email']:focus {
     display: none;
     flex-direction: column;
     justify-content: center;
-    /* height: 10%; */
-    left: 40%;
+    left: 50%;
     right: 0px;
     position: absolute;
 }
