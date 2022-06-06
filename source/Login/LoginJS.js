@@ -32,17 +32,36 @@ var messgae = document.getElementById('message');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 
+if(loginState == "new"){
+ passwordField.onfocus = function () {
+    passwordField.classList.add('clicking');
+     messgae.style.display = 'block';
+ };
+}
+passwordField.onfocus = function () {
+    passwordField.classList.add('clicking');
+ };
+
+ usernameField.onfocus = function () {
+ usernameField.classList.add('clicking');
+ }
+
+
 loginButton.addEventListener('click', () => {
     messgae.style.display = 'none';
     message.classList.add('hidden');
     handleLoginButton();
 });
-window.addEventListener('keydown', (e) => {
-    if (e.key == 'Enter') {
-        loginButton.click();
-        handleLoginButton();    }
-});
-
+// window.addEventListener("keydown", (e) => {
+//     if(e.key == 'Enter'){
+//         if(document.activeElement != resetPasswordButton) {
+//             loginButton.click();
+//         } else {
+//             resetPasswordButton.click();
+//         }
+//     }
+    
+// })
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
@@ -218,7 +237,7 @@ function verifyValidInputs(newUsername, newPassword) {
 }
 
 function validFormat() {
-    var myInput = document.getElementById('pin');
+   // var myInput = document.getElementById('pin');
     var letter = document.getElementById('letter');
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
@@ -232,10 +251,10 @@ function validFormat() {
     // When the user clicks outside of the password field, hide the message box
 
     // When the user starts to type something inside the password field
-    myInput.onkeyup = function () {
+    passwordField.onkeyup = function () {
         // Validate lowercase letters
         var lowerCaseLetters = /[a-z]/g;
-        if (myInput.value.match(lowerCaseLetters)) {
+        if (passwordField.value.match(lowerCaseLetters)) {
             letter.classList.remove('invalid');
             letter.classList.add('valid');
         } else {
@@ -246,7 +265,7 @@ function validFormat() {
 
         // Validate capital letters
         var upperCaseLetters = /[A-Z]/g;
-        if (myInput.value.match(upperCaseLetters)) {
+        if (passwordField.value.match(upperCaseLetters)) {
             capital.classList.remove('invalid');
             capital.classList.add('valid');
         } else {
@@ -257,7 +276,7 @@ function validFormat() {
 
         // Validate numbers
         var numbers = /[0-9]/g;
-        if (myInput.value.match(numbers)) {
+        if (passwordField.value.match(numbers)) {
             number.classList.remove('invalid');
             number.classList.add('valid');
         } else {
@@ -267,7 +286,7 @@ function validFormat() {
         }
 
         // Validate length
-        if (myInput.value.length >= 4) {
+        if (passwordField.value.length >= 4) {
             length.classList.remove('invalid');
             length.classList.add('valid');
         } else {
