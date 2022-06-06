@@ -36,13 +36,11 @@ loginButton.addEventListener('click', () => {
     messgae.style.display = 'none';
     message.classList.add('hidden');
     handleLoginButton();
-    determineUserState(loginState);
 });
 window.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
         loginButton.click();
-        determineUserState(loginState);
-    }
+        handleLoginButton();    }
 });
 
 // make the reset-password-button redirect to Index
@@ -142,13 +140,6 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
-
-    resetPasswordButton.addEventListener('click', () => {
-        loginButton.addEventListener('click', () => {
-            resetPasswordButton.innerHTML = 'Reset';
-            resetPasswordButton.removeEventListener('click', validFormat);
-            handleLoginButton();
-        });
         if (loginState == 'returning') {
             // update settings
             if (verifyValidInputs(settingObj.username, passwordField.value)) {
@@ -168,7 +159,7 @@ function handleResetPassword() {
         } else {
             handleSignup(usernameField.value, passwordField.value);
         }
-    });
+
 }
 
 /*function verifyValidInputs(newUsername, newPassword){
