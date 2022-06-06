@@ -128,7 +128,7 @@ function eventListenerSetup() {
     document.getElementById('logout-btn').addEventListener('click', () => {
         signOut(auth)
             .then(() => {
-                window.location.replace('../Login.html');
+                window.location.replace('../Login/Login.html');
             })
             .catch((error) => {
                 alert(error.message);
