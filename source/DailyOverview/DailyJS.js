@@ -587,8 +587,8 @@ function renderPhotos(photos) {
  * check if the form is empty. If it is, return true. If not, return false.
  * @returns whether the form is valid or not
  */
- function checkForm() {
-    if (document.querySelector('.entry-form-text').value === "") {
+function checkForm() {
+    if (document.querySelector('.entry-form-text').value === '') {
         alert('Please enter a note');
         return false;
     } else {
