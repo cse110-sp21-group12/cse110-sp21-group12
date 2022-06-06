@@ -49,17 +49,10 @@ function collapsible_year_toggle() {
     this.classList.toggle('active');
     let target_year = this.id.substring(0, 4);
     let target = document.getElementById(target_year + '_months');
-    if (target.style.display === 'flex') {
-        target.style.display = 'none';
-        this.innerText = '>';
-    } else {
-        target.style.display = 'flex';
-        this.innerText = 'v';
-    }
+    if (target.style.display === 'flex') target.style.display = 'none';
+    else target.style.display = 'flex';
 }
 
-//alert("Collapsibles found: "+ collapsible_years_list.length);
-//alert("Sanity check: " + sanity_check.length);
 for (let i = 0; i < collapsible_years_list.length; i++) {
     collapsible_years_list[i].addEventListener(
         'click',
