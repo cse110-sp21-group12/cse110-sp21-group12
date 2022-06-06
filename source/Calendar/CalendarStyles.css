@@ -298,17 +298,14 @@ ul {
     margin-block-end: 0em;
 }
 
-#plus-month {
-    flex: 2;
-    text-align: center;
-}
-
+#plus-month,
 #plus-year {
     flex: 2;
     text-align: center;
+    cursor: pointer;
 }
 
-#goalContainer {
+.goalContainer {
     display: flex;
 }
 
@@ -336,8 +333,9 @@ ul {
     border-radius: 0.5vh;
 }
 
-
+/*Monthly and Yearly Goal popup*/
 #calendar-popup{
+    display: none;
     margin: 0 auto;
     position: absolute;
     top: 25%;
@@ -348,13 +346,6 @@ ul {
     border: 1px solid black;
     border-radius: 20px;
     font-family: verdana, sans-serif;
-}
-#close-popup{
-    position: absolute;
-    top: 0;
-    right: 2%;
-    display: inline-block;
-    font-size: 50px;
 }
 #popup-title{
     font-size: 30px;
@@ -378,7 +369,7 @@ ul {
     height: 18%;
     font-size: 150%;
     color: white;
-    background-color: #39b594;
+    background-color: #a9c7bf;
     border: 0;
     border-radius: 50px;
 }

@@ -98,10 +98,10 @@ class BulletEntry extends HTMLElement {
                             <button id="dropdownHover" class="dropdownButton">v</button>
                             <div class="dropdown">
                                 <div class="row">
-                                    <p id="edit"><img src="images/Edit.svg" alt="Edit"></p>
-                                    <p id="delete"><img src="images/Delete.svg" alt="Delete"></p>
-                                    <p id="add"><img src="images/Add.svg" alt="Add"></p>
-                                    <p id="done"><img src="images/Done.svg" alt="Done"></p>
+                                    <p id="edit"><img src="../DailyOverview/Images/Edit.svg" alt="Edit"></p>
+                                    <p id="delete"><img src="../DailyOverview/Images/Delete.svg" alt="Delete"></p>
+                                    <p id="add"><img src="../DailyOverview/Images/Add.svg" alt="Add"></p>
+                                    <p id="done"><img src="../DailyOverview/Images/Done.svg" alt="Done"></p>
                                 </div>
                                 <div class="featuresContainer">
                                     <select id="features"> 
@@ -284,31 +284,31 @@ class BulletEntry extends HTMLElement {
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
-                    "url('./images/Star.svg')";
+                    "url('./../DailyOverview/Images/Star.svg')";
                 break;
             case 'workRelated': // pencil
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
-                    "url('./images/Pencil.svg')";
+                    "url('./../DailyOverview/Images/Pencil.svg')";
                 break;
             case 'household': // house
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
-                    "url('./images/House.svg')";
+                    "url('./../DailyOverview/Images/House.svg')";
                 break;
             case 'personal': // heart
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
-                    "url('./images/Heart.svg')";
+                    "url('./../DailyOverview/Images/Heart.svg')";
                 break;
             case 'event': // heart
                 this.shadowRoot.querySelector('ul').style.listStyleImage =
                     // required to use double quotes below due to inner single quotes
                     // eslint-disable-next-line quotes
-                    "url('./images/Event.svg')";
+                    "url('./../DailyOverview/Images/Event.svg')";
                 break;
             case 'other': // square
                 this.shadowRoot.querySelector('ul').style.listStyleType =
