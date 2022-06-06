@@ -208,8 +208,9 @@ span {
     grid-template-rows: [title] 15% [month] 40% [year] 40%;
 }
 
-#goalReminder + h1 {
+#goalReminder > h1 {
     grid-row-start: title;
+    font-size: 2vw;
 }
 
 #monthGoal {
@@ -224,6 +225,10 @@ span {
     position: -webkit-sticky;
     position: sticky;
     top: 1px;
+}
+
+#goalSubtitle {
+    font-size: 1.5vw;
 }
 
 #yearGoal {
