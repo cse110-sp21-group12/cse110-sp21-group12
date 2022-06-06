@@ -89,7 +89,7 @@ describe('basic navigation for BJ', () => {
         //     msg = Userblank.innerHTML;
         //     // await dialog.dismiss();
         // });
-        
+
         await page.click('#login-button', { clickCount: 1 });
         msg = await page.$eval('#error', (Userblank) => {
             return Userblank.innerHTML;
@@ -249,11 +249,9 @@ describe('basic navigation for BJ', () => {
             usernameInput.value = 'SampleUsername';
         });
 
-
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '19Le';
         });
-
 
         await page.click('#login-button', { clickCount: 2 });
         msg = await page.$eval('#error', (incorrectA) => {
@@ -261,8 +259,7 @@ describe('basic navigation for BJ', () => {
         });
         expect(msg).toBe('Incorrect password!');
 
-
-//
+        //
         // page.on('dialog', async (dialog) => {
         //     await page.waitForTimeout(1000);
         //     msg = dialog.message();

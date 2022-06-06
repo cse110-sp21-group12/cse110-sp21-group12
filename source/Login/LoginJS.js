@@ -32,20 +32,19 @@ var messgae = document.getElementById('message');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 
-if(loginState == "new"){
- passwordField.onfocus = function () {
-    passwordField.classList.add('clicking');
-     messgae.style.display = 'block';
- };
+if (loginState == 'new') {
+    passwordField.onfocus = function () {
+        passwordField.classList.add('clicking');
+        messgae.style.display = 'block';
+    };
 }
 passwordField.onfocus = function () {
     passwordField.classList.add('clicking');
- };
+};
 
- usernameField.onfocus = function () {
- usernameField.classList.add('clicking');
- }
-
+usernameField.onfocus = function () {
+    usernameField.classList.add('clicking');
+};
 
 loginButton.addEventListener('click', () => {
     messgae.style.display = 'none';
@@ -60,7 +59,7 @@ loginButton.addEventListener('click', () => {
 //             resetPasswordButton.click();
 //         }
 //     }
-    
+
 // })
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
@@ -159,26 +158,25 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
-        if (loginState == 'returning') {
-            // update settings
-            if (verifyValidInputs(settingObj.username, passwordField.value)) {
-                let userObject = {
-                    username: settingObj.username,
-                    password: passwordField.value,
-                    theme: '#d4ffd4',
-                };
-                // eslint-disable-next-line no-undef
-                updateSettings(userObject);
-                settingObj.password = passwordField.value;
+    if (loginState == 'returning') {
+        // update settings
+        if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            let userObject = {
+                username: settingObj.username,
+                password: passwordField.value,
+                theme: '#d4ffd4',
+            };
+            // eslint-disable-next-line no-undef
+            updateSettings(userObject);
+            settingObj.password = passwordField.value;
 
-                // log the user in
-                sessionStorage.setItem('loggedIn', 'true');
-                goHome();
-            }
-        } else {
-            handleSignup(usernameField.value, passwordField.value);
+            // log the user in
+            sessionStorage.setItem('loggedIn', 'true');
+            goHome();
         }
-
+    } else {
+        handleSignup(usernameField.value, passwordField.value);
+    }
 }
 
 /*function verifyValidInputs(newUsername, newPassword){
@@ -237,7 +235,7 @@ function verifyValidInputs(newUsername, newPassword) {
 }
 
 function validFormat() {
-   // var myInput = document.getElementById('pin');
+    // var myInput = document.getElementById('pin');
     var letter = document.getElementById('letter');
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
