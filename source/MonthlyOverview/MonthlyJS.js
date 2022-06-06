@@ -5,15 +5,14 @@ let currentMonth = myLocation.substring(
     myLocation.length - 7,
     myLocation.length
 );
-//default case
-if (currentMonth == 'ew.html') {
-    currentMonth = '05/2021';
-}
-console.log(currentMonth);
+const PAGE_404 = '../404/404.html';
 
 let currentMonthRes;
 
 window.addEventListener('load', () => {
+    // validate the URL date
+    if (!validateURL()) return;
+
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
     console.log('here is storage session', session);
@@ -51,6 +50,29 @@ window.addEventListener('load', () => {
 
     setYearlyOverviewLink();
 });
+
+/**
+ * Validates the date in the URL the user is trying to fetch
+ * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
+ */
+function validateURL() {
+    /* confirm date format is MM/YYYY, if not redirect to 404 */
+    if (!/^\d{2}\/\d{4}$/.test(currentMonth)) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* get each date component and convert to integer */
+    const dateComponents = currentMonth.split('/');
+    const month = parseInt(dateComponents[0], 10);
+    const year = parseInt(dateComponents[1], 10);
+    /* if year is more than 10 years away from current year or month is invalid redirect to 404 */
+    const currYear = new Date().getFullYear();
+    if (Math.abs(year - currYear) > 10 || month < 1 || month > 12) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    return true;
+}
 
 /**
  * Sets the YearlyOverview link to say '<year> Overview' so that users

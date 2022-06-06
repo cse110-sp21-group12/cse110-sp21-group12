@@ -125,6 +125,7 @@ Structure
 }
 #today-button:hover {
     text-decoration: underline;
+    text-decoration-thickness: 3px;
 }
 
 button {

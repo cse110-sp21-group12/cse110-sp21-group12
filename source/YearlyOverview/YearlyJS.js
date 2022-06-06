@@ -7,10 +7,11 @@ let currentYear = myLocation.substring(
     myLocation.length - 4,
     myLocation.length
 );
+
+const PAGE_404 = '../404/404.html';
+
+// contains the current year's yearlyGoal object from the database
 //default case
-if (currentYear == 'html') {
-    currentYear = 2021;
-}
 let currentYearRes;
 
 // add the current year to the page so the user can tell what yearly overview they are on
@@ -23,6 +24,9 @@ let houseIcon = document.getElementById('house');
 document.getElementById('header').insertBefore(currentYearTag, houseIcon);
 
 window.addEventListener('load', () => {
+    // validate the URL date
+    if (!validateURL()) return;
+
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
     if (session.getItem('loggedIn') !== 'true') {
@@ -53,6 +57,27 @@ window.addEventListener('load', () => {
         };
     };
 });
+
+/**
+ * Validates the date in the URL the user is trying to fetch
+ * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
+ */
+function validateURL() {
+    /* confirm date format is YYYY, if not redirect to 404 */
+    if (!/^\d{4}$/.test(currentYear)) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* convert year to integer */
+    const year = parseInt(currentYear, 10);
+    /* if year is more than 10 years away from current year redirect to 404 */
+    const currYear = new Date().getFullYear();
+    if (Math.abs(year - currYear) > 10) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    return true;
+}
 
 document.querySelector('.entry-form').addEventListener('submit', (submit) => {
     submit.preventDefault();
