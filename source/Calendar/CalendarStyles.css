@@ -346,7 +346,7 @@ ul {
 }
 
 /*Monthly and Yearly Goal popup*/
-#calendar-popup{
+#calendar-popup {
     display: none;
     margin: 0 auto;
     position: absolute;
@@ -359,11 +359,11 @@ ul {
     border-radius: 20px;
     font-family: verdana, sans-serif;
 }
-#popup-title{
+#popup-title {
     font-size: 30px;
     margin: 7% 5%;
 }
-#calendar-popup-text{
+#calendar-popup-text {
     position: absolute;
     top: 37%;
     left: 5%;
@@ -371,9 +371,9 @@ ul {
     width: 90%;
     font-size: 160%;
     border: 0;
-    background-color: #F4F8F5;
+    background-color: #f4f8f5;
 }
-#submit-note{
+#submit-note {
     position: absolute;
     bottom: 15%;
     left: 18%;
@@ -385,7 +385,7 @@ ul {
     border: 0;
     border-radius: 50px;
 }
-#cancel-note{
+#cancel-note {
     position: absolute;
     bottom: 15%;
     right: 18%;
