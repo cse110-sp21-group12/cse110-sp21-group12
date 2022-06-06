@@ -11,8 +11,6 @@ let currentYear = myLocation.substring(
 if (currentYear == 'html') {
     currentYear = 2021;
 }
-// currentYear = '2020';
-// contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
 // add the current year to the page so the user can tell what yearly overview they are on

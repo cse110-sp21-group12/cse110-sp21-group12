@@ -62,6 +62,25 @@ body {
     text-decoration: underline;
 }
 
+#reset-password-button {
+    background-color: #1e942d;
+    color: black;
+    border-radius: 0.5vw;
+    flex-grow: 1;
+    font-size: 5vh;
+    margin: 0.5% 1vw;
+    height: 20%;
+    cursor: pointer;
+    text-decoration: none;
+}
+#reset-password-button:hover {
+    text-decoration: underline;
+    color: black;
+    border-radius: 0.5vw;
+    flex-grow: 1;
+    font-size: 5vh;
+}
+
 input {
     background-color: white;
     border-radius: 0.5vw;
