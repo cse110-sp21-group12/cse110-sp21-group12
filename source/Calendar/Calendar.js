@@ -2,6 +2,7 @@ import {
     getCurrentDate,
     getDateObj,
     getMonthObj,
+    getTheme,
     getYearlyGoals,
     updateMonthlyGoals,
     updateYearlyGoals,
@@ -407,6 +408,36 @@ async function setupCalendar(dateStr = undefined) {
     }
 
     calTarget.append(daysField);
+    loadTheme();
+}
+
+/**
+ * Set user theme with their preference
+ */
+async function loadTheme() {
+    let theme = await getTheme();
+    console.log('set');
+    document.getElementsByClassName('calendar-bg')[0].style.background = theme;
+    document.getElementsByClassName(
+        'calendar-wrapper'
+    )[0].style.background = theme;
+    document.getElementsByClassName('calToday')[0].style.background = theme;
+    document.styleSheets[0].insertRule(
+        `.calMonthLabel:hover { color: ${theme}; text-decoration: underline; cursor: pointer; }`,
+        0
+    );
+    document.styleSheets[0].insertRule(
+        `.calYearLabel:hover { color: ${theme}; text-decoration: underline; cursor: pointer; }`,
+        0
+    );
+    document.styleSheets[0].insertRule(
+        `.month-link:hover { color: ${theme}; text-decoration: underline; cursor: pointer; }`,
+        0
+    );
+    document.styleSheets[0].insertRule(
+        `.calDay:hover { outline: 5px solid ${theme}; cursor: pointer; }`,
+        0
+    );
 }
 
 /**
