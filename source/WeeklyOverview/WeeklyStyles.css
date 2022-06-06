@@ -37,9 +37,11 @@ body {
     padding: 0.5%;
     color: white;
     font-size: 7vh;
-    margin-left: 7%;
-    margin-top: 2%;
-    padding: 5px;
+    /* margin-left: 7%;
+    margin-top: 2%; */
+    /* padding: 5px; */
+    left: 7%;
+    top: 7%;
     background-color: rgba(30, 30, 30, 0.7);
     border-radius: 10px;
 }

@@ -344,3 +344,57 @@ ul {
     border: none;
     border-radius: 0.5vh;
 }
+
+/*Monthly and Yearly Goal popup*/
+#calendar-popup {
+    display: none;
+    margin: 0 auto;
+    position: absolute;
+    top: 25%;
+    width: 30%;
+    height: 30%;
+    left: 35%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-family: verdana, sans-serif;
+}
+#popup-title {
+    font-size: 30px;
+    margin: 7% 5%;
+}
+#calendar-popup-text {
+    position: absolute;
+    top: 37%;
+    left: 5%;
+    height: 15%;
+    width: 90%;
+    font-size: 160%;
+    border: 0;
+    background-color: #f4f8f5;
+}
+#submit-note {
+    position: absolute;
+    bottom: 15%;
+    left: 18%;
+    width: 23%;
+    height: 18%;
+    font-size: 150%;
+    color: white;
+    background-color: #a9c7bf;
+    border: 0;
+    border-radius: 50px;
+}
+#cancel-note {
+    position: absolute;
+    bottom: 15%;
+    right: 18%;
+    width: 23%;
+    height: 18%;
+    font-size: 150%;
+    background-color: white;
+    color: #39b594;
+    outline: 2px solid #39b594;
+    border: 0px;
+    border-radius: 50px;
+}

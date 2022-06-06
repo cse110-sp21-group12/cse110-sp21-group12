@@ -258,7 +258,8 @@ input[type='email']:focus {
     display: none;
     flex-direction: column;
     justify-content: center;
-    left: 50%;
+    /* height: 10%; */
+    left: 40%;
     right: 0px;
     position: absolute;
 }
