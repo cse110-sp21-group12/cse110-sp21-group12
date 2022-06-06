@@ -24,10 +24,12 @@ body {
 #topbar {
     padding-top: 10px;
     padding-bottom: 4vw;
-    background-repeat: repeat-y;
+    background-repeat: no-repeat;
     background-origin: padding-box;
     background-size: 5vw;
-    align-items: center;
+    margin-top: 2%;
+
+    margin-left: 48%;
     background-image: url(../Images/Logo.svg);
 }
 

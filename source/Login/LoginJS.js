@@ -191,7 +191,7 @@ function verifyValidInputs(newUsername, newPassword) {
     var error = document.getElementById('error');
     //prohibit empty username
     if (newUsername == '') {
-        error.textContent = 'Username must not be empty';
+        error.textContent = 'Please provide a username';
         error.style.display = 'block';
         return false;
     }
