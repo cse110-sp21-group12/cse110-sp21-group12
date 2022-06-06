@@ -12,7 +12,7 @@
     <!-- topbar is hidden from screen readers because it is a decorational element -->
     <div id="topbar" aria-hidden="true"></div>
     <main id="body-wrapper">
-        <section id="left-bar">
+        <section id="theme-selector">
             <select id="themes">
                 <option value="#BBFEBB" style="background-color: #bbfebb">
                     Green
@@ -36,8 +36,10 @@
                     Orange
                 </option>
             </select>
-            <h1>Index</h1>
-            <section id="calendar">
+        </section>
+        <section id="left-bar">
+            <h1>Home</h1>
+            <section id="calendar" aria-label="calendar">
                 <month-header>
                     <p id="month_label"></p>
                 </month-header>
@@ -91,7 +93,7 @@
             </div>
         </section>
         <section id="right-bar">
-            <h1>Content</h1>
+            <h1>Timeline</h1>
             <div id="right-bar-inner">
                 <button id="today-button">Go to current day</button>
                 <section id="content" aria-label="yearly overviews">
