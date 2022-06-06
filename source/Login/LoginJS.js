@@ -70,6 +70,15 @@ resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
 
+window.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+        if (document.activeElement != resetPasswordButton) {
+            loginButton.click();
+        } else {
+            resetPasswordButton.click();
+        }
+    }
+});
 window.onload = getLoginState();
 
 // function determineUserState(state) {
