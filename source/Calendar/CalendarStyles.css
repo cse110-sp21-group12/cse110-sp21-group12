@@ -70,8 +70,6 @@ body {
     grid-template-columns: 8fr 2fr;
     text-align: left;
 }
-#photo_title {
-}
 
 /* Todo Block */
 
@@ -130,6 +128,22 @@ body {
     float: left;
     margin: auto;
 }
+.calMonthLabel:hover {
+    color: #c2f7b5;
+}
+
+.calYearLabel {
+    background-color: #585858;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.3vw;
+    float: left;
+    margin: auto;
+    padding-left: 1vw;
+}
+.calYearLabel:hover {
+    color: #c2f7b5;
+}
 
 .calDropBtn {
     display: flex;
@@ -153,6 +167,7 @@ body {
 .dropdown-content {
     display: block;
     position: absolute;
+    margin-top: 3vw;
     background-color: #f9f9f9;
     color: black;
     min-width: 160px;
@@ -242,7 +257,8 @@ ul {
     width: 75vw;
 
     display: grid;
-    grid-template-columns: [month] 50% [year] 50%;
+    padding: 10px;
+    grid-template-columns: [month] 48% [year] 48%;
 }
 
 #goalReminder + h1 {
@@ -262,6 +278,8 @@ ul {
     position: -webkit-sticky;
     position: sticky;
     top: 1px;
+    margin-block-start: 0.83em;
+    margin-block-end: 0em;
 }
 
 #yearGoal {
@@ -276,4 +294,41 @@ ul {
     position: -webkit-sticky;
     position: sticky;
     top: 1px;
+    margin-block-start: 0.83em;
+    margin-block-end: 0em;
+}
+
+#plus-month,
+#plus-year {
+    flex: 2;
+    text-align: center;
+    cursor: pointer;
+}
+
+.goalContainer {
+    display: flex;
+}
+
+.entry-form {
+    height: 3vh;
+    padding: 0.7vh;
+}
+
+.entry-form-hide {
+    display: none;
+}
+
+.entry-form-text {
+    height: 80%;
+    width: 50%;
+    font-size: 1.5vh;
+}
+
+.entry-form-button {
+    height: 100%;
+    width: 6vh;
+    font-size: 1.5vh;
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 0.5vh;
 }

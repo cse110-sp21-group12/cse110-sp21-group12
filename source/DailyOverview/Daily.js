@@ -1,6 +1,7 @@
 import {
-    getCurrentDate,
     getBase64,
+    getCurrentDate,
+    getDateObj,
     getDay,
     getMonthlyGoals,
     getYearlyGoals,
@@ -21,7 +22,14 @@ const right = document.getElementById('right');
 const save = document.getElementById('save');
 const remove = document.getElementById('delete');
 
-const { day, month, year } = getCurrentDate();
+const params = new URLSearchParams(window.location.search);
+let currDateObj;
+if (params.has('date')) {
+    currDateObj = getDateObj(params.get('date'));
+} else {
+    currDateObj = getCurrentDate();
+}
+const { day, month, year } = currDateObj;
 const currDateString = `${month}/${day}/${year}`;
 
 let relative = 0; // index used for accessing images
@@ -46,7 +54,6 @@ window.onload = async () => {
  * @returns void
  */
 function bulletChangeResolution() {
-    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -215,6 +222,10 @@ function processBullet(bullet, i) {
  * @returns void
  */
 function processCurrentImage() {
+    if (window.img.length <= relative) {
+        return;
+    }
+
     canv.clearRect(0, 0, canvas.width, canvas.height);
     const imgDimension = getDimensions(
         canvas.width,
@@ -332,7 +343,8 @@ function toggleBulletStatus(obj) {
  * @returns void
  */
 function updateNotes() {
-    const newNote = document.querySelector('note-box').entry;
+    const newNote = document.querySelector('note-box').entry.content;
+    currentDay.notes = newNote;
     updateNote(currDateString, newNote);
 }
 
@@ -344,7 +356,7 @@ document.getElementById('date').innerHTML += ` ${currDateString}`;
 // set back button
 document.getElementById('home').addEventListener('click', () => {
     updateDay(currentDay);
-    window.location.replace('../Login/WeeklyOverview/WeeklyOverview.html');
+    window.location.replace('../WeeklyOverview/WeeklyOverview.html');
 });
 
 // add listener for saving notes

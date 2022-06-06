@@ -34,16 +34,21 @@ body {
 
 #big-logo {
     /*background-repeat: no-repeat;*/
-    width: 50%;
+    width: 40%;
     position: absolute;
-    left: 0px;
+    left: 0;
     height: 100%;
     margin: 0px;
     padding: 0px;
     border: none;
 }
 
+#title {
+    position: relative;
+    right: 11vh;
+}
 #login-container {
+    right: 10vh;
     margin-top: 5%;
     position: relative;
     height: 100%;
@@ -83,8 +88,13 @@ body {
     font-size: 2vh;
     width: 100%;
     height: 6vh;
+    transition: all 0.3s ease 0s;
 }
-
+/* this code taken from https://codepen.io/seme332/pen/reJOwo */
+#google-button:hover {
+    box-shadow: 0px 15px 20px #dddddd;
+    transform: translateY(-2px);
+}
 #google-button img {
     width: 11%;
     height: 80%;
@@ -147,7 +157,15 @@ body {
     margin-right: 10%;
     height: 6vh;
     width: 70%;
+    transition: all 0.3s ease 0s;
     /* top: 100%; */
+}
+/* this code taken from https://codepen.io/seme332/pen/reJOwo */
+#login-button:hover {
+    background-color: #2ee59d;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 .input-icons {
@@ -206,8 +224,14 @@ input[type='email']:focus {
     background-color: white;
     color: #38b593;
     border-color: white;
+    border-style: solid;
     flex-grow: 1;
     font-size: 1.5vh;
+    box-shadow: none;
+    right: 1.5vh;
+}
+#signup-button:hover {
+    text-decoration: underline;
 }
 
 #passConfirm {
@@ -239,7 +263,7 @@ input[type='email']:focus {
     flex-direction: column;
     justify-content: center;
     /* height: 10%; */
-    left: 50%;
+    left: 40%;
     right: 0px;
     position: absolute;
 }
