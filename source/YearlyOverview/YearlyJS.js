@@ -11,7 +11,6 @@ let currentYear = myLocation.substring(
 const PAGE_404 = '../404/404.html';
 
 // contains the current year's yearlyGoal object from the database
-=======
 //default case
 let currentYearRes;
 
