@@ -28,33 +28,38 @@ let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-loginButton.addEventListener('click', handleLoginButton);
+loginButton.addEventListener('click', () => {
+    handleLoginButton();
+});
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 
-loginButton.addEventListener('click', () => {
-    determineUserState(loginState);
-});
+// loginButton.addEventListener('click', () => {
+//     determineUserState(loginState);
+// });
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
 
-window.addEventListener('keydown', (e) => {
-    if (e.key == 'Enter') {
-        loginButton.click();
-        determineUserState(loginState);
+window.addEventListener("keydown", (e) => {
+    if(e.key == 'Enter'){
+        if(document.activeElement != resetPasswordButton) {
+            loginButton.click();
+        } else {
+            resetPasswordButton.click();
+        }
     }
-});
-
+    
+})
 window.onload = getLoginState();
 
-function determineUserState(state) {
-    if (state == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (state == 'new') {
-        handleSignup(usernameField.value.trim(), passwordField.value.trim());
-    }
-}
+// function determineUserState(state) {
+//     if (state == 'returning') {
+//         handleLogin(passwordField.value);
+//     } else if (state == 'new') {
+//         handleSignup(usernameField.value.trim(), passwordField.value.trim());
+//     }
+// }
 
 /**
  * Connects to the database, and sees if
