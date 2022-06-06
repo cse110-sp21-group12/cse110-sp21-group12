@@ -28,30 +28,37 @@ let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-
 loginButton.addEventListener('click', () => {
-    determineUserState(loginState);
+    handleLoginButton();
 });
+// make the reset-password-button redirect to Index
+let resetPasswordButton = document.getElementById('reset-password-button');
+
+// loginButton.addEventListener('click', () => {
+//     determineUserState(loginState);
+// });
+resetPasswordButton.addEventListener('click', () => {
+    handleResetPassword();
+});
+
 window.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
-        loginButton.click();
-        determineUserState(loginState);
+        if (document.activeElement != resetPasswordButton) {
+            loginButton.click();
+        } else {
+            resetPasswordButton.click();
+        }
     }
 });
-
-//make the toggle button change the page state
-//let switchButton = document.getElementById('switch-screen');
-//switchButton.addEventListener('click', toggleView);
-
 window.onload = getLoginState();
 
-function determineUserState(state) {
-    if (state == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (state == 'new') {
-        handleSignup(usernameField.value.trim(), passwordField.value.trim());
-    }
-}
+// function determineUserState(state) {
+//     if (state == 'returning') {
+//         handleLogin(passwordField.value);
+//     } else if (state == 'new') {
+//         handleSignup(usernameField.value.trim(), passwordField.value.trim());
+//     }
+// }
 
 /**
  * Connects to the database, and sees if
@@ -61,7 +68,6 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        //console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
@@ -79,6 +85,17 @@ function getLoginState() {
             }
         };
     };
+}
+
+/**
+ * handle the login button functionalities
+ */
+function handleLoginButton() {
+    if (loginState == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (loginState == 'new') {
+        handleSignup(usernameField.value, passwordField.value);
+    }
 }
 
 /**
@@ -108,6 +125,35 @@ function handleSignup(newUsername, newPassword) {
 }
 
 /**
+ * handle reset password functionaliy of the associated
+ */
+function handleResetPassword() {
+    resetPasswordButton.innerHTML = 'Confirm';
+    resetPasswordButton.addEventListener('click', () => {
+        //loginButton.removeEventListener('click', handleLoginButton);
+        if (loginState == 'returning') {
+            // update settings
+            if (verifyValidInputs(settingObj.username, passwordField.value)) {
+                let userObject = {
+                    username: settingObj.username,
+                    password: passwordField.value,
+                    theme: '#d4ffd4',
+                };
+                // eslint-disable-next-line no-undef
+                updateSettings(userObject);
+                settingObj.password = passwordField.value;
+
+                // log the user in
+                sessionStorage.setItem('loggedIn', 'true');
+                goHome();
+            }
+        } else {
+            handleSignup(usernameField.value, passwordField.value);
+        }
+    });
+}
+
+/*function verifyValidInputs(newUsername, newPassword){
  * Helper function called from handleSignup()
  * Checks that username and PIN comply with length requirements and don't contain prohibited characters.
  * @param {String} newUsername Username to check
@@ -191,22 +237,3 @@ function setReturningUser() {
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
-
-/*
-
-/**
- * Mock function for pretending to hash things
- *
- * @param {*} input Plaintext password to be hashed
- * @returns an encrypted hash representation of the password
-function mockHash(input) {
-    //console.log(input);
-    let retval = 0;
-    for (let i = 0; i < input.length; i++) {
-        retval += input.charCodeAt(i);
-    }
-    //console.log(retval);
-    return retval;
-}
-
-*/

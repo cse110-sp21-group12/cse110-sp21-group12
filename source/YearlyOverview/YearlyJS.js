@@ -7,9 +7,12 @@ let currentYear = myLocation.substring(
     myLocation.length - 4,
     myLocation.length
 );
+
 const PAGE_404 = '../404/404.html';
 
 // contains the current year's yearlyGoal object from the database
+=======
+//default case
 let currentYearRes;
 
 // add the current year to the page so the user can tell what yearly overview they are on

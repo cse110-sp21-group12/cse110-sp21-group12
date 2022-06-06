@@ -2,7 +2,7 @@
 //since all backend API calls are unknown to eslint, just disabeling no-undef
 window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
-let canvas = document.getElementById('myCanvas');
+let canvas = document.getElementById('photoCanvas');
 let canv = canvas.getContext('2d');
 
 //get the desired mm/dd/yyyy string

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="”en”">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="YearlyStyles.css" />
@@ -10,7 +10,13 @@
     <body>
         <div id="header">
             <h1 id="index">
-                <a href="../Index/Index.html" id="back"> Index</a>
+                <a
+                    href="../Index/Index.html"
+                    style="text-decoration: none"
+                    id="back"
+                >
+                    < Index</a
+                >
             </h1>
             <div id="house">
                 <a href="../Index/Index.html"
@@ -19,9 +25,9 @@
             </div>
         </div>
 
-        <div id="name">
-            <div id="goalSection">
-                <h1 id="goalsHeader">Yearly Goals</h1>
+        <main id="name">
+            <section id="goalSection">
+                <h2 id="goalsHeader">Yearly Goals</h2>
                 <!-- <img src="../Images/GreenDinoBorder.svg" id="yearlyGoals" /> -->
                 <div id="goals">
                     <form class="entry-form">
@@ -40,17 +46,11 @@
                     </form>
                     <div id="bullets"></div>
                 </div>
-            </div>
-            <div id="empty"></div>
-            <div id="monthView">
-                <h1 id="monthHeader">Months</h1>
+            </section>
+            <section id="monthView">
+                <h2 id="monthHeader">Months</h2>
                 <div id="months">
-                    <a
-                        id="January"
-                        href="../MonthlyOverview/MonthlyOverview.html"
-                    >
-                        <h2>January</h2>
-                    </a>
+                    <a id="January"><h2 href="">January</h2></a>
                     <a id="February"><h2 href="">February</h2></a>
                     <a id="March"><h2 href="">March</h2></a>
                     <a id="April"><h2 href="">April</h2></a>
@@ -63,11 +63,10 @@
                     <a id="November"><h2 href="">November</h2></a>
                     <a id="December"><h2 href="">December</h2></a>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
+        <script src="../Backend/BackendInit.js"></script>
+        <script src="./goals.js" type="module"></script>
+        <script src="./YearlyJS.js" type="module"></script>
     </body>
-
-    <script src="../Backend/BackendInit.js"></script>
-    <script src="./goals.js" type="module"></script>
-    <script src="./YearlyJS.js" type="module"></script>
 </html>

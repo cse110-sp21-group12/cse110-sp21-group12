@@ -98,7 +98,6 @@ function initDB() {
 function setDB(dbReturn) {
     db = dbReturn;
 }
-
 /**
  * given a string date key, will return the correct date object
  * @param {String} dateStr -  of form "mm/dd/yyyy" eg: "02/12/2020"
@@ -327,6 +326,7 @@ function getSettings() {
     var store = tx.objectStore('setting');
     //Since there is only one setting, we just get the first one
     let request = store.get(1);
+    console.log(request);
     return request;
 }
 
