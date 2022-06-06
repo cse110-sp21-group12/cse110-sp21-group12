@@ -326,13 +326,10 @@ function dayNumber(day) {
  * @returns whether the form is valid or not
  */
  function checkForm() {
-    console.log("DEBUG: checkForm()");
     if (document.querySelector('.entry-form-text').value === "") {
-        console.log("DEBUG: form is empty");
         alert('Please enter a goal');
         return false;
     } else {
-        console.log("DEBUG: form is not empty");
         return true;
     }
 }
