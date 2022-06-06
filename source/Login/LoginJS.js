@@ -27,7 +27,9 @@ let usernameField = document.getElementById('username');
 let passwordField = document.getElementById('pin');
 
 //password require message
-var messgae = document.getElementById('message');
+var message = document.getElementById('message');
+//password/username error message
+var error = document.getElementById('error');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
@@ -35,7 +37,7 @@ let loginButton = document.getElementById('login-button');
 if (loginState == 'new') {
     passwordField.onfocus = function () {
         passwordField.classList.add('clicking');
-        messgae.style.display = 'block';
+        message.style.display = 'block';
     };
 }
 passwordField.onfocus = function () {
@@ -47,7 +49,7 @@ usernameField.onfocus = function () {
 };
 
 loginButton.addEventListener('click', () => {
-    messgae.style.display = 'none';
+    message.style.display = 'none';
     message.classList.add('hidden');
     handleLoginButton();
 });
@@ -64,7 +66,7 @@ loginButton.addEventListener('click', () => {
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
-    messgae.style.display = 'block';
+    message.style.display = 'block';
     message.classList.remove('hidden');
     validFormat();
     handleResetPassword();
@@ -249,10 +251,10 @@ function validFormat() {
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
     var length = document.getElementById('length');
-    var messgae = document.getElementById('message');
+    var message = document.getElementById('message');
     // When the user clicks on the password field, show the message box
     // myInput.onfocus = function () {
-    //     messgae.style.display = 'block';
+    //     message.style.display = 'block';
     //     myInput.classList.add('clicking');
     // };
     // When the user clicks outside of the password field, hide the message box

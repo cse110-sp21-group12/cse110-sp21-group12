@@ -1,5 +1,5 @@
 * {
-    font-family: 'Courier', monospace;
+    /*font-family: 'Courier', monospace*/
     color: #585858;
     font-size: larger;
     font-family: 'Times New Roman';
@@ -157,7 +157,6 @@ input {
     color: #000;
     padding: 3%;
     margin-top: 1%;
-    position: center;
     font-size: 20px;
     border: 5%;
 }
