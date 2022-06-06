@@ -56,13 +56,13 @@ resetPasswordButton.addEventListener('click', () => {
 
 window.onload = getLoginState();
 
-function determineUserState(state) {
-    if (state == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (state == 'new') {
-        handleSignup(usernameField.value.trim(), passwordField.value.trim());
-    }
-}
+// function determineUserState(state) {
+//     if (state == 'returning') {
+//         handleLogin(passwordField.value);
+//     } else if (state == 'new') {
+//         handleSignup(usernameField.value.trim(), passwordField.value.trim());
+//     }
+// }
 
 /**
  * Connects to the database, and sees if

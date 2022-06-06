@@ -1,8 +1,7 @@
 node_modules/
 *.scss
 *.css.map
-<<<<<<< HEAD
-=======
+
 .vscode/
 *.DS_Store
 */.DS_Store
@@ -12,4 +11,4 @@ node_modules/
 coverage
 coverage/*
 coverage/**/*
->>>>>>> main
+coverage/**/*

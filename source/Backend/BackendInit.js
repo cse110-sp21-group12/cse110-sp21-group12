@@ -98,7 +98,6 @@ function initDB() {
 function setDB(dbReturn) {
     db = dbReturn;
 }
-
 /**
  * given a string date key, will return the correct date object
  * @param {String} dateStr -  of form "mm/dd/yyyy" eg: "02/12/2020"
