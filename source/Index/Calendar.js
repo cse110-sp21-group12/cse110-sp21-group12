@@ -1,7 +1,4 @@
 //alert("extra script loaded");
-const target_section = document.getElementById('content');
-const yr_start = 2018;
-const yr_end = 2025;
 const months = [
     'January',
     'February',
@@ -17,11 +14,9 @@ const months = [
     'December',
 ];
 
-const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+//const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const day_OV_link = '../DailyOverview/DailyOverview.html';
-const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
-const year_OV_link = '../YearlyOverview/YearlyOverview.html';
 
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
@@ -33,87 +28,29 @@ window.addEventListener('load', () => {
 });
 
 function setupContent() {
-    for (let yr = yr_start; yr <= yr_end; yr++) {
-        //
-        //wrapper
-        let year_wrapper = document.createElement('div');
-        // I added year_ because id's shoud start with a letter
-        year_wrapper.id = 'year_' + yr;
-        //
-        //button group
-        let year_nav = document.createElement('h2');
-        year_nav.classList.add('year');
-        year_nav.classList.add('collapsible');
-        year_nav.classList.add('horiz');
-        //collapse button
-        let coll_button = document.createElement('button');
-        coll_button.id = yr + '_button';
-        coll_button.classList.add('coll_yr_button');
-        let dropdownIcon = document.createElement('img');
-        dropdownIcon.src = '../Images/dropdown-icon.svg';
-        dropdownIcon.alt = 'dropdown';
-        coll_button.appendChild(dropdownIcon);
-        //year link
-        let yearlink = document.createElement('a');
-        yearlink.classList.add('yearlink');
-        // I added year_ because id's shoud start with a letter
-        yearlink.id = 'year_' + yr + '_link';
-        //yearlink.href = '/year/' + yr + '.html';
-        yearlink.href = year_OV_link + '#' + yr;
-        yearlink.innerText = yr + ' Yearly Overview';
-        //add parts to button group
-        year_nav.appendChild(coll_button);
-        year_nav.appendChild(yearlink);
-        //add button group to wrapper
-        year_wrapper.appendChild(year_nav);
-        //
-        //collapsible child
-        let months_div = document.createElement('div');
-        months_div.id = yr + '_months';
-        months_div.classList.add('collapsible_child');
-        //add months
-        for (let m = 0; m < months.length; m++) {
-            //setup month link
-            let month_name_lc = months[m].toLowerCase();
-            let month_link = document.createElement('a');
-            month_link.class = 'monthlink ' + month_name_lc;
-            month_link.id = yr + '_' + month_name_lc;
-            month_link.href = month_OV_link + '#' + monthNumber(m) + '/' + yr;
-            month_link.innerText = months[m];
-            //add this month to list of months
-            months_div.appendChild(month_link);
-        }
+    //set up the Today button
+    var today = new Date();
+    var currDay = today.getDate();
+    var currMonth = today.getMonth();
+    var currYear = today.getFullYear();
 
-        months_div.style.display = 'none';
-        //add collapsible child to wrapper
-        year_wrapper.appendChild(months_div);
+    let todayButton = document.getElementById('today-button');
+    todayButton.addEventListener('click', () => {
+        window.location.href =
+            day_OV_link +
+            '#' +
+            monthNumber(currMonth) +
+            '/' +
+            dayNumber(currDay) +
+            '/' +
+            currYear;
+    });
 
-        //add this year to list of years
-        target_section.appendChild(year_wrapper);
-
-        var today = new Date();
-        var currDay = today.getDate();
-        var currMonth = today.getMonth();
-        var currYear = today.getFullYear();
-
-        let todayButton = document.getElementById('today-button');
-        todayButton.addEventListener('click', () => {
-            window.location.href =
-                day_OV_link +
-                '#' +
-                monthNumber(currMonth) +
-                '/' +
-                dayNumber(currDay) +
-                '/' +
-                currYear;
-        });
-    }
+    //set up clickability for the year links
 }
 
 //dynamically generates calendar for current month
 function setupCalendar() {
-    const calTarget = document.getElementById('calendar');
-
     //get today code stolen from stackoverflow
     var today = new Date();
     console.log(today);
@@ -125,54 +62,32 @@ function setupCalendar() {
 
     //month title on top
     //wrapper
-    let month_header = document.createElement('div');
-    month_header.classList.add('month_header');
-    //text
-    let month_label = document.createElement('p');
-    month_label.classList.add('month_label');
+    //let month_header = document.getElementById('month_header');
+    let month_label = document.getElementById('month_label');
     month_label.innerText = months[currMonthNumber];
-    month_header.appendChild(month_label);
-    calTarget.appendChild(month_header);
 
-    //top bar of weekday names
-    let weekdays_label = document.createElement('ul');
-    weekdays_label.classList.add('weekdays_label');
-    for (let i = 0; i < weekdays.length; i++) {
-        let weekday = document.createElement('li');
-        weekday.innerText = weekdays[i];
-        weekday.classList.add('weekday');
-        weekdays_label.appendChild(weekday);
-    }
-    calTarget.appendChild(weekdays_label);
-
-    //all the little days
-    let days_field = document.createElement('ul');
-    days_field.classList.add('days_field');
+    let days_field = document.getElementById('days_field');
     let endDay = daysInMonth(currMonthNumber, currYearNumber);
     console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
-    for (let i = 0; i < monthFirstDow; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
+    let i = 0;
+    for (i; i < monthFirstDow; i++) {
+        let blank_day = days_field.children[i];
         blank_day.classList.add('blank_day');
         blank_day.innerText = '';
-        days_field.appendChild(blank_day);
     }
 
     //real days
-    for (let i = 1; i <= endDay; i++) {
-        let day = document.createElement('li');
-        day.classList.add('day');
-        day.innerText = i;
+    for (i; i <= monthFirstDow + endDay - 1; i++) {
+        let date = i - monthFirstDow + 1;
+        let day = days_field.children[i];
+        day.innerText = date;
 
         //check if today (so we can highlight it)
-        if (i == curr_day_number) {
+        if (date == curr_day_number) {
             day.classList.add('today');
         }
-
-        days_field.appendChild(day);
-
         //link to daily overview
         day.addEventListener('click', () => {
             window.location.href =
@@ -181,7 +96,7 @@ function setupCalendar() {
                 monthNumber(currMonthNumber) +
                 '/' +
                 //convert day number into a string
-                dayNumber(i) +
+                dayNumber(date) +
                 '/' +
                 currYearNumber;
         });
@@ -189,15 +104,10 @@ function setupCalendar() {
 
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
-    for (let i = monthLastDow; i < 7; i++) {
-        let blank_day = document.createElement('li');
-        blank_day.classList.add('day');
+    for (i; i < monthFirstDow + endDay + (6 - monthLastDow); i++) {
+        let blank_day = days_field.children[i];
         blank_day.classList.add('blank_day');
-        blank_day.innerText = '';
-        days_field.appendChild(blank_day);
     }
-
-    calTarget.append(days_field);
 }
 
 //call setup functions

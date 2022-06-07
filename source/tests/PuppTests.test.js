@@ -167,6 +167,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.keyboard.press('Enter'); // to check for the enter key functionality
+        await page.waitForTimeout(1000);
 
         const url = await page.evaluate(() => location.href);
         expect(url).toMatch('http://127.0.0.1:5500/source/Index/Index.html');
@@ -262,6 +263,18 @@ describe('basic navigation for BJ', () => {
         let date = currentDate.getDate();
 
         expect(currentDayHigh).toMatch(date.toString());
+    });
+
+    it('Home Page test1 : Check that the index.html page have Home and Timeline as their titles', async () => {
+        await page.waitForTimeout(300);
+        const hometitle = await page.$eval('#left-bar', (leftBarDiv) => {
+            return leftBarDiv.querySelector('h1').innerHTML;
+        });
+        expect(hometitle).toMatch('Home');
+        const timeline = await page.$eval('#right-bar', (rightBarDiv) => {
+            return rightBarDiv.querySelector('h1').innerHTML;
+        });
+        expect(timeline).toMatch('Timeline');
     });
 
     it('Test7: click on "Go to current day", should go to day with correct date heading', async () => {
@@ -941,12 +954,13 @@ describe('basic navigation for BJ', () => {
          * Just going to use 2021 as an example
          */
 
-        await page.$eval('#content', (div) => {
+        await page.$eval('#content', (section) => {
             //gets the index of the year 2021
-            div.childNodes[3].querySelector('a').click();
+            section.childNodes[7].querySelector('.yearlink').click();
         });
 
         const url = await page.evaluate(() => location.href);
+        console.log(url);
 
         //kinda too lazy to build the string
         let boolYear = url.indexOf('2021') > -1;

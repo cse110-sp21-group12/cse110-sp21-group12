@@ -5,8 +5,8 @@ const puppeteer = require('puppeteer');
 let date = new Date();
 let currentYear = date.getFullYear();
 
-describe('basic navigation for BJ', () => {
-    it('Test1: Login, go to current yearly overview and check the current year is displayed right ', async (done) => {
+describe('current year test', () => {
+    it('Test1: Current year test ', async (done) => {
         jest.setTimeout(90000);
         const browser = await puppeteer.launch({
             headless: false,

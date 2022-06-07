@@ -16,6 +16,7 @@ if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
 
+const PAGE_404 = '../404/404.html';
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
@@ -44,6 +45,9 @@ const monthNames = [
 let currentDay;
 
 window.addEventListener('load', () => {
+    // validate the URL date
+    if (!validateURL()) return;
+
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
     if (session.getItem('loggedIn') !== 'true') {
@@ -71,6 +75,39 @@ window.addEventListener('load', () => {
 
     setMonthlyOverviewLink();
 });
+
+/**
+ * Validates the date in the URL the user is trying to fetch
+ * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
+ */
+function validateURL() {
+    /* confirm date format is DD/MM/YYYY, if not redirect to 404 */
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(currentDateStr)) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* get each date component and convert to integer */
+    const dateComponents = currentDateStr.split('/');
+    const day = parseInt(dateComponents[1], 10);
+    const month = parseInt(dateComponents[0], 10);
+    const year = parseInt(dateComponents[2], 10);
+    /* if year is more than 10 years away from current year or month is invalid redirect to 404 */
+    const currYear = new Date().getFullYear();
+    if (Math.abs(year - currYear) > 10 || month < 1 || month > 12) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* confirm day exists in current month */
+    const monthLengths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    // adjust for leap years (leap years such as 1700, 1800, 1900 are skipped but not 2000)
+    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLengths[1] = 29;
+    if (day > monthLengths[month - 1] || day < 1) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    return true;
+}
 
 /**
  * Sets the MonthlyOverview link to say '<month> <year> Overview' so that users
