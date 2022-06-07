@@ -134,22 +134,22 @@ function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Confirm';
     resetPasswordButton.addEventListener('click', () => {
         //loginButton.removeEventListener('click', handleLoginButton);
-    
-            // update settings
-            if (verifyValidInputs(settingObj.username, passwordField.value)) {
-                let userObject = {
-                    username: settingObj.username,
-                    password: passwordField.value,
-                    theme: '#d4ffd4',
-                };
-                // eslint-disable-next-line no-undef
-                updateSettings(userObject);
-                settingObj.password = passwordField.value;
 
-                // log the user in
-                sessionStorage.setItem('loggedIn', 'true');
-                goHome();
-            }
+        // update settings
+        if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            let userObject = {
+                username: settingObj.username,
+                password: passwordField.value,
+                theme: '#d4ffd4',
+            };
+            // eslint-disable-next-line no-undef
+            updateSettings(userObject);
+            settingObj.password = passwordField.value;
+
+            // log the user in
+            sessionStorage.setItem('loggedIn', 'true');
+            goHome();
+        }
     });
 }
 
@@ -166,8 +166,8 @@ function verifyValidInputs(newUsername, newPassword) {
     //prohibit empty username
     if (newUsername.length == 0) {
         errorU.textContent = 'Please provide a username';
-        passwordField.style.border = "1px solid Red";  
-        usernameField.style.border = "1px solid Red";  
+        passwordField.style.border = '1px solid Red';
+        usernameField.style.border = '1px solid Red';
         errorU.style.display = 'block';
         return false;
     }
@@ -175,26 +175,25 @@ function verifyValidInputs(newUsername, newPassword) {
     else if (newUsername.length < MIN_NAME_LENGTH) {
         errorU.textContent = 'Username must be at least 2 characters long';
         errorU.style.display = 'block';
-        usernameField.style.border = "1px solid Red";  
+        usernameField.style.border = '1px solid Red';
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
         errorU.textContent = 'Username must not contain special characters';
         errorU.style.display = 'block';
-        usernameField.style.border = "1px solid Red";  
+        usernameField.style.border = '1px solid Red';
 
         return false;
     }
-    
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
         errorU.style.display = 'none';
         error.textContent = 'PIN must be at least 4 digits long';
         error.style.display = 'block';
-        usernameField.style.border = ''
-        passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
     //prohibit non-numeric PIN
@@ -202,8 +201,8 @@ function verifyValidInputs(newUsername, newPassword) {
         errorU.style.display = 'none';
         error.textContent = 'PIN must contain numbers only';
         error.style.display = 'block';
-        usernameField.style.border = ''
-        passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
 
@@ -225,13 +224,13 @@ function handleLogin(password) {
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
-        //passwordField.style.border = "";  
+        //passwordField.style.border = "";
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
         errM.textContent = 'Incorrect password!';
-        passwordField.style.border = "1px solid Red";  
-        errM.style.display = "block";
+        passwordField.style.border = '1px solid Red';
+        errM.style.display = 'block';
     }
 }
 
