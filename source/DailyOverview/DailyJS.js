@@ -11,15 +11,12 @@ let currentDateStr = myLocation.substring(
     myLocation.length - 10,
     myLocation.length
 );
-//default case
-if (currentDateStr == 'html') {
-    currentDateStr = '05/25/2020';
-}
-console.log(currentDateStr);
 
+const PAGE_404 = '../404/404.html';
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
+const del = document.getElementById('deletePhoto');
 const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
@@ -44,9 +41,11 @@ const monthNames = [
 let currentDay;
 
 window.addEventListener('load', () => {
+    // validate the URL date
+    if (!validateURL()) return;
+
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
         //might need this to create uness entires?
@@ -54,7 +53,6 @@ window.addEventListener('load', () => {
     } else {
         let dbPromise = initDB();
         dbPromise.onsuccess = function (e) {
-            console.log('database connected');
             setDB(e.target.result);
             requestDay();
             fetchMonthGoals();
@@ -62,7 +60,6 @@ window.addEventListener('load', () => {
             let req = getSettings();
             req.onsuccess = function (e) {
                 let settingObj = e.target.result;
-                console.log('setting theme');
                 document.documentElement.style.setProperty(
                     '--bg-color',
                     settingObj.theme
@@ -74,6 +71,39 @@ window.addEventListener('load', () => {
 
     setMonthlyOverviewLink();
 });
+
+/**
+ * Validates the date in the URL the user is trying to fetch
+ * @returns void - redirects to appropriate date if valid, otherwise redirects to 404
+ */
+function validateURL() {
+    /* confirm date format is DD/MM/YYYY, if not redirect to 404 */
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(currentDateStr)) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* get each date component and convert to integer */
+    const dateComponents = currentDateStr.split('/');
+    const day = parseInt(dateComponents[1], 10);
+    const month = parseInt(dateComponents[0], 10);
+    const year = parseInt(dateComponents[2], 10);
+    /* if year is more than 10 years away from current year or month is invalid redirect to 404 */
+    const currYear = new Date().getFullYear();
+    if (Math.abs(year - currYear) > 10 || month < 1 || month > 12) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    /* confirm day exists in current month */
+    const monthLengths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    // adjust for leap years (leap years such as 1700, 1800, 1900 are skipped but not 2000)
+    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLengths[1] = 29;
+    if (day > monthLengths[month - 1] || day < 1) {
+        window.location.href = PAGE_404;
+        return false;
+    }
+    return true;
+}
 
 /**
  * Sets the MonthlyOverview link to say '<month> <year> Overview' so that users
@@ -110,8 +140,6 @@ function setMonthlyOverviewLink() {
 function requestDay() {
     let req = getDay(currentDateStr);
     req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
         currentDay = e.target.result;
         if (currentDay === undefined) {
             currentDay = initDay(currentDateStr);
@@ -140,20 +168,15 @@ function requestDay() {
  * @returns void
  */
 function fetchMonthGoals() {
-    console.log('fetching month');
-    console.log(currentDateStr.substring(6));
     let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
     let req = getMonthlyGoals(monthStr);
     req.onsuccess = function (e) {
-        console.log('got month');
         let monthObj = e.target.result;
-        console.log(monthObj);
         if (monthObj === undefined) {
             createMonthlyGoals(initMonth(monthStr));
         } else {
             //load in bullets
             monthObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -165,7 +188,6 @@ function fetchMonthGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('month-goal');
-                console.log(goalElem);
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
         }
@@ -178,19 +200,15 @@ function fetchMonthGoals() {
  * @returns void
  */
 function fetchYearGoals() {
-    console.log('fetching year');
     let yearStr = currentDateStr.substring(6);
     let req = getYearlyGoals(yearStr);
     req.onsuccess = function (e) {
-        console.log('got year');
         let yearObj = e.target.result;
-        console.log(yearObj);
         if (yearObj === undefined) {
             createYearlyGoals(initYear(yearStr));
         } else {
             //load in bullets
             yearObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -202,7 +220,6 @@ function fetchYearGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('year-goal');
-                console.log(goalElem);
                 document.querySelector('#yearGoal').appendChild(goalElem);
             });
         }
@@ -224,7 +241,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         childList: [],
         features: 'normal',
     });
-    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -232,12 +248,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got add event');
-    console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // console.log('newJson ' + JSON.stringify(newJson));
-    // console.log('index ' + JSON.stringify(index));
     // if 3rd layer of nesting
     if (e.composedPath().length > 7) {
         currentDay.bullets[index[0]].childList[index[1]] = newJson;
@@ -251,8 +263,6 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got deleted event');
-    console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -275,8 +285,6 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got edited event');
-    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
@@ -303,8 +311,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
-    console.log(e.composedPath()[0]);
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -327,8 +333,6 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
 
 // lets bullet component listen to when a bullet is clicked category
 document.querySelector('#bullets').addEventListener('features', function (e) {
-    console.log('CHANGED CATEGORY');
-    console.log(e.composedPath()[0]);
     let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .features;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
@@ -430,7 +434,6 @@ function updateNote() {
 
 input.addEventListener('change', (event) => {
     window.img[relative] = new Image();
-
     // This allows you to store blob -> base64
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
@@ -439,6 +442,7 @@ input.addEventListener('change', (event) => {
         window.img[relative].src = base64data;
     };
 });
+
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
@@ -446,8 +450,18 @@ add.addEventListener('click', () => {
     cancel.style.display = 'inline';
     save.style.display = 'inline';
     relative = window.img.length;
-    console.log(currentDay.photos);
 });
+
+del.addEventListener('click', () => {
+    if (window.img.length > 0) {
+        let idx = currentDay.photos.indexOf(window.img[relative].src);
+        currentDay.photos.splice(idx, 1);
+        window.img.splice(relative, 1);
+        updateDay(currentDay);
+        canv.clearRect(0, 0, canvas.width, canvas.height);
+    }
+});
+
 cancel.addEventListener('click', () => {
     input.type = 'hidden';
     //add.style.display = 'inline';
@@ -462,7 +476,6 @@ save.addEventListener('click', () => {
     //add.style.display = 'inline';
     save.style.display = 'none';
     cancel.style.display = 'none';
-
     // clear image space before displaying new image
     canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
@@ -478,11 +491,8 @@ save.addEventListener('click', () => {
         imgDimension['width'],
         imgDimension['height']
     );
-
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
-    // console.log(currentDay.photos)
-    // console.log(window.img[relative].src)
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {
