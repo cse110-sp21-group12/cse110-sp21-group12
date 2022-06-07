@@ -38,8 +38,6 @@ let resetPasswordButton = document.getElementById('reset-password-button');
 //     determineUserState(loginState);
 // });
 
-var error = document.getElementById('errM');
-
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
@@ -221,6 +219,7 @@ function verifyValidInputs(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
+    var errM = document.getElementById('errM');
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
