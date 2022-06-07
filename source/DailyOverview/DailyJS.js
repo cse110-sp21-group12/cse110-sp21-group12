@@ -11,10 +11,7 @@ let currentDateStr = myLocation.substring(
     myLocation.length - 10,
     myLocation.length
 );
-//default case
-if (currentDateStr == 'html') {
-    currentDateStr = '05/25/2020';
-}
+
 
 const PAGE_404 = '../404/404.html';
 let relative = 0;
