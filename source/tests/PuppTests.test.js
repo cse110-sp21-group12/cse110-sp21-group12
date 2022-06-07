@@ -954,12 +954,13 @@ describe('basic navigation for BJ', () => {
          * Just going to use 2021 as an example
          */
 
-        await page.$eval('#content', (div) => {
+        await page.$eval('#content', (section) => {
             //gets the index of the year 2021
-            div.childNodes[3].querySelector('a').click();
+            section.childNodes[7].querySelector('.yearlink').click();
         });
 
         const url = await page.evaluate(() => location.href);
+        console.log(url);
 
         //kinda too lazy to build the string
         let boolYear = url.indexOf('2021') > -1;
