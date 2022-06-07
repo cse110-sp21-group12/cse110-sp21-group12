@@ -12,7 +12,6 @@ let currentDateStr = myLocation.substring(
     myLocation.length
 );
 
-
 const PAGE_404 = '../404/404.html';
 let relative = 0;
 // Buttons
