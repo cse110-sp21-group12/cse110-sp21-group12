@@ -589,7 +589,7 @@ function renderPhotos(photos) {
  */
 function checkForm() {
     if (document.querySelector('.entry-form-text').value === '') {
-        alert('Please enter a note');
+        alert('Please enter a goal');
         return false;
     } else {
         return true;

@@ -327,7 +327,7 @@ function dayNumber(day) {
  */
 function checkForm() {
     if (document.querySelector('.entry-form-text').value === '') {
-        alert('Please enter a goal');
+        alert('Please enter a note');
         return false;
     } else {
         return true;
