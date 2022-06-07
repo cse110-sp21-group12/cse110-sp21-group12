@@ -52,10 +52,11 @@ body {
     color: black;
     border-radius: 0.5vw;
     flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
-    cursor: pointer;
+    font-size: 4vh;
+    margin: 2% 5vw;
+    height: 15%;
+    width: 70%;
+        cursor: pointer;
     text-decoration: none;
 }
 #login-button:hover {
@@ -67,9 +68,10 @@ body {
     color: black;
     border-radius: 0.5vw;
     flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
+    font-size: 4vh;
+    margin: 3% 5vw;
+    height: 15%;
+    width: 70%;
     cursor: pointer;
     text-decoration: none;
 }
@@ -78,7 +80,11 @@ body {
     color: black;
     border-radius: 0.5vw;
     flex-grow: 1;
-    font-size: 5vh;
+    font-size: 4vh;
+    height: 15%;
+    width: 10%;
+
+
 }
 
 input {
@@ -86,9 +92,9 @@ input {
     border-radius: 0.5vw;
     flex-grow: 1;
     font-size: 3vw;
-    margin: 1%;
-    height: 10%;
-}
+    margin: 4% 5vw;
+    height: 15%;
+    width: 70%;}
 
 #switch-screen {
     font-size: medium;
