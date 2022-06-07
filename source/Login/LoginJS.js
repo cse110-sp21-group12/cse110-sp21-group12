@@ -186,6 +186,7 @@ function verifyValidInputs(newUsername, newPassword) {
 
         return false;
     }
+    
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
@@ -224,7 +225,7 @@ function handleLogin(password) {
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
-        passwordField.style.border = "";  
+        //passwordField.style.border = "";  
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
