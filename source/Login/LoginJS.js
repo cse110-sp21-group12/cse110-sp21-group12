@@ -37,6 +37,9 @@ let resetPasswordButton = document.getElementById('reset-password-button');
 // loginButton.addEventListener('click', () => {
 //     determineUserState(loginState);
 // });
+
+var error = document.getElementById('errM');
+
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
@@ -131,7 +134,7 @@ function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Confirm';
     resetPasswordButton.addEventListener('click', () => {
         //loginButton.removeEventListener('click', handleLoginButton);
-        if (loginState == 'returning') {
+    
             // update settings
             if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
@@ -147,9 +150,6 @@ function handleResetPassword() {
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
             }
-        } else {
-            handleSignup(usernameField.value, passwordField.value);
-        }
     });
 }
 
@@ -160,30 +160,49 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
+    var error = document.getElementById('errM');
+    var errorU = document.getElementById('errU');
+
     //prohibit empty username
     if (newUsername.length == 0) {
-        alert('Please provide a username');
+        errorU.textContent = 'Please provide a username';
+        passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = "1px solid Red";  
+        errorU.style.display = 'block';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
-        alert('Username must be at least 2 characters long');
+        errorU.textContent = 'Username must be at least 2 characters long';
+        errorU.style.display = 'block';
+        usernameField.style.border = "1px solid Red";  
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
-        alert('Username must not contain special characters');
+        errorU.textContent = 'Username must not contain special characters';
+        errorU.style.display = 'block';
+        usernameField.style.border = "1px solid Red";  
+
         return false;
     }
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        alert('PIN must be at least 4 digits long');
+        errorU.style.display = 'none';
+        error.textContent = 'PIN must be at least 4 digits long';
+        error.style.display = 'block';
+        usernameField.style.border = ''
+        passwordField.style.border = "1px solid Red";  
         return false;
     }
     //prohibit non-numeric PIN
     else if (pin_regex.test(newPassword)) {
-        alert('PIN must contain numbers only');
+        errorU.style.display = 'none';
+        error.textContent = 'PIN must contain numbers only';
+        error.style.display = 'block';
+        usernameField.style.border = ''
+        passwordField.style.border = "1px solid Red";  
         return false;
     }
 
@@ -205,10 +224,13 @@ function handleLogin(password) {
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
+        passwordField.style.border = "";  
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        alert('Incorrect password!');
+        errM.textContent = 'Incorrect password!';
+        passwordField.style.border = "1px solid Red";  
+        errM.style.display = "block";
     }
 }
 
@@ -223,6 +245,7 @@ function goHome() {
  * Hide username, update text.
  */
 function setNewUser() {
+    resetPasswordButton.setAttribute('hidden', 'hidden');
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
     loginButton.innerText = 'Sign Up';
@@ -234,6 +257,7 @@ function setNewUser() {
  */
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
+    resetPasswordButton.removeAttribute('hidden');
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
