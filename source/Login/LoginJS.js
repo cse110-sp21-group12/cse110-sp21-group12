@@ -28,30 +28,26 @@ let passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-
 loginButton.addEventListener('click', () => {
-    determineUserState(loginState);
+    handleLoginButton();
 });
+// make the reset-password-button redirect to Index
+let resetPasswordButton = document.getElementById('reset-password-button');
+
+resetPasswordButton.addEventListener('click', () => {
+    handleResetPassword();
+});
+
 window.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
-        loginButton.click();
-        determineUserState(loginState);
+        if (document.activeElement != resetPasswordButton) {
+            loginButton.click();
+        } else {
+            resetPasswordButton.click();
+        }
     }
 });
-
-//make the toggle button change the page state
-//let switchButton = document.getElementById('switch-screen');
-//switchButton.addEventListener('click', toggleView);
-
 window.onload = getLoginState();
-
-function determineUserState(state) {
-    if (state == 'returning') {
-        handleLogin(passwordField.value);
-    } else if (state == 'new') {
-        handleSignup(usernameField.value.trim(), passwordField.value.trim());
-    }
-}
 
 /**
  * Connects to the database, and sees if
@@ -61,7 +57,6 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        //console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
@@ -82,6 +77,17 @@ function getLoginState() {
 }
 
 /**
+ * handle the login button functionalities
+ */
+function handleLoginButton() {
+    if (loginState == 'returning') {
+        handleLogin(passwordField.value);
+    } else if (loginState == 'new') {
+        handleSignup(usernameField.value, passwordField.value);
+    }
+}
+
+/**
  * Handle a Sign-Up request from a new user
  *
  * @param {String} newUsername Display name of new user
@@ -96,7 +102,6 @@ function handleSignup(newUsername, newPassword) {
             password: newPassword,
             theme: '#d4ffd4',
         };
-
         //update settings
         // eslint-disable-next-line no-undef
         updateSettings(userObject);
@@ -108,36 +113,79 @@ function handleSignup(newUsername, newPassword) {
 }
 
 /**
+ * handle reset password functionaliy of the associated
+ */
+function handleResetPassword() {
+    resetPasswordButton.innerHTML = 'Confirm';
+    resetPasswordButton.addEventListener('click', () => {
+        // update settings
+        if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            let userObject = {
+                username: settingObj.username,
+                password: passwordField.value,
+                theme: '#d4ffd4',
+            };
+            // eslint-disable-next-line no-undef
+            updateSettings(userObject);
+            settingObj.password = passwordField.value;
+
+            // log the user in
+            sessionStorage.setItem('loggedIn', 'true');
+            goHome();
+        }
+    });
+}
+
+/*function verifyValidInputs(newUsername, newPassword){
  * Helper function called from handleSignup()
  * Checks that username and PIN comply with length requirements and don't contain prohibited characters.
  * @param {String} newUsername Username to check
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
+    var error = document.getElementById('errM');
+    var errorU = document.getElementById('errU');
+
     //prohibit empty username
     if (newUsername.length == 0) {
-        alert('Please provide a username');
+        errorU.textContent = 'Please provide a username';
+        passwordField.style.border = '1px solid Red';
+        usernameField.style.border = '1px solid Red';
+        errorU.style.display = 'block';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
-        alert('Username must be at least 2 characters long');
+        errorU.textContent = 'Username must be at least 2 characters long';
+        errorU.style.display = 'block';
+        usernameField.style.border = '1px solid Red';
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
-        alert('Username must not contain special characters');
+        errorU.textContent = 'Username must not contain special characters';
+        errorU.style.display = 'block';
+        usernameField.style.border = '1px solid Red';
+
         return false;
     }
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        alert('PIN must be at least 4 digits long');
+        errorU.style.display = 'none';
+        error.textContent = 'PIN must be at least 4 digits long';
+        error.style.display = 'block';
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
     //prohibit non-numeric PIN
     else if (pin_regex.test(newPassword)) {
-        alert('PIN must contain numbers only');
+        errorU.style.display = 'none';
+        error.textContent = 'PIN must contain numbers only';
+        error.style.display = 'block';
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
 
@@ -156,13 +204,14 @@ function verifyValidInputs(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
+    var errM = document.getElementById('errM');
     if (correctPassword === password) {
-        //set login flag that user logged in
-        // eslint-disable-next-line no-undef
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        alert('Incorrect password!');
+        errM.textContent = 'Incorrect password!';
+        passwordField.style.border = '1px solid Red';
+        errM.style.display = 'block';
     }
 }
 
@@ -177,6 +226,7 @@ function goHome() {
  * Hide username, update text.
  */
 function setNewUser() {
+    resetPasswordButton.setAttribute('hidden', 'hidden');
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
     loginButton.innerText = 'Sign Up';
@@ -188,25 +238,7 @@ function setNewUser() {
  */
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
+    resetPasswordButton.removeAttribute('hidden');
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
-
-/*
-
-/**
- * Mock function for pretending to hash things
- *
- * @param {*} input Plaintext password to be hashed
- * @returns an encrypted hash representation of the password
-function mockHash(input) {
-    //console.log(input);
-    let retval = 0;
-    for (let i = 0; i < input.length; i++) {
-        retval += input.charCodeAt(i);
-    }
-    //console.log(retval);
-    return retval;
-}
-
-*/
