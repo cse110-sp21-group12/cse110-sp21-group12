@@ -229,6 +229,15 @@ h1 > a:first-child:hover {
     cursor: pointer;
 }
 
+#deletePhoto {
+    background-color: transparent;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 2vh;
+    margin-bottom: 10px;
+    color: #565252;
+    cursor: pointer;
+}
 /* when user hovers their cursor over the button, it fills in with grey */
 #addPhoto:hover {
     background-color: lightgray;

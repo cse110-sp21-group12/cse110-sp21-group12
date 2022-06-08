@@ -46,15 +46,26 @@ body {
     width: 30vw;
     margin-left: 7.5vw;
 }
+.error {
+    margin-left: 15%;
 
+    align-items: left;
+
+    flex-direction: column;
+    font-size: 20px;
+    color: rgb(175, 73, 73);
+    display: 'none';
+    transform: translate(30, -3000);
+}
 #login-button {
     background-color: #1e942d;
     color: black;
     border-radius: 0.5vw;
     flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
+    font-size: 4vh;
+    margin: 2% 5vw;
+    height: 15%;
+    width: 70%;
     cursor: pointer;
     text-decoration: none;
 }
@@ -67,18 +78,16 @@ body {
     color: black;
     border-radius: 0.5vw;
     flex-grow: 1;
-    font-size: 5vh;
-    margin: 0.5% 1vw;
-    height: 20%;
+    font-size: 4vh;
+    margin: 3% 5vw;
+    height: 15%;
+    width: 70%;
     cursor: pointer;
     text-decoration: none;
 }
 #reset-password-button:hover {
     text-decoration: underline;
     color: black;
-    border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 5vh;
 }
 
 input {
@@ -86,8 +95,9 @@ input {
     border-radius: 0.5vw;
     flex-grow: 1;
     font-size: 3vw;
-    margin: 1%;
-    height: 10%;
+    margin: 4% 5vw;
+    height: 15%;
+    width: 70%;
 }
 
 #switch-screen {
