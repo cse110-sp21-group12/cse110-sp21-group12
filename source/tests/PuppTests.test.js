@@ -194,7 +194,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test5.1: rest will update the password for that user stored in backend', async () => {
-
         await page.$eval('#reset-password-button', (button) => {
             button.click();
         });
@@ -221,7 +220,6 @@ describe('basic navigation for BJ', () => {
             return incorrectA.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');
-
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
