@@ -73,22 +73,6 @@ describe('basic navigation for BJ', () => {
         });
 
         let msg = null;
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     msg = dialog.message();
-        //     // we set up the alert dialog box dismiss handle here so this line only needs to be here once
-        //     await dialog.dismiss();
-        // });
-        // await page.click('#login-button', { clickCount: 1 });
-        // await page.waitForFunction(
-        //     document.querySelector("body").innerText.includes("Please provide a username")
-        //   );
-
-        // page.on('.error', async (Userblank) => {
-        //     await page.waitForTimeout(1000);
-        //     msg = Userblank.innerHTML;
-        //     // await dialog.dismiss();
-        // });
 
         await page.click('#login-button', { clickCount: 1 });
         msg = await page.$eval('.error', (Userblank) => {
@@ -193,7 +177,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test5: Input wrong password should give incorrect alert', async () => {
-        // jest.setTimeout(30000);
         let msg;
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
@@ -203,17 +186,6 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '123';
         });
 
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     msg = dialog.message();
-        //     // await dialog.dismiss()
-        // });
-
-        // await page.$eval('#login-button', (button) => {
-        //     button.click();
-        // });
-        // expect(msg).toMatch('Incorrect password!');
-
         await page.click('#login-button', { clickCount: 1 });
         msg = await page.$eval('#errM', (incorrect) => {
             return incorrect.innerHTML;
@@ -222,10 +194,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test5.1: rest will update the password for that user stored in backend', async () => {
-        // jest.setTimeout(30000);
-        // await page.$eval('#username', (usernameInput) => {
-        //     usernameInput.value = 'SampleUsername';
-        // });
 
         await page.$eval('#reset-password-button', (button) => {
             button.click();
@@ -238,10 +206,6 @@ describe('basic navigation for BJ', () => {
             button.click();
         });
 
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     // await dialog.dismiss()
-        // });
         await page.goBack();
         let msg;
         await page.$eval('#username', (usernameInput) => {
@@ -258,17 +222,6 @@ describe('basic navigation for BJ', () => {
         });
         expect(msg).toBe('Incorrect password!');
 
-        //
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     msg = dialog.message();
-        //     // await dialog.dismiss()
-        // });
-
-        // await page.$eval('#login-button', (button) => {
-        //     button.click();
-        // });
-        // expect(msg).toMatch('Incorrect password!');
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
@@ -540,7 +493,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test21: adding notes shows up', async () => {
         await page.$eval('note-box', (notebox) => {
-            //stes note box text
+            //test note box text
             notebox.shadowRoot.querySelector('.noteContent').innerHTML =
                 'pickup amazon package from locker';
         });
