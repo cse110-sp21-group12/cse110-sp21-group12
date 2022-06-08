@@ -34,10 +34,6 @@ loginButton.addEventListener('click', () => {
 // make the reset-password-button redirect to Index
 let resetPasswordButton = document.getElementById('reset-password-button');
 
-// loginButton.addEventListener('click', () => {
-//     determineUserState(loginState);
-// });
-
 resetPasswordButton.addEventListener('click', () => {
     handleResetPassword();
 });
@@ -53,13 +49,6 @@ window.addEventListener('keydown', (e) => {
 });
 window.onload = getLoginState();
 
-// function determineUserState(state) {
-//     if (state == 'returning') {
-//         handleLogin(passwordField.value);
-//     } else if (state == 'new') {
-//         handleSignup(usernameField.value.trim(), passwordField.value.trim());
-//     }
-// }
 
 /**
  * Connects to the database, and sees if
@@ -114,7 +103,6 @@ function handleSignup(newUsername, newPassword) {
             password: newPassword,
             theme: '#d4ffd4',
         };
-
         //update settings
         // eslint-disable-next-line no-undef
         updateSettings(userObject);
@@ -131,22 +119,20 @@ function handleSignup(newUsername, newPassword) {
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Confirm';
     resetPasswordButton.addEventListener('click', () => {
-        //loginButton.removeEventListener('click', handleLoginButton);
-
-        // update settings
-        if (verifyValidInputs(settingObj.username, passwordField.value)) {
-            let userObject = {
-                username: settingObj.username,
-                password: passwordField.value,
-                theme: '#d4ffd4',
-            };
+    // update settings
+    if (verifyValidInputs(settingObj.username, passwordField.value)) {
+        let userObject = {
+            username: settingObj.username,
+            password: passwordField.value,
+            theme: '#d4ffd4',
+        };
             // eslint-disable-next-line no-undef
-            updateSettings(userObject);
-            settingObj.password = passwordField.value;
+        updateSettings(userObject);
+        settingObj.password = passwordField.value;
 
             // log the user in
-            sessionStorage.setItem('loggedIn', 'true');
-            goHome();
+        sessionStorage.setItem('loggedIn', 'true');
+        goHome();
         }
     });
 }
@@ -221,9 +207,6 @@ function handleLogin(password) {
     let correctPassword = settingObj.password;
     var errM = document.getElementById('errM');
     if (correctPassword === password) {
-        //set login flag that user logged in
-        // eslint-disable-next-line no-undef
-        //passwordField.style.border = "";
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
