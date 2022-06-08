@@ -150,7 +150,6 @@ ul {
 
 /* Month header */
 .month_header {
-    display: flex;
     padding: 2vw 25px;
     background: #585858;
     text-align: center;
@@ -159,30 +158,13 @@ ul {
 
 /* Month header's text */
 .month_label {
-    display: flex;
-    color: white;
     background-color: #585858;
+    color: white;
     font-size: 2.5vw;
     text-transform: uppercase;
     letter-spacing: 0.7vw;
     margin: auto;
 }
-.month_arrow {
-    display: flex;
-    color: white;
-    background-color: #585858;
-    font-size: 2.5vw;
-    text-transform: uppercase;
-    letter-spacing: 0.7vw;
-    margin: auto;
-    padding-top: 0%;
-    padding-bottom: 0%; 
-}
-.month_arrow:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
 
 /* Weekdays (Sun-Sat) */
 .weekdays_label {
