@@ -1022,6 +1022,55 @@ describe('basic navigation for BJ', () => {
 
         expect(expected).toMatch(linkText); // compare expected month to real month
     });
+    it('Test53: check when adding notes, an alert pops up indicating forbiden operation for year page', async () => {
+        page.removeAllListeners('dialog');
+        await page.goto(
+            'http://127.0.0.1:5500/source/YearlyOverview/YearlyOverview.html#2018'
+        );
+        let msg = null;
+        page.on('dialog', async (dialog) => {
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            await dialog.dismiss();
+        });
+        await page.$eval('#entry-button', (button) => {
+            button.click();
+        });
+        expect(msg).toMatch('Please enter a note');
+    });
+    it('Test54: check when adding notes, an alert pops up indicating forbiden operation for month page', async () => {
+        page.removeAllListeners('dialog');
+        await page.goto(
+            'http://127.0.0.1:5500/source/MonthlyOverview/MonthlyOverview.html#01/2018'
+        );
+        let msg = null;
+        page.on('dialog', async (dialog) => {
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            await dialog.dismiss();
+        });
+        await page.$eval('#entry-button', (button) => {
+            button.click();
+        });
+        expect(msg).toMatch('Please enter a note');
+    });
+    it('Test55: check when adding notes, an alert pops up indicating forbiden operation for day page', async () => {
+        page.removeAllListeners('dialog');
+        await page.goto(
+            'http://127.0.0.1:5500/source/DailyOverview/DailyOverview.html#01/01/2018'
+        );
+        let msg = null;
+        page.on('dialog', async (dialog) => {
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            await dialog.dismiss();
+        });
+        await page.$eval('#entry-button', (button) => {
+            button.click();
+        });
+
+        expect(msg).toMatch('Please enter a goal');
+    });
 
     it('close browser', async () => {
         browser.close();

@@ -592,3 +592,18 @@ function renderPhotos(photos) {
         window.img[i].src = photos[i];
     }
 }
+
+/**
+ * check if the form is empty. If it is, return true. If not, return false.
+ * @returns whether the form is valid or not
+ */
+function checkForm() {
+    if (document.querySelector('.entry-form-text').value === '') {
+        alert('Please enter a goal');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+window.checkForm = checkForm;
