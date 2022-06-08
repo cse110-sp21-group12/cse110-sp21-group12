@@ -73,14 +73,12 @@ describe('basic navigation for BJ', () => {
         });
 
         let msg = null;
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // we set up the alert dialog box dismiss handle here so this line only needs to be here once
-            await dialog.dismiss();
-        });
+
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('Please provide a username');
+        msg = await page.$eval('.error', (Userblank) => {
+            return Userblank.innerHTML;
+        });
+        expect(msg).toBe('Please provide a username');
     });
 
     it('LoginTest2: try to create account with short username', async () => {
@@ -92,13 +90,11 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
         let msg = null;
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // await dialog.dismiss();
-        });
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('Username must be at least 2 characters long');
+        msg = await page.$eval('.error', (UserShort) => {
+            return UserShort.innerHTML;
+        });
+        expect(msg).toBe('Username must be at least 2 characters long');
     });
 
     it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
@@ -110,13 +106,11 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '1234';
         });
         let msg = null;
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // await dialog.dismiss();
-        });
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('Username must not contain special characters');
+        msg = await page.$eval('.error', (UserNoS) => {
+            return UserNoS.innerHTML;
+        });
+        expect(msg).toBe('Username must not contain special characters');
     });
 
     it('LoginTest4: try to create account with pin that is too short', async () => {
@@ -128,13 +122,11 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '12';
         });
         let msg = null;
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // await dialog.dismiss();
-        });
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('PIN must be at least 4 digits long');
+        msg = await page.$eval('#errM', (pinShort) => {
+            return pinShort.innerHTML;
+        });
+        expect(msg).toBe('PIN must be at least 4 digits long');
     });
 
     it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
@@ -147,13 +139,11 @@ describe('basic navigation for BJ', () => {
         });
 
         let msg = null;
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            // await dialog.dismiss();
-            msg = dialog.message();
-        });
         await page.click('#login-button', { clickCount: 1 });
-        expect(msg).toMatch('PIN must contain numbers only');
+        msg = await page.$eval('#errM', (pinSp) => {
+            return pinSp.innerHTML;
+        });
+        expect(msg).toBe('PIN must contain numbers only');
     });
 
     it('Test2: create an account and login - shows index page ', async () => {
@@ -163,7 +153,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '1234';
+            passwordInput.value = '1997';
         });
 
         await page.keyboard.press('Enter'); // to check for the enter key functionality
@@ -187,7 +177,6 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test5: Input wrong password should give incorrect alert', async () => {
-        // jest.setTimeout(30000);
         let msg;
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
@@ -197,39 +186,25 @@ describe('basic navigation for BJ', () => {
             passwordInput.value = '123';
         });
 
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // await dialog.dismiss()
+        await page.click('#login-button', { clickCount: 1 });
+        msg = await page.$eval('#errM', (incorrect) => {
+            return incorrect.innerHTML;
         });
-
-        await page.$eval('#login-button', (button) => {
-            button.click();
-        });
-        expect(msg).toMatch('Incorrect password!');
+        expect(msg).toBe('Incorrect password!');
     });
 
     it('Test5.1: rest will update the password for that user stored in backend', async () => {
-        // jest.setTimeout(30000);
-        // await page.$eval('#username', (usernameInput) => {
-        //     usernameInput.value = 'SampleUsername';
-        // });
-
         await page.$eval('#reset-password-button', (button) => {
             button.click();
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '12345';
+            passwordInput.value = '2000';
         });
         await page.$eval('#reset-password-button', (button) => {
             button.click();
         });
 
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     // await dialog.dismiss()
-        // });
         await page.goBack();
         let msg;
         await page.$eval('#username', (usernameInput) => {
@@ -237,19 +212,14 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '1234';
+            passwordInput.value = '1997';
         });
 
-        page.on('dialog', async (dialog) => {
-            await page.waitForTimeout(1000);
-            msg = dialog.message();
-            // await dialog.dismiss()
+        await page.click('#login-button', { clickCount: 2 });
+        msg = await page.$eval('#errM', (incorrectA) => {
+            return incorrectA.innerHTML;
         });
-
-        await page.$eval('#login-button', (button) => {
-            button.click();
-        });
-        expect(msg).toMatch('Incorrect password!');
+        expect(msg).toBe('Incorrect password!');
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
@@ -521,7 +491,7 @@ describe('basic navigation for BJ', () => {
 
     it('Test21: adding notes shows up', async () => {
         await page.$eval('note-box', (notebox) => {
-            //stes note box text
+            //test note box text
             notebox.shadowRoot.querySelector('.noteContent').innerHTML =
                 'pickup amazon package from locker';
         });
