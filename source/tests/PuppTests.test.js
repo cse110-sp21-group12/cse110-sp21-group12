@@ -221,7 +221,7 @@ describe('basic navigation for BJ', () => {
         expect(currentDayHigh).toMatch(date.toString());
     });
 
-    it('Test7: click on "Go to current day", should go to day with correc`t date heading', async () => {
+    it('Test7: click on "Go to current day", should go to day with correct date heading', async () => {
         await page.$eval('#today-button', (btn) => {
             btn.click();
         });
