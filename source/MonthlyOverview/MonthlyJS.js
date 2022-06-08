@@ -175,7 +175,6 @@ const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const day_OV_link = '../DailyOverview/DailyOverview.html';
 const month_OV_link = '../MonthlyOverview/MonthlyOverview.html';
 
-
 function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
@@ -209,18 +208,18 @@ function setupCalendar() {
 
     // previous month button
     let previous_month = document.createElement('p');
-    previous_month.classList.add("month_arrow")
-    previous_month.innerText = "<"
-    previous_month.style.color = "white"
+    previous_month.classList.add('month_arrow');
+    previous_month.innerText = '<';
+    previous_month.style.color = 'white';
     previous_month.addEventListener('click', () => {
-        let prevMonthNumber = 1
-        let prevYearNumber = 1
+        let prevMonthNumber = 1;
+        let prevYearNumber = 1;
         if (currMonthNumber == 0) {
-            prevMonthNumber = 11
-            prevYearNumber = currYearNumber - 1
+            prevMonthNumber = 11;
+            prevYearNumber = currYearNumber - 1;
         } else {
-            prevMonthNumber = currMonthNumber - 1
-            prevYearNumber = currYearNumber
+            prevMonthNumber = currMonthNumber - 1;
+            prevYearNumber = currYearNumber;
         }
         window.location.href =
             month_OV_link +
@@ -228,10 +227,9 @@ function setupCalendar() {
             monthNumber(prevMonthNumber) +
             '/' +
             prevYearNumber;
-            window.location.reload()
+        window.location.reload();
     });
-    month_header.appendChild(previous_month)
-
+    month_header.appendChild(previous_month);
 
     //text
     let month_label = document.createElement('p');
@@ -241,20 +239,20 @@ function setupCalendar() {
 
     // next month button
     let next_month = document.createElement('p');
-    next_month.classList.add("month_arrow")
-    next_month.innerText = ">"
-    next_month.style.color = "white"
-    month_header.appendChild(next_month)
+    next_month.classList.add('month_arrow');
+    next_month.innerText = '>';
+    next_month.style.color = 'white';
+    month_header.appendChild(next_month);
 
     next_month.addEventListener('click', () => {
-        let nextMonthNumber = 1
-        let nextYearNumber = 1
+        let nextMonthNumber = 1;
+        let nextYearNumber = 1;
         if (currMonthNumber == 11) {
-            nextMonthNumber = 0
-            nextYearNumber = currYearNumber + 1
+            nextMonthNumber = 0;
+            nextYearNumber = currYearNumber + 1;
         } else {
-            nextMonthNumber = currMonthNumber + 1
-            nextYearNumber = currYearNumber
+            nextMonthNumber = currMonthNumber + 1;
+            nextYearNumber = currYearNumber;
         }
         window.location.href =
             month_OV_link +
@@ -262,12 +260,10 @@ function setupCalendar() {
             monthNumber(nextMonthNumber) +
             '/' +
             nextYearNumber;
-            window.location.reload()
+        window.location.reload();
     });
-    month_header.appendChild(next_month)
+    month_header.appendChild(next_month);
     calTarget.appendChild(month_header);
-
-
 
     //top bar of weekday names
     let weekdays_label = document.createElement('ul');
@@ -408,4 +404,3 @@ function checkForm() {
 }
 
 window.checkForm = checkForm;
-
