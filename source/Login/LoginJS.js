@@ -49,7 +49,6 @@ window.addEventListener('keydown', (e) => {
 });
 window.onload = getLoginState();
 
-
 /**
  * Connects to the database, and sees if
  * the user is new or returning
@@ -119,20 +118,20 @@ function handleSignup(newUsername, newPassword) {
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Confirm';
     resetPasswordButton.addEventListener('click', () => {
-    // update settings
-    if (verifyValidInputs(settingObj.username, passwordField.value)) {
-        let userObject = {
-            username: settingObj.username,
-            password: passwordField.value,
-            theme: '#d4ffd4',
-        };
+        // update settings
+        if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            let userObject = {
+                username: settingObj.username,
+                password: passwordField.value,
+                theme: '#d4ffd4',
+            };
             // eslint-disable-next-line no-undef
-        updateSettings(userObject);
-        settingObj.password = passwordField.value;
+            updateSettings(userObject);
+            settingObj.password = passwordField.value;
 
             // log the user in
-        sessionStorage.setItem('loggedIn', 'true');
-        goHome();
+            sessionStorage.setItem('loggedIn', 'true');
+            goHome();
         }
     });
 }
