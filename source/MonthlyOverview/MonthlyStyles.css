@@ -176,13 +176,12 @@ ul {
     letter-spacing: 0.7vw;
     margin: auto;
     padding-top: 0%;
-    padding-bottom: 0%; 
+    padding-bottom: 0%;
 }
 .month_arrow:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-
 
 /* Weekdays (Sun-Sat) */
 .weekdays_label {
@@ -254,4 +253,3 @@ ul {
     display: flex;
     flex-direction: row;
 }
-
